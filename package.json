@@ -1,0 +1,36 @@
+{
+  "name": "n-wgpu",
+  "main": "index.js",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">= 11.0.0"
+  },
+  "config": {
+    "GEN_OUT_DIR": "./generated",
+    "SPEC_DIR": "./generator/specifications",
+    "TEMPLATE_DIR": "./generator/templates"
+  },
+  "scripts": {
+    "build": "node ./build.js",
+    "generate": "node --experimental-modules ./generator/index.mjs"
+  },
+  "devDependencies": {
+    "ncp": "^2.0.0",
+    "node-addon-api": "^1.7.1",
+    "nunjucks": "^3.2.0",
+    "terser": "^4.3.1"
+  },
+  "dependencies": {},
+  "description": "Vulkan API for JavaScript/TypeScript",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maierfelix/n-wgpu.git"
+  },
+  "keywords": [],
+  "author": "Felix Maier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maierfelix/n-wgpu/issues"
+  },
+  "homepage": "https://github.com/maierfelix/n-wgpu#readme"
+}

@@ -1,0 +1,43 @@
+#define NAPI_EXPERIMENTAL
+#include <napi.h>
+
+static Napi::Value getAddressFromArrayBuffer(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  if (!(info[0].IsArrayBuffer())) {
+    Napi::TypeError::New(env, "Argument 1 must be of type 'ArrayBuffer'").ThrowAsJavaScriptException();
+    return env.Undefined();
+  }
+  Napi::ArrayBuffer buffer = info[0].As<Napi::ArrayBuffer>();
+  int64_t addr = reinterpret_cast<int64_t>(buffer.Data());
+  return Napi::BigInt::New(env, addr);
+};
+
+static Napi::Value getArrayBufferFromAddress(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  if (!(info[0].IsBigInt())) {
+    Napi::TypeError::New(env, "Argument 1 must be of type 'BigInt'").ThrowAsJavaScriptException();
+    return env.Undefined();
+  }
+  if (!(info[1].IsBigInt())) {
+    Napi::TypeError::New(env, "Argument 2 must be of type 'BigInt'").ThrowAsJavaScriptException();
+    return env.Undefined();
+  }
+  bool lossless0;
+  int64_t addr = info[0].As<Napi::BigInt>().Int64Value(&lossless0);
+  bool lossless1;
+  int64_t size = info[1].As<Napi::BigInt>().Int64Value(&lossless1);
+  Napi::ArrayBuffer buffer = Napi::ArrayBuffer::New(
+    env,
+    reinterpret_cast<void *>(addr),
+    size
+  );
+  return buffer;
+};
+
+Napi::Object Init(Napi::Env env, Napi::Object exports) {
+  exports["getAddressFromArrayBuffer"] = Napi::Function::New(env, getAddressFromArrayBuffer, "getAddressFromArrayBuffer");
+  exports["getArrayBufferFromAddress"] = Napi::Function::New(env, getArrayBufferFromAddress, "getArrayBufferFromAddress");
+  return exports;
+}
+
+NODE_API_MODULE(addon, Init)

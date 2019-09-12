@@ -18,7 +18,9 @@
 #include <dawn_wire/WireServer.h>
 
 #include <cstring>
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <algorithm>
 
 #endif

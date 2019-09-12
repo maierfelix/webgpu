@@ -21,7 +21,7 @@ export default function(astReference) {
   let vars = {
     DAWN_PATH,
     SOURCE_INCLUDES: [
-      "src/index.cpp"
+      "src/*.cpp"
     ].map(v => `"${v}"`)
   };
   // binding.gyp

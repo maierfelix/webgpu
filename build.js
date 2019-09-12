@@ -56,13 +56,33 @@ function copyFiles() {
   process.stdout.write(`\nCopying files..\n`);
   return new Promise(resolve => {
     // copy files into release folder
+    let dawnDir = fs.readFileSync(pkg.config.DAWN_PATH, "utf-8");
+    let dawnOutputDir = dawnDir + "/out/Shared2";
     let baseDir = `./lib/${unitPlatform}/${architecture}`;
     let targetDir = `${generatePath}/build/Release`;
     let files = [];
     // add win32 runtime files
     if (platform === "win32") {
-      //files.push([`${baseDir}/GLFW/glfw3.dll`, targetDir]);
-      //files.push([`${baseDir}/GLFW/glfw3.lib`, targetDir + `/../`]);
+      files.push([`${baseDir}/GLFW/glfw3.dll`, targetDir]);
+      // dawn dlls
+      {
+        files.push([`${dawnOutputDir}/libc++.dll`, targetDir]);
+        files.push([`${dawnOutputDir}/libdawn.dll`, targetDir]);
+        files.push([`${dawnOutputDir}/libdawn_native.dll`, targetDir]);
+        files.push([`${dawnOutputDir}/libdawn_wire.dll`, targetDir]);
+        files.push([`${dawnOutputDir}/libshaderc.dll`, targetDir]);
+        files.push([`${dawnOutputDir}/libshaderc_spvc.dll`, targetDir]);
+      }
+      // dawn libs
+      {
+        files.push([`${dawnOutputDir}/libc++.dll.lib`, targetDir + "/../"]);
+        files.push([`${dawnOutputDir}/libdawn.dll.lib`, targetDir + "/../"]);
+        files.push([`${dawnOutputDir}/libdawn_native.dll.lib`, targetDir + "/../"]);
+        files.push([`${dawnOutputDir}/libdawn_wire.dll.lib`, targetDir + "/../"]);
+        files.push([`${dawnOutputDir}/libshaderc.dll.lib`, targetDir + "/../"]);
+        files.push([`${dawnOutputDir}/libshaderc_spvc.dll.lib`, targetDir + "/../"]);
+      }
+      //files.push([`${dawnDir}/src/utils`, generatePath + "/src"]);
     }
     let counter = 0;
     if (!files.length) return resolve(true);

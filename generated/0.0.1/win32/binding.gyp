@@ -2,7 +2,9 @@
   "variables": {
     "root": "../../..",
     "platform": "<(OS)",
-    "release": "<@(module_root_dir)/build/Release"
+    "build": "<@(module_root_dir)/build",
+    "release": "<(build)/Release",
+    "dawn": "C:/Users/User/Documents/GitHub/dawn"
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],
@@ -29,17 +31,30 @@
             ],
             "include_dirs": [
               "<!@(node -p \"require('node-addon-api').include\")",
-              "<(root)/lib/include/"
+              "<(root)/lib/include",
+              "<(dawn)/src/include",
+              "<(dawn)/out/Shared2/gen"
             ],
-            "library_dirs": [],
+            "library_dirs": [
+              "<(root)/lib/<(platform)/<(target_arch)/GLFW",
+              "<(build)/"
+            ],
             "link_settings": {
-              "libraries": []
+              "libraries": [
+                "-lglfw3dll.lib",
+                "-llibc++.dll.lib",
+                "-llibdawn.dll.lib",
+                "-llibdawn_native.dll.lib",
+                "-llibdawn_wire.dll.lib",
+                "-llibshaderc.dll.lib",
+                "-llibshaderc_spvc.dll.lib"
+              ]
             },
             "defines": [
               "WIN32_LEAN_AND_MEAN",
-              "VC_EXTRALEAN",
-              "_ITERATOR_DEBUG_LEVEL=0",
-              "_HAS_EXCEPTIONS=1"
+              "NOMINMAX",
+              "/bigobj",
+              "DAWN_ENABLE_BACKEND_D3D12"
             ],
             "msvs_settings": {
               "VCCLCompilerTool": {
@@ -47,7 +62,7 @@
                 "StringPooling": "true",
                 "Optimization": 2,
                 "WarningLevel": 3,
-                "AdditionalOptions": ["/MP /EHsc"],
+                "AdditionalOptions": ["/MP /EHsc /wd4458 /wd4996 /wd4702 /wd4189"],
                 "ExceptionHandling": 1
               },
               "VCLibrarianTool": {
@@ -56,6 +71,7 @@
               "VCLinkerTool": {
                 "AdditionalLibraryDirectories": [
                   "../@PROJECT_SOURCE_DIR@/lib/<(platform)/<(target_arch)",
+                  "<(build)/"
                 ]
               }
             }

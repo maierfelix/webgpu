@@ -1,5 +1,73 @@
-#define NAPI_EXPERIMENTAL
-#include <napi.h>
+#include "index.h"
+
+#if defined(DAWN_ENABLE_BACKEND_D3D12)
+    static dawn_native::BackendType backendType = dawn_native::BackendType::D3D12;
+#elif defined(DAWN_ENABLE_BACKEND_METAL)
+    static dawn_native::BackendType backendType = dawn_native::BackendType::Metal;
+#elif defined(DAWN_ENABLE_BACKEND_OPENGL)
+    static dawn_native::BackendType backendType = dawn_native::BackendType::OpenGL;
+#elif defined(DAWN_ENABLE_BACKEND_VULKAN)
+    static dawn_native::BackendType backendType = dawn_native::BackendType::Vulkan;
+#else
+    #error
+#endif
+
+DawnDevice device;
+DawnQueue queue;
+DawnSwapChain swapchain;
+DawnRenderPipeline pipeline;
+
+DawnTextureFormat swapChainFormat;
+
+GLFWwindow* window;
+
+static std::unique_ptr<dawn_native::Instance> instance;
+
+void onGLFWError(int code, const char* message) {
+  std::cout << "GLFW error: " << code << " - " << message << std::endl;
+}
+
+dawn::Device CreateCppDawnDevice() {
+  glfwSetErrorCallback(onGLFWError);
+
+  if (!glfwInit()) return dawn::Device();
+
+  if (backendType == dawn_native::BackendType::OpenGL) {
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  } else {
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+  }
+
+  window = glfwCreateWindow(640, 480, "Dawn window", nullptr, nullptr);
+  if (!window) return dawn::Device();
+
+  instance = std::make_unique<dawn_native::Instance>();
+
+  if (backendType == dawn_native::BackendType::OpenGL) {
+#if defined(DAWN_ENABLE_BACKEND_OPENGL)
+  glfwMakeContextCurrent(window);
+  dawn_native::opengl::AdapterDiscoveryOptions adapterOptions;
+  adapterOptions.getProc = reinterpret_cast<void* (*)(const char*)>(glfwGetProcAddress);
+  instance->DiscoverAdapters(&adapterOptions);
+#endif
+  } else {
+    instance->DiscoverDefaultAdapters();
+  }
+
+  bool lol = instance->IsBackendValidationEnabled();
+  dawn_platform::Platform* platform = instance->GetPlatform();
+
+  std::vector<dawn_native::Adapter> adapters = instance->GetAdapters();
+  dawn_native::Adapter backendAdapter;
+
+  DawnDevice backendDevice = backendAdapter.CreateDevice();
+  DawnProcTable backendProcs = dawn_native::GetProcs();
+
+  return dawn::Device();
+}
 
 static Napi::Value getAddressFromArrayBuffer(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
@@ -12,31 +80,12 @@ static Napi::Value getAddressFromArrayBuffer(const Napi::CallbackInfo& info) {
   return Napi::BigInt::New(env, addr);
 };
 
-static Napi::Value getArrayBufferFromAddress(const Napi::CallbackInfo& info) {
-  Napi::Env env = info.Env();
-  if (!(info[0].IsBigInt())) {
-    Napi::TypeError::New(env, "Argument 1 must be of type 'BigInt'").ThrowAsJavaScriptException();
-    return env.Undefined();
-  }
-  if (!(info[1].IsBigInt())) {
-    Napi::TypeError::New(env, "Argument 2 must be of type 'BigInt'").ThrowAsJavaScriptException();
-    return env.Undefined();
-  }
-  bool lossless0;
-  int64_t addr = info[0].As<Napi::BigInt>().Int64Value(&lossless0);
-  bool lossless1;
-  int64_t size = info[1].As<Napi::BigInt>().Int64Value(&lossless1);
-  Napi::ArrayBuffer buffer = Napi::ArrayBuffer::New(
-    env,
-    reinterpret_cast<void *>(addr),
-    size
-  );
-  return buffer;
-};
-
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
   exports["getAddressFromArrayBuffer"] = Napi::Function::New(env, getAddressFromArrayBuffer, "getAddressFromArrayBuffer");
-  exports["getArrayBufferFromAddress"] = Napi::Function::New(env, getArrayBufferFromAddress, "getArrayBufferFromAddress");
+
+  device = CreateCppDawnDevice().Release();
+  //queue = dawnDeviceCreateQueue(device);
+
   return exports;
 }
 

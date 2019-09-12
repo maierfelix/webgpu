@@ -11,6 +11,10 @@
     [ "platform == 'linux'", { "variables": { "platform": "linux" } } ],
     [ "platform == 'mac'",   { "variables": { "platform": "darwin" } } ]
   ],
+  "make_global_settings": [
+    ['CXX','/usr/bin/clang++'],
+    ['LINK','/usr/bin/clang++'],
+  ],
   "targets": [
     {
       "target_name": "action_after_build",
@@ -26,8 +30,10 @@
           "OS=='win'",
           {
             "target_name": "addon-win32",
-            "cflags": [
-              "-stdlib=libstdc++"
+            "cflags_cc": [
+              "-fno-rtti",
+              "-fno-exceptions",
+              "-std=c++17"
             ],
             "include_dirs": [
               "<!@(node -p \"require('node-addon-api').include\")",
@@ -51,10 +57,26 @@
               ]
             },
             "defines": [
+              "/bigobj",
+              "_LIBCPP_ABI_UNSTABLE",
+              "_LIBCPP_ENABLE_NODISCARD",
+              "_LIBCPP_NO_AUTO_LINK",
+              "__STD_C",
+              "_CRT_RAND_S",
+              "_CRT_SECURE_NO_DEPRECATE",
+              "_SCL_SECURE_NO_DEPRECATE",
               "WIN32_LEAN_AND_MEAN",
               "NOMINMAX",
-              "/bigobj",
-              "DAWN_ENABLE_BACKEND_D3D12"
+              "_UNICODE",
+              "UNICODE",
+              "DAWN_ENABLE_BACKEND_D3D12",
+              "DAWN_ENABLE_BACKEND_NULL",
+              "DAWN_ENABLE_BACKEND_VULKAN",
+              "_GLFW_WIN32",
+              "DAWN_NATIVE_SHARED_LIBRARY",
+              "DAWN_WIRE_SHARED_LIBRARY",
+              "VK_USE_PLATFORM_WIN32_KHR",
+              "DAWN_SHARED_LIBRARY"
             ],
             "msvs_settings": {
               "VCCLCompilerTool": {
@@ -66,7 +88,7 @@
                 "ExceptionHandling": 1
               },
               "VCLibrarianTool": {
-                "AdditionalOptions" : ["/NODEFAULTLIB:MSVCRT"]
+                "AdditionalOptions" : ["-fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=../../tools/clang/crashreports -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -fcomplete-member-pointers /Gy /FS /bigobj /utf-8 /Zc:twoPhase /Zc:sizedDealloc- /X -fmsc-version=1916 /guard:cf,nochecks /Zc:dllexportInlines- -m64 -fansi-escape-codes /Brepro -Wno-builtin-macro-redefined -D__DATE__= -D__TIME__= -D__TIMESTAMP__= -Xclang -fdebug-compilation-dir -Xclang . -no-canonical-prefixes -Wimplicit-fallthrough -Wthread-safety -Wextra-semi -Wno-missing-field-initializers -Wno-unused-parameter -Wno-c++11-narrowing -Wno-unneeded-internal-declaration -Wno-undefined-var-template -Wno-nonportable-include-path -Wno-ignored-pragma-optimize /Ob2 /Oy- /Zc:inline /Gw /Oi /Z7 -gcodeview-ghash -fno-standalone-debug /GR- -I../../buildtools/third_party/libc++/trunk/include -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare %(AdditionalOptions)"]
               },
               "VCLinkerTool": {
                 "AdditionalLibraryDirectories": [

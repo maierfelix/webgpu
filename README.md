@@ -6,7 +6,7 @@ WebGPU API for JavaScript (Early Bird)
 You have to build [dawn](https://dawn.googlesource.com/dawn) as a shared library.
 After building dawn, create a file named `PATH_TO_DAWN` in this project's root, containing the path to dawn's root.
 
-After having everything setup, to generate and build *n-wgpu*, run:
+Now in order to generate and build *n-wgpu*, run:
 ````
 npm run all --dawnversion=0.0.1
 ````

@@ -1,5 +1,5 @@
 {
-  "name": "n-wgpu",
+  "name": "nwgpu",
   "main": "index.js",
   "version": "0.0.1",
   "engines": {

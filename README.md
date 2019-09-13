@@ -1,4 +1,4 @@
-# n-wgpu
+# nwgpu
 WebGPU API for JavaScript (Early Bird)
 
 ## Building

@@ -9,8 +9,16 @@ import {
   getPlatform
 } from "./utils.mjs";
 
-import generateIndex from "./generators/index.mjs";
+import {
+  getASTType,
+  getCamelizedName,
+  getASTCategoryByName,
+  getNativeStructureName
+} from "./utils.mjs";
+
 import generateGyp from "./generators/gyp.mjs";
+import generateIndex from "./generators/index.mjs";
+import generateMemoryLayouts from "./generators/memoryLayouts.mjs";
 
 const GEN_FILE_NOTICE = `/*
  * MACHINE GENERATED, DO NOT EDIT
@@ -25,8 +33,54 @@ function writeGeneratedFile(path, text, includeNotice = true) {
   fs.writeFileSync(path, text);
 };
 
+function generateAST(ast) {
+  let out = {};
+  // normalize
+  {
+    let normalized = [];
+    for (let key in ast) {
+      if (!ast.hasOwnProperty(key)) continue;
+      if (key === "_comment") continue;
+      normalized.push({
+        textName: key,
+        ...ast[key]
+      });
+    };
+    // overwrite input with normalized input
+    ast = normalized;
+  }
+  // generate structure nodes
+  {
+    let structures = ast.filter(node => {
+      return node.category === "structure";
+    });
+    structures = structures.map(structure => {
+      let node = {};
+      let {textName, members} = structure;
+      node.name = getNativeStructureName(textName);
+      node.type = getASTCategoryByName(textName, ast);
+      node.textName = textName;
+      node.children = [];
+      structure.members.map(member => {
+        //console.log("  ", member.name);
+        let name = getCamelizedName(member.name);
+        let type = getASTType(member);
+        let child = {
+          name,
+          type
+        };
+        node.children.push(child);
+      });
+      return node;
+    });
+    out.structures = structures;
+    console.log(out);
+  }
+  return out;
+};
+
 async function generateBindings({ version, disableMinification } = _) {
-  let ast = JSON.parse(fs.readFileSync(pkg.config.SPEC_DIR + `/${version}.json`, "utf-8"));
+  let JSONspecification = fs.readFileSync(pkg.config.SPEC_DIR + `/${version}.json`, "utf-8");
   let fakePlatform = process.env.npm_config_fake_platform;
   // let the user know when he uses a fake platform
   if (fakePlatform) {
@@ -37,10 +91,12 @@ async function generateBindings({ version, disableMinification } = _) {
     console.log(`Code minification is disabled!`);
   }
   // dst write paths
-  const baseGeneratePath = pkg.config.GEN_OUT_DIR;
-  const generateVersionPath = `${baseGeneratePath}/${version}`;
-  const generatePath = `${generateVersionPath}/${getPlatform()}`;
-  const generateSrcPath = `${generatePath}/src`;
+  let baseGeneratePath = pkg.config.GEN_OUT_DIR;
+  let generateVersionPath = `${baseGeneratePath}/${version}`;
+  let generatePath = `${generateVersionPath}/${getPlatform()}`;
+  let generateSrcPath = `${generatePath}/src`;
+  // indicating if it's necessary to include memorylayouts in the build
+  let includeMemoryLayouts = !fs.existsSync(`${generatePath}/memoryLayouts.json`);
   // reserve dst write paths
   {
     // generated/
@@ -53,6 +109,13 @@ async function generateBindings({ version, disableMinification } = _) {
     if (!fs.existsSync(generateSrcPath)) fs.mkdirSync(generateSrcPath);
   }
   console.log(`Generating bindings for ${version}...`);
+  let ast = generateAST(JSON.parse(JSONspecification));
+  // generate AST
+  {
+    let out = JSON.stringify(ast, null, 2);
+    // .json
+    writeGeneratedFile(`${generatePath}/ast.json`, out, false);
+  }
   // generate gyp
   {
     let out = generateGyp(ast);
@@ -62,10 +125,16 @@ async function generateBindings({ version, disableMinification } = _) {
   // generate index
   {
     let out = generateIndex(ast);
-    // h
+    // .h
     writeGeneratedFile(`${generatePath}/src/index.h`, out.header);
-    // cpp
+    // .cpp
     writeGeneratedFile(`${generatePath}/src/index.cpp`, out.source);
+  }
+  // generate memorylayouts
+  {
+    let out = generateMemoryLayouts(ast);
+    // .h
+    writeGeneratedFile(`${generatePath}/src/memoryLayouts.h`, out.header);
   }
   console.log(`Successfully generated bindings!`);
 };

@@ -1,0 +1,665 @@
+{
+  "DawnBindGroupBinding": {
+    "binding": {
+      "byteOffset": 0,
+      "byteLength": 4
+    },
+    "buffer": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "offset": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "size": {
+      "byteOffset": 24,
+      "byteLength": 8
+    },
+    "sampler": {
+      "byteOffset": 32,
+      "byteLength": 8
+    },
+    "textureView": {
+      "byteOffset": 40,
+      "byteLength": 8
+    },
+    "byteLength": 48
+  },
+  "DawnBindGroupDescriptor": {
+    "layout": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "bindingCount": {
+      "byteOffset": 16,
+      "byteLength": 4
+    },
+    "bindings": {
+      "byteOffset": 24,
+      "byteLength": 8
+    },
+    "byteLength": 32
+  },
+  "DawnBindGroupLayoutBinding": {
+    "binding": {
+      "byteOffset": 0,
+      "byteLength": 4
+    },
+    "visibility": {
+      "byteOffset": 4,
+      "byteLength": 4
+    },
+    "type": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "dynamic": {
+      "byteOffset": 12,
+      "byteLength": 1
+    },
+    "multisampled": {
+      "byteOffset": 13,
+      "byteLength": 1
+    },
+    "textureDimension": {
+      "byteOffset": 16,
+      "byteLength": 4
+    },
+    "textureComponentType": {
+      "byteOffset": 20,
+      "byteLength": 4
+    },
+    "byteLength": 24
+  },
+  "DawnBindGroupLayoutDescriptor": {
+    "bindingCount": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "bindings": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "byteLength": 24
+  },
+  "DawnBlendDescriptor": {
+    "operation": {
+      "byteOffset": 0,
+      "byteLength": 4
+    },
+    "srcFactor": {
+      "byteOffset": 4,
+      "byteLength": 4
+    },
+    "dstFactor": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "byteLength": 12
+  },
+  "DawnColorStateDescriptor": {
+    "format": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "alphaBlend": {
+      "byteOffset": 12,
+      "byteLength": 12
+    },
+    "colorBlend": {
+      "byteOffset": 24,
+      "byteLength": 12
+    },
+    "writeMask": {
+      "byteOffset": 36,
+      "byteLength": 4
+    },
+    "byteLength": 40
+  },
+  "DawnBufferCopyView": {
+    "buffer": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "offset": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "rowPitch": {
+      "byteOffset": 24,
+      "byteLength": 4
+    },
+    "imageHeight": {
+      "byteOffset": 28,
+      "byteLength": 4
+    },
+    "byteLength": 32
+  },
+  "DawnBufferDescriptor": {
+    "usage": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "size": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "byteLength": 24
+  },
+  "DawnCreateBufferMappedResult": {
+    "buffer": {
+      "byteOffset": 0,
+      "byteLength": 8
+    },
+    "dataLength": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "data": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "byteLength": 24
+  },
+  "DawnColor": {
+    "r": {
+      "byteOffset": 0,
+      "byteLength": 4
+    },
+    "g": {
+      "byteOffset": 4,
+      "byteLength": 4
+    },
+    "b": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "a": {
+      "byteOffset": 12,
+      "byteLength": 4
+    },
+    "byteLength": 16
+  },
+  "DawnCommandBufferDescriptor": {
+    "byteLength": 8
+  },
+  "DawnCommandEncoderDescriptor": {
+    "byteLength": 8
+  },
+  "DawnComputePassDescriptor": {
+    "byteLength": 8
+  },
+  "DawnComputePipelineDescriptor": {
+    "layout": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "computeStage": {
+      "byteOffset": 16,
+      "byteLength": 24
+    },
+    "byteLength": 40
+  },
+  "DawnDepthStencilStateDescriptor": {
+    "format": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "depthWriteEnabled": {
+      "byteOffset": 12,
+      "byteLength": 1
+    },
+    "depthCompare": {
+      "byteOffset": 16,
+      "byteLength": 4
+    },
+    "stencilFront": {
+      "byteOffset": 20,
+      "byteLength": 16
+    },
+    "stencilBack": {
+      "byteOffset": 36,
+      "byteLength": 16
+    },
+    "stencilReadMask": {
+      "byteOffset": 52,
+      "byteLength": 4
+    },
+    "stencilWriteMask": {
+      "byteOffset": 56,
+      "byteLength": 4
+    },
+    "byteLength": 64
+  },
+  "DawnExtent3D": {
+    "width": {
+      "byteOffset": 0,
+      "byteLength": 4
+    },
+    "height": {
+      "byteOffset": 4,
+      "byteLength": 4
+    },
+    "depth": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "byteLength": 12
+  },
+  "DawnFenceDescriptor": {
+    "initialValue": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "byteLength": 16
+  },
+  "DawnVertexAttributeDescriptor": {
+    "shaderLocation": {
+      "byteOffset": 0,
+      "byteLength": 4
+    },
+    "offset": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "format": {
+      "byteOffset": 16,
+      "byteLength": 4
+    },
+    "byteLength": 24
+  },
+  "DawnVertexBufferDescriptor": {
+    "stride": {
+      "byteOffset": 0,
+      "byteLength": 8
+    },
+    "stepMode": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "attributeCount": {
+      "byteOffset": 12,
+      "byteLength": 4
+    },
+    "attributes": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "byteLength": 24
+  },
+  "DawnVertexInputDescriptor": {
+    "indexFormat": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "bufferCount": {
+      "byteOffset": 12,
+      "byteLength": 4
+    },
+    "buffers": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "byteLength": 24
+  },
+  "DawnOrigin3D": {
+    "x": {
+      "byteOffset": 0,
+      "byteLength": 4
+    },
+    "y": {
+      "byteOffset": 4,
+      "byteLength": 4
+    },
+    "z": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "byteLength": 12
+  },
+  "DawnPipelineLayoutDescriptor": {
+    "bindGroupLayoutCount": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "bindGroupLayouts": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "byteLength": 24
+  },
+  "DawnPipelineStageDescriptor": {
+    "module": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "entryPoint": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "byteLength": 24
+  },
+  "DawnRasterizationStateDescriptor": {
+    "frontFace": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "cullMode": {
+      "byteOffset": 12,
+      "byteLength": 4
+    },
+    "depthBias": {
+      "byteOffset": 16,
+      "byteLength": 4
+    },
+    "depthBiasSlopeScale": {
+      "byteOffset": 20,
+      "byteLength": 4
+    },
+    "depthBiasClamp": {
+      "byteOffset": 24,
+      "byteLength": 4
+    },
+    "byteLength": 32
+  },
+  "DawnRenderBundleDescriptor": {
+    "byteLength": 8
+  },
+  "DawnRenderBundleEncoderDescriptor": {
+    "colorFormatsCount": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "colorFormats": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "depthStencilFormat": {
+      "byteOffset": 24,
+      "byteLength": 4
+    },
+    "sampleCount": {
+      "byteOffset": 28,
+      "byteLength": 4
+    },
+    "byteLength": 32
+  },
+  "DawnRenderPassColorAttachmentDescriptor": {
+    "attachment": {
+      "byteOffset": 0,
+      "byteLength": 8
+    },
+    "resolveTarget": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "loadOp": {
+      "byteOffset": 16,
+      "byteLength": 4
+    },
+    "storeOp": {
+      "byteOffset": 20,
+      "byteLength": 4
+    },
+    "clearColor": {
+      "byteOffset": 24,
+      "byteLength": 16
+    },
+    "byteLength": 40
+  },
+  "DawnRenderPassDepthStencilAttachmentDescriptor": {
+    "attachment": {
+      "byteOffset": 0,
+      "byteLength": 8
+    },
+    "depthLoadOp": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "depthStoreOp": {
+      "byteOffset": 12,
+      "byteLength": 4
+    },
+    "clearDepth": {
+      "byteOffset": 16,
+      "byteLength": 4
+    },
+    "stencilLoadOp": {
+      "byteOffset": 20,
+      "byteLength": 4
+    },
+    "stencilStoreOp": {
+      "byteOffset": 24,
+      "byteLength": 4
+    },
+    "clearStencil": {
+      "byteOffset": 28,
+      "byteLength": 4
+    },
+    "byteLength": 32
+  },
+  "DawnRenderPassDescriptor": {
+    "colorAttachmentCount": {
+      "byteOffset": 0,
+      "byteLength": 4
+    },
+    "colorAttachments": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "depthStencilAttachment": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "byteLength": 24
+  },
+  "DawnRenderPipelineDescriptor": {
+    "layout": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "vertexStage": {
+      "byteOffset": 16,
+      "byteLength": 24
+    },
+    "fragmentStage": {
+      "byteOffset": 40,
+      "byteLength": 8
+    },
+    "vertexInput": {
+      "byteOffset": 48,
+      "byteLength": 8
+    },
+    "primitiveTopology": {
+      "byteOffset": 56,
+      "byteLength": 4
+    },
+    "rasterizationState": {
+      "byteOffset": 64,
+      "byteLength": 8
+    },
+    "sampleCount": {
+      "byteOffset": 72,
+      "byteLength": 4
+    },
+    "depthStencilState": {
+      "byteOffset": 80,
+      "byteLength": 8
+    },
+    "colorStateCount": {
+      "byteOffset": 88,
+      "byteLength": 4
+    },
+    "colorStates": {
+      "byteOffset": 96,
+      "byteLength": 8
+    },
+    "sampleMask": {
+      "byteOffset": 104,
+      "byteLength": 4
+    },
+    "alphaToCoverageEnabled": {
+      "byteOffset": 108,
+      "byteLength": 1
+    },
+    "byteLength": 112
+  },
+  "DawnSamplerDescriptor": {
+    "addressModeU": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "addressModeV": {
+      "byteOffset": 12,
+      "byteLength": 4
+    },
+    "addressModeW": {
+      "byteOffset": 16,
+      "byteLength": 4
+    },
+    "magFilter": {
+      "byteOffset": 20,
+      "byteLength": 4
+    },
+    "minFilter": {
+      "byteOffset": 24,
+      "byteLength": 4
+    },
+    "mipmapFilter": {
+      "byteOffset": 28,
+      "byteLength": 4
+    },
+    "lodMinClamp": {
+      "byteOffset": 32,
+      "byteLength": 4
+    },
+    "lodMaxClamp": {
+      "byteOffset": 36,
+      "byteLength": 4
+    },
+    "compare": {
+      "byteOffset": 40,
+      "byteLength": 4
+    },
+    "byteLength": 48
+  },
+  "DawnShaderModuleDescriptor": {
+    "codeSize": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "code": {
+      "byteOffset": 16,
+      "byteLength": 8
+    },
+    "byteLength": 24
+  },
+  "DawnStencilStateFaceDescriptor": {
+    "compare": {
+      "byteOffset": 0,
+      "byteLength": 4
+    },
+    "failOp": {
+      "byteOffset": 4,
+      "byteLength": 4
+    },
+    "depthFailOp": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "passOp": {
+      "byteOffset": 12,
+      "byteLength": 4
+    },
+    "byteLength": 16
+  },
+  "DawnSwapChainDescriptor": {
+    "implementation": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "byteLength": 16
+  },
+  "DawnTextureCopyView": {
+    "texture": {
+      "byteOffset": 8,
+      "byteLength": 8
+    },
+    "mipLevel": {
+      "byteOffset": 16,
+      "byteLength": 4
+    },
+    "arrayLayer": {
+      "byteOffset": 20,
+      "byteLength": 4
+    },
+    "origin": {
+      "byteOffset": 24,
+      "byteLength": 12
+    },
+    "byteLength": 40
+  },
+  "DawnTextureDescriptor": {
+    "usage": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "dimension": {
+      "byteOffset": 12,
+      "byteLength": 4
+    },
+    "size": {
+      "byteOffset": 16,
+      "byteLength": 12
+    },
+    "arrayLayerCount": {
+      "byteOffset": 28,
+      "byteLength": 4
+    },
+    "format": {
+      "byteOffset": 32,
+      "byteLength": 4
+    },
+    "mipLevelCount": {
+      "byteOffset": 36,
+      "byteLength": 4
+    },
+    "sampleCount": {
+      "byteOffset": 40,
+      "byteLength": 4
+    },
+    "byteLength": 48
+  },
+  "DawnTextureViewDescriptor": {
+    "format": {
+      "byteOffset": 8,
+      "byteLength": 4
+    },
+    "dimension": {
+      "byteOffset": 12,
+      "byteLength": 4
+    },
+    "baseMipLevel": {
+      "byteOffset": 16,
+      "byteLength": 4
+    },
+    "mipLevelCount": {
+      "byteOffset": 20,
+      "byteLength": 4
+    },
+    "baseArrayLayer": {
+      "byteOffset": 24,
+      "byteLength": 4
+    },
+    "arrayLayerCount": {
+      "byteOffset": 28,
+      "byteLength": 4
+    },
+    "aspect": {
+      "byteOffset": 32,
+      "byteLength": 4
+    },
+    "byteLength": 40
+  }
+}

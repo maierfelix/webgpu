@@ -121,11 +121,27 @@ function buildFiles() {
     let shell = spawn(cmd, { shell: true, stdio: "inherit" }, { stdio: "pipe" });
     shell.on("exit", error => {
       if (!error) {
+        actionsAfter();
         process.stdout.write("Done!\n");
       }
       resolve(!error);
     });
   });
+};
+
+function inlineMemoryLayouts() {
+  const addon = require(`${buildReleaseDir}/addon-${platform}.node`);
+  if (!addon.$getMemoryLayouts) return;
+  process.stdout.write(`Inlining memory layouts..\n`);
+  let memoryLayouts = addon.$getMemoryLayouts();
+  if (!fs.existsSync(`${generatePath}/memoryLayouts.json`)) {
+    process.stdout.write(`Pending bootstrapping, module should be re-generated!\n`);
+  }
+  fs.writeFileSync(`${generatePath}/memoryLayouts.json`, JSON.stringify(memoryLayouts, null, 2));
+};
+
+function actionsAfter() {
+  inlineMemoryLayouts();
 };
 
 (async function run() {

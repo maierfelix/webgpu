@@ -1,0 +1,1550 @@
+{
+  "structures": [
+    {
+      "name": "DawnBindGroupBinding",
+      "type": "structure",
+      "textName": "bind group binding",
+      "children": [
+        {
+          "name": "binding",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "buffer",
+          "type": {
+            "rawType": "buffer",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "offset",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        },
+        {
+          "name": "size",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        },
+        {
+          "name": "sampler",
+          "type": {
+            "rawType": "sampler",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "textureView",
+          "type": {
+            "rawType": "texture view",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnBindGroupDescriptor",
+      "type": "structure",
+      "textName": "bind group descriptor",
+      "children": [
+        {
+          "name": "layout",
+          "type": {
+            "rawType": "bind group layout",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "bindingCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "bindings",
+          "type": {
+            "isReference": true,
+            "rawType": "const bind group binding*",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnBindGroupLayoutBinding",
+      "type": "structure",
+      "textName": "bind group layout binding",
+      "children": [
+        {
+          "name": "binding",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "visibility",
+          "type": {
+            "rawType": "shader stage",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "type",
+          "type": {
+            "rawType": "binding type",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "dynamic",
+          "type": {
+            "isBoolean": true,
+            "initialValue": "false",
+            "rawType": "bool",
+            "jsType": {
+              "type": "Boolean",
+              "isBoolean": true
+            }
+          }
+        },
+        {
+          "name": "multisampled",
+          "type": {
+            "isBoolean": true,
+            "initialValue": "false",
+            "rawType": "bool",
+            "jsType": {
+              "type": "Boolean",
+              "isBoolean": true
+            }
+          }
+        },
+        {
+          "name": "textureDimension",
+          "type": {
+            "rawType": "texture view dimension",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "textureComponentType",
+          "type": {
+            "rawType": "texture component type",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnBindGroupLayoutDescriptor",
+      "type": "structure",
+      "textName": "bind group layout descriptor",
+      "children": [
+        {
+          "name": "bindingCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "bindings",
+          "type": {
+            "isReference": true,
+            "rawType": "const bind group layout binding*",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnBlendDescriptor",
+      "type": "structure",
+      "textName": "blend descriptor",
+      "children": [
+        {
+          "name": "operation",
+          "type": {
+            "rawType": "blend operation",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "srcFactor",
+          "type": {
+            "rawType": "blend factor",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "dstFactor",
+          "type": {
+            "rawType": "blend factor",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnColorStateDescriptor",
+      "type": "structure",
+      "textName": "color state descriptor",
+      "children": [
+        {
+          "name": "format",
+          "type": {
+            "rawType": "texture format",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "alphaBlend",
+          "type": {
+            "rawType": "blend descriptor",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "colorBlend",
+          "type": {
+            "rawType": "blend descriptor",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "writeMask",
+          "type": {
+            "rawType": "color write mask",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnBufferCopyView",
+      "type": "structure",
+      "textName": "buffer copy view",
+      "children": [
+        {
+          "name": "buffer",
+          "type": {
+            "rawType": "buffer",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "offset",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        },
+        {
+          "name": "rowPitch",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "imageHeight",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnBufferDescriptor",
+      "type": "structure",
+      "textName": "buffer descriptor",
+      "children": [
+        {
+          "name": "usage",
+          "type": {
+            "rawType": "buffer usage",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "size",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnCreateBufferMappedResult",
+      "type": "structure",
+      "textName": "create buffer mapped result",
+      "children": [
+        {
+          "name": "buffer",
+          "type": {
+            "rawType": "buffer",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "dataLength",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        },
+        {
+          "name": "data",
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "ArrayBuffer",
+              "isArrayBuffer": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnColor",
+      "type": "structure",
+      "textName": "color",
+      "children": [
+        {
+          "name": "r",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "float",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "g",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "float",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "b",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "float",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "a",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "float",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnCommandBufferDescriptor",
+      "type": "structure",
+      "textName": "command buffer descriptor",
+      "children": []
+    },
+    {
+      "name": "DawnCommandEncoderDescriptor",
+      "type": "structure",
+      "textName": "command encoder descriptor",
+      "children": []
+    },
+    {
+      "name": "DawnComputePassDescriptor",
+      "type": "structure",
+      "textName": "compute pass descriptor",
+      "children": []
+    },
+    {
+      "name": "DawnComputePipelineDescriptor",
+      "type": "structure",
+      "textName": "compute pipeline descriptor",
+      "children": [
+        {
+          "name": "layout",
+          "type": {
+            "rawType": "pipeline layout",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "computeStage",
+          "type": {
+            "rawType": "pipeline stage descriptor",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnDepthStencilStateDescriptor",
+      "type": "structure",
+      "textName": "depth stencil state descriptor",
+      "children": [
+        {
+          "name": "format",
+          "type": {
+            "rawType": "texture format",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "depthWriteEnabled",
+          "type": {
+            "isBoolean": true,
+            "initialValue": "false",
+            "rawType": "bool",
+            "jsType": {
+              "type": "Boolean",
+              "isBoolean": true
+            }
+          }
+        },
+        {
+          "name": "depthCompare",
+          "type": {
+            "rawType": "compare function",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "stencilFront",
+          "type": {
+            "rawType": "stencil state face descriptor",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "stencilBack",
+          "type": {
+            "rawType": "stencil state face descriptor",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "stencilReadMask",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0xFFFFFFFF",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "stencilWriteMask",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0xFFFFFFFF",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnExtent3D",
+      "type": "structure",
+      "textName": "extent 3D",
+      "children": [
+        {
+          "name": "width",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "height",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "depth",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnFenceDescriptor",
+      "type": "structure",
+      "textName": "fence descriptor",
+      "children": [
+        {
+          "name": "initialValue",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnVertexAttributeDescriptor",
+      "type": "structure",
+      "textName": "vertex attribute descriptor",
+      "children": [
+        {
+          "name": "shaderLocation",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "offset",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        },
+        {
+          "name": "format",
+          "type": {
+            "rawType": "vertex format",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnVertexBufferDescriptor",
+      "type": "structure",
+      "textName": "vertex buffer descriptor",
+      "children": [
+        {
+          "name": "stride",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        },
+        {
+          "name": "stepMode",
+          "type": {
+            "rawType": "input step mode",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "attributeCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "attributes",
+          "type": {
+            "isReference": true,
+            "rawType": "const vertex attribute descriptor*",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnVertexInputDescriptor",
+      "type": "structure",
+      "textName": "vertex input descriptor",
+      "children": [
+        {
+          "name": "indexFormat",
+          "type": {
+            "rawType": "index format",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "bufferCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "buffers",
+          "type": {
+            "isReference": true,
+            "rawType": "const vertex buffer descriptor*",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnOrigin3D",
+      "type": "structure",
+      "textName": "origin 3D",
+      "children": [
+        {
+          "name": "x",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "y",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "z",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnPipelineLayoutDescriptor",
+      "type": "structure",
+      "textName": "pipeline layout descriptor",
+      "children": [
+        {
+          "name": "bindGroupLayoutCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "bindGroupLayouts",
+          "type": {
+            "isReference": true,
+            "rawType": "const bind group layout*",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnPipelineStageDescriptor",
+      "type": "structure",
+      "textName": "pipeline stage descriptor",
+      "children": [
+        {
+          "name": "module",
+          "type": {
+            "rawType": "shader module",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "entryPoint",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "isReference": true,
+            "rawType": "const char*",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnRasterizationStateDescriptor",
+      "type": "structure",
+      "textName": "rasterization state descriptor",
+      "children": [
+        {
+          "name": "frontFace",
+          "type": {
+            "rawType": "front face",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "cullMode",
+          "type": {
+            "rawType": "cull mode",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "depthBias",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "int32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "depthBiasSlopeScale",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0.0f",
+            "rawType": "float",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "depthBiasClamp",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0.0f",
+            "rawType": "float",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnRenderBundleDescriptor",
+      "type": "structure",
+      "textName": "render bundle descriptor",
+      "children": []
+    },
+    {
+      "name": "DawnRenderBundleEncoderDescriptor",
+      "type": "structure",
+      "textName": "render bundle encoder descriptor",
+      "children": [
+        {
+          "name": "colorFormatsCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "colorFormats",
+          "type": {
+            "isReference": true,
+            "rawType": "const texture format*",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "depthStencilFormat",
+          "type": {
+            "rawType": "texture format",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "sampleCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "1",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnRenderPassColorAttachmentDescriptor",
+      "type": "structure",
+      "textName": "render pass color attachment descriptor",
+      "children": [
+        {
+          "name": "attachment",
+          "type": {
+            "rawType": "texture view",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "resolveTarget",
+          "type": {
+            "rawType": "texture view",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "loadOp",
+          "type": {
+            "rawType": "load op",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "storeOp",
+          "type": {
+            "rawType": "store op",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "clearColor",
+          "type": {
+            "rawType": "color",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnRenderPassDepthStencilAttachmentDescriptor",
+      "type": "structure",
+      "textName": "render pass depth stencil attachment descriptor",
+      "children": [
+        {
+          "name": "attachment",
+          "type": {
+            "rawType": "texture view",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "depthLoadOp",
+          "type": {
+            "rawType": "load op",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "depthStoreOp",
+          "type": {
+            "rawType": "store op",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "clearDepth",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "float",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "stencilLoadOp",
+          "type": {
+            "rawType": "load op",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "stencilStoreOp",
+          "type": {
+            "rawType": "store op",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "clearStencil",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnRenderPassDescriptor",
+      "type": "structure",
+      "textName": "render pass descriptor",
+      "children": [
+        {
+          "name": "colorAttachmentCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "colorAttachments",
+          "type": {
+            "rawType": "render pass color attachment descriptor",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "depthStencilAttachment",
+          "type": {
+            "isReference": true,
+            "rawType": "const render pass depth stencil attachment descriptor*",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnRenderPipelineDescriptor",
+      "type": "structure",
+      "textName": "render pipeline descriptor",
+      "children": [
+        {
+          "name": "layout",
+          "type": {
+            "rawType": "pipeline layout",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "vertexStage",
+          "type": {
+            "rawType": "pipeline stage descriptor",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "fragmentStage",
+          "type": {
+            "isReference": true,
+            "rawType": "const pipeline stage descriptor*",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "vertexInput",
+          "type": {
+            "isReference": true,
+            "rawType": "const vertex input descriptor*",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "primitiveTopology",
+          "type": {
+            "rawType": "primitive topology",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "rasterizationState",
+          "type": {
+            "isReference": true,
+            "rawType": "const rasterization state descriptor*",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "sampleCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "1",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "depthStencilState",
+          "type": {
+            "isReference": true,
+            "rawType": "const depth stencil state descriptor*",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "colorStateCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "colorStates",
+          "type": {
+            "rawType": "color state descriptor",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "sampleMask",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0xFFFFFFFF",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "alphaToCoverageEnabled",
+          "type": {
+            "isBoolean": true,
+            "initialValue": "false",
+            "rawType": "bool",
+            "jsType": {
+              "type": "Boolean",
+              "isBoolean": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnSamplerDescriptor",
+      "type": "structure",
+      "textName": "sampler descriptor",
+      "children": [
+        {
+          "name": "addressModeU",
+          "type": {
+            "rawType": "address mode",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "addressModeV",
+          "type": {
+            "rawType": "address mode",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "addressModeW",
+          "type": {
+            "rawType": "address mode",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "magFilter",
+          "type": {
+            "rawType": "filter mode",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "minFilter",
+          "type": {
+            "rawType": "filter mode",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "mipmapFilter",
+          "type": {
+            "rawType": "filter mode",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "lodMinClamp",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0.0f",
+            "rawType": "float",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "lodMaxClamp",
+          "type": {
+            "isNumber": true,
+            "initialValue": "1000.0f",
+            "rawType": "float",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "compare",
+          "type": {
+            "rawType": "compare function",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnShaderModuleDescriptor",
+      "type": "structure",
+      "textName": "shader module descriptor",
+      "children": [
+        {
+          "name": "codeSize",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "code",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "isReference": true,
+            "rawType": "const uint32_t*",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnStencilStateFaceDescriptor",
+      "type": "structure",
+      "textName": "stencil state face descriptor",
+      "children": [
+        {
+          "name": "compare",
+          "type": {
+            "rawType": "compare function",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "failOp",
+          "type": {
+            "rawType": "stencil operation",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "depthFailOp",
+          "type": {
+            "rawType": "stencil operation",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "passOp",
+          "type": {
+            "rawType": "stencil operation",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnSwapChainDescriptor",
+      "type": "structure",
+      "textName": "swap chain descriptor",
+      "children": [
+        {
+          "name": "implementation",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnTextureCopyView",
+      "type": "structure",
+      "textName": "texture copy view",
+      "children": [
+        {
+          "name": "texture",
+          "type": {
+            "rawType": "texture",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "mipLevel",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "arrayLayer",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "origin",
+          "type": {
+            "rawType": "origin 3D",
+            "jsType": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnTextureDescriptor",
+      "type": "structure",
+      "textName": "texture descriptor",
+      "children": [
+        {
+          "name": "usage",
+          "type": {
+            "rawType": "texture usage",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "dimension",
+          "type": {
+            "rawType": "texture dimension",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "size",
+          "type": {
+            "rawType": "extent 3D",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "arrayLayerCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "1",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "format",
+          "type": {
+            "rawType": "texture format",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "mipLevelCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "1",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "sampleCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "1",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnTextureViewDescriptor",
+      "type": "structure",
+      "textName": "texture view descriptor",
+      "children": [
+        {
+          "name": "format",
+          "type": {
+            "rawType": "texture format",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "dimension",
+          "type": {
+            "rawType": "texture view dimension",
+            "jsType": {}
+          }
+        },
+        {
+          "name": "baseMipLevel",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "mipLevelCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "baseArrayLayer",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "arrayLayerCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "aspect",
+          "type": {
+            "rawType": "texture aspect",
+            "jsType": {}
+          }
+        }
+      ]
+    }
+  ]
+}

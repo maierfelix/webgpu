@@ -1,4 +1,6 @@
 #include "index.h"
+#include "memoryLayouts.h"
+
 #include "BackendBinding.h"
 #include "TerribleCommandBuffer.h"
 
@@ -251,8 +253,6 @@ static Napi::Value onFrame(const Napi::CallbackInfo& info) {
 }
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
-  exports["onFrame"] = Napi::Function::New(env, onFrame, "onFrame");
-
   device = CreateCppDawnDevice().Release();
   queue = dawnDeviceCreateQueue(device);
 
@@ -353,6 +353,8 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   dawnShaderModuleRelease(vsModule);
   dawnShaderModuleRelease(fsModule);
 
+  exports["onFrame"] = Napi::Function::New(env, onFrame, "onFrame");
+  exports["$getMemoryLayouts"] = Napi::Function::New(env, MemoryLayouts, "MemoryLayouts");
   return exports;
 }
 

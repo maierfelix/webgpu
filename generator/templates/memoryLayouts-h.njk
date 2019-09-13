@@ -1,0 +1,28 @@
+#include <dawn/dawn.h>
+#include <dawn/dawn_wsi.h>
+#include <dawn/dawncpp.h>
+#include <dawn_native/DawnNative.h>
+
+Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::Object out = Napi::Object::New(env);
+
+  Napi::String strByteOffset = Napi::String::New(env, "byteOffset");
+  Napi::String strByteLength = Napi::String::New(env, "byteLength");
+
+  {% for struct in structures -%}
+  Napi::Object s{{ struct.name }} = Napi::Object::New(env);
+  {% for child in struct.children -%}
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof({{ struct.name }}, {{ child.name }})));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof({{ struct.name }}::{{ child.name }})));
+    s{{ struct.name }}.Set(Napi::String::New(env, "{{ child.name }}"), obj);
+  }
+  {% endfor -%}
+  s{{ struct.name }}.Set(strByteLength, Napi::Number::New(env, sizeof({{ struct.name }})));
+  out.Set(Napi::String::New(env, "{{ struct.name }}"), s{{ struct.name }});
+  {% endfor %}
+
+  return out;
+}

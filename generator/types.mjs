@@ -10,6 +10,11 @@ export function getDawnDeclarationName(name) {
   return structName;
 };
 
+export function getExplortDeclarationName(name) {
+  if (name.substr(0, 4) !== "Dawn") warn(`Expected name [0-4] to be 'Dawn'`);
+  return name.substr(4);
+};
+
 export function getASTNodeByName(name, ast) {
   for (let ii = 0; ii < ast.length; ++ii) {
     let node = ast[ii];

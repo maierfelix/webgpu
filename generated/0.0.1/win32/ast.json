@@ -1,7 +1,2684 @@
 {
+  "enums": [
+    {
+      "name": "DawnAddressMode",
+      "externalName": "AddressMode",
+      "type": "enum",
+      "textName": "address mode",
+      "children": [
+        {
+          "name": "REPEAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "MIRROR_REPEAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "CLAMP_TO_EDGE",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "DawnBindingType",
+      "externalName": "BindingType",
+      "type": "enum",
+      "textName": "binding type",
+      "children": [
+        {
+          "name": "UNIFORM_BUFFER",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "STORAGE_BUFFER",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "READONLY_STORAGE_BUFFER",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "SAMPLER",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "SAMPLED_TEXTURE",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "STORAGE_TEXTURE",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 5
+        }
+      ]
+    },
+    {
+      "name": "DawnBlendFactor",
+      "externalName": "BlendFactor",
+      "type": "enum",
+      "textName": "blend factor",
+      "children": [
+        {
+          "name": "ZERO",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "ONE",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "SRC_COLOR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "ONE_MINUS_SRC_COLOR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "SRC_ALPHA",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "ONE_MINUS_SRC_ALPHA",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 5
+        },
+        {
+          "name": "DST_COLOR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 6
+        },
+        {
+          "name": "ONE_MINUS_DST_COLOR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 7
+        },
+        {
+          "name": "DST_ALPHA",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 8
+        },
+        {
+          "name": "ONE_MINUS_DST_ALPHA",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 9
+        },
+        {
+          "name": "SRC_ALPHA_SATURATED",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 10
+        },
+        {
+          "name": "BLEND_COLOR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 11
+        },
+        {
+          "name": "ONE_MINUS_BLEND_COLOR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 12
+        }
+      ]
+    },
+    {
+      "name": "DawnBlendOperation",
+      "externalName": "BlendOperation",
+      "type": "enum",
+      "textName": "blend operation",
+      "children": [
+        {
+          "name": "ADD",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "SUBTRACT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "REVERSE_SUBTRACT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "MIN",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "MAX",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        }
+      ]
+    },
+    {
+      "name": "DawnBufferMapAsyncStatus",
+      "externalName": "BufferMapAsyncStatus",
+      "type": "enum",
+      "textName": "buffer map async status",
+      "children": [
+        {
+          "name": "SUCCESS",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "ERROR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "UNKNOWN",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "DEVICE_LOST",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        }
+      ]
+    },
+    {
+      "name": "DawnCompareFunction",
+      "externalName": "CompareFunction",
+      "type": "enum",
+      "textName": "compare function",
+      "children": [
+        {
+          "name": "NEVER",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "LESS",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "LESS_EQUAL",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "GREATER",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "GREATER_EQUAL",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "EQUAL",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 5
+        },
+        {
+          "name": "NOT_EQUAL",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 6
+        },
+        {
+          "name": "ALWAYS",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 7
+        }
+      ]
+    },
+    {
+      "name": "DawnCullMode",
+      "externalName": "CullMode",
+      "type": "enum",
+      "textName": "cull mode",
+      "children": [
+        {
+          "name": "NONE",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "FRONT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "BACK",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "DawnErrorFilter",
+      "externalName": "ErrorFilter",
+      "type": "enum",
+      "textName": "error filter",
+      "children": [
+        {
+          "name": "NONE",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "VALIDATION",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "OUT_OF_MEMORY",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "DawnErrorType",
+      "externalName": "ErrorType",
+      "type": "enum",
+      "textName": "error type",
+      "children": [
+        {
+          "name": "NO_ERROR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "VALIDATION",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "OUT_OF_MEMORY",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "UNKNOWN",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "DEVICE_LOST",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        }
+      ]
+    },
+    {
+      "name": "DawnFenceCompletionStatus",
+      "externalName": "FenceCompletionStatus",
+      "type": "enum",
+      "textName": "fence completion status",
+      "children": [
+        {
+          "name": "SUCCESS",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "ERROR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "UNKNOWN",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "DEVICE_LOST",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        }
+      ]
+    },
+    {
+      "name": "DawnFilterMode",
+      "externalName": "FilterMode",
+      "type": "enum",
+      "textName": "filter mode",
+      "children": [
+        {
+          "name": "NEAREST",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "LINEAR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "DawnFrontFace",
+      "externalName": "FrontFace",
+      "type": "enum",
+      "textName": "front face",
+      "children": [
+        {
+          "name": "CCW",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "CW",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "DawnIndexFormat",
+      "externalName": "IndexFormat",
+      "type": "enum",
+      "textName": "index format",
+      "children": [
+        {
+          "name": "UINT16",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "UINT32",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "DawnInputStepMode",
+      "externalName": "InputStepMode",
+      "type": "enum",
+      "textName": "input step mode",
+      "children": [
+        {
+          "name": "VERTEX",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "INSTANCE",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "DawnLoadOp",
+      "externalName": "LoadOp",
+      "type": "enum",
+      "textName": "load op",
+      "children": [
+        {
+          "name": "CLEAR",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "LOAD",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "DawnStoreOp",
+      "externalName": "StoreOp",
+      "type": "enum",
+      "textName": "store op",
+      "children": [
+        {
+          "name": "STORE",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "DawnPrimitiveTopology",
+      "externalName": "PrimitiveTopology",
+      "type": "enum",
+      "textName": "primitive topology",
+      "children": [
+        {
+          "name": "POINT_LIST",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "LINE_LIST",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "LINE_STRIP",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "TRIANGLE_LIST",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "TRIANGLE_STRIP",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        }
+      ]
+    },
+    {
+      "name": "DawnStencilOperation",
+      "externalName": "StencilOperation",
+      "type": "enum",
+      "textName": "stencil operation",
+      "children": [
+        {
+          "name": "KEEP",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "ZERO",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "REPLACE",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "INVERT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "INCREMENT_CLAMP",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "DECREMENT_CLAMP",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 5
+        },
+        {
+          "name": "INCREMENT_WRAP",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 6
+        },
+        {
+          "name": "DECREMENT_WRAP",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 7
+        }
+      ]
+    },
+    {
+      "name": "DawnTextureAspect",
+      "externalName": "TextureAspect",
+      "type": "enum",
+      "textName": "texture aspect",
+      "children": [
+        {
+          "name": "ALL",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "STENCIL_ONLY",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "DEPTH_ONLY",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "DawnTextureComponentType",
+      "externalName": "TextureComponentType",
+      "type": "enum",
+      "textName": "texture component type",
+      "children": [
+        {
+          "name": "FLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "SINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "DawnTextureDimension",
+      "externalName": "TextureDimension",
+      "type": "enum",
+      "textName": "texture dimension",
+      "children": [
+        {
+          "name": "1D",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "2D",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "3D",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "DawnTextureFormat",
+      "externalName": "TextureFormat",
+      "type": "enum",
+      "textName": "texture format",
+      "children": [
+        {
+          "name": "UNDEFINED",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "R8_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "R8_SNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "R8_UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "R8_SINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "R16_UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 5
+        },
+        {
+          "name": "R16_SINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 6
+        },
+        {
+          "name": "R16_FLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 7
+        },
+        {
+          "name": "RG8_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 8
+        },
+        {
+          "name": "RG8_SNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 9
+        },
+        {
+          "name": "RG8_UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 10
+        },
+        {
+          "name": "RG8_SINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 11
+        },
+        {
+          "name": "R32_FLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 12
+        },
+        {
+          "name": "R32_UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 13
+        },
+        {
+          "name": "R32_SINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 14
+        },
+        {
+          "name": "RG16_UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 15
+        },
+        {
+          "name": "RG16_SINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 16
+        },
+        {
+          "name": "RG16_FLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 17
+        },
+        {
+          "name": "RGBA8_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 18
+        },
+        {
+          "name": "RGBA8_UNORM_SRGB",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 19
+        },
+        {
+          "name": "RGBA8_SNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 20
+        },
+        {
+          "name": "RGBA8_UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 21
+        },
+        {
+          "name": "RGBA8_SINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 22
+        },
+        {
+          "name": "BGRA8_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 23
+        },
+        {
+          "name": "BGRA8_UNORM_SRGB",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 24
+        },
+        {
+          "name": "RGB10_A2_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 25
+        },
+        {
+          "name": "RG11_B10_FLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 26
+        },
+        {
+          "name": "RG32_FLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 27
+        },
+        {
+          "name": "RG32_UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 28
+        },
+        {
+          "name": "RG32_SINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 29
+        },
+        {
+          "name": "RGBA16_UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 30
+        },
+        {
+          "name": "RGBA16_SINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 31
+        },
+        {
+          "name": "RGBA16_FLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 32
+        },
+        {
+          "name": "RGBA32_FLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 33
+        },
+        {
+          "name": "RGBA32_UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 34
+        },
+        {
+          "name": "RGBA32_SINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 35
+        },
+        {
+          "name": "DEPTH32_FLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 36
+        },
+        {
+          "name": "DEPTH24_PLUS",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 37
+        },
+        {
+          "name": "DEPTH24_PLUS_STENCIL8",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 38
+        },
+        {
+          "name": "BC1_RGBA_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 39
+        },
+        {
+          "name": "BC1_RGBA_UNORM_SRGB",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 40
+        },
+        {
+          "name": "BC2_RGBA_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 41
+        },
+        {
+          "name": "BC2_RGBA_UNORM_SRGB",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 42
+        },
+        {
+          "name": "BC3_RGBA_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 43
+        },
+        {
+          "name": "BC3_RGBA_UNORM_SRGB",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 44
+        },
+        {
+          "name": "BC4_R_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 45
+        },
+        {
+          "name": "BC4_R_SNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 46
+        },
+        {
+          "name": "BC5_RG_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 47
+        },
+        {
+          "name": "BC5_RG_SNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 48
+        },
+        {
+          "name": "BC6H_RGB_UFLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 49
+        },
+        {
+          "name": "BC6H_RGB_SFLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 50
+        },
+        {
+          "name": "BC7_RGBA_UNORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 51
+        },
+        {
+          "name": "BC7_RGBA_UNORM_SRGB",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 52
+        }
+      ]
+    },
+    {
+      "name": "DawnTextureViewDimension",
+      "externalName": "TextureViewDimension",
+      "type": "enum",
+      "textName": "texture view dimension",
+      "children": [
+        {
+          "name": "UNDEFINED",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "1D",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "2D",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "2D_ARRAY",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "CUBE",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "CUBE_ARRAY",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 5
+        },
+        {
+          "name": "3D",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 6
+        }
+      ]
+    },
+    {
+      "name": "DawnVertexFormat",
+      "externalName": "VertexFormat",
+      "type": "enum",
+      "textName": "vertex format",
+      "children": [
+        {
+          "name": "UCHAR2",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "UCHAR4",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "CHAR2",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "CHAR4",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "UCHAR2_NORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "UCHAR4_NORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 5
+        },
+        {
+          "name": "CHAR2_NORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 6
+        },
+        {
+          "name": "CHAR4_NORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 7
+        },
+        {
+          "name": "USHORT2",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 8
+        },
+        {
+          "name": "USHORT4",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 9
+        },
+        {
+          "name": "SHORT2",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 10
+        },
+        {
+          "name": "SHORT4",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 11
+        },
+        {
+          "name": "USHORT2_NORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 12
+        },
+        {
+          "name": "USHORT4_NORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 13
+        },
+        {
+          "name": "SHORT2_NORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 14
+        },
+        {
+          "name": "SHORT4_NORM",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 15
+        },
+        {
+          "name": "HALF2",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 16
+        },
+        {
+          "name": "HALF4",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 17
+        },
+        {
+          "name": "FLOAT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 18
+        },
+        {
+          "name": "FLOAT2",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 19
+        },
+        {
+          "name": "FLOAT3",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 20
+        },
+        {
+          "name": "FLOAT4",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 21
+        },
+        {
+          "name": "UINT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 22
+        },
+        {
+          "name": "UINT2",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 23
+        },
+        {
+          "name": "UINT3",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 24
+        },
+        {
+          "name": "UINT4",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 25
+        },
+        {
+          "name": "INT",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 26
+        },
+        {
+          "name": "INT2",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 27
+        },
+        {
+          "name": "INT3",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 28
+        },
+        {
+          "name": "INT4",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 29
+        }
+      ]
+    }
+  ],
+  "bitmasks": [
+    {
+      "name": "DawnBufferUsage",
+      "externalName": "BufferUsage",
+      "type": "bitmask",
+      "textName": "buffer usage",
+      "children": [
+        {
+          "name": "NONE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "MAP_READ",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "MAP_WRITE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "COPY_SRC",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "COPY_DST",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 8
+        },
+        {
+          "name": "INDEX",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 16
+        },
+        {
+          "name": "VERTEX",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 32
+        },
+        {
+          "name": "UNIFORM",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 64
+        },
+        {
+          "name": "STORAGE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 128
+        },
+        {
+          "name": "INDIRECT",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 256
+        }
+      ]
+    },
+    {
+      "name": "DawnColorWriteMask",
+      "externalName": "ColorWriteMask",
+      "type": "bitmask",
+      "textName": "color write mask",
+      "children": [
+        {
+          "name": "NONE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "RED",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "GREEN",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "BLUE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "ALPHA",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 8
+        },
+        {
+          "name": "ALL",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 15
+        }
+      ]
+    },
+    {
+      "name": "DawnShaderStage",
+      "externalName": "ShaderStage",
+      "type": "bitmask",
+      "textName": "shader stage",
+      "children": [
+        {
+          "name": "NONE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "VERTEX",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "FRAGMENT",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "COMPUTE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 4
+        }
+      ]
+    },
+    {
+      "name": "DawnTextureUsage",
+      "externalName": "TextureUsage",
+      "type": "bitmask",
+      "textName": "texture usage",
+      "children": [
+        {
+          "name": "NONE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "COPY_SRC",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "COPY_DST",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "SAMPLED",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "STORAGE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 8
+        },
+        {
+          "name": "OUTPUT_ATTACHMENT",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 16
+        },
+        {
+          "name": "PRESENT",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 32
+        }
+      ]
+    }
+  ],
   "structures": [
     {
       "name": "DawnBindGroupBinding",
+      "externalName": "BindGroupBinding",
       "type": "structure",
       "textName": "bind group binding",
       "children": [
@@ -83,6 +2760,7 @@
     },
     {
       "name": "DawnBindGroupDescriptor",
+      "externalName": "BindGroupDescriptor",
       "type": "structure",
       "textName": "bind group descriptor",
       "children": [
@@ -128,6 +2806,7 @@
     },
     {
       "name": "DawnBindGroupLayoutBinding",
+      "externalName": "BindGroupLayoutBinding",
       "type": "structure",
       "textName": "bind group layout binding",
       "children": [
@@ -219,6 +2898,7 @@
     },
     {
       "name": "DawnBindGroupLayoutDescriptor",
+      "externalName": "BindGroupLayoutDescriptor",
       "type": "structure",
       "textName": "bind group layout descriptor",
       "children": [
@@ -252,6 +2932,7 @@
     },
     {
       "name": "DawnBlendDescriptor",
+      "externalName": "BlendDescriptor",
       "type": "structure",
       "textName": "blend descriptor",
       "children": [
@@ -295,6 +2976,7 @@
     },
     {
       "name": "DawnColorStateDescriptor",
+      "externalName": "ColorStateDescriptor",
       "type": "structure",
       "textName": "color state descriptor",
       "children": [
@@ -350,6 +3032,7 @@
     },
     {
       "name": "DawnBufferCopyView",
+      "externalName": "BufferCopyView",
       "type": "structure",
       "textName": "buffer copy view",
       "children": [
@@ -406,6 +3089,7 @@
     },
     {
       "name": "DawnBufferDescriptor",
+      "externalName": "BufferDescriptor",
       "type": "structure",
       "textName": "buffer descriptor",
       "children": [
@@ -438,6 +3122,7 @@
     },
     {
       "name": "DawnCreateBufferMappedResult",
+      "externalName": "CreateBufferMappedResult",
       "type": "structure",
       "textName": "create buffer mapped result",
       "children": [
@@ -482,6 +3167,7 @@
     },
     {
       "name": "DawnColor",
+      "externalName": "Color",
       "type": "structure",
       "textName": "color",
       "children": [
@@ -537,24 +3223,28 @@
     },
     {
       "name": "DawnCommandBufferDescriptor",
+      "externalName": "CommandBufferDescriptor",
       "type": "structure",
       "textName": "command buffer descriptor",
       "children": []
     },
     {
       "name": "DawnCommandEncoderDescriptor",
+      "externalName": "CommandEncoderDescriptor",
       "type": "structure",
       "textName": "command encoder descriptor",
       "children": []
     },
     {
       "name": "DawnComputePassDescriptor",
+      "externalName": "ComputePassDescriptor",
       "type": "structure",
       "textName": "compute pass descriptor",
       "children": []
     },
     {
       "name": "DawnComputePipelineDescriptor",
+      "externalName": "ComputePipelineDescriptor",
       "type": "structure",
       "textName": "compute pipeline descriptor",
       "children": [
@@ -586,6 +3276,7 @@
     },
     {
       "name": "DawnDepthStencilStateDescriptor",
+      "externalName": "DepthStencilStateDescriptor",
       "type": "structure",
       "textName": "depth stencil state descriptor",
       "children": [
@@ -677,6 +3368,7 @@
     },
     {
       "name": "DawnExtent3D",
+      "externalName": "Extent3D",
       "type": "structure",
       "textName": "extent 3D",
       "children": [
@@ -720,6 +3412,7 @@
     },
     {
       "name": "DawnFenceDescriptor",
+      "externalName": "FenceDescriptor",
       "type": "structure",
       "textName": "fence descriptor",
       "children": [
@@ -740,6 +3433,7 @@
     },
     {
       "name": "DawnVertexAttributeDescriptor",
+      "externalName": "VertexAttributeDescriptor",
       "type": "structure",
       "textName": "vertex attribute descriptor",
       "children": [
@@ -784,6 +3478,7 @@
     },
     {
       "name": "DawnVertexBufferDescriptor",
+      "externalName": "VertexBufferDescriptor",
       "type": "structure",
       "textName": "vertex buffer descriptor",
       "children": [
@@ -842,6 +3537,7 @@
     },
     {
       "name": "DawnVertexInputDescriptor",
+      "externalName": "VertexInputDescriptor",
       "type": "structure",
       "textName": "vertex input descriptor",
       "children": [
@@ -887,6 +3583,7 @@
     },
     {
       "name": "DawnOrigin3D",
+      "externalName": "Origin3D",
       "type": "structure",
       "textName": "origin 3D",
       "children": [
@@ -930,6 +3627,7 @@
     },
     {
       "name": "DawnPipelineLayoutDescriptor",
+      "externalName": "PipelineLayoutDescriptor",
       "type": "structure",
       "textName": "pipeline layout descriptor",
       "children": [
@@ -963,6 +3661,7 @@
     },
     {
       "name": "DawnPipelineStageDescriptor",
+      "externalName": "PipelineStageDescriptor",
       "type": "structure",
       "textName": "pipeline stage descriptor",
       "children": [
@@ -996,6 +3695,7 @@
     },
     {
       "name": "DawnRasterizationStateDescriptor",
+      "externalName": "RasterizationStateDescriptor",
       "type": "structure",
       "textName": "rasterization state descriptor",
       "children": [
@@ -1063,12 +3763,14 @@
     },
     {
       "name": "DawnRenderBundleDescriptor",
+      "externalName": "RenderBundleDescriptor",
       "type": "structure",
       "textName": "render bundle descriptor",
       "children": []
     },
     {
       "name": "DawnRenderBundleEncoderDescriptor",
+      "externalName": "RenderBundleEncoderDescriptor",
       "type": "structure",
       "textName": "render bundle encoder descriptor",
       "children": [
@@ -1126,6 +3828,7 @@
     },
     {
       "name": "DawnRenderPassColorAttachmentDescriptor",
+      "externalName": "RenderPassColorAttachmentDescriptor",
       "type": "structure",
       "textName": "render pass color attachment descriptor",
       "children": [
@@ -1193,6 +3896,7 @@
     },
     {
       "name": "DawnRenderPassDepthStencilAttachmentDescriptor",
+      "externalName": "RenderPassDepthStencilAttachmentDescriptor",
       "type": "structure",
       "textName": "render pass depth stencil attachment descriptor",
       "children": [
@@ -1284,6 +3988,7 @@
     },
     {
       "name": "DawnRenderPassDescriptor",
+      "externalName": "RenderPassDescriptor",
       "type": "structure",
       "textName": "render pass descriptor",
       "children": [
@@ -1331,6 +4036,7 @@
     },
     {
       "name": "DawnRenderPipelineDescriptor",
+      "externalName": "RenderPipelineDescriptor",
       "type": "structure",
       "textName": "render pipeline descriptor",
       "children": [
@@ -1489,6 +4195,7 @@
     },
     {
       "name": "DawnSamplerDescriptor",
+      "externalName": "SamplerDescriptor",
       "type": "structure",
       "textName": "sampler descriptor",
       "children": [
@@ -1604,6 +4311,7 @@
     },
     {
       "name": "DawnShaderModuleDescriptor",
+      "externalName": "ShaderModuleDescriptor",
       "type": "structure",
       "textName": "shader module descriptor",
       "children": [
@@ -1637,6 +4345,7 @@
     },
     {
       "name": "DawnStencilStateFaceDescriptor",
+      "externalName": "StencilStateFaceDescriptor",
       "type": "structure",
       "textName": "stencil state face descriptor",
       "children": [
@@ -1692,6 +4401,7 @@
     },
     {
       "name": "DawnSwapChainDescriptor",
+      "externalName": "SwapChainDescriptor",
       "type": "structure",
       "textName": "swap chain descriptor",
       "children": [
@@ -1712,6 +4422,7 @@
     },
     {
       "name": "DawnTextureCopyView",
+      "externalName": "TextureCopyView",
       "type": "structure",
       "textName": "texture copy view",
       "children": [
@@ -1767,6 +4478,7 @@
     },
     {
       "name": "DawnTextureDescriptor",
+      "externalName": "TextureDescriptor",
       "type": "structure",
       "textName": "texture descriptor",
       "children": [
@@ -1858,6 +4570,7 @@
     },
     {
       "name": "DawnTextureViewDescriptor",
+      "externalName": "TextureViewDescriptor",
       "type": "structure",
       "textName": "texture view descriptor",
       "children": [

@@ -38,3 +38,11 @@ export function getCamelizedName(name) {
     .replace(/^(.)/, _ => _.toLowerCase())
   );
 };
+
+export function getSnakeCaseName(name) {
+  return (
+    name
+    .replace(/\s/g, "_")
+    .toUpperCase()
+  );
+};

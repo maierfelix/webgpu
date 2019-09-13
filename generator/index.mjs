@@ -7,13 +7,15 @@ import pkg from "../package.json";
 import {
   warn,
   getPlatform,
-  getCamelizedName
+  getCamelizedName,
+  getSnakeCaseName
 } from "./utils.mjs";
 
 import {
   getASTType,
   getASTCategoryByName,
-  getDawnDeclarationName
+  getDawnDeclarationName,
+  getExplortDeclarationName
 } from "./types.mjs";
 
 import generateGyp from "./generators/gyp.mjs";
@@ -64,6 +66,70 @@ function generateAST(ast) {
     // overwrite input with normalized input
     ast = normalized;
   }
+  // generate enum nodes
+  {
+    let enums = ast.filter(node => {
+      return node.category === "enum";
+    });
+    enums = enums.map(enu => {
+      let node = {};
+      let {textName, values} = enu;
+      node.name = getDawnDeclarationName(textName);
+      node.externalName = getExplortDeclarationName(node.name);
+      node.type = getASTCategoryByName(textName, ast);
+      node.textName = textName;
+      node.children = [];
+      enu.values.map(member => {
+        let {value} = member;
+        let name = getSnakeCaseName(member.name);
+        let type = {
+          isString: true,
+          nativeType: "char",
+          jsType: { isString: true, type: "String" }
+        };
+        let child = {
+          name,
+          type,
+          value
+        };
+        node.children.push(child);
+      });
+      return node;
+    });
+    out.enums = enums;
+  }
+  // generate bitmask nodes
+  {
+    let bitmasks = ast.filter(node => {
+      return node.category === "bitmask";
+    });
+    bitmasks = bitmasks.map(bitmask => {
+      let node = {};
+      let {textName, values} = bitmask;
+      node.name = getDawnDeclarationName(textName);
+      node.externalName = getExplortDeclarationName(node.name);
+      node.type = getASTCategoryByName(textName, ast);
+      node.textName = textName;
+      node.children = [];
+      bitmask.values.map(member => {
+        let {value} = member;
+        let name = getSnakeCaseName(member.name);
+        let type = {
+          isNumber: true,
+          nativeType: "uint32_t",
+          jsType: { isNumber: true, type: "Number" }
+        };
+        let child = {
+          name,
+          type,
+          value
+        };
+        node.children.push(child);
+      });
+      return node;
+    });
+    out.bitmasks = bitmasks;
+  }
   // generate structure nodes
   {
     let structures = ast.filter(node => {
@@ -73,6 +139,7 @@ function generateAST(ast) {
       let node = {};
       let {textName, members} = structure;
       node.name = getDawnDeclarationName(textName);
+      node.externalName = getExplortDeclarationName(node.name);
       node.type = getASTCategoryByName(textName, ast);
       node.textName = textName;
       node.children = [];

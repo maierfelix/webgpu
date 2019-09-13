@@ -6,15 +6,15 @@ import pkg from "../package.json";
 
 import {
   warn,
-  getPlatform
+  getPlatform,
+  getCamelizedName
 } from "./utils.mjs";
 
 import {
   getASTType,
-  getCamelizedName,
   getASTCategoryByName,
-  getNativeStructureName
-} from "./utils.mjs";
+  getDawnDeclarationName
+} from "./types.mjs";
 
 import generateGyp from "./generators/gyp.mjs";
 import generateIndex from "./generators/index.mjs";
@@ -30,10 +30,13 @@ const dawnVersion = process.env.npm_config_dawnversion;
 if (!dawnVersion) throw `No Dawn version --dawnversion specified!`;
 
 // dst write paths
-let baseGeneratePath = pkg.config.GEN_OUT_DIR;
-let generateVersionPath = `${baseGeneratePath}/${dawnVersion}`;
-let generatePath = `${generateVersionPath}/${getPlatform()}`;
-let generateSrcPath = `${generatePath}/src`;
+const baseGeneratePath = pkg.config.GEN_OUT_DIR;
+const generateVersionPath = `${baseGeneratePath}/${dawnVersion}`;
+const generatePath = `${generateVersionPath}/${getPlatform()}`;
+const generateSrcPath = `${generatePath}/src`;
+
+// enables js interface minifcation
+const enableMinification = false;
 
 // indicating if it's necessary to include memorylayouts in the build
 const includeMemoryLayouts = !fs.existsSync(`${generatePath}/memoryLayouts.json`);
@@ -69,14 +72,14 @@ function generateAST(ast) {
     structures = structures.map(structure => {
       let node = {};
       let {textName, members} = structure;
-      node.name = getNativeStructureName(textName);
+      node.name = getDawnDeclarationName(textName);
       node.type = getASTCategoryByName(textName, ast);
       node.textName = textName;
       node.children = [];
       structure.members.map(member => {
         //console.log("  ", member.name);
         let name = getCamelizedName(member.name);
-        let type = getASTType(member);
+        let type = getASTType(member, ast);
         let child = {
           name,
           type
@@ -86,12 +89,11 @@ function generateAST(ast) {
       return node;
     });
     out.structures = structures;
-    console.log(out);
   }
   return out;
 };
 
-async function generateBindings(version, disableMinification, includeMemoryLayouts) {
+async function generateBindings(version, enableMinification, includeMemoryLayouts) {
   let JSONspecification = fs.readFileSync(pkg.config.SPEC_DIR + `/${version}.json`, "utf-8");
   let fakePlatform = process.env.npm_config_fake_platform;
   // let the user know when he uses a fake platform
@@ -99,7 +101,7 @@ async function generateBindings(version, disableMinification, includeMemoryLayou
     console.log(`Fake platform enabled!`);
     console.log(`Fake platform: '${fakePlatform}' - Real platform: '${process.platform}'`);
   }
-  if (disableMinification) console.log(`Code minification is disabled!`);
+  if (!enableMinification) console.log(`Code minification is disabled!`);
   if (includeMemoryLayouts) console.log(`Memory layouts are not inlined yet.`);
   // reserve dst write paths
   {
@@ -145,6 +147,6 @@ async function generateBindings(version, disableMinification, includeMemoryLayou
 
 generateBindings(
   dawnVersion,
-  disableMinification,
+  enableMinification,
   includeMemoryLayouts
 );

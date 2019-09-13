@@ -20,8 +20,13 @@
         {
           "name": "buffer",
           "type": {
-            "rawType": "buffer",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnBuffer",
+            "rawType": "DawnBuffer",
+            "jsType": {
+              "type": "DawnBuffer",
+              "isObject": true
+            }
           }
         },
         {
@@ -53,15 +58,25 @@
         {
           "name": "sampler",
           "type": {
-            "rawType": "sampler",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnSampler",
+            "rawType": "DawnSampler",
+            "jsType": {
+              "type": "DawnSampler",
+              "isObject": true
+            }
           }
         },
         {
           "name": "textureView",
           "type": {
-            "rawType": "texture view",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnTextureView",
+            "rawType": "DawnTextureView",
+            "jsType": {
+              "type": "DawnTextureView",
+              "isObject": true
+            }
           }
         }
       ]
@@ -74,8 +89,13 @@
         {
           "name": "layout",
           "type": {
-            "rawType": "bind group layout",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnBindGroupLayout",
+            "rawType": "DawnBindGroupLayout",
+            "jsType": {
+              "type": "DawnBindGroupLayout",
+              "isObject": true
+            }
           }
         },
         {
@@ -93,9 +113,15 @@
         {
           "name": "bindings",
           "type": {
+            "isStructure": true,
+            "nativeType": "DawnBindGroupBinding",
+            "length": "bindingCount",
             "isReference": true,
-            "rawType": "const bind group binding*",
-            "jsType": {}
+            "rawType": "const DawnBindGroupBinding*",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         }
       ]
@@ -120,15 +146,25 @@
         {
           "name": "visibility",
           "type": {
-            "rawType": "shader stage",
-            "jsType": {}
+            "isBitmask": true,
+            "nativeType": "DawnShaderStage",
+            "rawType": "DawnShaderStage",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
           }
         },
         {
           "name": "type",
           "type": {
-            "rawType": "binding type",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnBindingType",
+            "rawType": "DawnBindingType",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -158,15 +194,25 @@
         {
           "name": "textureDimension",
           "type": {
-            "rawType": "texture view dimension",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnTextureViewDimension",
+            "rawType": "DawnTextureViewDimension",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "textureComponentType",
           "type": {
-            "rawType": "texture component type",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnTextureComponentType",
+            "rawType": "DawnTextureComponentType",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         }
       ]
@@ -191,9 +237,15 @@
         {
           "name": "bindings",
           "type": {
+            "isStructure": true,
+            "nativeType": "DawnBindGroupLayoutBinding",
+            "length": "bindingCount",
             "isReference": true,
-            "rawType": "const bind group layout binding*",
-            "jsType": {}
+            "rawType": "const DawnBindGroupLayoutBinding*",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         }
       ]
@@ -206,22 +258,37 @@
         {
           "name": "operation",
           "type": {
-            "rawType": "blend operation",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnBlendOperation",
+            "rawType": "DawnBlendOperation",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "srcFactor",
           "type": {
-            "rawType": "blend factor",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnBlendFactor",
+            "rawType": "DawnBlendFactor",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "dstFactor",
           "type": {
-            "rawType": "blend factor",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnBlendFactor",
+            "rawType": "DawnBlendFactor",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         }
       ]
@@ -234,29 +301,49 @@
         {
           "name": "format",
           "type": {
-            "rawType": "texture format",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnTextureFormat",
+            "rawType": "DawnTextureFormat",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "alphaBlend",
           "type": {
-            "rawType": "blend descriptor",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnBlendDescriptor",
+            "rawType": "DawnBlendDescriptor",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
           "name": "colorBlend",
           "type": {
-            "rawType": "blend descriptor",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnBlendDescriptor",
+            "rawType": "DawnBlendDescriptor",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
           "name": "writeMask",
           "type": {
-            "rawType": "color write mask",
-            "jsType": {}
+            "isBitmask": true,
+            "nativeType": "DawnColorWriteMask",
+            "rawType": "DawnColorWriteMask",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
           }
         }
       ]
@@ -269,8 +356,13 @@
         {
           "name": "buffer",
           "type": {
-            "rawType": "buffer",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnBuffer",
+            "rawType": "DawnBuffer",
+            "jsType": {
+              "type": "DawnBuffer",
+              "isObject": true
+            }
           }
         },
         {
@@ -320,8 +412,13 @@
         {
           "name": "usage",
           "type": {
-            "rawType": "buffer usage",
-            "jsType": {}
+            "isBitmask": true,
+            "nativeType": "DawnBufferUsage",
+            "rawType": "DawnBufferUsage",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
           }
         },
         {
@@ -347,8 +444,13 @@
         {
           "name": "buffer",
           "type": {
-            "rawType": "buffer",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnBuffer",
+            "rawType": "DawnBuffer",
+            "jsType": {
+              "type": "DawnBuffer",
+              "isObject": true
+            }
           }
         },
         {
@@ -367,7 +469,9 @@
         {
           "name": "data",
           "type": {
-            "rawType": "void",
+            "length": "dataLength",
+            "isReference": true,
+            "rawType": "void*",
             "jsType": {
               "type": "ArrayBuffer",
               "isArrayBuffer": true
@@ -457,15 +561,25 @@
         {
           "name": "layout",
           "type": {
-            "rawType": "pipeline layout",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnPipelineLayout",
+            "rawType": "DawnPipelineLayout",
+            "jsType": {
+              "type": "DawnPipelineLayout",
+              "isObject": true
+            }
           }
         },
         {
           "name": "computeStage",
           "type": {
-            "rawType": "pipeline stage descriptor",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnPipelineStageDescriptor",
+            "rawType": "DawnPipelineStageDescriptor",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         }
       ]
@@ -478,8 +592,13 @@
         {
           "name": "format",
           "type": {
-            "rawType": "texture format",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnTextureFormat",
+            "rawType": "DawnTextureFormat",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -497,22 +616,37 @@
         {
           "name": "depthCompare",
           "type": {
-            "rawType": "compare function",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnCompareFunction",
+            "rawType": "DawnCompareFunction",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "stencilFront",
           "type": {
-            "rawType": "stencil state face descriptor",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnStencilStateFaceDescriptor",
+            "rawType": "DawnStencilStateFaceDescriptor",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
           "name": "stencilBack",
           "type": {
-            "rawType": "stencil state face descriptor",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnStencilStateFaceDescriptor",
+            "rawType": "DawnStencilStateFaceDescriptor",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
@@ -637,8 +771,13 @@
         {
           "name": "format",
           "type": {
-            "rawType": "vertex format",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnVertexFormat",
+            "rawType": "DawnVertexFormat",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         }
       ]
@@ -664,8 +803,13 @@
         {
           "name": "stepMode",
           "type": {
-            "rawType": "input step mode",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnInputStepMode",
+            "rawType": "DawnInputStepMode",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -683,9 +827,15 @@
         {
           "name": "attributes",
           "type": {
+            "isStructure": true,
+            "nativeType": "DawnVertexAttributeDescriptor",
+            "length": "attributeCount",
             "isReference": true,
-            "rawType": "const vertex attribute descriptor*",
-            "jsType": {}
+            "rawType": "const DawnVertexAttributeDescriptor*",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         }
       ]
@@ -698,8 +848,13 @@
         {
           "name": "indexFormat",
           "type": {
-            "rawType": "index format",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnIndexFormat",
+            "rawType": "DawnIndexFormat",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -717,9 +872,15 @@
         {
           "name": "buffers",
           "type": {
+            "isStructure": true,
+            "nativeType": "DawnVertexBufferDescriptor",
+            "length": "bufferCount",
             "isReference": true,
-            "rawType": "const vertex buffer descriptor*",
-            "jsType": {}
+            "rawType": "const DawnVertexBufferDescriptor*",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         }
       ]
@@ -787,9 +948,15 @@
         {
           "name": "bindGroupLayouts",
           "type": {
+            "isObject": true,
+            "nativeType": "DawnBindGroupLayout",
+            "length": "bindGroupLayoutCount",
             "isReference": true,
-            "rawType": "const bind group layout*",
-            "jsType": {}
+            "rawType": "const DawnBindGroupLayout*",
+            "jsType": {
+              "type": "DawnBindGroupLayout",
+              "isObject": true
+            }
           }
         }
       ]
@@ -802,8 +969,13 @@
         {
           "name": "module",
           "type": {
-            "rawType": "shader module",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnShaderModule",
+            "rawType": "DawnShaderModule",
+            "jsType": {
+              "type": "DawnShaderModule",
+              "isObject": true
+            }
           }
         },
         {
@@ -811,6 +983,7 @@
           "type": {
             "isString": true,
             "isDynamicLength": true,
+            "length": "strlen",
             "isReference": true,
             "rawType": "const char*",
             "jsType": {
@@ -829,15 +1002,25 @@
         {
           "name": "frontFace",
           "type": {
-            "rawType": "front face",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnFrontFace",
+            "rawType": "DawnFrontFace",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "cullMode",
           "type": {
-            "rawType": "cull mode",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnCullMode",
+            "rawType": "DawnCullMode",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -904,16 +1087,27 @@
         {
           "name": "colorFormats",
           "type": {
+            "isEnum": true,
+            "nativeType": "DawnTextureFormat",
+            "length": "colorFormatsCount",
             "isReference": true,
-            "rawType": "const texture format*",
-            "jsType": {}
+            "rawType": "const DawnTextureFormat*",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "depthStencilFormat",
           "type": {
-            "rawType": "texture format",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnTextureFormat",
+            "rawType": "DawnTextureFormat",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -938,36 +1132,61 @@
         {
           "name": "attachment",
           "type": {
-            "rawType": "texture view",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnTextureView",
+            "rawType": "DawnTextureView",
+            "jsType": {
+              "type": "DawnTextureView",
+              "isObject": true
+            }
           }
         },
         {
           "name": "resolveTarget",
           "type": {
-            "rawType": "texture view",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnTextureView",
+            "rawType": "DawnTextureView",
+            "jsType": {
+              "type": "DawnTextureView",
+              "isObject": true
+            }
           }
         },
         {
           "name": "loadOp",
           "type": {
-            "rawType": "load op",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnLoadOp",
+            "rawType": "DawnLoadOp",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "storeOp",
           "type": {
-            "rawType": "store op",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnStoreOp",
+            "rawType": "DawnStoreOp",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "clearColor",
           "type": {
-            "rawType": "color",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnColor",
+            "rawType": "DawnColor",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         }
       ]
@@ -980,22 +1199,37 @@
         {
           "name": "attachment",
           "type": {
-            "rawType": "texture view",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnTextureView",
+            "rawType": "DawnTextureView",
+            "jsType": {
+              "type": "DawnTextureView",
+              "isObject": true
+            }
           }
         },
         {
           "name": "depthLoadOp",
           "type": {
-            "rawType": "load op",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnLoadOp",
+            "rawType": "DawnLoadOp",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "depthStoreOp",
           "type": {
-            "rawType": "store op",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnStoreOp",
+            "rawType": "DawnStoreOp",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -1013,15 +1247,25 @@
         {
           "name": "stencilLoadOp",
           "type": {
-            "rawType": "load op",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnLoadOp",
+            "rawType": "DawnLoadOp",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "stencilStoreOp",
           "type": {
-            "rawType": "store op",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnStoreOp",
+            "rawType": "DawnStoreOp",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -1058,16 +1302,29 @@
         {
           "name": "colorAttachments",
           "type": {
-            "rawType": "render pass color attachment descriptor",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnRenderPassColorAttachmentDescriptor",
+            "length": "colorAttachmentCount",
+            "isArray": true,
+            "isReference": true,
+            "rawType": "const DawnRenderPassColorAttachmentDescriptor* const *",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
           "name": "depthStencilAttachment",
           "type": {
+            "isStructure": true,
+            "nativeType": "DawnRenderPassDepthStencilAttachmentDescriptor",
             "isReference": true,
-            "rawType": "const render pass depth stencil attachment descriptor*",
-            "jsType": {}
+            "rawType": "const DawnRenderPassDepthStencilAttachmentDescriptor*",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         }
       ]
@@ -1080,46 +1337,76 @@
         {
           "name": "layout",
           "type": {
-            "rawType": "pipeline layout",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnPipelineLayout",
+            "rawType": "DawnPipelineLayout",
+            "jsType": {
+              "type": "DawnPipelineLayout",
+              "isObject": true
+            }
           }
         },
         {
           "name": "vertexStage",
           "type": {
-            "rawType": "pipeline stage descriptor",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnPipelineStageDescriptor",
+            "rawType": "DawnPipelineStageDescriptor",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
           "name": "fragmentStage",
           "type": {
+            "isStructure": true,
+            "nativeType": "DawnPipelineStageDescriptor",
             "isReference": true,
-            "rawType": "const pipeline stage descriptor*",
-            "jsType": {}
+            "rawType": "const DawnPipelineStageDescriptor*",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
           "name": "vertexInput",
           "type": {
+            "isStructure": true,
+            "nativeType": "DawnVertexInputDescriptor",
             "isReference": true,
-            "rawType": "const vertex input descriptor*",
-            "jsType": {}
+            "rawType": "const DawnVertexInputDescriptor*",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
           "name": "primitiveTopology",
           "type": {
-            "rawType": "primitive topology",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnPrimitiveTopology",
+            "rawType": "DawnPrimitiveTopology",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "rasterizationState",
           "type": {
+            "isStructure": true,
+            "nativeType": "DawnRasterizationStateDescriptor",
             "isReference": true,
-            "rawType": "const rasterization state descriptor*",
-            "jsType": {}
+            "rawType": "const DawnRasterizationStateDescriptor*",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
@@ -1137,9 +1424,14 @@
         {
           "name": "depthStencilState",
           "type": {
+            "isStructure": true,
+            "nativeType": "DawnDepthStencilStateDescriptor",
             "isReference": true,
-            "rawType": "const depth stencil state descriptor*",
-            "jsType": {}
+            "rawType": "const DawnDepthStencilStateDescriptor*",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
@@ -1157,8 +1449,16 @@
         {
           "name": "colorStates",
           "type": {
-            "rawType": "color state descriptor",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnColorStateDescriptor",
+            "length": "colorStateCount",
+            "isArray": true,
+            "isReference": true,
+            "rawType": "const DawnColorStateDescriptor* const *",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
@@ -1195,43 +1495,73 @@
         {
           "name": "addressModeU",
           "type": {
-            "rawType": "address mode",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnAddressMode",
+            "rawType": "DawnAddressMode",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "addressModeV",
           "type": {
-            "rawType": "address mode",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnAddressMode",
+            "rawType": "DawnAddressMode",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "addressModeW",
           "type": {
-            "rawType": "address mode",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnAddressMode",
+            "rawType": "DawnAddressMode",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "magFilter",
           "type": {
-            "rawType": "filter mode",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnFilterMode",
+            "rawType": "DawnFilterMode",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "minFilter",
           "type": {
-            "rawType": "filter mode",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnFilterMode",
+            "rawType": "DawnFilterMode",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "mipmapFilter",
           "type": {
-            "rawType": "filter mode",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnFilterMode",
+            "rawType": "DawnFilterMode",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -1261,8 +1591,13 @@
         {
           "name": "compare",
           "type": {
-            "rawType": "compare function",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnCompareFunction",
+            "rawType": "DawnCompareFunction",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         }
       ]
@@ -1289,6 +1624,7 @@
           "type": {
             "isNumber": true,
             "initialValue": "0",
+            "length": "codeSize",
             "isReference": true,
             "rawType": "const uint32_t*",
             "jsType": {
@@ -1307,29 +1643,49 @@
         {
           "name": "compare",
           "type": {
-            "rawType": "compare function",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnCompareFunction",
+            "rawType": "DawnCompareFunction",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "failOp",
           "type": {
-            "rawType": "stencil operation",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnStencilOperation",
+            "rawType": "DawnStencilOperation",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "depthFailOp",
           "type": {
-            "rawType": "stencil operation",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnStencilOperation",
+            "rawType": "DawnStencilOperation",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "passOp",
           "type": {
-            "rawType": "stencil operation",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnStencilOperation",
+            "rawType": "DawnStencilOperation",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         }
       ]
@@ -1362,8 +1718,13 @@
         {
           "name": "texture",
           "type": {
-            "rawType": "texture",
-            "jsType": {}
+            "isObject": true,
+            "nativeType": "DawnTexture",
+            "rawType": "DawnTexture",
+            "jsType": {
+              "type": "DawnTexture",
+              "isObject": true
+            }
           }
         },
         {
@@ -1393,8 +1754,13 @@
         {
           "name": "origin",
           "type": {
-            "rawType": "origin 3D",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnOrigin3D",
+            "rawType": "DawnOrigin3D",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         }
       ]
@@ -1407,22 +1773,37 @@
         {
           "name": "usage",
           "type": {
-            "rawType": "texture usage",
-            "jsType": {}
+            "isBitmask": true,
+            "nativeType": "DawnTextureUsage",
+            "rawType": "DawnTextureUsage",
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
           }
         },
         {
           "name": "dimension",
           "type": {
-            "rawType": "texture dimension",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnTextureDimension",
+            "rawType": "DawnTextureDimension",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "size",
           "type": {
-            "rawType": "extent 3D",
-            "jsType": {}
+            "isStructure": true,
+            "nativeType": "DawnExtent3D",
+            "rawType": "DawnExtent3D",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
           }
         },
         {
@@ -1440,8 +1821,13 @@
         {
           "name": "format",
           "type": {
-            "rawType": "texture format",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnTextureFormat",
+            "rawType": "DawnTextureFormat",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -1478,15 +1864,25 @@
         {
           "name": "format",
           "type": {
-            "rawType": "texture format",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnTextureFormat",
+            "rawType": "DawnTextureFormat",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
           "name": "dimension",
           "type": {
-            "rawType": "texture view dimension",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnTextureViewDimension",
+            "rawType": "DawnTextureViewDimension",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         },
         {
@@ -1540,8 +1936,13 @@
         {
           "name": "aspect",
           "type": {
-            "rawType": "texture aspect",
-            "jsType": {}
+            "isEnum": true,
+            "nativeType": "DawnTextureAspect",
+            "rawType": "DawnTextureAspect",
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
           }
         }
       ]

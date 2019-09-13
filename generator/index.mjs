@@ -73,7 +73,7 @@ function generateAST(ast) {
     });
     enums = enums.map(enu => {
       let node = {};
-      let {textName, values} = enu;
+      let {textName} = enu;
       node.name = getDawnDeclarationName(textName);
       node.externalName = getExplortDeclarationName(node.name);
       node.type = getASTCategoryByName(textName, ast);
@@ -105,7 +105,7 @@ function generateAST(ast) {
     });
     bitmasks = bitmasks.map(bitmask => {
       let node = {};
-      let {textName, values} = bitmask;
+      let {textName} = bitmask;
       node.name = getDawnDeclarationName(textName);
       node.externalName = getExplortDeclarationName(node.name);
       node.type = getASTCategoryByName(textName, ast);
@@ -130,6 +130,48 @@ function generateAST(ast) {
     });
     out.bitmasks = bitmasks;
   }
+  // generate object nodes
+  {
+    let objects = ast.filter(node => {
+      return node.category === "object";
+    });
+    objects = objects.map(object => {
+      let node = {};
+      let {textName} = object;
+      node.name = getDawnDeclarationName(textName);
+      node.externalName = getExplortDeclarationName(node.name);
+      node.type = getASTCategoryByName(textName, ast);
+      node.textName = textName;
+      node.children = [];
+      // process the object's methods
+      (object.methods || []).map(method => {
+        let name = getCamelizedName(method.name);
+        let child = {
+          name,
+          children: []
+        };
+        if (method.returns) {
+          child.type = getASTType({ type: method.returns }, ast);
+        } else {
+          child.type = getASTType({ type: "void" }, ast);
+        }
+        // process the method's arguments
+        (method.args || []).map(arg => {
+          let name = getCamelizedName(arg.name);
+          let type = getASTType(arg, ast);
+          let argChild = {
+            name,
+            type
+          };
+          if (arg.optional) argChild.isOptional = true;
+          child.children.push(argChild);
+        });
+        node.children.push(child);
+      });
+      return node;
+    });
+    out.objects = objects;
+  }
   // generate structure nodes
   {
     let structures = ast.filter(node => {
@@ -137,20 +179,20 @@ function generateAST(ast) {
     });
     structures = structures.map(structure => {
       let node = {};
-      let {textName, members} = structure;
+      let {textName} = structure;
       node.name = getDawnDeclarationName(textName);
       node.externalName = getExplortDeclarationName(node.name);
       node.type = getASTCategoryByName(textName, ast);
       node.textName = textName;
       node.children = [];
       structure.members.map(member => {
-        //console.log("  ", member.name);
         let name = getCamelizedName(member.name);
         let type = getASTType(member, ast);
         let child = {
           name,
           type
         };
+        if (member.optional) child.isOptional = true;
         node.children.push(child);
       });
       return node;

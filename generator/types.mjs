@@ -54,8 +54,13 @@ export function getASTJavaScriptType(type, member, ast) {
       out.isString = true;
     } break;
     case "void": {
-      out.type = "ArrayBuffer";
-      out.isArrayBuffer = true;
+      if (type.isReference) {
+        out.type = "ArrayBuffer";
+        out.isArrayBuffer = true;
+      } else {
+        out.type = "Undefined";
+        out.isUndefined = true;
+      }
     } break;
     default:
       if (type.isEnum) {
@@ -73,6 +78,10 @@ export function getASTJavaScriptType(type, member, ast) {
       else if (type.isStructure) {
         out.type = "Object";
         out.isObject = true;
+      }
+      else if (type.isFunction) {
+        out.type = "Function";
+        out.isFunction = true;
       }
       else {
         warn(`Unexpected member type '${member.type}'`);
@@ -130,15 +139,14 @@ export function getASTType(member, ast) {
       if (member.length === "strlen") out.isDynamicLength = true;
     } break;
     case "void": {
-      if (!member.hasOwnProperty("annotation")) {
-        warn(`Expected 'annotation' property to be set for 'void' type`);
-      }
-      if (!member.hasOwnProperty("length")) {
-        warn(`Expected 'length' property to be set for 'void' type`);
-      }
-      if (member.annotation !== "*") {
-        warn(`Expected 'annotation' property to be '*' for 'void' type`);
-      }
+      // TODO
+    } break;
+    case "error callback":
+    case "buffer map read callback":
+    case "buffer map write callback":
+    case "buffer create mapped callback":
+    case "fence on completion callback": {
+      out.isFunction = true;
     } break;
     // arbitrary
     default:
@@ -150,7 +158,8 @@ export function getASTType(member, ast) {
           case "enum":
           case "bitmask":
           case "object":
-          case "structure": break;
+          case "structure":
+          case "natively defined": break;
           default: {
             warn(`Unexpected node category '${node.category}'`);
           } break;
@@ -182,7 +191,6 @@ export function getASTType(member, ast) {
     else {
       warn(`Expected member-based 'length' but got '${member.length}'`);
     }
-    //if (isOwnMemberOfNode()) member.isLocalLength = true;
   }
   // if the type is generally a reference
   {

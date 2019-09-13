@@ -2675,6 +2675,2920 @@
       ]
     }
   ],
+  "objects": [
+    {
+      "name": "DawnBindGroup",
+      "externalName": "BindGroup",
+      "type": "object",
+      "textName": "bind group",
+      "children": []
+    },
+    {
+      "name": "DawnBindGroupLayout",
+      "externalName": "BindGroupLayout",
+      "type": "object",
+      "textName": "bind group layout",
+      "children": []
+    },
+    {
+      "name": "DawnBuffer",
+      "externalName": "Buffer",
+      "type": "object",
+      "textName": "buffer",
+      "children": [
+        {
+          "name": "setSubData",
+          "children": [
+            {
+              "name": "start",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            },
+            {
+              "name": "count",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            },
+            {
+              "name": "data",
+              "type": {
+                "length": "count",
+                "isReference": true,
+                "rawType": "const void*",
+                "jsType": {
+                  "type": "ArrayBuffer",
+                  "isArrayBuffer": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "mapReadAsync",
+          "children": [
+            {
+              "name": "callback",
+              "type": {
+                "isFunction": true,
+                "rawType": "buffer map read callback",
+                "jsType": {
+                  "type": "Function",
+                  "isFunction": true
+                }
+              }
+            },
+            {
+              "name": "userdata",
+              "type": {
+                "isReference": true,
+                "rawType": "void*",
+                "jsType": {
+                  "type": "ArrayBuffer",
+                  "isArrayBuffer": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "mapWriteAsync",
+          "children": [
+            {
+              "name": "callback",
+              "type": {
+                "isFunction": true,
+                "rawType": "buffer map write callback",
+                "jsType": {
+                  "type": "Function",
+                  "isFunction": true
+                }
+              }
+            },
+            {
+              "name": "userdata",
+              "type": {
+                "isReference": true,
+                "rawType": "void*",
+                "jsType": {
+                  "type": "ArrayBuffer",
+                  "isArrayBuffer": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "unmap",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "destroy",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnCommandBuffer",
+      "externalName": "CommandBuffer",
+      "type": "object",
+      "textName": "command buffer",
+      "children": []
+    },
+    {
+      "name": "DawnCommandEncoder",
+      "externalName": "CommandEncoder",
+      "type": "object",
+      "textName": "command encoder",
+      "children": [
+        {
+          "name": "finish",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnCommandBufferDescriptor",
+                "isReference": true,
+                "rawType": "const DawnCommandBufferDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              },
+              "isOptional": true
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnCommandBuffer",
+            "rawType": "DawnCommandBuffer",
+            "jsType": {
+              "type": "DawnCommandBuffer",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "beginComputePass",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnComputePassDescriptor",
+                "isReference": true,
+                "rawType": "const DawnComputePassDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              },
+              "isOptional": true
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnComputePassEncoder",
+            "rawType": "DawnComputePassEncoder",
+            "jsType": {
+              "type": "DawnComputePassEncoder",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "beginRenderPass",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnRenderPassDescriptor",
+                "isReference": true,
+                "rawType": "const DawnRenderPassDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnRenderPassEncoder",
+            "rawType": "DawnRenderPassEncoder",
+            "jsType": {
+              "type": "DawnRenderPassEncoder",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "copyBufferToBuffer",
+          "children": [
+            {
+              "name": "source",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "rawType": "DawnBuffer",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "sourceOffset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            },
+            {
+              "name": "destination",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "rawType": "DawnBuffer",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "destinationOffset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            },
+            {
+              "name": "size",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "copyBufferToTexture",
+          "children": [
+            {
+              "name": "source",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnBufferCopyView",
+                "isReference": true,
+                "rawType": "const DawnBufferCopyView*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "destination",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnTextureCopyView",
+                "isReference": true,
+                "rawType": "const DawnTextureCopyView*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "copySize",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnExtent3D",
+                "isReference": true,
+                "rawType": "const DawnExtent3D*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "copyTextureToBuffer",
+          "children": [
+            {
+              "name": "source",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnTextureCopyView",
+                "isReference": true,
+                "rawType": "const DawnTextureCopyView*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "destination",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnBufferCopyView",
+                "isReference": true,
+                "rawType": "const DawnBufferCopyView*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "copySize",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnExtent3D",
+                "isReference": true,
+                "rawType": "const DawnExtent3D*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "copyTextureToTexture",
+          "children": [
+            {
+              "name": "source",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnTextureCopyView",
+                "isReference": true,
+                "rawType": "const DawnTextureCopyView*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "destination",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnTextureCopyView",
+                "isReference": true,
+                "rawType": "const DawnTextureCopyView*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "copySize",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnExtent3D",
+                "isReference": true,
+                "rawType": "const DawnExtent3D*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "insertDebugMarker",
+          "children": [
+            {
+              "name": "groupLabel",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "rawType": "const char*",
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "popDebugGroup",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "pushDebugGroup",
+          "children": [
+            {
+              "name": "groupLabel",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "rawType": "const char*",
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnComputePassEncoder",
+      "externalName": "ComputePassEncoder",
+      "type": "object",
+      "textName": "compute pass encoder",
+      "children": [
+        {
+          "name": "insertDebugMarker",
+          "children": [
+            {
+              "name": "groupLabel",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "rawType": "const char*",
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "popDebugGroup",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "pushDebugGroup",
+          "children": [
+            {
+              "name": "groupLabel",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "rawType": "const char*",
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setPipeline",
+          "children": [
+            {
+              "name": "pipeline",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnComputePipeline",
+                "rawType": "DawnComputePipeline",
+                "jsType": {
+                  "type": "DawnComputePipeline",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setBindGroup",
+          "children": [
+            {
+              "name": "groupIndex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "group",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBindGroup",
+                "rawType": "DawnBindGroup",
+                "jsType": {
+                  "type": "DawnBindGroup",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "dynamicOffsetCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "dynamicOffsets",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "length": "dynamicOffsetCount",
+                "isReference": true,
+                "rawType": "const uint64_t*",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "dispatch",
+          "children": [
+            {
+              "name": "x",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "y",
+              "type": {
+                "isNumber": true,
+                "initialValue": "1",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "z",
+              "type": {
+                "isNumber": true,
+                "initialValue": "1",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "dispatchIndirect",
+          "children": [
+            {
+              "name": "indirectBuffer",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "rawType": "DawnBuffer",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "indirectOffset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "endPass",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnComputePipeline",
+      "externalName": "ComputePipeline",
+      "type": "object",
+      "textName": "compute pipeline",
+      "children": []
+    },
+    {
+      "name": "DawnDevice",
+      "externalName": "Device",
+      "type": "object",
+      "textName": "device",
+      "children": [
+        {
+          "name": "createBindGroup",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnBindGroupDescriptor",
+                "isReference": true,
+                "rawType": "const DawnBindGroupDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnBindGroup",
+            "rawType": "DawnBindGroup",
+            "jsType": {
+              "type": "DawnBindGroup",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createBindGroupLayout",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnBindGroupLayoutDescriptor",
+                "isReference": true,
+                "rawType": "const DawnBindGroupLayoutDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnBindGroupLayout",
+            "rawType": "DawnBindGroupLayout",
+            "jsType": {
+              "type": "DawnBindGroupLayout",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createBuffer",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnBufferDescriptor",
+                "isReference": true,
+                "rawType": "const DawnBufferDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnBuffer",
+            "rawType": "DawnBuffer",
+            "jsType": {
+              "type": "DawnBuffer",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createBufferMapped",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnBufferDescriptor",
+                "isReference": true,
+                "rawType": "const DawnBufferDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isStructure": true,
+            "nativeType": "DawnCreateBufferMappedResult",
+            "rawType": "DawnCreateBufferMappedResult",
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createBufferMappedAsync",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnBufferDescriptor",
+                "isReference": true,
+                "rawType": "const DawnBufferDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "callback",
+              "type": {
+                "isFunction": true,
+                "rawType": "buffer create mapped callback",
+                "jsType": {
+                  "type": "Function",
+                  "isFunction": true
+                }
+              }
+            },
+            {
+              "name": "userdata",
+              "type": {
+                "isReference": true,
+                "rawType": "void*",
+                "jsType": {
+                  "type": "ArrayBuffer",
+                  "isArrayBuffer": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "createCommandEncoder",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnCommandEncoderDescriptor",
+                "isReference": true,
+                "rawType": "const DawnCommandEncoderDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              },
+              "isOptional": true
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnCommandEncoder",
+            "rawType": "DawnCommandEncoder",
+            "jsType": {
+              "type": "DawnCommandEncoder",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createComputePipeline",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnComputePipelineDescriptor",
+                "isReference": true,
+                "rawType": "const DawnComputePipelineDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnComputePipeline",
+            "rawType": "DawnComputePipeline",
+            "jsType": {
+              "type": "DawnComputePipeline",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createRenderPipeline",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnRenderPipelineDescriptor",
+                "isReference": true,
+                "rawType": "const DawnRenderPipelineDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnRenderPipeline",
+            "rawType": "DawnRenderPipeline",
+            "jsType": {
+              "type": "DawnRenderPipeline",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createPipelineLayout",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnPipelineLayoutDescriptor",
+                "isReference": true,
+                "rawType": "const DawnPipelineLayoutDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnPipelineLayout",
+            "rawType": "DawnPipelineLayout",
+            "jsType": {
+              "type": "DawnPipelineLayout",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createQueue",
+          "children": [],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnQueue",
+            "rawType": "DawnQueue",
+            "jsType": {
+              "type": "DawnQueue",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createRenderBundleEncoder",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnRenderBundleEncoderDescriptor",
+                "isReference": true,
+                "rawType": "const DawnRenderBundleEncoderDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnRenderBundleEncoder",
+            "rawType": "DawnRenderBundleEncoder",
+            "jsType": {
+              "type": "DawnRenderBundleEncoder",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createSampler",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnSamplerDescriptor",
+                "isReference": true,
+                "rawType": "const DawnSamplerDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnSampler",
+            "rawType": "DawnSampler",
+            "jsType": {
+              "type": "DawnSampler",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createShaderModule",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnShaderModuleDescriptor",
+                "isReference": true,
+                "rawType": "const DawnShaderModuleDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnShaderModule",
+            "rawType": "DawnShaderModule",
+            "jsType": {
+              "type": "DawnShaderModule",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createSwapChain",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnSwapChainDescriptor",
+                "isReference": true,
+                "rawType": "const DawnSwapChainDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnSwapChain",
+            "rawType": "DawnSwapChain",
+            "jsType": {
+              "type": "DawnSwapChain",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createTexture",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnTextureDescriptor",
+                "isReference": true,
+                "rawType": "const DawnTextureDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnTexture",
+            "rawType": "DawnTexture",
+            "jsType": {
+              "type": "DawnTexture",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "tick",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setUncapturedErrorCallback",
+          "children": [
+            {
+              "name": "callback",
+              "type": {
+                "isFunction": true,
+                "rawType": "error callback",
+                "jsType": {
+                  "type": "Function",
+                  "isFunction": true
+                }
+              }
+            },
+            {
+              "name": "userdata",
+              "type": {
+                "isReference": true,
+                "rawType": "void*",
+                "jsType": {
+                  "type": "ArrayBuffer",
+                  "isArrayBuffer": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "pushErrorScope",
+          "children": [
+            {
+              "name": "filter",
+              "type": {
+                "isEnum": true,
+                "nativeType": "DawnErrorFilter",
+                "rawType": "DawnErrorFilter",
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "popErrorScope",
+          "children": [
+            {
+              "name": "callback",
+              "type": {
+                "isFunction": true,
+                "rawType": "error callback",
+                "jsType": {
+                  "type": "Function",
+                  "isFunction": true
+                }
+              }
+            },
+            {
+              "name": "userdata",
+              "type": {
+                "isReference": true,
+                "rawType": "void*",
+                "jsType": {
+                  "type": "ArrayBuffer",
+                  "isArrayBuffer": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isBoolean": true,
+            "initialValue": "false",
+            "rawType": "bool",
+            "jsType": {
+              "type": "Boolean",
+              "isBoolean": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnFence",
+      "externalName": "Fence",
+      "type": "object",
+      "textName": "fence",
+      "children": [
+        {
+          "name": "getCompletedValue",
+          "children": [],
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        },
+        {
+          "name": "onCompletion",
+          "children": [
+            {
+              "name": "value",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            },
+            {
+              "name": "callback",
+              "type": {
+                "isFunction": true,
+                "rawType": "fence on completion callback",
+                "jsType": {
+                  "type": "Function",
+                  "isFunction": true
+                }
+              }
+            },
+            {
+              "name": "userdata",
+              "type": {
+                "isReference": true,
+                "rawType": "void*",
+                "jsType": {
+                  "type": "ArrayBuffer",
+                  "isArrayBuffer": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnPipelineLayout",
+      "externalName": "PipelineLayout",
+      "type": "object",
+      "textName": "pipeline layout",
+      "children": []
+    },
+    {
+      "name": "DawnQueue",
+      "externalName": "Queue",
+      "type": "object",
+      "textName": "queue",
+      "children": [
+        {
+          "name": "submit",
+          "children": [
+            {
+              "name": "commandCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "commands",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnCommandBuffer",
+                "length": "commandCount",
+                "isReference": true,
+                "rawType": "const DawnCommandBuffer*",
+                "jsType": {
+                  "type": "DawnCommandBuffer",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "signal",
+          "children": [
+            {
+              "name": "fence",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnFence",
+                "rawType": "DawnFence",
+                "jsType": {
+                  "type": "DawnFence",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "signalValue",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "createFence",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnFenceDescriptor",
+                "isReference": true,
+                "rawType": "const DawnFenceDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnFence",
+            "rawType": "DawnFence",
+            "jsType": {
+              "type": "DawnFence",
+              "isObject": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnRenderBundle",
+      "externalName": "RenderBundle",
+      "type": "object",
+      "textName": "render bundle",
+      "children": []
+    },
+    {
+      "name": "DawnRenderBundleEncoder",
+      "externalName": "RenderBundleEncoder",
+      "type": "object",
+      "textName": "render bundle encoder",
+      "children": [
+        {
+          "name": "setPipeline",
+          "children": [
+            {
+              "name": "pipeline",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnRenderPipeline",
+                "rawType": "DawnRenderPipeline",
+                "jsType": {
+                  "type": "DawnRenderPipeline",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setBindGroup",
+          "children": [
+            {
+              "name": "groupIndex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "group",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBindGroup",
+                "rawType": "DawnBindGroup",
+                "jsType": {
+                  "type": "DawnBindGroup",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "dynamicOffsetCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "dynamicOffsets",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "length": "dynamicOffsetCount",
+                "isReference": true,
+                "rawType": "const uint64_t*",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "draw",
+          "children": [
+            {
+              "name": "vertexCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "instanceCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "firstVertex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "firstInstance",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "drawIndexed",
+          "children": [
+            {
+              "name": "indexCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "instanceCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "firstIndex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "baseVertex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "int32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "firstInstance",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "drawIndirect",
+          "children": [
+            {
+              "name": "indirectBuffer",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "rawType": "DawnBuffer",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "indirectOffset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "drawIndexedIndirect",
+          "children": [
+            {
+              "name": "indirectBuffer",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "rawType": "DawnBuffer",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "indirectOffset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "insertDebugMarker",
+          "children": [
+            {
+              "name": "groupLabel",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "rawType": "const char*",
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "popDebugGroup",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "pushDebugGroup",
+          "children": [
+            {
+              "name": "groupLabel",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "rawType": "const char*",
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setVertexBuffers",
+          "children": [
+            {
+              "name": "startSlot",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "count",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "buffers",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "length": "count",
+                "isReference": true,
+                "rawType": "const DawnBuffer*",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "offsets",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "length": "count",
+                "isReference": true,
+                "rawType": "const uint64_t*",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setIndexBuffer",
+          "children": [
+            {
+              "name": "buffer",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "rawType": "DawnBuffer",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "offset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "finish",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnRenderBundleDescriptor",
+                "isReference": true,
+                "rawType": "const DawnRenderBundleDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              },
+              "isOptional": true
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnRenderBundle",
+            "rawType": "DawnRenderBundle",
+            "jsType": {
+              "type": "DawnRenderBundle",
+              "isObject": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnRenderPassEncoder",
+      "externalName": "RenderPassEncoder",
+      "type": "object",
+      "textName": "render pass encoder",
+      "children": [
+        {
+          "name": "setPipeline",
+          "children": [
+            {
+              "name": "pipeline",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnRenderPipeline",
+                "rawType": "DawnRenderPipeline",
+                "jsType": {
+                  "type": "DawnRenderPipeline",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setBindGroup",
+          "children": [
+            {
+              "name": "groupIndex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "group",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBindGroup",
+                "rawType": "DawnBindGroup",
+                "jsType": {
+                  "type": "DawnBindGroup",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "dynamicOffsetCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "dynamicOffsets",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "length": "dynamicOffsetCount",
+                "isReference": true,
+                "rawType": "const uint64_t*",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "draw",
+          "children": [
+            {
+              "name": "vertexCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "instanceCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "firstVertex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "firstInstance",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "drawIndexed",
+          "children": [
+            {
+              "name": "indexCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "instanceCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "firstIndex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "baseVertex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "int32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "firstInstance",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "drawIndirect",
+          "children": [
+            {
+              "name": "indirectBuffer",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "rawType": "DawnBuffer",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "indirectOffset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "drawIndexedIndirect",
+          "children": [
+            {
+              "name": "indirectBuffer",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "rawType": "DawnBuffer",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "indirectOffset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "executeBundles",
+          "children": [
+            {
+              "name": "bundlesCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "bundles",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnRenderBundle",
+                "length": "bundlesCount",
+                "isReference": true,
+                "rawType": "const DawnRenderBundle*",
+                "jsType": {
+                  "type": "DawnRenderBundle",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "insertDebugMarker",
+          "children": [
+            {
+              "name": "groupLabel",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "rawType": "const char*",
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "popDebugGroup",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "pushDebugGroup",
+          "children": [
+            {
+              "name": "groupLabel",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "rawType": "const char*",
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setStencilReference",
+          "children": [
+            {
+              "name": "reference",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setBlendColor",
+          "children": [
+            {
+              "name": "color",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnColor",
+                "isReference": true,
+                "rawType": "const DawnColor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setViewport",
+          "children": [
+            {
+              "name": "x",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "float",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "y",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "float",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "width",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "float",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "height",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "float",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "minDepth",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "float",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "maxDepth",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "float",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setScissorRect",
+          "children": [
+            {
+              "name": "x",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "y",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "width",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "height",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setVertexBuffers",
+          "children": [
+            {
+              "name": "startSlot",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "count",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "buffers",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "length": "count",
+                "isReference": true,
+                "rawType": "const DawnBuffer*",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "offsets",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "length": "count",
+                "isReference": true,
+                "rawType": "const uint64_t*",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setIndexBuffer",
+          "children": [
+            {
+              "name": "buffer",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnBuffer",
+                "rawType": "DawnBuffer",
+                "jsType": {
+                  "type": "DawnBuffer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "offset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "jsType": {
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "endPass",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnRenderPipeline",
+      "externalName": "RenderPipeline",
+      "type": "object",
+      "textName": "render pipeline",
+      "children": []
+    },
+    {
+      "name": "DawnSampler",
+      "externalName": "Sampler",
+      "type": "object",
+      "textName": "sampler",
+      "children": []
+    },
+    {
+      "name": "DawnShaderModule",
+      "externalName": "ShaderModule",
+      "type": "object",
+      "textName": "shader module",
+      "children": []
+    },
+    {
+      "name": "DawnSwapChain",
+      "externalName": "SwapChain",
+      "type": "object",
+      "textName": "swap chain",
+      "children": [
+        {
+          "name": "configure",
+          "children": [
+            {
+              "name": "format",
+              "type": {
+                "isEnum": true,
+                "nativeType": "DawnTextureFormat",
+                "rawType": "DawnTextureFormat",
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            },
+            {
+              "name": "allowedUsage",
+              "type": {
+                "isBitmask": true,
+                "nativeType": "DawnTextureUsage",
+                "rawType": "DawnTextureUsage",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "width",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "height",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "getNextTexture",
+          "children": [],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnTexture",
+            "rawType": "DawnTexture",
+            "jsType": {
+              "type": "DawnTexture",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "present",
+          "children": [
+            {
+              "name": "texture",
+              "type": {
+                "isObject": true,
+                "nativeType": "DawnTexture",
+                "rawType": "DawnTexture",
+                "jsType": {
+                  "type": "DawnTexture",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnTexture",
+      "externalName": "Texture",
+      "type": "object",
+      "textName": "texture",
+      "children": [
+        {
+          "name": "createView",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "DawnTextureViewDescriptor",
+                "isReference": true,
+                "rawType": "const DawnTextureViewDescriptor*",
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              },
+              "isOptional": true
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "DawnTextureView",
+            "rawType": "DawnTextureView",
+            "jsType": {
+              "type": "DawnTextureView",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "destroy",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DawnTextureView",
+      "externalName": "TextureView",
+      "type": "object",
+      "textName": "texture view",
+      "children": []
+    }
+  ],
   "structures": [
     {
       "name": "DawnBindGroupBinding",
@@ -2704,7 +5618,8 @@
               "type": "DawnBuffer",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         },
         {
           "name": "offset",
@@ -2742,7 +5657,8 @@
               "type": "DawnSampler",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         },
         {
           "name": "textureView",
@@ -2754,7 +5670,8 @@
               "type": "DawnTextureView",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         }
       ]
     },
@@ -3854,7 +6771,8 @@
               "type": "DawnTextureView",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         },
         {
           "name": "loadOp",
@@ -4030,7 +6948,8 @@
               "type": "Object",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         }
       ]
     },
@@ -4075,7 +6994,8 @@
               "type": "Object",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         },
         {
           "name": "vertexInput",
@@ -4088,7 +7008,8 @@
               "type": "Object",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         },
         {
           "name": "primitiveTopology",
@@ -4113,7 +7034,8 @@
               "type": "Object",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         },
         {
           "name": "sampleCount",
@@ -4138,7 +7060,8 @@
               "type": "Object",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         },
         {
           "name": "colorStateCount",

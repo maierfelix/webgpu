@@ -24,12 +24,17 @@
     "terser": "^4.3.1"
   },
   "dependencies": {},
-  "description": "Vulkan API for JavaScript/TypeScript",
+  "description": "WebGPU API for JavaScript (Experimental)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/maierfelix/n-wgpu.git"
   },
-  "keywords": [],
+  "keywords": [
+    "webgpu",
+    "vulkan",
+    "dawn",
+    "gpgpu"
+  ],
   "author": "Felix Maier",
   "license": "MIT",
   "bugs": {

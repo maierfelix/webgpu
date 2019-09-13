@@ -26,6 +26,18 @@ const GEN_FILE_NOTICE = `/*
  */
 `;
 
+const dawnVersion = process.env.npm_config_dawnversion;
+if (!dawnVersion) throw `No Dawn version --dawnversion specified!`;
+
+// dst write paths
+let baseGeneratePath = pkg.config.GEN_OUT_DIR;
+let generateVersionPath = `${baseGeneratePath}/${dawnVersion}`;
+let generatePath = `${generateVersionPath}/${getPlatform()}`;
+let generateSrcPath = `${generatePath}/src`;
+
+// indicating if it's necessary to include memorylayouts in the build
+const includeMemoryLayouts = !fs.existsSync(`${generatePath}/memoryLayouts.json`);
+
 function writeGeneratedFile(path, text, includeNotice = true) {
   if (typeof text !== "string") throw new TypeError(`Expected 'string' type for parameter 'text'`);
   // append notice
@@ -79,7 +91,7 @@ function generateAST(ast) {
   return out;
 };
 
-async function generateBindings({ version, disableMinification } = _) {
+async function generateBindings(version, disableMinification, includeMemoryLayouts) {
   let JSONspecification = fs.readFileSync(pkg.config.SPEC_DIR + `/${version}.json`, "utf-8");
   let fakePlatform = process.env.npm_config_fake_platform;
   // let the user know when he uses a fake platform
@@ -87,16 +99,8 @@ async function generateBindings({ version, disableMinification } = _) {
     console.log(`Fake platform enabled!`);
     console.log(`Fake platform: '${fakePlatform}' - Real platform: '${process.platform}'`);
   }
-  if (disableMinification) {
-    console.log(`Code minification is disabled!`);
-  }
-  // dst write paths
-  let baseGeneratePath = pkg.config.GEN_OUT_DIR;
-  let generateVersionPath = `${baseGeneratePath}/${version}`;
-  let generatePath = `${generateVersionPath}/${getPlatform()}`;
-  let generateSrcPath = `${generatePath}/src`;
-  // indicating if it's necessary to include memorylayouts in the build
-  let includeMemoryLayouts = !fs.existsSync(`${generatePath}/memoryLayouts.json`);
+  if (disableMinification) console.log(`Code minification is disabled!`);
+  if (includeMemoryLayouts) console.log(`Memory layouts are not inlined yet.`);
   // reserve dst write paths
   {
     // generated/
@@ -124,7 +128,7 @@ async function generateBindings({ version, disableMinification } = _) {
   }
   // generate index
   {
-    let out = generateIndex(ast);
+    let out = generateIndex(ast, includeMemoryLayouts);
     // .h
     writeGeneratedFile(`${generatePath}/src/index.h`, out.header);
     // .cpp
@@ -139,7 +143,8 @@ async function generateBindings({ version, disableMinification } = _) {
   console.log(`Successfully generated bindings!`);
 };
 
-const dawnVersion = process.env.npm_config_dawnversion;
-if (!dawnVersion) throw `No Dawn version --dawnversion specified!`;
-
-generateBindings({ version: dawnVersion, disableMinification: true });
+generateBindings(
+  dawnVersion,
+  disableMinification,
+  includeMemoryLayouts
+);

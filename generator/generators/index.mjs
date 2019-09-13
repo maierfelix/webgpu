@@ -14,10 +14,12 @@ const CPP_TEMPLATE = fs.readFileSync(`${pkg.config.TEMPLATE_DIR}/index-cpp.njk`,
 
 nunjucks.configure({ autoescape: true });
 
-export default function(astReference) {
+export default function(astReference, includeMemoryLayouts = false) {
   ast = astReference;
   let out = {};
-  let vars = {};
+  let vars = {
+    includeMemoryLayouts
+  };
   // h
   {
     let template = H_TEMPLATE;

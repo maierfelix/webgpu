@@ -1,5 +1,7 @@
 #include "index.h"
+{% if includeMemoryLayouts == true %}
 #include "memoryLayouts.h"
+{% endif %}
 
 #include "BackendBinding.h"
 #include "TerribleCommandBuffer.h"
@@ -354,7 +356,9 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   dawnShaderModuleRelease(fsModule);
 
   exports["onFrame"] = Napi::Function::New(env, onFrame, "onFrame");
+  {% if includeMemoryLayouts == true %}
   exports["$getMemoryLayouts"] = Napi::Function::New(env, MemoryLayouts, "MemoryLayouts");
+  {% endif %}
   return exports;
 }
 

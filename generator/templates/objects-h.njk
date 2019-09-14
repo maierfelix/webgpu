@@ -15,6 +15,8 @@
 
 #include <algorithm>
 
+#include "BackendBinding.h"
+
 class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
 
   public:
@@ -30,10 +32,18 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     Napi::Value GetLimits(const Napi::CallbackInfo &info);
     Napi::Value GetAdapter(const Napi::CallbackInfo &info);
 
-    dawn_native::Adapter adapter;
+    Napi::ObjectReference extensions;
+    Napi::ObjectReference limits;
+    Napi::ObjectReference adapter;
 
+    dawn_native::Adapter _adapter;
+    BackendBinding* binding;
+
+    dawn::Device device;
+    DawnDevice backendDevice;
   private:
-    //
+    DawnDevice GPUDevice::createDevice();
+    BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, DawnDevice device);
 
 };
 

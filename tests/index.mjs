@@ -2,6 +2,8 @@ import WebGPU from "../index.js";
 
 console.log(WebGPU);
 
+//WebGPU.runExample();
+
 (async function main() {
 
   const adapter = await WebGPU.GPU.requestAdapter();
@@ -9,13 +11,9 @@ console.log(WebGPU);
   console.log("Adapter Extensions:", adapter.extensions);
 
   const device = await adapter.requestDevice();
+  console.log("Device Extensions:", device.extensions);
 
 })();
-
-/*
-const device = adapter.requestDevice();
-console.log(device);
-*/
 
 /*setInterval(() => {
   WebGPU.onFrame();

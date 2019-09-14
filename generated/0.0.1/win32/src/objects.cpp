@@ -12,25 +12,64 @@ Napi::FunctionReference GPUDevice::constructor;
 GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevice>(info) {
   Napi::Env env = info.Env();
 
+  // expect arg 0 be GPUAdapter
+  this->adapter.Reset(info[0].ToObject(), 1);
+  this->_adapter = Napi::ObjectWrap<GPUAdapter>::Unwrap(this->adapter.Value())->adapter;
+
+  if (info[1].IsObject()) {
+    Napi::Object obj = info[1].As<Napi::Object>();
+    if (obj.Has(Napi::String::New(env, "extensions"))) {
+      this->extensions.Reset(obj.Get("extensions").As<Napi::Object>(), 1);
+    }
+    if (obj.Has(Napi::String::New(env, "limits"))) {
+      this->limits.Reset(obj.Get("limits").As<Napi::Object>(), 1);
+    }
+  }
+
+  this->backendDevice = this->createDevice();
+  this->binding = this->createBinding(info, this->backendDevice);
+
+  DawnProcTable procs = dawn_native::GetProcs();
+
+  dawnSetProcs(&procs);
+  //procs.deviceSetUncapturedErrorCallback(this->backendDevice, onDeviceError, nullptr);
+  this->device = dawn::Device::Acquire(this->backendDevice);
 }
 
 GPUDevice::~GPUDevice() {
   // destructor
 }
 
+DawnDevice GPUDevice::createDevice() {
+  DawnDevice device = this->_adapter.CreateDevice();
+  return device;
+}
+
+BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, DawnDevice device) {
+  Napi::Env env = info.Env();
+  dawn_native::BackendType backendType = this->_adapter.GetBackendType();
+  BackendBinding* binding = CreateBinding(backendType, nullptr, device);
+  if (binding == nullptr) {
+    Napi::Error::New(env, "Failed to create binding backend").ThrowAsJavaScriptException();
+  }
+  return binding;
+}
+
 Napi::Value GPUDevice::GetExtensions(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  return Napi::String::New(env, "");
+  if (this->extensions.IsEmpty()) return env.Null();
+  return this->extensions.Value().As<Napi::Object>();
 }
 
 Napi::Value GPUDevice::GetLimits(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  return Napi::Number::New(env, 0);
+  if (this->extensions.IsEmpty()) return env.Null();
+  return this->extensions.Value().As<Napi::Object>();
 }
 
 Napi::Value GPUDevice::GetAdapter(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  return Napi::Object::New(env);
+  return this->adapter.Value().As<Napi::Object>();
 }
 
 Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
@@ -68,12 +107,15 @@ Napi::Value GPUAdapter::requestDevice(const Napi::CallbackInfo &info) {
 
   Napi::Promise::Deferred deferred = Napi::Promise::Deferred::New(env);
 
-  Napi::Object device = GPUDevice::constructor.New({ });
+  std::vector<napi_value> args = {};
+  args.push_back(info.This().As<Napi::Value>());
 
-  // link adapter
-  GPUDevice* uwDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(device);
-  uwDevice->adapter = this->adapter;
+  // process arguments
+  if (info[0].IsObject()) {
+    args.push_back(info[0].As<Napi::Value>());
+  }
 
+  Napi::Object device = GPUDevice::constructor.New(args);
   deferred.Resolve(device);
 
   return deferred.Promise();

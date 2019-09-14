@@ -1,0 +1,79 @@
+#ifndef __OBJECTS_H__
+#define __OBJECTS_H__
+
+#define NAPI_EXPERIMENTAL
+#include <napi.h>
+
+#include <GLFW/glfw3.h>
+
+#include <dawn/dawn.h>
+#include <dawn/dawn_wsi.h>
+#include <dawn/dawncpp.h>
+#include <dawn_native/DawnNative.h>
+#include <dawn_wire/WireClient.h>
+#include <dawn_wire/WireServer.h>
+
+#include <algorithm>
+
+class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
+
+  public:
+
+    static Napi::Object Initialize(Napi::Env env, Napi::Object exports);
+    static Napi::FunctionReference constructor;
+
+    GPUDevice(const Napi::CallbackInfo &info);
+    ~GPUDevice();
+
+    // #accessors
+    Napi::Value GetExtensions(const Napi::CallbackInfo &info);
+    Napi::Value GetLimits(const Napi::CallbackInfo &info);
+    Napi::Value GetAdapter(const Napi::CallbackInfo &info);
+
+    dawn_native::Adapter adapter;
+
+  private:
+    //
+
+};
+
+class GPUAdapter : public Napi::ObjectWrap<GPUAdapter> {
+
+  public:
+
+    static Napi::Object Initialize(Napi::Env env, Napi::Object exports);
+    static Napi::FunctionReference constructor;
+
+    GPUAdapter(const Napi::CallbackInfo &info);
+    ~GPUAdapter();
+
+    // #accessors
+    Napi::Value GetName(const Napi::CallbackInfo &info);
+    Napi::Value GetExtensions(const Napi::CallbackInfo &info);
+
+    Napi::Value requestDevice(const Napi::CallbackInfo &info);
+
+    GLFWwindow* window;
+
+    std::unique_ptr<dawn_native::Instance> instance;
+    dawn_native::Adapter adapter;
+
+  private:
+    GLFWwindow* GPUAdapter::createWindow(const Napi::CallbackInfo& info);
+    dawn_native::Adapter GPUAdapter::createAdapter(const Napi::CallbackInfo& info);
+
+};
+
+class GPU : public Napi::ObjectWrap<GPU> {
+
+  public:
+
+    static Napi::Object Initialize(Napi::Env env, Napi::Object exports);
+    static Napi::FunctionReference constructor;
+
+    GPU(const Napi::CallbackInfo &info);
+    ~GPU();
+
+};
+
+#endif

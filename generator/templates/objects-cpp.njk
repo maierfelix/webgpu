@@ -1,0 +1,205 @@
+#ifndef __SOURCE_CPP__
+#define __SOURCE_CPP__
+
+#include "objects.h"
+
+Napi::FunctionReference GPUDevice::constructor;
+
+GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevice>(info) {
+  Napi::Env env = info.Env();
+
+}
+
+GPUDevice::~GPUDevice() {
+  // destructor
+}
+
+Napi::Value GPUDevice::GetExtensions(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  return Napi::String::New(env, "");
+}
+
+Napi::Value GPUDevice::GetLimits(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  return Napi::Number::New(env, 0);
+}
+
+Napi::Value GPUDevice::GetAdapter(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  return Napi::Object::New(env);
+}
+
+Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
+  Napi::HandleScope scope(env);
+  Napi::Function func = DefineClass(env, "GPUDevice", {
+    InstanceAccessor(
+      "extensions",
+      &GPUDevice::GetExtensions,
+      nullptr,
+      napi_enumerable
+    ),
+    InstanceAccessor(
+      "limits",
+      &GPUDevice::GetLimits,
+      nullptr,
+      napi_enumerable
+    ),
+    InstanceAccessor(
+      "adapter",
+      &GPUDevice::GetAdapter,
+      nullptr,
+      napi_enumerable
+    )
+  });
+  constructor = Napi::Persistent(func);
+  constructor.SuppressDestruct();
+  exports.Set("GPUDevice", func);
+  return exports;
+}
+
+Napi::FunctionReference GPUAdapter::constructor;
+
+Napi::Value GPUAdapter::requestDevice(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+
+  Napi::Promise::Deferred deferred = Napi::Promise::Deferred::New(env);
+
+  Napi::Object device = GPUDevice::constructor.New({ });
+
+  // link adapter
+  GPUDevice* uwDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(device);
+  uwDevice->adapter = this->adapter;
+
+  deferred.Resolve(device);
+
+  return deferred.Promise();
+};
+
+GPUAdapter::GPUAdapter(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUAdapter>(info) {
+  Napi::Env env = info.Env();
+
+  this->window = this->createWindow(info);
+
+  this->instance = std::make_unique<dawn_native::Instance>();
+
+  this->instance->DiscoverDefaultAdapters();
+
+  this->adapter = this->createAdapter(info);
+}
+
+GLFWwindow* GPUAdapter::createWindow(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  if (!glfwInit()) {
+    Napi::Error::New(env, "Failed to initialise GLFW").ThrowAsJavaScriptException();
+    return nullptr;
+  }
+  // backend dependant hints
+  {
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+  }
+  GLFWwindow* window = glfwCreateWindow(640, 480, "NWGPU", nullptr, nullptr);
+  if (!window) {
+    Napi::Error::New(env, "Failed to create window").ThrowAsJavaScriptException();
+    return nullptr;
+  }
+  return window;
+}
+
+dawn_native::Adapter GPUAdapter::createAdapter(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  {
+    std::vector<dawn_native::Adapter> adapters = this->instance->GetAdapters();
+    auto adapterIt = std::find_if(
+      adapters.begin(),
+      adapters.end(),
+      [](const dawn_native::Adapter adapter) -> bool {
+        return adapter.GetBackendType() == dawn_native::BackendType::D3D12;
+      }
+    );
+    if (adapterIt == adapters.end()) {
+      Napi::Error::New(env, "No compatible adapter found").ThrowAsJavaScriptException();
+      return nullptr;
+    }
+    return *adapterIt;
+  }
+}
+
+GPUAdapter::~GPUAdapter() {
+  // destructor
+}
+
+Napi::Value GPUAdapter::GetName(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  return Napi::String::New(env, this->adapter.GetPCIInfo().name);
+}
+
+Napi::Value GPUAdapter::GetExtensions(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+
+  std::vector<const char*> extensions = this->adapter.GetSupportedExtensions();
+
+  Napi::Array out = Napi::Array::New(env);
+  for (unsigned int ii = 0; ii < extensions.size(); ++ii) {
+    out[ii] = Napi::String::New(env, extensions.at(ii));
+  };
+
+  return out;
+}
+
+Napi::Object GPUAdapter::Initialize(Napi::Env env, Napi::Object exports) {
+  Napi::HandleScope scope(env);
+  Napi::Function func = DefineClass(env, "GPUAdapter", {
+    InstanceAccessor(
+      "name",
+      &GPUAdapter::GetName,
+      nullptr,
+      napi_enumerable
+    ),
+    InstanceAccessor(
+      "extensions",
+      &GPUAdapter::GetExtensions,
+      nullptr,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "requestDevice",
+      &GPUAdapter::requestDevice,
+      napi_enumerable
+    )
+  });
+  constructor = Napi::Persistent(func);
+  constructor.SuppressDestruct();
+  exports.Set("GPUAdapter", func);
+  return exports;
+}
+
+Napi::Value requestAdapter(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+
+  auto deferred = Napi::Promise::Deferred::New(env);
+  deferred.Resolve(GPUAdapter::constructor.New({ }));
+
+  return deferred.Promise();
+};
+
+Napi::FunctionReference GPU::constructor;
+
+GPU::GPU(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPU>(info) { }
+GPU::~GPU() { }
+
+Napi::Object GPU::Initialize(Napi::Env env, Napi::Object exports) {
+  Napi::HandleScope scope(env);
+  Napi::Function func = DefineClass(env, "GPU", {
+    StaticMethod(
+      "requestAdapter",
+      &requestAdapter,
+      napi_enumerable
+    )
+  });
+  constructor = Napi::Persistent(func);
+  constructor.SuppressDestruct();
+  exports.Set("GPU", func);
+  return exports;
+}
+
+#endif

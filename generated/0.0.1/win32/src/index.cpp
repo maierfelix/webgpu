@@ -5,6 +5,8 @@
 #include "index.h"
 
 
+#include "objects.h"
+
 #include "BackendBinding.h"
 #include "TerribleCommandBuffer.h"
 
@@ -256,7 +258,7 @@ static Napi::Value onFrame(const Napi::CallbackInfo& info) {
   return env.Undefined();
 }
 
-Napi::Object Init(Napi::Env env, Napi::Object exports) {
+static Napi::Value runExample(const Napi::CallbackInfo& info) {
   device = CreateCppDawnDevice().Release();
   queue = dawnDeviceCreateQueue(device);
 
@@ -357,7 +359,19 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   dawnShaderModuleRelease(vsModule);
   dawnShaderModuleRelease(fsModule);
 
+  return info.Env().Undefined();
+};
+
+Napi::Object Init(Napi::Env env, Napi::Object exports) {
+
+  GPU::Initialize(env, exports);
+  GPUAdapter::Initialize(env, exports);
+  GPUDevice::Initialize(env, exports);
+
+  // example
+  exports["runExample"] = Napi::Function::New(env, runExample, "runExample");
   exports["onFrame"] = Napi::Function::New(env, onFrame, "onFrame");
+
   
   return exports;
 }

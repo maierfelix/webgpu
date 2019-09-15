@@ -17,3 +17,36 @@ const generatedPath = bindingsPath + `${dawnVersion}/${platform}`;
 
 console.log(`${generatedPath}/build/Release/addon-${platform}.node`);
 module.exports = require(`${generatedPath}/build/Release/addon-${platform}.node`);
+
+// the creates an auto tick loop for each device
+{
+  let devices = [];
+  process.nextTick(() => {
+    for (let ii = 0; ii < devices.length; ++ii) {
+      /*if (!device.isDestroyed) */
+      devices[ii].tick();
+    };
+  });
+  const {GPUAdapter} = module.exports;
+  GPUAdapter.prototype.requestDevice = function() {
+    let args = arguments;
+    return new Promise(resolve => {
+      this._requestDevice(...args).then(device => {
+        devices.push(device);
+        resolve(device);
+      });
+    });
+  };
+}
+
+// temporary hack to return a promise instead of a callback
+{
+  const {GPUFence} = module.exports;
+  GPUFence.prototype.onCompletion = function(completionValue) {
+    return new Promise(resolve => {
+      setImmediate(() => {
+        this._onCompletion(completionValue, resolve);
+      });
+    });
+  };
+}

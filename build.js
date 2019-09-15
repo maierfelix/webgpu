@@ -60,7 +60,10 @@ function copyFiles() {
     let dawnOutputDir = dawnDir + "/out/Shared2";
     let baseDir = `./lib/${unitPlatform}/${architecture}`;
     let targetDir = `${generatePath}/build/Release`;
-    let files = [];
+    let files = [
+      // src folder
+      [`./src/`, targetDir + "/../../src/"]
+    ];
     // add win32 runtime files
     if (platform === "win32") {
       files.push([`${baseDir}/GLFW/glfw3.dll`, targetDir]);

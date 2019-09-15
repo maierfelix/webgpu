@@ -13,8 +13,15 @@ console.log(WebGPU);
   const device = await adapter.requestDevice();
   console.log("Device Extensions:", device.extensions);
 
-})();
+  console.log(device);
+  const queue = device.getQueue();
+  console.log("Queue:", queue);
 
-/*setInterval(() => {
-  WebGPU.onFrame();
-}, 1e3 / 60);*/
+  {
+    const fence = queue.createFence();
+    queue.signal(fence, 2n);
+    await fence.onCompletion(2n);
+    console.log(fence.getCompletedValue());
+  }
+
+})();

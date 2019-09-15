@@ -40,6 +40,11 @@ console.log(WebGPU);
     console.log("Buffer:", buffer);
     let writeBuffer = await buffer.mapWriteAsync();
     console.log("Write Buffer:", writeBuffer);
+    buffer.unmap();
+    console.log("Write Buffer Unmapped");
+    console.log("Write Buffer .byteLength should be 0:", writeBuffer.byteLength);
+    buffer.destroy();
+    console.log("Write Buffer Destroyed");
   }
 
 })();

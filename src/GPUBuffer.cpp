@@ -62,10 +62,14 @@ Napi::Value GPUBuffer::mapReadAsync(const Napi::CallbackInfo &info) {
     };
   }
 
+  // TODO: neuter arraybuffer on freeing
   Napi::ArrayBuffer buffer = Napi::ArrayBuffer::New(
     env,
     callbackResult.addr,
-    callbackResult.length
+    callbackResult.length,
+    [](Napi::Env, void* data) {
+      delete[] static_cast<uint8_t*>(data);
+    }
   );
 
   callback.Call({ buffer });
@@ -98,10 +102,14 @@ Napi::Value GPUBuffer::mapWriteAsync(const Napi::CallbackInfo &info) {
     };
   }
 
+  // TODO: neuter arraybuffer on freeing
   Napi::ArrayBuffer buffer = Napi::ArrayBuffer::New(
     env,
     callbackResult.addr,
-    callbackResult.length
+    callbackResult.length,
+    [](Napi::Env, void* data) {
+      delete[] static_cast<uint8_t*>(data);
+    }
   );
 
   callback.Call({ buffer });

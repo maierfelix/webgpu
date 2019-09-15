@@ -32,26 +32,33 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
   dawnSetProcs(&procs);
   procs.deviceSetUncapturedErrorCallback(
     this->backendDevice,
-    [](DawnErrorType errorType, const char* message, void*) {
+    [](DawnErrorType errorType, const char* message, void* ptr) {
+      std::string type;
       switch (errorType) {
         case DAWN_ERROR_TYPE_VALIDATION:
-          std::cout << "Validation ";
+          type = "Validation";
         break;
         case DAWN_ERROR_TYPE_OUT_OF_MEMORY:
-          std::cout << "Out of memory ";
+          type = "Out of memory";
         break;
         case DAWN_ERROR_TYPE_UNKNOWN:
-          std::cout << "Unknown ";
+          type = "Unknown";
         break;
         case DAWN_ERROR_TYPE_DEVICE_LOST:
-          std::cout << "Device lost ";
+          type = "Device lost";
         break;
         default:
-          return;
+          type = "Undefined";
+        break;
       }
-      std::cout << "error: " << message << std::endl;
+      GPUDevice* self = reinterpret_cast<GPUDevice*>(ptr);
+      Napi::Env env = self->onErrorCallback.Env();
+      self->onErrorCallback.Call({
+        Napi::String::New(env, type),
+        Napi::String::New(env, (type + " Error: " + message))
+      });
     },
-    nullptr
+    reinterpret_cast<void*>(this)
   );
   this->device = dawn::Device::Acquire(this->backendDevice);
 
@@ -103,6 +110,11 @@ Napi::Value GPUDevice::GetAdapter(const Napi::CallbackInfo& info) {
   return this->adapter.Value().As<Napi::Object>();
 }
 
+void GPUDevice::SetOnErrorCallback(const Napi::CallbackInfo& info, const Napi::Value& value) {
+  Napi::Env env = info.Env();
+  this->onErrorCallback.Reset(value.As<Napi::Function>());
+}
+
 Napi::Value GPUDevice::tick(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   this->device.Tick();
@@ -143,6 +155,12 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
       "adapter",
       &GPUDevice::GetAdapter,
       nullptr,
+      napi_enumerable
+    ),
+    InstanceAccessor(
+      "_onErrorCallback",
+      nullptr,
+      &GPUDevice::SetOnErrorCallback,
       napi_enumerable
     ),
     InstanceMethod(

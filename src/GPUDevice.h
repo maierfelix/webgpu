@@ -19,6 +19,7 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     Napi::Value GetExtensions(const Napi::CallbackInfo &info);
     Napi::Value GetLimits(const Napi::CallbackInfo &info);
     Napi::Value GetAdapter(const Napi::CallbackInfo &info);
+    void SetOnErrorCallback(const Napi::CallbackInfo& info, const Napi::Value& value);
 
     Napi::Value tick(const Napi::CallbackInfo &info);
     Napi::Value getQueue(const Napi::CallbackInfo &info);
@@ -29,6 +30,8 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     Napi::ObjectReference adapter;
 
     Napi::ObjectReference mainQueue;
+
+    Napi::FunctionReference onErrorCallback;
 
     dawn_native::Adapter _adapter;
     BackendBinding* binding;

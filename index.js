@@ -30,8 +30,12 @@ module.exports = require(`${generatedPath}/build/Release/addon-${platform}.node`
   const {GPUAdapter} = module.exports;
   GPUAdapter.prototype.requestDevice = function() {
     let args = arguments;
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this._requestDevice(...args).then(device => {
+        device._onErrorCallback = function(type, msg) {
+          let err = new Error(msg);
+          setImmediate(() => { throw err; });
+        };
         devices.push(device);
         resolve(device);
       });

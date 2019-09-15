@@ -62,6 +62,7 @@ Napi::Value GPUBuffer::mapReadAsync(const Napi::CallbackInfo &info) {
     };
   }
 
+  // TODO: neuter arraybuffer on freeing
   Napi::ArrayBuffer buffer = Napi::ArrayBuffer::New(
     env,
     callbackResult.addr,
@@ -101,6 +102,7 @@ Napi::Value GPUBuffer::mapWriteAsync(const Napi::CallbackInfo &info) {
     };
   }
 
+  // TODO: neuter arraybuffer on freeing
   Napi::ArrayBuffer buffer = Napi::ArrayBuffer::New(
     env,
     callbackResult.addr,

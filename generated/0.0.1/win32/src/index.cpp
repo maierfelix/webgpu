@@ -12,6 +12,7 @@
 #include "GPUFence.h"
 #include "GPUBuffer.h"
 #include "GPUTexture.h"
+#include "GPUTextureView.h"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
@@ -22,6 +23,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUFence::Initialize(env, exports);
   GPUBuffer::Initialize(env, exports);
   GPUTexture::Initialize(env, exports);
+  GPUTextureView::Initialize(env, exports);
 
   
   return exports;

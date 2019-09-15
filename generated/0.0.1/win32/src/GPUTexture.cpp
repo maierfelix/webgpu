@@ -1,5 +1,6 @@
 #include "GPUTexture.h"
 #include "GPUDevice.h"
+#include "GPUTextureView.h"
 
 Napi::FunctionReference GPUTexture::constructor;
 
@@ -62,8 +63,12 @@ GPUTexture::~GPUTexture() {
 
 Napi::Value GPUTexture::createView(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
-
-  return env.Undefined();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>()
+  };
+  if (info[0].IsObject()) args.push_back(info[0].As<Napi::Value>());
+  Napi::Object textureView = GPUTextureView::constructor.New(args);
+  return textureView;
 }
 
 Napi::Value GPUTexture::destroy(const Napi::CallbackInfo &info) {

@@ -1,15 +1,14 @@
 import WebGPU from "../index.js";
 
-console.log(WebGPU);
-
 (async function main() {
 
   const adapter = await WebGPU.GPU.requestAdapter();
+  console.log("Adapter:", adapter);
   console.log("Adapter Name:", adapter.name);
   console.log("Adapter Extensions:", adapter.extensions);
 
   const device = await adapter.requestDevice();
-  console.log("Device Extensions:", device.extensions);
+  console.log("Device:", device);
 
   console.log(device);
   const queue = device.getQueue();
@@ -95,6 +94,10 @@ console.log(WebGPU);
 
     new Uint8Array(textureArrayBuffer).set(image.data, 0x0);
     textureDataBuffer.unmap();
+
+    let textureView = texture.createView();
+    console.log("Texture View:", textureView);
+
   }
 
 })();

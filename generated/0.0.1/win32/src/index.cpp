@@ -13,6 +13,7 @@
 #include "GPUBuffer.h"
 #include "GPUTexture.h"
 #include "GPUTextureView.h"
+#include "GPUSampler.h"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
@@ -24,6 +25,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUBuffer::Initialize(env, exports);
   GPUTexture::Initialize(env, exports);
   GPUTextureView::Initialize(env, exports);
+  GPUSampler::Initialize(env, exports);
 
   
   return exports;

@@ -27,6 +27,7 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     Napi::Value createBufferMapped(const Napi::CallbackInfo &info);
     Napi::Value createBufferMappedAsync(const Napi::CallbackInfo &info);
     Napi::Value createTexture(const Napi::CallbackInfo &info);
+    Napi::Value createSampler(const Napi::CallbackInfo &info);
 
     Napi::ObjectReference extensions;
     Napi::ObjectReference limits;

@@ -3,6 +3,7 @@
 #include "GPUQueue.h"
 #include "GPUBuffer.h"
 #include "GPUTexture.h"
+#include "GPUSampler.h"
 
 Napi::FunctionReference GPUDevice::constructor;
 
@@ -167,6 +168,16 @@ Napi::Value GPUDevice::createTexture(const Napi::CallbackInfo &info) {
   return texture;
 }
 
+Napi::Value GPUDevice::createSampler(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>()
+  };
+  if (info[0].IsObject()) args.push_back(info[0].As<Napi::Value>());
+  Napi::Object sampler = GPUSampler::constructor.New(args);
+  return sampler;
+}
+
 Napi::Value GPUDevice::getQueue(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   return this->mainQueue.Value().As<Napi::Object>();
@@ -227,6 +238,11 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "createTexture",
       &GPUDevice::createTexture,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createSampler",
+      &GPUDevice::createSampler,
       napi_enumerable
     ),
   });

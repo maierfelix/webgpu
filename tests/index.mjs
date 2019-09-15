@@ -100,4 +100,11 @@ import WebGPU from "../index.js";
 
   }
 
+  {
+    let sampler = device.createSampler({
+      addressModeU: 0x00000002
+    });
+    console.log("Sampler:", sampler);
+  }
+
 })();

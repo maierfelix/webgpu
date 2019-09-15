@@ -47,21 +47,54 @@ console.log(WebGPU);
   }
 
   {
-    const [buffer, arrBuffer] = device.createBufferMapped({
+    const [buffer, arrayBuffer] = device.createBufferMapped({
       size: 128n,
       usage: 0x0001
     });
     console.log("Create Buffer Mapped: Buffer:", buffer);
-    console.log("Create Buffer Mapped: ArrayBuffer", arrBuffer);
+    console.log("Create Buffer Mapped: ArrayBuffer", arrayBuffer);
   }
 
   {
-    const [buffer, arrBuffer] = await device.createBufferMappedAsync({
+    const [buffer, arrayBuffer] = await device.createBufferMappedAsync({
       size: 128n,
       usage: 0x0001
     });
     console.log("Create Buffer Mapped Async: Buffer:", buffer);
-    console.log("Create Buffer Mapped Async: ArrayBuffer", arrBuffer);
+    console.log("Create Buffer Mapped Async: ArrayBuffer", arrayBuffer);
+  }
+
+  {
+    let image = {
+      width: 256,
+      height: 256,
+      data: new Uint8Array(256 * 256 * 4)
+    };
+
+    let texture = device.createTexture({
+      size: {
+        width: image.width,
+        height: image.height,
+        depth: 1
+      },
+      arrayLayerCount: 1,
+      mipLevelCount: 1,
+      sampleCount: 1,
+      dimension: "2d",
+      format: "rgba8unorm",
+      usage: 0x00000002 | 0x00000004
+    });
+    console.log("Texture:", texture);
+
+    let [textureDataBuffer, textureArrayBuffer] = device.createBufferMapped({
+      size: BigInt(image.data.length),
+      usage: 0x00000001
+    });
+    console.log("Texture Buffer:", textureDataBuffer);
+    console.log("Texture ArrayBuffer:", textureArrayBuffer);
+
+    new Uint8Array(textureArrayBuffer).set(image.data, 0x0);
+    textureDataBuffer.unmap();
   }
 
 })();

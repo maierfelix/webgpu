@@ -11,6 +11,7 @@
 #include "GPUQueue.h"
 #include "GPUFence.h"
 #include "GPUBuffer.h"
+#include "GPUTexture.h"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
@@ -20,6 +21,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUQueue::Initialize(env, exports);
   GPUFence::Initialize(env, exports);
   GPUBuffer::Initialize(env, exports);
+  GPUTexture::Initialize(env, exports);
 
   
   return exports;

@@ -2,8 +2,7 @@
 #include "GPUAdapter.h"
 #include "GPUQueue.h"
 #include "GPUBuffer.h"
-
-#include <iostream>
+#include "GPUTexture.h"
 
 Napi::FunctionReference GPUDevice::constructor;
 
@@ -86,10 +85,9 @@ BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, DawnDev
 
 Napi::Object GPUDevice::createQueue(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  std::vector<napi_value> args = {
+  Napi::Object queue = GPUQueue::constructor.New({
     info.This().As<Napi::Value>()
-  };
-  Napi::Object queue = GPUQueue::constructor.New(args);
+  });
   return queue;
 }
 
@@ -123,11 +121,10 @@ Napi::Value GPUDevice::tick(const Napi::CallbackInfo& info) {
 
 Napi::Value GPUDevice::createBuffer(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  std::vector<napi_value> args = {
-    info.This().As<Napi::Value>()
-  };
-  args.push_back(info[0].As<Napi::Value>());
-  Napi::Object buffer = GPUBuffer::constructor.New(args);
+  Napi::Object buffer = GPUBuffer::constructor.New({
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  });
   return buffer;
 }
 
@@ -159,6 +156,15 @@ Napi::Value GPUDevice::createBufferMappedAsync(const Napi::CallbackInfo &info) {
   out.Set(Napi::Number::New(env, 1), arrBuffer);
   callback.Call({ out });
   return env.Undefined();
+}
+
+Napi::Value GPUDevice::createTexture(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  Napi::Object texture = GPUTexture::constructor.New({
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  });
+  return texture;
 }
 
 Napi::Value GPUDevice::getQueue(const Napi::CallbackInfo& info) {
@@ -216,6 +222,11 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "_createBufferMappedAsync",
       &GPUDevice::createBufferMappedAsync,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createTexture",
+      &GPUDevice::createTexture,
       napi_enumerable
     ),
   });

@@ -2705,6 +2705,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -2718,6 +2719,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -2731,6 +2733,7 @@
                 "length": "count",
                 "isReference": true,
                 "rawType": "const void*",
+                "isRequired": true,
                 "jsType": {
                   "type": "ArrayBuffer",
                   "isArrayBuffer": true
@@ -2740,6 +2743,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -2754,6 +2758,7 @@
               "type": {
                 "isFunction": true,
                 "rawType": "buffer map read callback",
+                "isRequired": true,
                 "jsType": {
                   "type": "Function",
                   "isFunction": true
@@ -2765,6 +2770,7 @@
               "type": {
                 "isReference": true,
                 "rawType": "void*",
+                "isRequired": true,
                 "jsType": {
                   "type": "ArrayBuffer",
                   "isArrayBuffer": true
@@ -2774,6 +2780,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -2788,6 +2795,7 @@
               "type": {
                 "isFunction": true,
                 "rawType": "buffer map write callback",
+                "isRequired": true,
                 "jsType": {
                   "type": "Function",
                   "isFunction": true
@@ -2799,6 +2807,7 @@
               "type": {
                 "isReference": true,
                 "rawType": "void*",
+                "isRequired": true,
                 "jsType": {
                   "type": "ArrayBuffer",
                   "isArrayBuffer": true
@@ -2808,6 +2817,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -2819,6 +2829,7 @@
           "children": [],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -2830,6 +2841,7 @@
           "children": [],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -2861,6 +2873,7 @@
                 "nativeType": "DawnCommandBufferDescriptor",
                 "isReference": true,
                 "rawType": "const DawnCommandBufferDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -2873,6 +2886,7 @@
             "isObject": true,
             "nativeType": "DawnCommandBuffer",
             "rawType": "DawnCommandBuffer",
+            "isRequired": true,
             "jsType": {
               "type": "DawnCommandBuffer",
               "isObject": true
@@ -2889,6 +2903,7 @@
                 "nativeType": "DawnComputePassDescriptor",
                 "isReference": true,
                 "rawType": "const DawnComputePassDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -2901,6 +2916,7 @@
             "isObject": true,
             "nativeType": "DawnComputePassEncoder",
             "rawType": "DawnComputePassEncoder",
+            "isRequired": true,
             "jsType": {
               "type": "DawnComputePassEncoder",
               "isObject": true
@@ -2917,6 +2933,7 @@
                 "nativeType": "DawnRenderPassDescriptor",
                 "isReference": true,
                 "rawType": "const DawnRenderPassDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -2928,6 +2945,7 @@
             "isObject": true,
             "nativeType": "DawnRenderPassEncoder",
             "rawType": "DawnRenderPassEncoder",
+            "isRequired": true,
             "jsType": {
               "type": "DawnRenderPassEncoder",
               "isObject": true
@@ -2943,6 +2961,7 @@
                 "isObject": true,
                 "nativeType": "DawnBuffer",
                 "rawType": "DawnBuffer",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -2955,6 +2974,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -2968,6 +2988,7 @@
                 "isObject": true,
                 "nativeType": "DawnBuffer",
                 "rawType": "DawnBuffer",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -2980,6 +3001,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -2993,6 +3015,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -3003,6 +3026,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3019,6 +3043,7 @@
                 "nativeType": "DawnBufferCopyView",
                 "isReference": true,
                 "rawType": "const DawnBufferCopyView*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3032,6 +3057,7 @@
                 "nativeType": "DawnTextureCopyView",
                 "isReference": true,
                 "rawType": "const DawnTextureCopyView*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3045,6 +3071,7 @@
                 "nativeType": "DawnExtent3D",
                 "isReference": true,
                 "rawType": "const DawnExtent3D*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3054,6 +3081,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3070,6 +3098,7 @@
                 "nativeType": "DawnTextureCopyView",
                 "isReference": true,
                 "rawType": "const DawnTextureCopyView*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3083,6 +3112,7 @@
                 "nativeType": "DawnBufferCopyView",
                 "isReference": true,
                 "rawType": "const DawnBufferCopyView*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3096,6 +3126,7 @@
                 "nativeType": "DawnExtent3D",
                 "isReference": true,
                 "rawType": "const DawnExtent3D*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3105,6 +3136,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3121,6 +3153,7 @@
                 "nativeType": "DawnTextureCopyView",
                 "isReference": true,
                 "rawType": "const DawnTextureCopyView*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3134,6 +3167,7 @@
                 "nativeType": "DawnTextureCopyView",
                 "isReference": true,
                 "rawType": "const DawnTextureCopyView*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3147,6 +3181,7 @@
                 "nativeType": "DawnExtent3D",
                 "isReference": true,
                 "rawType": "const DawnExtent3D*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3156,6 +3191,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3173,6 +3209,7 @@
                 "length": "strlen",
                 "isReference": true,
                 "rawType": "const char*",
+                "isRequired": true,
                 "jsType": {
                   "type": "String",
                   "isString": true
@@ -3182,6 +3219,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3193,6 +3231,7 @@
           "children": [],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3210,6 +3249,7 @@
                 "length": "strlen",
                 "isReference": true,
                 "rawType": "const char*",
+                "isRequired": true,
                 "jsType": {
                   "type": "String",
                   "isString": true
@@ -3219,6 +3259,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3244,6 +3285,7 @@
                 "length": "strlen",
                 "isReference": true,
                 "rawType": "const char*",
+                "isRequired": true,
                 "jsType": {
                   "type": "String",
                   "isString": true
@@ -3253,6 +3295,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3264,6 +3307,7 @@
           "children": [],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3281,6 +3325,7 @@
                 "length": "strlen",
                 "isReference": true,
                 "rawType": "const char*",
+                "isRequired": true,
                 "jsType": {
                   "type": "String",
                   "isString": true
@@ -3290,6 +3335,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3305,6 +3351,7 @@
                 "isObject": true,
                 "nativeType": "DawnComputePipeline",
                 "rawType": "DawnComputePipeline",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnComputePipeline",
                   "isObject": true
@@ -3314,6 +3361,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3329,6 +3377,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -3341,6 +3390,7 @@
                 "isObject": true,
                 "nativeType": "DawnBindGroup",
                 "rawType": "DawnBindGroup",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBindGroup",
                   "isObject": true
@@ -3353,6 +3403,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -3367,6 +3418,7 @@
                 "length": "dynamicOffsetCount",
                 "isReference": true,
                 "rawType": "const uint64_t*",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -3377,6 +3429,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3392,6 +3445,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -3404,6 +3458,7 @@
                 "isNumber": true,
                 "initialValue": "1",
                 "rawType": "uint32_t",
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -3416,6 +3471,7 @@
                 "isNumber": true,
                 "initialValue": "1",
                 "rawType": "uint32_t",
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -3425,6 +3481,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3440,6 +3497,7 @@
                 "isObject": true,
                 "nativeType": "DawnBuffer",
                 "rawType": "DawnBuffer",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -3452,6 +3510,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -3462,6 +3521,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3473,6 +3533,7 @@
           "children": [],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3504,6 +3565,7 @@
                 "nativeType": "DawnBindGroupDescriptor",
                 "isReference": true,
                 "rawType": "const DawnBindGroupDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3515,6 +3577,7 @@
             "isObject": true,
             "nativeType": "DawnBindGroup",
             "rawType": "DawnBindGroup",
+            "isRequired": true,
             "jsType": {
               "type": "DawnBindGroup",
               "isObject": true
@@ -3531,6 +3594,7 @@
                 "nativeType": "DawnBindGroupLayoutDescriptor",
                 "isReference": true,
                 "rawType": "const DawnBindGroupLayoutDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3542,6 +3606,7 @@
             "isObject": true,
             "nativeType": "DawnBindGroupLayout",
             "rawType": "DawnBindGroupLayout",
+            "isRequired": true,
             "jsType": {
               "type": "DawnBindGroupLayout",
               "isObject": true
@@ -3558,6 +3623,7 @@
                 "nativeType": "DawnBufferDescriptor",
                 "isReference": true,
                 "rawType": "const DawnBufferDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3569,6 +3635,7 @@
             "isObject": true,
             "nativeType": "DawnBuffer",
             "rawType": "DawnBuffer",
+            "isRequired": true,
             "jsType": {
               "type": "DawnBuffer",
               "isObject": true
@@ -3585,6 +3652,7 @@
                 "nativeType": "DawnBufferDescriptor",
                 "isReference": true,
                 "rawType": "const DawnBufferDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3596,6 +3664,7 @@
             "isStructure": true,
             "nativeType": "DawnCreateBufferMappedResult",
             "rawType": "DawnCreateBufferMappedResult",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -3612,6 +3681,7 @@
                 "nativeType": "DawnBufferDescriptor",
                 "isReference": true,
                 "rawType": "const DawnBufferDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3623,6 +3693,7 @@
               "type": {
                 "isFunction": true,
                 "rawType": "buffer create mapped callback",
+                "isRequired": true,
                 "jsType": {
                   "type": "Function",
                   "isFunction": true
@@ -3634,6 +3705,7 @@
               "type": {
                 "isReference": true,
                 "rawType": "void*",
+                "isRequired": true,
                 "jsType": {
                   "type": "ArrayBuffer",
                   "isArrayBuffer": true
@@ -3643,6 +3715,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3659,6 +3732,7 @@
                 "nativeType": "DawnCommandEncoderDescriptor",
                 "isReference": true,
                 "rawType": "const DawnCommandEncoderDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3671,6 +3745,7 @@
             "isObject": true,
             "nativeType": "DawnCommandEncoder",
             "rawType": "DawnCommandEncoder",
+            "isRequired": true,
             "jsType": {
               "type": "DawnCommandEncoder",
               "isObject": true
@@ -3687,6 +3762,7 @@
                 "nativeType": "DawnComputePipelineDescriptor",
                 "isReference": true,
                 "rawType": "const DawnComputePipelineDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3698,6 +3774,7 @@
             "isObject": true,
             "nativeType": "DawnComputePipeline",
             "rawType": "DawnComputePipeline",
+            "isRequired": true,
             "jsType": {
               "type": "DawnComputePipeline",
               "isObject": true
@@ -3714,6 +3791,7 @@
                 "nativeType": "DawnRenderPipelineDescriptor",
                 "isReference": true,
                 "rawType": "const DawnRenderPipelineDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3725,6 +3803,7 @@
             "isObject": true,
             "nativeType": "DawnRenderPipeline",
             "rawType": "DawnRenderPipeline",
+            "isRequired": true,
             "jsType": {
               "type": "DawnRenderPipeline",
               "isObject": true
@@ -3741,6 +3820,7 @@
                 "nativeType": "DawnPipelineLayoutDescriptor",
                 "isReference": true,
                 "rawType": "const DawnPipelineLayoutDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3752,6 +3832,7 @@
             "isObject": true,
             "nativeType": "DawnPipelineLayout",
             "rawType": "DawnPipelineLayout",
+            "isRequired": true,
             "jsType": {
               "type": "DawnPipelineLayout",
               "isObject": true
@@ -3765,6 +3846,7 @@
             "isObject": true,
             "nativeType": "DawnQueue",
             "rawType": "DawnQueue",
+            "isRequired": true,
             "jsType": {
               "type": "DawnQueue",
               "isObject": true
@@ -3781,6 +3863,7 @@
                 "nativeType": "DawnRenderBundleEncoderDescriptor",
                 "isReference": true,
                 "rawType": "const DawnRenderBundleEncoderDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3792,6 +3875,7 @@
             "isObject": true,
             "nativeType": "DawnRenderBundleEncoder",
             "rawType": "DawnRenderBundleEncoder",
+            "isRequired": true,
             "jsType": {
               "type": "DawnRenderBundleEncoder",
               "isObject": true
@@ -3808,6 +3892,7 @@
                 "nativeType": "DawnSamplerDescriptor",
                 "isReference": true,
                 "rawType": "const DawnSamplerDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3819,6 +3904,7 @@
             "isObject": true,
             "nativeType": "DawnSampler",
             "rawType": "DawnSampler",
+            "isRequired": true,
             "jsType": {
               "type": "DawnSampler",
               "isObject": true
@@ -3835,6 +3921,7 @@
                 "nativeType": "DawnShaderModuleDescriptor",
                 "isReference": true,
                 "rawType": "const DawnShaderModuleDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3846,6 +3933,7 @@
             "isObject": true,
             "nativeType": "DawnShaderModule",
             "rawType": "DawnShaderModule",
+            "isRequired": true,
             "jsType": {
               "type": "DawnShaderModule",
               "isObject": true
@@ -3862,6 +3950,7 @@
                 "nativeType": "DawnSwapChainDescriptor",
                 "isReference": true,
                 "rawType": "const DawnSwapChainDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3873,6 +3962,7 @@
             "isObject": true,
             "nativeType": "DawnSwapChain",
             "rawType": "DawnSwapChain",
+            "isRequired": true,
             "jsType": {
               "type": "DawnSwapChain",
               "isObject": true
@@ -3889,6 +3979,7 @@
                 "nativeType": "DawnTextureDescriptor",
                 "isReference": true,
                 "rawType": "const DawnTextureDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3900,6 +3991,7 @@
             "isObject": true,
             "nativeType": "DawnTexture",
             "rawType": "DawnTexture",
+            "isRequired": true,
             "jsType": {
               "type": "DawnTexture",
               "isObject": true
@@ -3911,6 +4003,7 @@
           "children": [],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3925,6 +4018,7 @@
               "type": {
                 "isFunction": true,
                 "rawType": "error callback",
+                "isRequired": true,
                 "jsType": {
                   "type": "Function",
                   "isFunction": true
@@ -3936,6 +4030,7 @@
               "type": {
                 "isReference": true,
                 "rawType": "void*",
+                "isRequired": true,
                 "jsType": {
                   "type": "ArrayBuffer",
                   "isArrayBuffer": true
@@ -3945,6 +4040,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3960,6 +4056,7 @@
                 "isEnum": true,
                 "nativeType": "DawnErrorFilter",
                 "rawType": "DawnErrorFilter",
+                "isRequired": true,
                 "jsType": {
                   "type": "String",
                   "isString": true
@@ -3969,6 +4066,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -3983,6 +4081,7 @@
               "type": {
                 "isFunction": true,
                 "rawType": "error callback",
+                "isRequired": true,
                 "jsType": {
                   "type": "Function",
                   "isFunction": true
@@ -3994,6 +4093,7 @@
               "type": {
                 "isReference": true,
                 "rawType": "void*",
+                "isRequired": true,
                 "jsType": {
                   "type": "ArrayBuffer",
                   "isArrayBuffer": true
@@ -4005,6 +4105,7 @@
             "isBoolean": true,
             "initialValue": "false",
             "rawType": "bool",
+            "isRequired": true,
             "jsType": {
               "type": "Boolean",
               "isBoolean": true
@@ -4026,6 +4127,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint64_t",
+            "isRequired": true,
             "jsType": {
               "type": "BigInt",
               "isNumber": true,
@@ -4042,6 +4144,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4054,6 +4157,7 @@
               "type": {
                 "isFunction": true,
                 "rawType": "fence on completion callback",
+                "isRequired": true,
                 "jsType": {
                   "type": "Function",
                   "isFunction": true
@@ -4065,6 +4169,7 @@
               "type": {
                 "isReference": true,
                 "rawType": "void*",
+                "isRequired": true,
                 "jsType": {
                   "type": "ArrayBuffer",
                   "isArrayBuffer": true
@@ -4074,6 +4179,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4104,6 +4210,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4118,6 +4225,7 @@
                 "length": "commandCount",
                 "isReference": true,
                 "rawType": "const DawnCommandBuffer*",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnCommandBuffer",
                   "isObject": true
@@ -4127,6 +4235,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4142,6 +4251,7 @@
                 "isObject": true,
                 "nativeType": "DawnFence",
                 "rawType": "DawnFence",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnFence",
                   "isObject": true
@@ -4154,6 +4264,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4164,6 +4275,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4180,6 +4292,7 @@
                 "nativeType": "DawnFenceDescriptor",
                 "isReference": true,
                 "rawType": "const DawnFenceDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -4191,6 +4304,7 @@
             "isObject": true,
             "nativeType": "DawnFence",
             "rawType": "DawnFence",
+            "isRequired": true,
             "jsType": {
               "type": "DawnFence",
               "isObject": true
@@ -4221,6 +4335,7 @@
                 "isObject": true,
                 "nativeType": "DawnRenderPipeline",
                 "rawType": "DawnRenderPipeline",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnRenderPipeline",
                   "isObject": true
@@ -4230,6 +4345,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4245,6 +4361,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4257,6 +4374,7 @@
                 "isObject": true,
                 "nativeType": "DawnBindGroup",
                 "rawType": "DawnBindGroup",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBindGroup",
                   "isObject": true
@@ -4269,6 +4387,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4283,6 +4402,7 @@
                 "length": "dynamicOffsetCount",
                 "isReference": true,
                 "rawType": "const uint64_t*",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4293,6 +4413,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4308,6 +4429,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4320,6 +4442,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4332,6 +4455,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4344,6 +4468,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4353,6 +4478,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4368,6 +4494,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4380,6 +4507,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4392,6 +4520,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4404,6 +4533,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "int32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4416,6 +4546,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4425,6 +4556,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4440,6 +4572,7 @@
                 "isObject": true,
                 "nativeType": "DawnBuffer",
                 "rawType": "DawnBuffer",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -4452,6 +4585,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4462,6 +4596,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4477,6 +4612,7 @@
                 "isObject": true,
                 "nativeType": "DawnBuffer",
                 "rawType": "DawnBuffer",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -4489,6 +4625,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4499,6 +4636,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4516,6 +4654,7 @@
                 "length": "strlen",
                 "isReference": true,
                 "rawType": "const char*",
+                "isRequired": true,
                 "jsType": {
                   "type": "String",
                   "isString": true
@@ -4525,6 +4664,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4536,6 +4676,7 @@
           "children": [],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4553,6 +4694,7 @@
                 "length": "strlen",
                 "isReference": true,
                 "rawType": "const char*",
+                "isRequired": true,
                 "jsType": {
                   "type": "String",
                   "isString": true
@@ -4562,6 +4704,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4577,6 +4720,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4589,6 +4733,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4603,6 +4748,7 @@
                 "length": "count",
                 "isReference": true,
                 "rawType": "const DawnBuffer*",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -4617,6 +4763,7 @@
                 "length": "count",
                 "isReference": true,
                 "rawType": "const uint64_t*",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4627,6 +4774,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4642,6 +4790,7 @@
                 "isObject": true,
                 "nativeType": "DawnBuffer",
                 "rawType": "DawnBuffer",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -4654,6 +4803,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4664,6 +4814,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4680,6 +4831,7 @@
                 "nativeType": "DawnRenderBundleDescriptor",
                 "isReference": true,
                 "rawType": "const DawnRenderBundleDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -4692,6 +4844,7 @@
             "isObject": true,
             "nativeType": "DawnRenderBundle",
             "rawType": "DawnRenderBundle",
+            "isRequired": true,
             "jsType": {
               "type": "DawnRenderBundle",
               "isObject": true
@@ -4715,6 +4868,7 @@
                 "isObject": true,
                 "nativeType": "DawnRenderPipeline",
                 "rawType": "DawnRenderPipeline",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnRenderPipeline",
                   "isObject": true
@@ -4724,6 +4878,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4739,6 +4894,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4751,6 +4907,7 @@
                 "isObject": true,
                 "nativeType": "DawnBindGroup",
                 "rawType": "DawnBindGroup",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBindGroup",
                   "isObject": true
@@ -4763,6 +4920,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4777,6 +4935,7 @@
                 "length": "dynamicOffsetCount",
                 "isReference": true,
                 "rawType": "const uint64_t*",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4787,6 +4946,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4802,6 +4962,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4814,6 +4975,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4826,6 +4988,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4838,6 +5001,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4847,6 +5011,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4862,6 +5027,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4874,6 +5040,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4886,6 +5053,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4898,6 +5066,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "int32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4910,6 +5079,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4919,6 +5089,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4934,6 +5105,7 @@
                 "isObject": true,
                 "nativeType": "DawnBuffer",
                 "rawType": "DawnBuffer",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -4946,6 +5118,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4956,6 +5129,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -4971,6 +5145,7 @@
                 "isObject": true,
                 "nativeType": "DawnBuffer",
                 "rawType": "DawnBuffer",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -4983,6 +5158,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4993,6 +5169,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5008,6 +5185,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5022,6 +5200,7 @@
                 "length": "bundlesCount",
                 "isReference": true,
                 "rawType": "const DawnRenderBundle*",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnRenderBundle",
                   "isObject": true
@@ -5031,6 +5210,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5048,6 +5228,7 @@
                 "length": "strlen",
                 "isReference": true,
                 "rawType": "const char*",
+                "isRequired": true,
                 "jsType": {
                   "type": "String",
                   "isString": true
@@ -5057,6 +5238,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5068,6 +5250,7 @@
           "children": [],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5085,6 +5268,7 @@
                 "length": "strlen",
                 "isReference": true,
                 "rawType": "const char*",
+                "isRequired": true,
                 "jsType": {
                   "type": "String",
                   "isString": true
@@ -5094,6 +5278,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5109,6 +5294,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5118,6 +5304,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5134,6 +5321,7 @@
                 "nativeType": "DawnColor",
                 "isReference": true,
                 "rawType": "const DawnColor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -5143,6 +5331,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5158,6 +5347,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "float",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5170,6 +5360,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "float",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5182,6 +5373,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "float",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5194,6 +5386,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "float",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5206,6 +5399,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "float",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5218,6 +5412,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "float",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5227,6 +5422,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5242,6 +5438,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5254,6 +5451,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5266,6 +5464,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5278,6 +5477,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5287,6 +5487,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5302,6 +5503,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5314,6 +5516,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5328,6 +5531,7 @@
                 "length": "count",
                 "isReference": true,
                 "rawType": "const DawnBuffer*",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -5342,6 +5546,7 @@
                 "length": "count",
                 "isReference": true,
                 "rawType": "const uint64_t*",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -5352,6 +5557,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5367,6 +5573,7 @@
                 "isObject": true,
                 "nativeType": "DawnBuffer",
                 "rawType": "DawnBuffer",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnBuffer",
                   "isObject": true
@@ -5379,6 +5586,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -5389,6 +5597,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5400,6 +5609,7 @@
           "children": [],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5444,6 +5654,7 @@
                 "isEnum": true,
                 "nativeType": "DawnTextureFormat",
                 "rawType": "DawnTextureFormat",
+                "isRequired": true,
                 "jsType": {
                   "type": "String",
                   "isString": true
@@ -5456,6 +5667,7 @@
                 "isBitmask": true,
                 "nativeType": "DawnTextureUsage",
                 "rawType": "DawnTextureUsage",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5468,6 +5680,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5480,6 +5693,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
+                "isRequired": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5489,6 +5703,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5502,6 +5717,7 @@
             "isObject": true,
             "nativeType": "DawnTexture",
             "rawType": "DawnTexture",
+            "isRequired": true,
             "jsType": {
               "type": "DawnTexture",
               "isObject": true
@@ -5517,6 +5733,7 @@
                 "isObject": true,
                 "nativeType": "DawnTexture",
                 "rawType": "DawnTexture",
+                "isRequired": true,
                 "jsType": {
                   "type": "DawnTexture",
                   "isObject": true
@@ -5526,6 +5743,7 @@
           ],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5550,6 +5768,7 @@
                 "nativeType": "DawnTextureViewDescriptor",
                 "isReference": true,
                 "rawType": "const DawnTextureViewDescriptor*",
+                "isRequired": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -5562,6 +5781,7 @@
             "isObject": true,
             "nativeType": "DawnTextureView",
             "rawType": "DawnTextureView",
+            "isRequired": true,
             "jsType": {
               "type": "DawnTextureView",
               "isObject": true
@@ -5573,6 +5793,7 @@
           "children": [],
           "type": {
             "rawType": "void",
+            "isRequired": true,
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
@@ -5602,6 +5823,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -5614,6 +5836,7 @@
             "isObject": true,
             "nativeType": "DawnBuffer",
             "rawType": "DawnBuffer",
+            "isRequired": true,
             "jsType": {
               "type": "DawnBuffer",
               "isObject": true
@@ -5627,6 +5850,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint64_t",
+            "isOptional": true,
             "jsType": {
               "type": "BigInt",
               "isNumber": true,
@@ -5640,6 +5864,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint64_t",
+            "isRequired": true,
             "jsType": {
               "type": "BigInt",
               "isNumber": true,
@@ -5653,6 +5878,7 @@
             "isObject": true,
             "nativeType": "DawnSampler",
             "rawType": "DawnSampler",
+            "isRequired": true,
             "jsType": {
               "type": "DawnSampler",
               "isObject": true
@@ -5666,6 +5892,7 @@
             "isObject": true,
             "nativeType": "DawnTextureView",
             "rawType": "DawnTextureView",
+            "isRequired": true,
             "jsType": {
               "type": "DawnTextureView",
               "isObject": true
@@ -5687,6 +5914,7 @@
             "isObject": true,
             "nativeType": "DawnBindGroupLayout",
             "rawType": "DawnBindGroupLayout",
+            "isRequired": true,
             "jsType": {
               "type": "DawnBindGroupLayout",
               "isObject": true
@@ -5699,6 +5927,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -5713,6 +5942,7 @@
             "length": "bindingCount",
             "isReference": true,
             "rawType": "const DawnBindGroupBinding*",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -5733,6 +5963,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -5745,6 +5976,7 @@
             "isBitmask": true,
             "nativeType": "DawnShaderStage",
             "rawType": "DawnShaderStage",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -5757,6 +5989,7 @@
             "isEnum": true,
             "nativeType": "DawnBindingType",
             "rawType": "DawnBindingType",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -5769,6 +6002,7 @@
             "isBoolean": true,
             "initialValue": "false",
             "rawType": "bool",
+            "isOptional": true,
             "jsType": {
               "type": "Boolean",
               "isBoolean": true
@@ -5781,6 +6015,7 @@
             "isBoolean": true,
             "initialValue": "false",
             "rawType": "bool",
+            "isOptional": true,
             "jsType": {
               "type": "Boolean",
               "isBoolean": true
@@ -5793,6 +6028,7 @@
             "isEnum": true,
             "nativeType": "DawnTextureViewDimension",
             "rawType": "DawnTextureViewDimension",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -5805,6 +6041,7 @@
             "isEnum": true,
             "nativeType": "DawnTextureComponentType",
             "rawType": "DawnTextureComponentType",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -5825,6 +6062,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -5839,6 +6077,7 @@
             "length": "bindingCount",
             "isReference": true,
             "rawType": "const DawnBindGroupLayoutBinding*",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -5859,6 +6098,7 @@
             "isEnum": true,
             "nativeType": "DawnBlendOperation",
             "rawType": "DawnBlendOperation",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -5871,6 +6111,7 @@
             "isEnum": true,
             "nativeType": "DawnBlendFactor",
             "rawType": "DawnBlendFactor",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -5883,6 +6124,7 @@
             "isEnum": true,
             "nativeType": "DawnBlendFactor",
             "rawType": "DawnBlendFactor",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -5903,6 +6145,7 @@
             "isEnum": true,
             "nativeType": "DawnTextureFormat",
             "rawType": "DawnTextureFormat",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -5915,6 +6158,7 @@
             "isStructure": true,
             "nativeType": "DawnBlendDescriptor",
             "rawType": "DawnBlendDescriptor",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -5927,6 +6171,7 @@
             "isStructure": true,
             "nativeType": "DawnBlendDescriptor",
             "rawType": "DawnBlendDescriptor",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -5939,6 +6184,7 @@
             "isBitmask": true,
             "nativeType": "DawnColorWriteMask",
             "rawType": "DawnColorWriteMask",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -5959,6 +6205,7 @@
             "isObject": true,
             "nativeType": "DawnBuffer",
             "rawType": "DawnBuffer",
+            "isRequired": true,
             "jsType": {
               "type": "DawnBuffer",
               "isObject": true
@@ -5971,6 +6218,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint64_t",
+            "isOptional": true,
             "jsType": {
               "type": "BigInt",
               "isNumber": true,
@@ -5984,6 +6232,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -5996,6 +6245,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6016,6 +6266,7 @@
             "isBitmask": true,
             "nativeType": "DawnBufferUsage",
             "rawType": "DawnBufferUsage",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6028,6 +6279,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint64_t",
+            "isRequired": true,
             "jsType": {
               "type": "BigInt",
               "isNumber": true,
@@ -6049,6 +6301,7 @@
             "isObject": true,
             "nativeType": "DawnBuffer",
             "rawType": "DawnBuffer",
+            "isRequired": true,
             "jsType": {
               "type": "DawnBuffer",
               "isObject": true
@@ -6061,6 +6314,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint64_t",
+            "isRequired": true,
             "jsType": {
               "type": "BigInt",
               "isNumber": true,
@@ -6074,6 +6328,7 @@
             "length": "dataLength",
             "isReference": true,
             "rawType": "void*",
+            "isRequired": true,
             "jsType": {
               "type": "ArrayBuffer",
               "isArrayBuffer": true
@@ -6094,6 +6349,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "float",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6106,6 +6362,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "float",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6118,6 +6375,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "float",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6130,6 +6388,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "float",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6171,6 +6430,7 @@
             "isObject": true,
             "nativeType": "DawnPipelineLayout",
             "rawType": "DawnPipelineLayout",
+            "isRequired": true,
             "jsType": {
               "type": "DawnPipelineLayout",
               "isObject": true
@@ -6183,6 +6443,7 @@
             "isStructure": true,
             "nativeType": "DawnPipelineStageDescriptor",
             "rawType": "DawnPipelineStageDescriptor",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -6203,6 +6464,7 @@
             "isEnum": true,
             "nativeType": "DawnTextureFormat",
             "rawType": "DawnTextureFormat",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6215,6 +6477,7 @@
             "isBoolean": true,
             "initialValue": "false",
             "rawType": "bool",
+            "isOptional": true,
             "jsType": {
               "type": "Boolean",
               "isBoolean": true
@@ -6227,6 +6490,7 @@
             "isEnum": true,
             "nativeType": "DawnCompareFunction",
             "rawType": "DawnCompareFunction",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6239,6 +6503,7 @@
             "isStructure": true,
             "nativeType": "DawnStencilStateFaceDescriptor",
             "rawType": "DawnStencilStateFaceDescriptor",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -6251,6 +6516,7 @@
             "isStructure": true,
             "nativeType": "DawnStencilStateFaceDescriptor",
             "rawType": "DawnStencilStateFaceDescriptor",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -6263,6 +6529,7 @@
             "isNumber": true,
             "initialValue": "0xFFFFFFFF",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6275,6 +6542,7 @@
             "isNumber": true,
             "initialValue": "0xFFFFFFFF",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6295,6 +6563,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6307,6 +6576,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6319,6 +6589,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6339,6 +6610,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint64_t",
+            "isOptional": true,
             "jsType": {
               "type": "BigInt",
               "isNumber": true,
@@ -6360,6 +6632,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6372,6 +6645,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint64_t",
+            "isOptional": true,
             "jsType": {
               "type": "BigInt",
               "isNumber": true,
@@ -6385,6 +6659,7 @@
             "isEnum": true,
             "nativeType": "DawnVertexFormat",
             "rawType": "DawnVertexFormat",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6405,6 +6680,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint64_t",
+            "isRequired": true,
             "jsType": {
               "type": "BigInt",
               "isNumber": true,
@@ -6418,6 +6694,7 @@
             "isEnum": true,
             "nativeType": "DawnInputStepMode",
             "rawType": "DawnInputStepMode",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6430,6 +6707,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6444,6 +6722,7 @@
             "length": "attributeCount",
             "isReference": true,
             "rawType": "const DawnVertexAttributeDescriptor*",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -6464,6 +6743,7 @@
             "isEnum": true,
             "nativeType": "DawnIndexFormat",
             "rawType": "DawnIndexFormat",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6476,6 +6756,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6490,6 +6771,7 @@
             "length": "bufferCount",
             "isReference": true,
             "rawType": "const DawnVertexBufferDescriptor*",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -6510,6 +6792,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6522,6 +6805,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6534,6 +6818,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6554,6 +6839,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6568,6 +6854,7 @@
             "length": "bindGroupLayoutCount",
             "isReference": true,
             "rawType": "const DawnBindGroupLayout*",
+            "isRequired": true,
             "jsType": {
               "type": "DawnBindGroupLayout",
               "isObject": true
@@ -6588,6 +6875,7 @@
             "isObject": true,
             "nativeType": "DawnShaderModule",
             "rawType": "DawnShaderModule",
+            "isRequired": true,
             "jsType": {
               "type": "DawnShaderModule",
               "isObject": true
@@ -6602,6 +6890,7 @@
             "length": "strlen",
             "isReference": true,
             "rawType": "const char*",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6622,6 +6911,7 @@
             "isEnum": true,
             "nativeType": "DawnFrontFace",
             "rawType": "DawnFrontFace",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6634,6 +6924,7 @@
             "isEnum": true,
             "nativeType": "DawnCullMode",
             "rawType": "DawnCullMode",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6646,6 +6937,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "int32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6658,6 +6950,7 @@
             "isNumber": true,
             "initialValue": "0.0f",
             "rawType": "float",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6670,6 +6963,7 @@
             "isNumber": true,
             "initialValue": "0.0f",
             "rawType": "float",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6697,6 +6991,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6711,6 +7006,7 @@
             "length": "colorFormatsCount",
             "isReference": true,
             "rawType": "const DawnTextureFormat*",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6723,6 +7019,7 @@
             "isEnum": true,
             "nativeType": "DawnTextureFormat",
             "rawType": "DawnTextureFormat",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6735,6 +7032,7 @@
             "isNumber": true,
             "initialValue": "1",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6755,6 +7053,7 @@
             "isObject": true,
             "nativeType": "DawnTextureView",
             "rawType": "DawnTextureView",
+            "isRequired": true,
             "jsType": {
               "type": "DawnTextureView",
               "isObject": true
@@ -6767,6 +7066,7 @@
             "isObject": true,
             "nativeType": "DawnTextureView",
             "rawType": "DawnTextureView",
+            "isRequired": true,
             "jsType": {
               "type": "DawnTextureView",
               "isObject": true
@@ -6780,6 +7080,7 @@
             "isEnum": true,
             "nativeType": "DawnLoadOp",
             "rawType": "DawnLoadOp",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6792,6 +7093,7 @@
             "isEnum": true,
             "nativeType": "DawnStoreOp",
             "rawType": "DawnStoreOp",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6804,6 +7106,7 @@
             "isStructure": true,
             "nativeType": "DawnColor",
             "rawType": "DawnColor",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -6824,6 +7127,7 @@
             "isObject": true,
             "nativeType": "DawnTextureView",
             "rawType": "DawnTextureView",
+            "isRequired": true,
             "jsType": {
               "type": "DawnTextureView",
               "isObject": true
@@ -6836,6 +7140,7 @@
             "isEnum": true,
             "nativeType": "DawnLoadOp",
             "rawType": "DawnLoadOp",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6848,6 +7153,7 @@
             "isEnum": true,
             "nativeType": "DawnStoreOp",
             "rawType": "DawnStoreOp",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6860,6 +7166,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "float",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6872,6 +7179,7 @@
             "isEnum": true,
             "nativeType": "DawnLoadOp",
             "rawType": "DawnLoadOp",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6884,6 +7192,7 @@
             "isEnum": true,
             "nativeType": "DawnStoreOp",
             "rawType": "DawnStoreOp",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -6896,6 +7205,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6916,6 +7226,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -6931,6 +7242,7 @@
             "isArray": true,
             "isReference": true,
             "rawType": "const DawnRenderPassColorAttachmentDescriptor* const *",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -6944,6 +7256,7 @@
             "nativeType": "DawnRenderPassDepthStencilAttachmentDescriptor",
             "isReference": true,
             "rawType": "const DawnRenderPassDepthStencilAttachmentDescriptor*",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -6965,6 +7278,7 @@
             "isObject": true,
             "nativeType": "DawnPipelineLayout",
             "rawType": "DawnPipelineLayout",
+            "isRequired": true,
             "jsType": {
               "type": "DawnPipelineLayout",
               "isObject": true
@@ -6977,6 +7291,7 @@
             "isStructure": true,
             "nativeType": "DawnPipelineStageDescriptor",
             "rawType": "DawnPipelineStageDescriptor",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -6990,6 +7305,7 @@
             "nativeType": "DawnPipelineStageDescriptor",
             "isReference": true,
             "rawType": "const DawnPipelineStageDescriptor*",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7004,6 +7320,7 @@
             "nativeType": "DawnVertexInputDescriptor",
             "isReference": true,
             "rawType": "const DawnVertexInputDescriptor*",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7017,6 +7334,7 @@
             "isEnum": true,
             "nativeType": "DawnPrimitiveTopology",
             "rawType": "DawnPrimitiveTopology",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7030,6 +7348,7 @@
             "nativeType": "DawnRasterizationStateDescriptor",
             "isReference": true,
             "rawType": "const DawnRasterizationStateDescriptor*",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7043,6 +7362,7 @@
             "isNumber": true,
             "initialValue": "1",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7056,6 +7376,7 @@
             "nativeType": "DawnDepthStencilStateDescriptor",
             "isReference": true,
             "rawType": "const DawnDepthStencilStateDescriptor*",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7069,6 +7390,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7084,6 +7406,7 @@
             "isArray": true,
             "isReference": true,
             "rawType": "const DawnColorStateDescriptor* const *",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7096,6 +7419,7 @@
             "isNumber": true,
             "initialValue": "0xFFFFFFFF",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7108,6 +7432,7 @@
             "isBoolean": true,
             "initialValue": "false",
             "rawType": "bool",
+            "isOptional": true,
             "jsType": {
               "type": "Boolean",
               "isBoolean": true
@@ -7128,6 +7453,7 @@
             "isEnum": true,
             "nativeType": "DawnAddressMode",
             "rawType": "DawnAddressMode",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7140,6 +7466,7 @@
             "isEnum": true,
             "nativeType": "DawnAddressMode",
             "rawType": "DawnAddressMode",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7152,6 +7479,7 @@
             "isEnum": true,
             "nativeType": "DawnAddressMode",
             "rawType": "DawnAddressMode",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7164,6 +7492,7 @@
             "isEnum": true,
             "nativeType": "DawnFilterMode",
             "rawType": "DawnFilterMode",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7176,6 +7505,7 @@
             "isEnum": true,
             "nativeType": "DawnFilterMode",
             "rawType": "DawnFilterMode",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7188,6 +7518,7 @@
             "isEnum": true,
             "nativeType": "DawnFilterMode",
             "rawType": "DawnFilterMode",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7200,6 +7531,7 @@
             "isNumber": true,
             "initialValue": "0.0f",
             "rawType": "float",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7212,6 +7544,7 @@
             "isNumber": true,
             "initialValue": "1000.0f",
             "rawType": "float",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7224,6 +7557,7 @@
             "isEnum": true,
             "nativeType": "DawnCompareFunction",
             "rawType": "DawnCompareFunction",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7244,6 +7578,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7258,6 +7593,7 @@
             "length": "codeSize",
             "isReference": true,
             "rawType": "const uint32_t*",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7278,6 +7614,7 @@
             "isEnum": true,
             "nativeType": "DawnCompareFunction",
             "rawType": "DawnCompareFunction",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7290,6 +7627,7 @@
             "isEnum": true,
             "nativeType": "DawnStencilOperation",
             "rawType": "DawnStencilOperation",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7302,6 +7640,7 @@
             "isEnum": true,
             "nativeType": "DawnStencilOperation",
             "rawType": "DawnStencilOperation",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7314,6 +7653,7 @@
             "isEnum": true,
             "nativeType": "DawnStencilOperation",
             "rawType": "DawnStencilOperation",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7334,6 +7674,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint64_t",
+            "isRequired": true,
             "jsType": {
               "type": "BigInt",
               "isNumber": true,
@@ -7355,6 +7696,7 @@
             "isObject": true,
             "nativeType": "DawnTexture",
             "rawType": "DawnTexture",
+            "isRequired": true,
             "jsType": {
               "type": "DawnTexture",
               "isObject": true
@@ -7367,6 +7709,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7379,6 +7722,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7391,6 +7735,7 @@
             "isStructure": true,
             "nativeType": "DawnOrigin3D",
             "rawType": "DawnOrigin3D",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7411,6 +7756,7 @@
             "isBitmask": true,
             "nativeType": "DawnTextureUsage",
             "rawType": "DawnTextureUsage",
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7423,6 +7769,7 @@
             "isEnum": true,
             "nativeType": "DawnTextureDimension",
             "rawType": "DawnTextureDimension",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7435,6 +7782,7 @@
             "isStructure": true,
             "nativeType": "DawnExtent3D",
             "rawType": "DawnExtent3D",
+            "isRequired": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7447,6 +7795,7 @@
             "isNumber": true,
             "initialValue": "1",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7459,6 +7808,7 @@
             "isEnum": true,
             "nativeType": "DawnTextureFormat",
             "rawType": "DawnTextureFormat",
+            "isRequired": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7471,6 +7821,7 @@
             "isNumber": true,
             "initialValue": "1",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7483,6 +7834,7 @@
             "isNumber": true,
             "initialValue": "1",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7503,6 +7855,7 @@
             "isEnum": true,
             "nativeType": "DawnTextureFormat",
             "rawType": "DawnTextureFormat",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7515,6 +7868,7 @@
             "isEnum": true,
             "nativeType": "DawnTextureViewDimension",
             "rawType": "DawnTextureViewDimension",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
@@ -7527,6 +7881,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7539,6 +7894,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7551,6 +7907,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7563,6 +7920,7 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
+            "isOptional": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
@@ -7575,6 +7933,7 @@
             "isEnum": true,
             "nativeType": "DawnTextureAspect",
             "rawType": "DawnTextureAspect",
+            "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true

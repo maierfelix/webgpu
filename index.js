@@ -60,3 +60,13 @@ module.exports = require(`${generatedPath}/build/Release/addon-${platform}.node`
     });
   };
 }
+{
+  const {GPUBuffer} = module.exports;
+  GPUBuffer.prototype.mapWriteAsync = function() {
+    return new Promise(resolve => {
+      setImmediate(() => {
+        this._mapWriteAsync(resolve);
+      });
+    });
+  };
+}

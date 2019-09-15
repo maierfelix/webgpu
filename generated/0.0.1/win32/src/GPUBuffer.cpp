@@ -9,6 +9,11 @@
 
 Napi::FunctionReference GPUBuffer::constructor;
 
+struct BufferCallbackResult {
+  void* addr = nullptr;
+  uint64_t length = 0;
+};
+
 GPUBuffer::GPUBuffer(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUBuffer>(info) {
   Napi::Env env = info.Env();
 
@@ -36,35 +41,71 @@ Napi::Value GPUBuffer::mapReadAsync(const Napi::CallbackInfo &info) {
 
   Napi::Function callback = info[0].As<Napi::Function>();
 
-  intptr_t bufferAddr;
+  BufferCallbackResult callbackResult;
 
   dawnBufferMapReadAsync(
     this->buffer,
     [](DawnBufferMapAsyncStatus status, const void* data, uint64_t dataLength, void* userdata) {
-      std::cout << 1337 << "::" << dataLength << std::endl;
-      *(reinterpret_cast<intptr_t*>(userdata)) = reinterpret_cast<intptr_t>(data);
+      (*reinterpret_cast<BufferCallbackResult*>(userdata)) = { const_cast<void*>(data), dataLength };
     },
-    &bufferAddr
+    &callbackResult
   );
 
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
   DawnDevice backendDevice = device->backendDevice;
 
   dawnDeviceTick(backendDevice);
-  if (bufferAddr == 0) {
-    while (bufferAddr == 0) {
+  if (!callbackResult.addr) {
+    while (!callbackResult.addr) {
       std::this_thread::sleep_for(std::chrono::milliseconds(5));
       dawnDeviceTick(backendDevice);
     };
   }
 
-  callback.Call({ });
+  Napi::ArrayBuffer buffer = Napi::ArrayBuffer::New(
+    env,
+    callbackResult.addr,
+    callbackResult.length
+  );
+
+  callback.Call({ buffer });
 
   return env.Undefined();
 }
 
 Napi::Value GPUBuffer::mapWriteAsync(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
+
+  Napi::Function callback = info[0].As<Napi::Function>();
+
+  BufferCallbackResult callbackResult;
+  dawnBufferMapWriteAsync(
+    this->buffer,
+    [](DawnBufferMapAsyncStatus status, void* ptr, uint64_t dataLength, void* userdata) {
+      (*reinterpret_cast<BufferCallbackResult*>(userdata)) = { ptr, dataLength };
+    },
+    &callbackResult
+  );
+
+  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
+  DawnDevice backendDevice = device->backendDevice;
+
+  dawnDeviceTick(backendDevice);
+  if (!callbackResult.addr) {
+    while (!callbackResult.addr) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(5));
+      dawnDeviceTick(backendDevice);
+    };
+  }
+
+  Napi::ArrayBuffer buffer = Napi::ArrayBuffer::New(
+    env,
+    callbackResult.addr,
+    callbackResult.length
+  );
+
+  callback.Call({ buffer });
+
   return env.Undefined();
 }
 
@@ -89,7 +130,7 @@ Napi::Object GPUBuffer::Initialize(Napi::Env env, Napi::Object exports) {
       napi_enumerable
     ),
     InstanceMethod(
-      "mapWriteAsync",
+      "_mapWriteAsync",
       &GPUBuffer::mapWriteAsync,
       napi_enumerable
     ),

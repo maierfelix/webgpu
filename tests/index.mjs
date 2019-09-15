@@ -19,7 +19,7 @@ console.log(WebGPU);
     const fence = queue.createFence();
     queue.signal(fence, 2n);
     await fence.onCompletion(2n);
-    console.log(fence.getCompletedValue());
+    console.log("Fence Completed Value:", fence.getCompletedValue());
   }
 
   {
@@ -27,8 +27,19 @@ console.log(WebGPU);
       size: 128n,
       usage: 0x0001
     });
-    await buffer.mapReadAsync();
-    console.log(buffer);
+    console.log("Buffer:", buffer);
+    let readBuffer = await buffer.mapReadAsync();
+    console.log("Read Buffer:", readBuffer);
+  }
+
+  {
+    const buffer = device.createBuffer({
+      size: 128n,
+      usage: 0x0002
+    });
+    console.log("Buffer:", buffer);
+    let writeBuffer = await buffer.mapWriteAsync();
+    console.log("Write Buffer:", writeBuffer);
   }
 
 })();

@@ -1,7 +1,6 @@
 #include "GPUQueue.h"
 #include "GPUDevice.h"
 #include "GPUFence.h"
-#include <iostream>
 
 Napi::FunctionReference GPUQueue::constructor;
 
@@ -11,7 +10,7 @@ GPUQueue::GPUQueue(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUQueue>(
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->backendDevice;
 
-  queue = dawnDeviceCreateQueue(backendDevice);
+  this->queue = dawnDeviceCreateQueue(backendDevice);
 }
 
 GPUQueue::~GPUQueue() {

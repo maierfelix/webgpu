@@ -7,10 +7,6 @@
 
 Napi::FunctionReference GPUFence::constructor;
 
-static void onFenceCompletionCallback(DawnFenceCompletionStatus status, void* userdata) {
-
-}
-
 GPUFence::GPUFence(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUFence>(info) {
   Napi::Env env = info.Env();
 
@@ -27,7 +23,7 @@ GPUFence::GPUFence(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUFence>(
     descriptor.nextInChain = nullptr;
   }
 
-  fence = dawnQueueCreateFence(queue->queue, &descriptor);
+  this->fence = dawnQueueCreateFence(queue->queue, &descriptor);
 }
 
 GPUFence::~GPUFence() {
@@ -51,18 +47,21 @@ Napi::Value GPUFence::onCompletion(const Napi::CallbackInfo &info) {
   dawnFenceOnCompletion(
     fence,
     static_cast<unsigned long long>(completionValue),
-    &onFenceCompletionCallback,
+    [](DawnFenceCompletionStatus status, void* userdata) {
+
+    },
     nullptr
   );
 
   GPUQueue* queue = Napi::ObjectWrap<GPUQueue>::Unwrap(this->queue.Value());
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(queue->device.Value());
+  DawnDevice backendDevice = device->backendDevice;
 
-  (device->device).Tick();
+  dawnDeviceTick(backendDevice);
   if (dawnFenceGetCompletedValue(this->fence) != completionValue) {
     while (dawnFenceGetCompletedValue(this->fence) != completionValue) {
       std::this_thread::sleep_for(std::chrono::milliseconds(5));
-      (device->device).Tick();
+      dawnDeviceTick(backendDevice);
     };
   }
 

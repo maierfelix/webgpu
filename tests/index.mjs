@@ -2,8 +2,6 @@ import WebGPU from "../index.js";
 
 console.log(WebGPU);
 
-//WebGPU.runExample();
-
 (async function main() {
 
   const adapter = await WebGPU.GPU.requestAdapter();
@@ -22,6 +20,15 @@ console.log(WebGPU);
     queue.signal(fence, 2n);
     await fence.onCompletion(2n);
     console.log(fence.getCompletedValue());
+  }
+
+  {
+    const buffer = device.createBuffer({
+      size: 128n,
+      usage: 0x0001
+    });
+    await buffer.mapReadAsync();
+    console.log(buffer);
   }
 
 })();

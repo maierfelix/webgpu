@@ -1,6 +1,9 @@
 #include "GPUDevice.h"
 #include "GPUAdapter.h"
 #include "GPUQueue.h"
+#include "GPUBuffer.h"
+
+#include <iostream>
 
 Napi::FunctionReference GPUDevice::constructor;
 
@@ -27,7 +30,29 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
   DawnProcTable procs = dawn_native::GetProcs();
 
   dawnSetProcs(&procs);
-  //procs.deviceSetUncapturedErrorCallback(this->backendDevice, onDeviceError, nullptr);
+  procs.deviceSetUncapturedErrorCallback(
+    this->backendDevice,
+    [](DawnErrorType errorType, const char* message, void*) {
+      switch (errorType) {
+        case DAWN_ERROR_TYPE_VALIDATION:
+          std::cout << "Validation ";
+        break;
+        case DAWN_ERROR_TYPE_OUT_OF_MEMORY:
+          std::cout << "Out of memory ";
+        break;
+        case DAWN_ERROR_TYPE_UNKNOWN:
+          std::cout << "Unknown ";
+        break;
+        case DAWN_ERROR_TYPE_DEVICE_LOST:
+          std::cout << "Device lost ";
+        break;
+        default:
+          return;
+      }
+      std::cout << "error: " << message << std::endl;
+    },
+    nullptr
+  );
   this->device = dawn::Device::Acquire(this->backendDevice);
 
   this->mainQueue.Reset(this->createQueue(info), 1);
@@ -84,6 +109,16 @@ Napi::Value GPUDevice::tick(const Napi::CallbackInfo& info) {
   return env.Undefined();
 }
 
+Napi::Value GPUDevice::createBuffer(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>()
+  };
+  args.push_back(info[0].As<Napi::Value>());
+  Napi::Object buffer = GPUBuffer::constructor.New(args);
+  return buffer;
+}
+
 Napi::Value GPUDevice::getQueue(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   return this->mainQueue.Value().As<Napi::Object>();
@@ -119,7 +154,12 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
       "tick",
       &GPUDevice::tick,
       napi_enumerable
-    )
+    ),
+    InstanceMethod(
+      "createBuffer",
+      &GPUDevice::createBuffer,
+      napi_enumerable
+    ),
   });
   constructor = Napi::Persistent(func);
   constructor.SuppressDestruct();

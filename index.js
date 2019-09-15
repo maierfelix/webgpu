@@ -50,3 +50,13 @@ module.exports = require(`${generatedPath}/build/Release/addon-${platform}.node`
     });
   };
 }
+{
+  const {GPUBuffer} = module.exports;
+  GPUBuffer.prototype.mapReadAsync = function() {
+    return new Promise(resolve => {
+      setImmediate(() => {
+        this._mapReadAsync(resolve);
+      });
+    });
+  };
+}

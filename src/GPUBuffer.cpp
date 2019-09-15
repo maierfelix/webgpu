@@ -39,7 +39,10 @@ GPUBuffer::~GPUBuffer() {
 Napi::Value GPUBuffer::mapReadAsync(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  Napi::Function callback = info[0].As<Napi::Function>();
+  bool hasCallback = info[0].IsFunction();
+
+  Napi::Function callback;
+  if (hasCallback) callback = info[0].As<Napi::Function>();
 
   BufferCallbackResult callbackResult;
 
@@ -72,9 +75,9 @@ Napi::Value GPUBuffer::mapReadAsync(const Napi::CallbackInfo &info) {
     }
   );
 
-  callback.Call({ buffer });
+  if (hasCallback) callback.Call({ buffer });
 
-  return env.Undefined();
+  return hasCallback ? env.Undefined() : buffer;
 }
 
 Napi::Value GPUBuffer::mapWriteAsync(const Napi::CallbackInfo &info) {

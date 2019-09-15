@@ -33,8 +33,8 @@ module.exports = require(`${generatedPath}/build/Release/addon-${platform}.node`
     return new Promise((resolve, reject) => {
       this._requestDevice(...args).then(device => {
         device._onErrorCallback = function(type, msg) {
-          let err = new Error(msg);
-          setImmediate(() => { throw err; });
+          throw new Error(msg);
+          process.exit(1);
         };
         devices.push(device);
         resolve(device);
@@ -70,6 +70,16 @@ module.exports = require(`${generatedPath}/build/Release/addon-${platform}.node`
     return new Promise(resolve => {
       setImmediate(() => {
         this._mapWriteAsync(resolve);
+      });
+    });
+  };
+}
+{
+  const {GPUDevice} = module.exports;
+  GPUDevice.prototype.createBufferMappedAsync = function(descriptor) {
+    return new Promise(resolve => {
+      setImmediate(() => {
+        this._createBufferMappedAsync(descriptor, resolve);
       });
     });
   };

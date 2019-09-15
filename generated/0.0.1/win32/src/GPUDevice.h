@@ -24,6 +24,8 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     Napi::Value tick(const Napi::CallbackInfo &info);
     Napi::Value getQueue(const Napi::CallbackInfo &info);
     Napi::Value createBuffer(const Napi::CallbackInfo &info);
+    Napi::Value createBufferMapped(const Napi::CallbackInfo &info);
+    Napi::Value createBufferMappedAsync(const Napi::CallbackInfo &info);
 
     Napi::ObjectReference extensions;
     Napi::ObjectReference limits;

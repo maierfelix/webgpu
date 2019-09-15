@@ -131,6 +131,36 @@ Napi::Value GPUDevice::createBuffer(const Napi::CallbackInfo& info) {
   return buffer;
 }
 
+Napi::Value GPUDevice::createBufferMapped(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  Napi::Object buffer = GPUBuffer::constructor.New({
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  });
+  GPUBuffer* uwBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(buffer);
+  Napi::Value arrBuffer = uwBuffer->mapReadAsync(info);
+  Napi::Array out = Napi::Array::New(env);
+  out.Set(Napi::Number::New(env, 0), buffer);
+  out.Set(Napi::Number::New(env, 1), arrBuffer);
+  return out;
+}
+
+Napi::Value GPUDevice::createBufferMappedAsync(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  Napi::Object buffer = GPUBuffer::constructor.New({
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  });
+  Napi::Function callback = info[1].As<Napi::Function>();
+  GPUBuffer* uwBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(buffer);
+  Napi::Value arrBuffer = uwBuffer->mapReadAsync(info);
+  Napi::Array out = Napi::Array::New(env);
+  out.Set(Napi::Number::New(env, 0), buffer);
+  out.Set(Napi::Number::New(env, 1), arrBuffer);
+  callback.Call({ out });
+  return env.Undefined();
+}
+
 Napi::Value GPUDevice::getQueue(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   return this->mainQueue.Value().As<Napi::Object>();
@@ -176,6 +206,16 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "createBuffer",
       &GPUDevice::createBuffer,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createBufferMapped",
+      &GPUDevice::createBufferMapped,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "_createBufferMappedAsync",
+      &GPUDevice::createBufferMappedAsync,
       napi_enumerable
     ),
   });

@@ -39,10 +39,29 @@ console.log(WebGPU);
     });
     console.log("Buffer:", buffer);
     let writeBuffer = await buffer.mapWriteAsync();
-    buffer.destroy();
     console.log("Write Buffer:", writeBuffer);
     buffer.unmap();
+    console.log("Unmapped Buffer:", writeBuffer);
+    buffer.destroy();
+    console.log("Destroyed Buffer:", writeBuffer);
+  }
 
+  {
+    const [buffer, arrBuffer] = device.createBufferMapped({
+      size: 128n,
+      usage: 0x0001
+    });
+    console.log("Create Buffer Mapped: Buffer:", buffer);
+    console.log("Create Buffer Mapped: ArrayBuffer", arrBuffer);
+  }
+
+  {
+    const [buffer, arrBuffer] = await device.createBufferMappedAsync({
+      size: 128n,
+      usage: 0x0001
+    });
+    console.log("Create Buffer Mapped Async: Buffer:", buffer);
+    console.log("Create Buffer Mapped Async: ArrayBuffer", arrBuffer);
   }
 
 })();

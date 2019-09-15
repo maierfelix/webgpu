@@ -4,6 +4,7 @@
 #include "GPUBuffer.h"
 #include "GPUTexture.h"
 #include "GPUSampler.h"
+#include "GPUBindGroupLayout.h"
 
 Napi::FunctionReference GPUDevice::constructor;
 
@@ -178,6 +179,16 @@ Napi::Value GPUDevice::createSampler(const Napi::CallbackInfo &info) {
   return sampler;
 }
 
+Napi::Value GPUDevice::createBindGroupLayout(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  };
+  Napi::Object bindGroupLayout = GPUBindGroupLayout::constructor.New(args);
+  return bindGroupLayout;
+}
+
 Napi::Value GPUDevice::getQueue(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   return this->mainQueue.Value().As<Napi::Object>();
@@ -243,6 +254,11 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "createSampler",
       &GPUDevice::createSampler,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createBindGroupLayout",
+      &GPUDevice::createBindGroupLayout,
       napi_enumerable
     ),
   });

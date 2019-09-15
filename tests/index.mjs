@@ -107,4 +107,12 @@ import WebGPU from "../index.js";
     console.log("Sampler:", sampler);
   }
 
+  let bindGroupLayout = device.createBindGroupLayout({ 
+    bindings: [
+      { binding: 0, visibility: 0x00000001, type: 0x00000000 },
+      { binding: 1, visibility: 0x00000002, type: 0x00000003 }
+    ] 
+  });
+  console.log("Bind Group Layout:", bindGroupLayout);
+
 })();

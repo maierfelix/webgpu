@@ -13,6 +13,10 @@
 #include "GPUTextureView.h"
 #include "GPUSampler.h"
 #include "GPUBindGroupLayout.h"
+#include "GPUPipelineLayout.h"
+#include "GPUBindGroup.h"
+#include "GPUShaderModule.h"
+#include "GPURenderPipeline.h"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
@@ -26,6 +30,10 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUTextureView::Initialize(env, exports);
   GPUSampler::Initialize(env, exports);
   GPUBindGroupLayout::Initialize(env, exports);
+  GPUPipelineLayout::Initialize(env, exports);
+  GPUBindGroup::Initialize(env, exports);
+  GPUShaderModule::Initialize(env, exports);
+  GPURenderPipeline::Initialize(env, exports);
 
   {% if includeMemoryLayouts == true %}
   exports["$getMemoryLayouts"] = Napi::Function::New(env, MemoryLayouts, "MemoryLayouts");

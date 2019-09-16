@@ -100,19 +100,119 @@ import WebGPU from "../index.js";
 
   }
 
-  {
-    let sampler = device.createSampler({
-      addressModeU: 0x00000002
-    });
-    console.log("Sampler:", sampler);
-  }
+  let sampler = device.createSampler({ });
+  console.log("Sampler:", sampler);
 
   let bindGroupLayout = device.createBindGroupLayout({ 
     bindings: [
-      { binding: 0, visibility: 0x00000001, type: 0x00000000 },
-      { binding: 1, visibility: 0x00000002, type: 0x00000003 }
+      { binding: 0, visibility: 0x00000002, type: 0x00000003 }
     ] 
   });
   console.log("Bind Group Layout:", bindGroupLayout);
+
+  let pipelineLayout = device.createPipelineLayout({
+    bindGroupLayouts: [bindGroupLayout]
+  });
+  console.log("Pipeline Layout:", pipelineLayout);
+
+  let vertexShaderSource = `
+    #version 450
+    #pragma shader_stage(vertex)
+    const vec2 pos[3] = vec2[3](
+      vec2(0.0f, 0.5f),
+      vec2(-0.5f, -0.5f),
+      vec2(0.5f, -0.5f)
+    );
+    void main() {
+      gl_Position = vec4(pos[gl_VertexIndex], 0.0, 1.0);
+    }
+  `;
+
+  let fragmentShaderSource = `
+    #version 450
+    #pragma shader_stage(fragment)
+    layout(location = 0) out vec4 fragColor;
+    void main() {
+      fragColor = vec4(mix(vec3(0.25), vec3(0.5), 0.5), 1.0);
+    }
+  `;
+
+  let vertexShaderModule = device.createShaderModule({
+    code: vertexShaderSource
+  });
+  console.log("Vertex Shader Module:", vertexShaderModule);
+
+  let fragmentShaderModule = device.createShaderModule({
+    code: fragmentShaderSource
+  });
+  console.log("Fragment Shader Module:", fragmentShaderModule);
+
+  // TODO: to hex
+  let colorState = {
+    format: 0x00000017, //"bgra8unorm"
+    alphaBlend: {
+      srcFactor: 0x00000004, // "src-alpha"
+      dstFactor: 0x00000005, // "one-minus-src-alpha"
+      operation: 0x00000000  // "add"
+    },
+    colorBlend: {
+      srcFactor: 0x00000004, // "src-alpha"
+      dstFactor: 0x00000005, // "one-minus-src-alpha"
+      operation: 0x00000000  // "add"
+    },
+    writeMask: 0x0000000F
+  };
+
+  let vertexStageDescriptor = {
+    module: vertexShaderModule,
+    entryPoint: "main"
+  };
+  let fragmentStageDescriptor = {
+    module: fragmentShaderModule,
+    entryPoint: "main"
+  };
+
+  let positionAttribute = {
+    shaderLocation: positionLocation,
+    offset: 0,
+    format: 0x00000015
+  };
+
+  let vertexBufferDescriptor = {
+    stride: 8 * 4,
+    attributeSet: [positionAttribute]
+  };
+
+  let vertexInputDescriptor = {
+    vertexBuffers: [vertexBufferDescriptor]
+  };
+
+  let pipeline = device.createRenderPipeline({
+    layout: pipelineLayout,
+    vertexStage: vertexStageDescriptor,
+    fragmentStage: fragmentStageDescriptor,
+    primitiveTopology: 0x00000003,
+    colorStates: [colorState],
+    vertexInput: vertexInputDescriptor
+  });
+
+  let swapChainDescriptor = {
+    device: device,
+    format: 0x00000017 //"bgra8unorm"
+  };
+
+  let swapchain = gpu.configureSwapChain(swapChainDescriptor);
+
+  let swapchainTexture = swapchain.getCurrentTexture();
+  let renderAttachment = swapchain.createDefaultView();
+
+  /*
+  let bindGroup = device.createBindGroup({
+    layout: pipelineLayout,
+    bindings: [
+      { binding: 0, resource: sampler }
+    ]
+  });
+  */
 
 })();

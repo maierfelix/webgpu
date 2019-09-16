@@ -29,6 +29,12 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     Napi::Value createTexture(const Napi::CallbackInfo &info);
     Napi::Value createSampler(const Napi::CallbackInfo &info);
     Napi::Value createBindGroupLayout(const Napi::CallbackInfo &info);
+    Napi::Value createPipelineLayout(const Napi::CallbackInfo &info);
+    Napi::Value createBindGroup(const Napi::CallbackInfo &info);
+    Napi::Value createShaderModule(const Napi::CallbackInfo &info);
+    Napi::Value createRenderPipeline(const Napi::CallbackInfo &info);
+
+    void throwCallbackError(const Napi::Value& type, const Napi::Value& msg);
 
     Napi::ObjectReference extensions;
     Napi::ObjectReference limits;

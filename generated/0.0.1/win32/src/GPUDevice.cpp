@@ -5,6 +5,9 @@
 #include "GPUTexture.h"
 #include "GPUSampler.h"
 #include "GPUBindGroupLayout.h"
+#include "GPUPipelineLayout.h"
+#include "GPUBindGroup.h"
+#include "GPUShaderModule.h"
 
 Napi::FunctionReference GPUDevice::constructor;
 
@@ -31,9 +34,9 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
   DawnProcTable procs = dawn_native::GetProcs();
 
   dawnSetProcs(&procs);
-  procs.deviceSetUncapturedErrorCallback(
+  /*procs.deviceSetUncapturedErrorCallback(
     this->backendDevice,
-    [](DawnErrorType errorType, const char* message, void* ptr) {
+    [](DawnErrorType errorType, const char* message, void* devicePtr) {
       std::string type;
       switch (errorType) {
         case DAWN_ERROR_TYPE_VALIDATION:
@@ -52,7 +55,7 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
           type = "Undefined";
         break;
       }
-      GPUDevice* self = reinterpret_cast<GPUDevice*>(ptr);
+      GPUDevice* self = reinterpret_cast<GPUDevice*>(devicePtr);
       Napi::Env env = self->onErrorCallback.Env();
       self->onErrorCallback.Call({
         Napi::String::New(env, type),
@@ -60,7 +63,7 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
       });
     },
     reinterpret_cast<void*>(this)
-  );
+  );*/
   this->device = dawn::Device::Acquire(this->backendDevice);
 
   this->mainQueue.Reset(this->createQueue(info), 1);
@@ -113,6 +116,10 @@ Napi::Value GPUDevice::GetAdapter(const Napi::CallbackInfo& info) {
 void GPUDevice::SetOnErrorCallback(const Napi::CallbackInfo& info, const Napi::Value& value) {
   Napi::Env env = info.Env();
   this->onErrorCallback.Reset(value.As<Napi::Function>());
+}
+
+void GPUDevice::throwCallbackError(const Napi::Value& type, const Napi::Value& msg) {
+  this->onErrorCallback.Call({ type, msg });
 }
 
 Napi::Value GPUDevice::tick(const Napi::CallbackInfo& info) {
@@ -189,6 +196,36 @@ Napi::Value GPUDevice::createBindGroupLayout(const Napi::CallbackInfo &info) {
   return bindGroupLayout;
 }
 
+Napi::Value GPUDevice::createPipelineLayout(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  };
+  Napi::Object pipelineLayout = GPUPipelineLayout::constructor.New(args);
+  return pipelineLayout;
+}
+
+Napi::Value GPUDevice::createBindGroup(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  };
+  Napi::Object bindGroup = GPUBindGroup::constructor.New(args);
+  return bindGroup;
+}
+
+Napi::Value GPUDevice::createShaderModule(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  };
+  Napi::Object shaderModule = GPUShaderModule::constructor.New(args);
+  return shaderModule;
+}
+
 Napi::Value GPUDevice::getQueue(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   return this->mainQueue.Value().As<Napi::Object>();
@@ -259,6 +296,21 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "createBindGroupLayout",
       &GPUDevice::createBindGroupLayout,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createPipelineLayout",
+      &GPUDevice::createPipelineLayout,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createBindGroup",
+      &GPUDevice::createBindGroup,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createShaderModule",
+      &GPUDevice::createShaderModule,
       napi_enumerable
     ),
   });

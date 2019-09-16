@@ -15,6 +15,9 @@
 #include "GPUTextureView.h"
 #include "GPUSampler.h"
 #include "GPUBindGroupLayout.h"
+#include "GPUPipelineLayout.h"
+#include "GPUBindGroup.h"
+#include "GPUShaderModule.h"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
@@ -28,6 +31,9 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUTextureView::Initialize(env, exports);
   GPUSampler::Initialize(env, exports);
   GPUBindGroupLayout::Initialize(env, exports);
+  GPUPipelineLayout::Initialize(env, exports);
+  GPUBindGroup::Initialize(env, exports);
+  GPUShaderModule::Initialize(env, exports);
 
   
   return exports;

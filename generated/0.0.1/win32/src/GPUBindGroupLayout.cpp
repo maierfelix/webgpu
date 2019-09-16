@@ -18,7 +18,7 @@ GPUBindGroupLayout::GPUBindGroupLayout(const Napi::CallbackInfo& info) : Napi::O
     Napi::Object obj = info[1].As<Napi::Object>();
     Napi::Array array = obj.Get("bindings").As<Napi::Array>();
     uint32_t length = array.Length();
-    std::vector<DawnBindGroupLayoutBinding> data;
+    std::vector<DawnBindGroupLayoutBinding> bindGroupLayoutBindings;
     for (unsigned int ii = 0; ii < length; ++ii) {
       Napi::Value item = array.Get(ii);
       Napi::Object obj = item.As<Napi::Object>();
@@ -26,17 +26,16 @@ GPUBindGroupLayout::GPUBindGroupLayout(const Napi::CallbackInfo& info) : Napi::O
       {
         layoutBinding.binding = obj.Get("binding").As<Napi::Number>().Uint32Value();
         layoutBinding.visibility = static_cast<DawnShaderStage>(obj.Get("visibility").As<Napi::Number>().Uint32Value());
-        // TODO: is a string
         layoutBinding.type = static_cast<DawnBindingType>(obj.Get("type").As<Napi::Number>().Uint32Value());
         layoutBinding.dynamic = obj.Has("dynamic") ? obj.Get("dynamic").As<Napi::Boolean>().Value() : false;
         layoutBinding.multisampled = obj.Has("multisampled") ? obj.Get("multisampled").As<Napi::Boolean>().Value() : false;
         layoutBinding.textureDimension = obj.Has("textureDimension") ? static_cast<DawnTextureViewDimension>(obj.Get("textureDimension").As<Napi::Number>().Uint32Value()) : DAWN_TEXTURE_VIEW_DIMENSION_2D;
         layoutBinding.textureComponentType = obj.Has("textureComponentType") ? static_cast<DawnTextureComponentType>(obj.Get("textureComponentType").As<Napi::Number>().Uint32Value()) : DAWN_TEXTURE_COMPONENT_TYPE_FLOAT;
       }
-      data.push_back(layoutBinding);
+      bindGroupLayoutBindings.push_back(layoutBinding);
     };
     descriptor.bindingCount = length;
-    descriptor.bindings = data.data();
+    descriptor.bindings = bindGroupLayoutBindings.data();
   }
 
   this->bindGroupLayout = dawnDeviceCreateBindGroupLayout(backendDevice, &descriptor);

@@ -51,7 +51,7 @@ GPUTextureView::GPUTextureView(const Napi::CallbackInfo& info) : Napi::ObjectWra
     }
   }
 
-  this->view = dawnTextureCreateView(texture, &descriptor);
+  this->textureView = dawnTextureCreateView(texture, &descriptor);
 }
 
 GPUTextureView::~GPUTextureView() {

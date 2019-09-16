@@ -30,10 +30,11 @@
           "OS=='win'",
           {
             "target_name": "addon-win32",
-            "cflags_cc": [
-              "-fno-rtti",
-              "-fno-exceptions",
-              "-std=c++17"
+            "cflags!": [
+              "-fno-exceptions"
+            ],
+            "cflags_cc!": [
+              "-fno-exceptions"
             ],
             "include_dirs": [
               "<!@(node -p \"require('node-addon-api').include\")",
@@ -78,7 +79,8 @@
               "DAWN_NATIVE_SHARED_LIBRARY",
               "DAWN_WIRE_SHARED_LIBRARY",
               "VK_USE_PLATFORM_WIN32_KHR",
-              "DAWN_SHARED_LIBRARY"
+              "DAWN_SHARED_LIBRARY",
+              "NAPI_CPP_EXCEPTIONS"
             ],
             "msvs_settings": {
               "VCCLCompilerTool": {
@@ -86,11 +88,11 @@
                 "StringPooling": "true",
                 "Optimization": 2,
                 "WarningLevel": 3,
-                "AdditionalOptions": ["/MP /EHsc /wd4458 /wd4996 /wd4702 /wd4189"],
+                "AdditionalOptions": ["/MP /EHsc"],
                 "ExceptionHandling": 1
               },
               "VCLibrarianTool": {
-                "AdditionalOptions" : ["-fcolor-diagnostics -fmerge-all-constants -fcrash-diagnostics-dir=../../tools/clang/crashreports -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -fcomplete-member-pointers /Gy /FS /bigobj /utf-8 /Zc:twoPhase /Zc:sizedDealloc- /X -fmsc-version=1916 /guard:cf,nochecks /Zc:dllexportInlines- -m64 -fansi-escape-codes /Brepro -Wno-builtin-macro-redefined -D__DATE__= -D__TIME__= -D__TIMESTAMP__= -Xclang -fdebug-compilation-dir -Xclang . -no-canonical-prefixes -Wimplicit-fallthrough -Wthread-safety -Wextra-semi -Wno-missing-field-initializers -Wno-unused-parameter -Wno-c++11-narrowing -Wno-unneeded-internal-declaration -Wno-undefined-var-template -Wno-nonportable-include-path -Wno-ignored-pragma-optimize /Ob2 /Oy- /Zc:inline /Gw /Oi /Z7 -gcodeview-ghash -fno-standalone-debug /GR- -I../../buildtools/third_party/libc++/trunk/include -Wheader-hygiene -Wstring-conversion -Wtautological-overlap-compare %(AdditionalOptions)"]
+                "AdditionalOptions" : []
               },
               "VCLinkerTool": {
                 "AdditionalLibraryDirectories": [

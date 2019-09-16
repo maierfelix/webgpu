@@ -33,8 +33,17 @@ module.exports = require(`${generatedPath}/build/Release/addon-${platform}.node`
     return new Promise((resolve, reject) => {
       this._requestDevice(...args).then(device => {
         device._onErrorCallback = function(type, msg) {
-          throw new Error(msg);
-          process.exit(1);
+          setImmediate(() => {
+            switch (type) {
+              case "Error": throw new Error(msg); break;
+              case "Type": throw new TypeError(msg); break;
+              case "Range": throw new RangeError(msg); break;
+              case "Reference": throw new ReferenceError(msg); break;
+              case "Internal": throw new InternalError(msg); break;
+              case "Syntax": throw new SyntaxError(msg); break;
+            };
+            process.exit(1);
+          });
         };
         devices.push(device);
         resolve(device);

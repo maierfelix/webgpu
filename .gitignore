@@ -87,6 +87,10 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+www
+
+package-lock.json
+
 generated/*/*/build/Release/obj
 generated/*/*/build/Release/*.iobj
 generated/*/*/build/Release/*.ipdb

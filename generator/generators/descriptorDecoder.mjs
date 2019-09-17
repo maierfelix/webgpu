@@ -204,12 +204,18 @@ ${padding}  ${output.name}.${member.name} = data.data();`;
   return out;
 };
 
-function getDecodeStructureParameters(structure) {
+function getDecodeStructureParameters(structure, isHeaderFile) {
   let out = ``;
-  out += `Napi::Object& device`;
+  out += `GPUDevice* device`;
   out += `, Napi::Object& value`;
-  if (structure.isExtensible) {
-    out += `, void* nextInChain = nullptr`;
+  if (isHeaderFile) {
+    if (structure.isExtensible) {
+      out += `, void* nextInChain = nullptr`;
+    }
+  } else {
+    if (structure.isExtensible) {
+      out += `, void* nextInChain`;
+    }
   }
   return out;
 };

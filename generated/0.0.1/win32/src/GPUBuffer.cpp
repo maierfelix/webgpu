@@ -1,11 +1,10 @@
 #include "GPUBuffer.h"
 #include "GPUDevice.h"
+#include "DescriptorDecoder.h"
 
 #include <thread>
 #include <chrono>
 #include <cstdint>
-
-#include <iostream>
 
 Napi::FunctionReference GPUBuffer::constructor;
 
@@ -21,13 +20,7 @@ GPUBuffer::GPUBuffer(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUBuffe
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
   DawnDevice backendDevice = device->instance;
 
-  DawnBufferDescriptor descriptor;
-  {
-    Napi::Object obj = info[1].As<Napi::Object>();
-    bool lossless;
-    descriptor.size = obj.Get("size").As<Napi::BigInt>().Uint64Value(&lossless);
-    descriptor.usage = static_cast<DawnBufferUsage>(obj.Get("usage").As<Napi::Number>().Uint32Value());
-  }
+  DawnBufferDescriptor descriptor = DescriptorDecoder::GPUBufferDescriptor(device, info[1].As<Napi::Object>());
 
   this->instance = dawnDeviceCreateBuffer(backendDevice, &descriptor);
 }

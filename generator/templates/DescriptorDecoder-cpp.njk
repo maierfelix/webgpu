@@ -1,1 +1,40 @@
 #include "DescriptorDecoder.h"
+
+#include "GPUDevice.h"
+#include "GPUAdapter.h"
+#include "GPUQueue.h"
+#include "GPUFence.h"
+#include "GPUBuffer.h"
+#include "GPUTexture.h"
+#include "GPUTextureView.h"
+#include "GPUSampler.h"
+#include "GPUBindGroupLayout.h"
+#include "GPUPipelineLayout.h"
+#include "GPUBindGroup.h"
+#include "GPUShaderModule.h"
+#include "GPURenderPipeline.h"
+
+#include <unordered_map>
+{% for enum in enums %}
+static std::unordered_map<std::string, uint32_t> {{ enum.externalName }} = {
+  {%- for member in enum.children %}
+  { "{{ member.name }}", {{ member.value }} },
+  {%- endfor %}
+};
+{% endfor %}
+
+namespace DescriptorDecoder {
+  {% for struct in structures %}
+  {{ struct.name }} {{ struct.externalName }}({{ getDecodeStructureParameters(struct) | safe }}) {
+
+    {{ struct.name }} descriptor;
+    {{- getDescriptorInstanceReset(struct) | safe }}
+
+    {%- for member in struct.children %}
+    {{- getDecodeStructureMember(struct, member) | safe -}}
+    {% endfor %}
+
+    return descriptor;
+  };
+  {% endfor %}
+}

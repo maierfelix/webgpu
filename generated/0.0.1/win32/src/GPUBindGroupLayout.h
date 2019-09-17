@@ -15,7 +15,7 @@ class GPUBindGroupLayout : public Napi::ObjectWrap<GPUBindGroupLayout> {
 
     Napi::ObjectReference device;
 
-    DawnBindGroupLayout bindGroupLayout;
+    DawnBindGroupLayout instance;
   private:
 
 };

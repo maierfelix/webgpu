@@ -15,7 +15,7 @@ class GPURenderPipeline  : public Napi::ObjectWrap<GPURenderPipeline > {
 
     Napi::ObjectReference device;
 
-    DawnRenderPipeline renderPipeline;
+    DawnRenderPipeline instance;
   private:
 
 };

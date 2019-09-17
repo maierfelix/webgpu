@@ -9,7 +9,7 @@ GPUBindGroupLayout::GPUBindGroupLayout(const Napi::CallbackInfo& info) : Napi::O
   Napi::Env env = info.Env();
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
-  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->backendDevice;
+  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->instance;
 
   DawnBindGroupLayoutDescriptor descriptor;
   descriptor.nextInChain = nullptr;
@@ -38,7 +38,7 @@ GPUBindGroupLayout::GPUBindGroupLayout(const Napi::CallbackInfo& info) : Napi::O
     descriptor.bindings = bindGroupLayoutBindings.data();
   }
 
-  this->bindGroupLayout = dawnDeviceCreateBindGroupLayout(backendDevice, &descriptor);
+  this->instance = dawnDeviceCreateBindGroupLayout(backendDevice, &descriptor);
 }
 
 GPUBindGroupLayout::~GPUBindGroupLayout() {

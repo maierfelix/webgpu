@@ -15,11 +15,10 @@ class GPUQueue : public Napi::ObjectWrap<GPUQueue> {
 
     Napi::ObjectReference device;
 
-    DawnQueue queue;
-
     Napi::Value createFence(const Napi::CallbackInfo &info);
     Napi::Value signal(const Napi::CallbackInfo &info);
 
+    DawnQueue instance;
   private:
 
 };

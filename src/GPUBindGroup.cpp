@@ -13,7 +13,7 @@ GPUBindGroup::GPUBindGroup(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
   Napi::Env env = info.Env();
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
-  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->backendDevice;
+  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->instance;
 
   DawnBindGroupDescriptor descriptor;
   descriptor.nextInChain = nullptr;
@@ -23,7 +23,7 @@ GPUBindGroup::GPUBindGroup(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
     // layout
     {
       Napi::Object layout = obj.Get("layout").As<Napi::Object>();
-      descriptor.layout = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(layout)->bindGroupLayout;
+      descriptor.layout = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(layout)->instance;
     }
     // bindings
     {
@@ -43,7 +43,7 @@ GPUBindGroup::GPUBindGroup(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
             GPUBuffer* buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(
               bufferBinding.Get("buffer").As<Napi::Object>()
             );
-            bindGroupBinding.buffer = buffer->buffer;
+            bindGroupBinding.buffer = buffer->instance;
             if (bufferBinding.Has("offset")) {
               bool lossless;
               bindGroupBinding.offset = bufferBinding.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
@@ -55,11 +55,11 @@ GPUBindGroup::GPUBindGroup(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
           }
           // GPUSampler
           else if (resource.InstanceOf(GPUSampler::constructor.Value())) {
-            bindGroupBinding.sampler = Napi::ObjectWrap<GPUSampler>::Unwrap(resource)->sampler;
+            bindGroupBinding.sampler = Napi::ObjectWrap<GPUSampler>::Unwrap(resource)->instance;
           }
           // GPUTextureView
           else if (resource.InstanceOf(GPUTextureView::constructor.Value())) {
-            bindGroupBinding.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(resource)->textureView;
+            bindGroupBinding.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(resource)->instance;
           }
         }
         bindGroupBindings.push_back(bindGroupBinding);
@@ -69,7 +69,7 @@ GPUBindGroup::GPUBindGroup(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
     }
   }
 
-  this->bindGroup = dawnDeviceCreateBindGroup(backendDevice, &descriptor);
+  this->instance = dawnDeviceCreateBindGroup(backendDevice, &descriptor);
 }
 
 GPUBindGroup::~GPUBindGroup() {

@@ -19,7 +19,7 @@ GPUBuffer::GPUBuffer(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUBuffe
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
-  DawnDevice backendDevice = device->backendDevice;
+  DawnDevice backendDevice = device->instance;
 
   DawnBufferDescriptor descriptor;
   {
@@ -29,7 +29,7 @@ GPUBuffer::GPUBuffer(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUBuffe
     descriptor.usage = static_cast<DawnBufferUsage>(obj.Get("usage").As<Napi::Number>().Uint32Value());
   }
 
-  this->buffer = dawnDeviceCreateBuffer(backendDevice, &descriptor);
+  this->instance = dawnDeviceCreateBuffer(backendDevice, &descriptor);
 }
 
 GPUBuffer::~GPUBuffer() {
@@ -47,7 +47,7 @@ Napi::Value GPUBuffer::mapReadAsync(const Napi::CallbackInfo &info) {
   BufferCallbackResult callbackResult;
 
   dawnBufferMapReadAsync(
-    this->buffer,
+    this->instance,
     [](DawnBufferMapAsyncStatus status, const void* data, uint64_t dataLength, void* userdata) {
       (*reinterpret_cast<BufferCallbackResult*>(userdata)) = { const_cast<void*>(data), dataLength };
     },
@@ -55,7 +55,7 @@ Napi::Value GPUBuffer::mapReadAsync(const Napi::CallbackInfo &info) {
   );
 
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
-  DawnDevice backendDevice = device->backendDevice;
+  DawnDevice backendDevice = device->instance;
 
   dawnDeviceTick(backendDevice);
   if (!callbackResult.addr) {
@@ -87,7 +87,7 @@ Napi::Value GPUBuffer::mapWriteAsync(const Napi::CallbackInfo &info) {
 
   BufferCallbackResult callbackResult;
   dawnBufferMapWriteAsync(
-    this->buffer,
+    this->instance,
     [](DawnBufferMapAsyncStatus status, void* ptr, uint64_t dataLength, void* userdata) {
       (*reinterpret_cast<BufferCallbackResult*>(userdata)) = { ptr, dataLength };
     },
@@ -95,7 +95,7 @@ Napi::Value GPUBuffer::mapWriteAsync(const Napi::CallbackInfo &info) {
   );
 
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
-  DawnDevice backendDevice = device->backendDevice;
+  DawnDevice backendDevice = device->instance;
 
   dawnDeviceTick(backendDevice);
   if (!callbackResult.addr) {
@@ -122,13 +122,13 @@ Napi::Value GPUBuffer::mapWriteAsync(const Napi::CallbackInfo &info) {
 
 Napi::Value GPUBuffer::unmap(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
-  dawnBufferUnmap(this->buffer);
+  dawnBufferUnmap(this->instance);
   return env.Undefined();
 }
 
 Napi::Value GPUBuffer::destroy(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
-  dawnBufferDestroy(this->buffer);
+  dawnBufferDestroy(this->instance);
   return env.Undefined();
 }
 

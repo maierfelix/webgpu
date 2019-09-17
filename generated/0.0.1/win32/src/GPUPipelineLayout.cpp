@@ -10,7 +10,7 @@ GPUPipelineLayout::GPUPipelineLayout(const Napi::CallbackInfo& info) : Napi::Obj
   Napi::Env env = info.Env();
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
-  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->backendDevice;
+  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->instance;
 
   DawnPipelineLayoutDescriptor descriptor;
   descriptor.nextInChain = nullptr;
@@ -23,14 +23,14 @@ GPUPipelineLayout::GPUPipelineLayout(const Napi::CallbackInfo& info) : Napi::Obj
     for (unsigned int ii = 0; ii < length; ++ii) {
       Napi::Value item = array.Get(ii);
       Napi::Object obj = item.As<Napi::Object>();
-      DawnBindGroupLayout bindGroupLayout = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(obj)->bindGroupLayout;
+      DawnBindGroupLayout bindGroupLayout = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(obj)->instance;
       bindGroupLayouts.push_back(bindGroupLayout);
     };
     descriptor.bindGroupLayoutCount = length;
     descriptor.bindGroupLayouts = bindGroupLayouts.data();
   }
 
-  this->pipelineLayout = dawnDeviceCreatePipelineLayout(backendDevice, &descriptor);
+  this->instance = dawnDeviceCreatePipelineLayout(backendDevice, &descriptor);
 }
 
 GPUPipelineLayout::~GPUPipelineLayout() {

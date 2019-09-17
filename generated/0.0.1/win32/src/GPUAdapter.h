@@ -23,8 +23,8 @@ class GPUAdapter : public Napi::ObjectWrap<GPUAdapter> {
 
     GLFWwindow* window;
 
-    std::unique_ptr<dawn_native::Instance> instance;
-    dawn_native::Adapter adapter;
+    std::unique_ptr<dawn_native::Instance> nativeInstance;
+    dawn_native::Adapter instance;
 
   private:
     GLFWwindow* GPUAdapter::createWindow(const Napi::CallbackInfo& info);

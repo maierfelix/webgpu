@@ -21,8 +21,6 @@ import WebGPU from "../index.js";
     console.log("Fence Completed Value:", fence.getCompletedValue());
   }
 
-  return;
-
   {
     const buffer = device.createBuffer({
       size: 128n,
@@ -148,6 +146,8 @@ import WebGPU from "../index.js";
     code: fragmentShaderSource
   });
   console.log("Fragment Shader Module:", fragmentShaderModule);
+
+  return;
 
   // TODO: to hex
   let colorState = {

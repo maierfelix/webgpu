@@ -17,7 +17,7 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
 
   // expect arg 0 be GPUAdapter
   this->adapter.Reset(info[0].ToObject(), 1);
-  this->_adapter = Napi::ObjectWrap<GPUAdapter>::Unwrap(this->adapter.Value())->adapter;
+  this->_adapter = Napi::ObjectWrap<GPUAdapter>::Unwrap(this->adapter.Value())->instance;
 
   if (info[1].IsObject()) {
     Napi::Object obj = info[1].As<Napi::Object>();
@@ -29,14 +29,14 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
     }
   }
 
-  this->backendDevice = this->createDevice();
-  this->binding = this->createBinding(info, this->backendDevice);
+  this->instance = this->createDevice();
+  this->binding = this->createBinding(info, this->instance);
 
   DawnProcTable procs = dawn_native::GetProcs();
 
   dawnSetProcs(&procs);
   /*procs.deviceSetUncapturedErrorCallback(
-    this->backendDevice,
+    this->instance,
     [](DawnErrorType errorType, const char* message, void* devicePtr) {
       std::string type;
       switch (errorType) {
@@ -65,7 +65,7 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
     },
     reinterpret_cast<void*>(this)
   );*/
-  this->device = dawn::Device::Acquire(this->backendDevice);
+  this->device = dawn::Device::Acquire(this->instance);
 
   this->mainQueue.Reset(this->createQueue(info), 1);
 }

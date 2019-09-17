@@ -8,7 +8,7 @@ GPUTexture::GPUTexture(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUTex
   Napi::Env env = info.Env();
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
-  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->backendDevice;
+  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->instance;
 
   DawnTextureDescriptor descriptor;
   descriptor.nextInChain = nullptr;
@@ -54,7 +54,7 @@ GPUTexture::GPUTexture(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUTex
     }
   }
 
-  this->texture = dawnDeviceCreateTexture(backendDevice, &descriptor);
+  this->instance = dawnDeviceCreateTexture(backendDevice, &descriptor);
 }
 
 GPUTexture::~GPUTexture() {

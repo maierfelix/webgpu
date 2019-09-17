@@ -7,7 +7,7 @@ GPUSampler::GPUSampler(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUSam
   Napi::Env env = info.Env();
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
-  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->backendDevice;
+  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->instance;
 
   DawnSamplerDescriptor descriptor;
   descriptor.nextInChain = nullptr;
@@ -67,7 +67,7 @@ GPUSampler::GPUSampler(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUSam
     }
   }
 
-  this->sampler = dawnDeviceCreateSampler(backendDevice, &descriptor);
+  this->instance = dawnDeviceCreateSampler(backendDevice, &descriptor);
 }
 
 GPUSampler::~GPUSampler() {

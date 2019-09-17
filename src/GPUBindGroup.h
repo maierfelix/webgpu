@@ -15,7 +15,7 @@ class GPUBindGroup  : public Napi::ObjectWrap<GPUBindGroup > {
 
     Napi::ObjectReference device;
 
-    DawnBindGroup bindGroup;
+    DawnBindGroup instance;
   private:
 
 };

@@ -15,7 +15,7 @@ class GPUSampler : public Napi::ObjectWrap<GPUSampler> {
 
     Napi::ObjectReference device;
 
-    DawnSampler sampler;
+    DawnSampler instance;
   private:
 
 };

@@ -4,6 +4,8 @@
 #define NAPI_EXPERIMENTAL
 #include <napi.h>
 
+#include "GPUDevice.h"
+
 inline char* getNAPIStringCopy(Napi::Value& value) {
   std::string utf8 = value.ToString().Utf8Value();
   int len = utf8.length() + 1; // +1 NULL

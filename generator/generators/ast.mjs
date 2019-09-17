@@ -1,7 +1,9 @@
 import {
   warn,
   getCamelizedName,
-  getSnakeCaseName
+  getSnakeCaseName,
+  firstLetterToUpperCase,
+  getSnakeCaseFromCamelCaseName
 } from "../utils.mjs";
 
 import {
@@ -158,7 +160,13 @@ export default function generateAST(ast) {
         if (member.optional) child.isOptional = true;
         if (member.hasOwnProperty("default") && member.default !== "undefined") {
           let defaultValue = member.default;
-          if (defaultValue === "true" || defaultValue === "false") {
+          if (type.isEnum) {
+            child.defaultValue = `"${member.default}"`;
+            child.defaultValueNative = getASTNodeByName(member.type, ast).values.filter(({ name }) => {
+              return name === member.default;
+            })[0].value;
+          }
+          else if (defaultValue === "true" || defaultValue === "false") {
             child.defaultValue = defaultValue === "true";
             child.defaultValueNative = defaultValue;
           } else if (Number.isInteger(parseInt(defaultValue))) {

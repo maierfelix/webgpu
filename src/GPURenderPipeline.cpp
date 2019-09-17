@@ -13,7 +13,7 @@ GPURenderPipeline::GPURenderPipeline(const Napi::CallbackInfo& info) : Napi::Obj
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* uwDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
-  DawnDevice backendDevice = uwDevice->backendDevice;
+  DawnDevice backendDevice = uwDevice->instance;
 
   DawnRenderPipelineDescriptor descriptor;
   descriptor.nextInChain = nullptr;
@@ -26,7 +26,7 @@ GPURenderPipeline::GPURenderPipeline(const Napi::CallbackInfo& info) : Napi::Obj
       // vertexStage.module
       {
         Napi::Object module = vertexStage.Get("module").As<Napi::Object>();
-        descriptor.vertexStage.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap(module)->shaderModule;
+        descriptor.vertexStage.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap(module)->instance;
       }
       // vertexStage.entryPoint
       {
@@ -41,7 +41,7 @@ GPURenderPipeline::GPURenderPipeline(const Napi::CallbackInfo& info) : Napi::Obj
       // fragmentStage.module
       {
         Napi::Object module = fragmentStage.Get("module").As<Napi::Object>();
-        fragmentStageDescriptor->module = Napi::ObjectWrap<GPUShaderModule>::Unwrap(module)->shaderModule;
+        fragmentStageDescriptor->module = Napi::ObjectWrap<GPUShaderModule>::Unwrap(module)->instance;
       }
       // fragmentStage.entryPoint
       {
@@ -56,7 +56,7 @@ GPURenderPipeline::GPURenderPipeline(const Napi::CallbackInfo& info) : Napi::Obj
     }
   }
 
-  this->renderPipeline = dawnDeviceCreateRenderPipeline(backendDevice, &descriptor);
+  this->instance = dawnDeviceCreateRenderPipeline(backendDevice, &descriptor);
 
 }
 

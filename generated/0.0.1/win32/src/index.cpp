@@ -20,7 +20,7 @@
 #include "GPUShaderModule.h"
 #include "GPURenderPipeline.h"
 
-#include "DescriptorDecoder.h"
+//#include "DescriptorDecoder.h"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 

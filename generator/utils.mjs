@@ -47,6 +47,14 @@ export function getSnakeCaseName(name) {
   );
 };
 
+export function getSnakeCaseFromCamelCaseName(name) {
+  return name.split(/(?=[A-Z])/).join('_').toUpperCase();
+};
+
+export function firstLetterToUpperCase(str) {
+  return str[0].toUpperCase() + str.substr(1);
+};
+
 export function isQuotedString(str) {
   return !!((String(str)).match(/"[^"]*"/g));
 };

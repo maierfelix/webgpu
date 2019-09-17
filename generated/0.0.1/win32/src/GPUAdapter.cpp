@@ -7,11 +7,11 @@ GPUAdapter::GPUAdapter(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUAda
 
   this->window = this->createWindow(info);
 
-  this->instance = std::make_unique<dawn_native::Instance>();
+  this->nativeInstance = std::make_unique<dawn_native::Instance>();
 
-  this->instance->DiscoverDefaultAdapters();
+  this->nativeInstance->DiscoverDefaultAdapters();
 
-  this->adapter = this->createAdapter(info);
+  this->instance = this->createAdapter(info);
 }
 
 GPUAdapter::~GPUAdapter() {
@@ -58,7 +58,7 @@ GLFWwindow* GPUAdapter::createWindow(const Napi::CallbackInfo& info) {
 dawn_native::Adapter GPUAdapter::createAdapter(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   {
-    std::vector<dawn_native::Adapter> adapters = this->instance->GetAdapters();
+    std::vector<dawn_native::Adapter> adapters = this->nativeInstance->GetAdapters();
     auto adapterIt = std::find_if(
       adapters.begin(),
       adapters.end(),
@@ -76,13 +76,13 @@ dawn_native::Adapter GPUAdapter::createAdapter(const Napi::CallbackInfo& info) {
 
 Napi::Value GPUAdapter::GetName(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  return Napi::String::New(env, this->adapter.GetPCIInfo().name);
+  return Napi::String::New(env, this->instance.GetPCIInfo().name);
 }
 
 Napi::Value GPUAdapter::GetExtensions(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
 
-  std::vector<const char*> extensions = this->adapter.GetSupportedExtensions();
+  std::vector<const char*> extensions = this->instance.GetSupportedExtensions();
 
   Napi::Array out = Napi::Array::New(env);
   for (unsigned int ii = 0; ii < extensions.size(); ++ii) {

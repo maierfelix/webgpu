@@ -7,7 +7,7 @@ GPUTextureView::GPUTextureView(const Napi::CallbackInfo& info) : Napi::ObjectWra
   Napi::Env env = info.Env();
 
   this->texture.Reset(info[0].As<Napi::Object>(), 1);
-  DawnTexture texture = Napi::ObjectWrap<GPUTexture>::Unwrap(this->texture.Value())->texture;
+  DawnTexture texture = Napi::ObjectWrap<GPUTexture>::Unwrap(this->texture.Value())->instance;
 
   DawnTextureViewDescriptor descriptor;
   descriptor.nextInChain = nullptr;
@@ -51,7 +51,7 @@ GPUTextureView::GPUTextureView(const Napi::CallbackInfo& info) : Napi::ObjectWra
     }
   }
 
-  this->textureView = dawnTextureCreateView(texture, &descriptor);
+  this->instance = dawnTextureCreateView(texture, &descriptor);
 }
 
 GPUTextureView::~GPUTextureView() {

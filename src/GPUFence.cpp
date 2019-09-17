@@ -11,7 +11,7 @@ GPUFence::GPUFence(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUFence>(
   Napi::Env env = info.Env();
 
   this->queue.Reset(info[0].As<Napi::Object>(), 1);
-  GPUQueue* queue = Napi::ObjectWrap<GPUQueue>::Unwrap(this->queue.Value());
+  DawnQueue queue = Napi::ObjectWrap<GPUQueue>::Unwrap(this->queue.Value())->instance;
 
   DawnFenceDescriptor descriptor;
   if (info[1].IsObject()) {
@@ -23,7 +23,7 @@ GPUFence::GPUFence(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUFence>(
     descriptor.nextInChain = nullptr;
   }
 
-  this->fence = dawnQueueCreateFence(queue->queue, &descriptor);
+  this->instance = dawnQueueCreateFence(queue, &descriptor);
 }
 
 GPUFence::~GPUFence() {
@@ -32,7 +32,7 @@ GPUFence::~GPUFence() {
 
 Napi::Value GPUFence::getCompletedValue(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
-  uint64_t completedValue = dawnFenceGetCompletedValue(this->fence);
+  uint64_t completedValue = dawnFenceGetCompletedValue(this->instance);
   return Napi::BigInt::New(env, completedValue);
 }
 
@@ -45,7 +45,7 @@ Napi::Value GPUFence::onCompletion(const Napi::CallbackInfo &info) {
   Napi::Function callback = info[1].As<Napi::Function>();
 
   dawnFenceOnCompletion(
-    fence,
+    this->instance,
     static_cast<unsigned long long>(completionValue),
     [](DawnFenceCompletionStatus status, void* userdata) {
 
@@ -55,11 +55,11 @@ Napi::Value GPUFence::onCompletion(const Napi::CallbackInfo &info) {
 
   GPUQueue* queue = Napi::ObjectWrap<GPUQueue>::Unwrap(this->queue.Value());
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(queue->device.Value());
-  DawnDevice backendDevice = device->backendDevice;
+  DawnDevice backendDevice = device->instance;
 
   dawnDeviceTick(backendDevice);
-  if (dawnFenceGetCompletedValue(this->fence) != completionValue) {
-    while (dawnFenceGetCompletedValue(this->fence) != completionValue) {
+  if (dawnFenceGetCompletedValue(this->instance) != completionValue) {
+    while (dawnFenceGetCompletedValue(this->instance) != completionValue) {
       std::this_thread::sleep_for(std::chrono::milliseconds(5));
       dawnDeviceTick(backendDevice);
     };

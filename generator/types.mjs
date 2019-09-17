@@ -1,7 +1,8 @@
 import {
   warn,
   error,
-  getCamelizedName
+  getCamelizedName,
+  getSnakeCaseName
 } from "./utils.mjs";
 
 export function getDawnDeclarationName(name) {

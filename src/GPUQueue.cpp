@@ -8,9 +8,9 @@ GPUQueue::GPUQueue(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUQueue>(
   Napi::Env env = info.Env();
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
-  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->backendDevice;
+  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->instance;
 
-  this->queue = dawnDeviceCreateQueue(backendDevice);
+  this->instance = dawnDeviceCreateQueue(backendDevice);
 }
 
 GPUQueue::~GPUQueue() {
@@ -32,11 +32,10 @@ Napi::Value GPUQueue::createFence(const Napi::CallbackInfo &info) {
 Napi::Value GPUQueue::signal(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  DawnQueue queue = this->queue;
-  DawnFence fence = Napi::ObjectWrap<GPUFence>::Unwrap(info[0].ToObject())->fence;
+  DawnFence fence = Napi::ObjectWrap<GPUFence>::Unwrap(info[0].ToObject())->instance;
   bool lossless;
   uint64_t signalValue = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
-  dawnQueueSignal(queue, fence, signalValue);
+  dawnQueueSignal(this->instance, fence, signalValue);
 
   return env.Undefined();
 }

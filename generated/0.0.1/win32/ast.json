@@ -7900,8 +7900,8 @@
               "isString": true
             }
           },
-          "defaultValue": "2D",
-          "defaultValueNative": "2D"
+          "defaultValue": "\"2D\"",
+          "defaultValueNative": 1
         },
         {
           "name": "size",

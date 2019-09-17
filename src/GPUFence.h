@@ -19,7 +19,7 @@ class GPUFence : public Napi::ObjectWrap<GPUFence> {
     Napi::ObjectReference queue;
     Napi::ObjectReference device;
 
-    DawnFence fence;
+    DawnFence instance;
   private:
 
 };

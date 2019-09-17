@@ -944,6 +944,16 @@ namespace DescriptorDecoder {
       descriptor.colorFormatsCount = value.Get("colorFormatsCount").As<Napi::Number>().Uint32Value();
     }
     {
+      Napi::Array array = value.Get("colorFormats").As<Napi::Array>();
+      uint32_t length = array.Length();
+      std::vector<DawnTextureFormat> data;
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnTextureFormat value = static_cast<DawnTextureFormat>(
+          GPUTextureFormat[item.As<Napi::String>().Utf8Value()]
+        );
+        data.push_back(value);
+      };
       // UNIMPLEMENTED
     }
     if (value.Has("depthStencilFormat")) {

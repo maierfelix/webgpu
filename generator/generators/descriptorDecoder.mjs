@@ -159,6 +159,18 @@ ${padding}  ${output.name}.${member.name} = data.data();`;
     out += `);`;
   // decode enum member array
   } else if (type.isEnum && type.isArray) {
+    let decodeMap = getExplortDeclarationName(type.nativeType);
+    out += `
+${padding}  Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
+${padding}  uint32_t length = array.Length();
+${padding}  std::vector<${type.nativeType}> data;
+${padding}  for (unsigned int ii = 0; ii < length; ++ii) {
+${padding}    Napi::Object item = array.Get(ii).As<Napi::Object>();
+${padding}    ${type.nativeType} value = static_cast<${type.nativeType}>(
+${padding}      ${decodeMap}[item.As<Napi::String>().Utf8Value()]
+${padding}    );
+${padding}    data.push_back(value);
+${padding}  };`;
     out += `\n${padding}  // UNIMPLEMENTED`;
   // decode bitmask member
   } else if (type.isBitmask && !type.isArray) {

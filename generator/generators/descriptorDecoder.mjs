@@ -108,7 +108,11 @@ ${padding}    data.push_back($${member.name});
 ${padding}  };`;
     // create array of pointers
     if (type.isArrayOfPointers) {
-      console.log(type);
+out += `
+${padding}  ${output.name}.${type.length} = length;
+${padding}  std::vector<${type.nativeType}*> dst(length);
+${padding}  std::transform(data.begin(), data.end(), dst.begin(), [](${type.nativeType}& d) { return &d; });
+${padding}  ${output.name}.${member.name} = dst.data();`;
     // normal struct array
     } else {
 out += `

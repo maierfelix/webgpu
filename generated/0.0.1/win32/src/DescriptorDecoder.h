@@ -1081,6 +1081,10 @@ namespace DescriptorDecoder {
         }
         data.push_back($colorAttachments);
       };
+      descriptor.colorAttachmentCount = length;
+      std::vector<DawnRenderPassColorAttachmentDescriptor*> dst(length);
+      std::transform(data.begin(), data.end(), dst.begin(), [](DawnRenderPassColorAttachmentDescriptor& d) { return &d; });
+      descriptor.colorAttachments = dst.data();
     }
     {
       DawnRenderPassDepthStencilAttachmentDescriptor depthStencilAttachment;
@@ -1346,6 +1350,10 @@ namespace DescriptorDecoder {
         }
         data.push_back($colorStates);
       };
+      descriptor.colorStateCount = length;
+      std::vector<DawnColorStateDescriptor*> dst(length);
+      std::transform(data.begin(), data.end(), dst.begin(), [](DawnColorStateDescriptor& d) { return &d; });
+      descriptor.colorStates = dst.data();
     }
     if (value.Has("sampleMask")) {
       descriptor.sampleMask = value.Get("sampleMask").As<Napi::Number>().Uint32Value();

@@ -875,7 +875,15 @@ namespace DescriptorDecoder {
       descriptor.bindGroupLayoutCount = value.Get("bindGroupLayoutCount").As<Napi::Number>().Uint32Value();
     }
     {
-      // UNIMPLEMENTED
+      Napi::Array array = value.Get("bindGroupLayouts").As<Napi::Array>();
+      uint32_t length = array.Length();
+      std::vector<DawnBindGroupLayout> data;
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnBindGroupLayout value = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(item.Get("bindGroupLayouts").As<Napi::Object>())->instance;
+        data.push_back(value);
+      };
+      descriptor.bindGroupLayouts = data.data();
     }
 
     return descriptor;
@@ -954,7 +962,7 @@ namespace DescriptorDecoder {
         );
         data.push_back(value);
       };
-      // UNIMPLEMENTED
+      descriptor.colorFormats = data.data();
     }
     if (value.Has("depthStencilFormat")) {
       descriptor.depthStencilFormat = static_cast<DawnTextureFormat>(GPUTextureFormat[value.Get("depthStencilFormat").As<Napi::String>().Utf8Value()]);

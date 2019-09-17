@@ -50,7 +50,18 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
     out += `\n${padding}  ${output.name}.${member.name} = Napi::ObjectWrap<${unwrapType}>::Unwrap(${input.name}.Get("${member.name}").As<Napi::Object>())->instance;`;
   // decode descriptor object array
   } else if (type.isObject && type.isArray) {
-    out += `\n${padding}  // UNIMPLEMENTED`;
+    let unwrapType = getExplortDeclarationName(type.nativeType);
+    out += `
+${padding}  Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
+${padding}  uint32_t length = array.Length();
+${padding}  std::vector<${type.nativeType}> data;
+${padding}  for (unsigned int ii = 0; ii < length; ++ii) {
+${padding}    Napi::Object item = array.Get(ii).As<Napi::Object>();
+${padding}    ${type.nativeType} value = Napi::ObjectWrap<${unwrapType}>::Unwrap(item.Get("${member.name}").As<Napi::Object>())->instance;
+${padding}    data.push_back(value);
+${padding}  };`;
+    out += `
+${padding}  ${output.name}.${member.name} = data.data();`;
   // decode descriptor structure
   } else if (type.isStructure && !type.isArray) {
     let memberTypeStructure = ast.structures.filter(s => s.name === type.nativeType)[0] || null;
@@ -171,7 +182,8 @@ ${padding}      ${decodeMap}[item.As<Napi::String>().Utf8Value()]
 ${padding}    );
 ${padding}    data.push_back(value);
 ${padding}  };`;
-    out += `\n${padding}  // UNIMPLEMENTED`;
+    out += `
+${padding}  ${output.name}.${member.name} = data.data();`;
   // decode bitmask member
   } else if (type.isBitmask && !type.isArray) {
     out += `\n${padding}  ${output.name}.${member.name} = static_cast<${type.nativeType}>(${input.name}.Get("${member.name}").As<Napi::Number>().Uint32Value());`;

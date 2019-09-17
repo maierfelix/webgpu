@@ -207,6 +207,7 @@ export function getASTType(member, ast) {
     }
     else if (member.annotation === "const*const*") {
       out.isArray = true;
+      out.isArrayOfPointers = true;
       out.isReference = true;
     }
   }

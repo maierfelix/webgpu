@@ -82,7 +82,39 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
     }
   // decode descriptor structure array
   } else if (type.isStructure && type.isArray) {
-    out += `\n${padding}  // UNIMPLEMENTED`;
+    let memberTypeStructure = ast.structures.filter(s => s.name === type.nativeType)[0] || null;
+    if (!memberTypeStructure) {
+      warn(`Cannot resolve relative structure of member '${structure.externalName}'.'${member.name}'`);
+    }
+    out += `
+${padding}  Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
+${padding}  uint32_t length = array.Length();
+${padding}  std::vector<${type.nativeType}> data;
+${padding}  for (unsigned int ii = 0; ii < length; ++ii) {
+${padding}    Napi::Object item = array.Get(ii).As<Napi::Object>();
+${padding}    ${type.nativeType} $${member.name};`;
+
+    let nextOpts = {
+      padding: opts.padding + `    `,
+      input: { name: `item` },
+      output: { name: `$${member.name}` }
+    };
+    memberTypeStructure.children.map(member => {
+      out += getDecodeStructureMember(memberTypeStructure, member, nextOpts);
+    });
+
+    out += `
+${padding}    data.push_back($${member.name});
+${padding}  };`;
+    // create array of pointers
+    if (type.isArrayOfPointers) {
+      console.log(type);
+    // normal struct array
+    } else {
+out += `
+${padding}  ${output.name}.${type.length} = length;
+${padding}  ${output.name}.${member.name} = data.data();`;
+    }
   // decode numeric typed members
   } else if (type.isNumber) {
     switch (rawType) {

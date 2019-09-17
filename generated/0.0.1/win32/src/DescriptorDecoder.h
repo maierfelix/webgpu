@@ -332,7 +332,48 @@ namespace DescriptorDecoder {
       descriptor.bindingCount = value.Get("bindingCount").As<Napi::Number>().Uint32Value();
     }
     {
-      // UNIMPLEMENTED
+      Napi::Array array = value.Get("bindings").As<Napi::Array>();
+      uint32_t length = array.Length();
+      std::vector<DawnBindGroupBinding> data;
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnBindGroupBinding $bindings;
+        {
+          $bindings.binding = item.Get("binding").As<Napi::Number>().Uint32Value();
+        }
+        {
+          if (!(item.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+            //NAPI_THROW_JS_CB_ERROR(device, "TypeError", "Expected type 'GPUBuffer' for 'GPUBindGroupBinding'.'buffer'");
+            return {};
+          }
+          $bindings.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(item.Get("buffer").As<Napi::Object>())->instance;
+        }
+        if (item.Has("offset")) {
+          bool lossless;
+          $bindings.offset = item.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+        }
+        {
+          bool lossless;
+          $bindings.size = item.Get("size").As<Napi::BigInt>().Uint64Value(&lossless);
+        }
+        {
+          if (!(item.Get("sampler").As<Napi::Object>().InstanceOf(GPUSampler::constructor.Value()))) {
+            //NAPI_THROW_JS_CB_ERROR(device, "TypeError", "Expected type 'GPUSampler' for 'GPUBindGroupBinding'.'sampler'");
+            return {};
+          }
+          $bindings.sampler = Napi::ObjectWrap<GPUSampler>::Unwrap(item.Get("sampler").As<Napi::Object>())->instance;
+        }
+        {
+          if (!(item.Get("textureView").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+            //NAPI_THROW_JS_CB_ERROR(device, "TypeError", "Expected type 'GPUTextureView' for 'GPUBindGroupBinding'.'textureView'");
+            return {};
+          }
+          $bindings.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(item.Get("textureView").As<Napi::Object>())->instance;
+        }
+        data.push_back($bindings);
+      };
+      descriptor.bindingCount = length;
+      descriptor.bindings = data.data();
     }
 
     return descriptor;
@@ -377,7 +418,37 @@ namespace DescriptorDecoder {
       descriptor.bindingCount = value.Get("bindingCount").As<Napi::Number>().Uint32Value();
     }
     {
-      // UNIMPLEMENTED
+      Napi::Array array = value.Get("bindings").As<Napi::Array>();
+      uint32_t length = array.Length();
+      std::vector<DawnBindGroupLayoutBinding> data;
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnBindGroupLayoutBinding $bindings;
+        {
+          $bindings.binding = item.Get("binding").As<Napi::Number>().Uint32Value();
+        }
+        {
+          $bindings.visibility = static_cast<DawnShaderStage>(item.Get("visibility").As<Napi::Number>().Uint32Value());
+        }
+        {
+          $bindings.type = static_cast<DawnBindingType>(GPUBindingType[item.Get("type").As<Napi::String>().Utf8Value()]);
+        }
+        if (item.Has("dynamic")) {
+          $bindings.dynamic = item.Get("dynamic").As<Napi::Boolean>().Value();
+        }
+        if (item.Has("multisampled")) {
+          $bindings.multisampled = item.Get("multisampled").As<Napi::Boolean>().Value();
+        }
+        if (item.Has("textureDimension")) {
+          $bindings.textureDimension = static_cast<DawnTextureViewDimension>(GPUTextureViewDimension[item.Get("textureDimension").As<Napi::String>().Utf8Value()]);
+        }
+        if (item.Has("textureComponentType")) {
+          $bindings.textureComponentType = static_cast<DawnTextureComponentType>(GPUTextureComponentType[item.Get("textureComponentType").As<Napi::String>().Utf8Value()]);
+        }
+        data.push_back($bindings);
+      };
+      descriptor.bindingCount = length;
+      descriptor.bindings = data.data();
     }
 
     return descriptor;
@@ -692,7 +763,26 @@ namespace DescriptorDecoder {
       descriptor.attributeCount = value.Get("attributeCount").As<Napi::Number>().Uint32Value();
     }
     {
-      // UNIMPLEMENTED
+      Napi::Array array = value.Get("attributes").As<Napi::Array>();
+      uint32_t length = array.Length();
+      std::vector<DawnVertexAttributeDescriptor> data;
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnVertexAttributeDescriptor $attributes;
+        {
+          $attributes.shaderLocation = item.Get("shaderLocation").As<Napi::Number>().Uint32Value();
+        }
+        if (item.Has("offset")) {
+          bool lossless;
+          $attributes.offset = item.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+        }
+        {
+          $attributes.format = static_cast<DawnVertexFormat>(GPUVertexFormat[item.Get("format").As<Napi::String>().Utf8Value()]);
+        }
+        data.push_back($attributes);
+      };
+      descriptor.attributeCount = length;
+      descriptor.attributes = data.data();
     }
 
     return descriptor;
@@ -711,7 +801,48 @@ namespace DescriptorDecoder {
       descriptor.bufferCount = value.Get("bufferCount").As<Napi::Number>().Uint32Value();
     }
     {
-      // UNIMPLEMENTED
+      Napi::Array array = value.Get("buffers").As<Napi::Array>();
+      uint32_t length = array.Length();
+      std::vector<DawnVertexBufferDescriptor> data;
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnVertexBufferDescriptor $buffers;
+        {
+          bool lossless;
+          $buffers.stride = item.Get("stride").As<Napi::BigInt>().Uint64Value(&lossless);
+        }
+        if (item.Has("stepMode")) {
+          $buffers.stepMode = static_cast<DawnInputStepMode>(GPUInputStepMode[item.Get("stepMode").As<Napi::String>().Utf8Value()]);
+        }
+        {
+          $buffers.attributeCount = item.Get("attributeCount").As<Napi::Number>().Uint32Value();
+        }
+        {
+          Napi::Array array = item.Get("attributes").As<Napi::Array>();
+          uint32_t length = array.Length();
+          std::vector<DawnVertexAttributeDescriptor> data;
+          for (unsigned int ii = 0; ii < length; ++ii) {
+            Napi::Object item = array.Get(ii).As<Napi::Object>();
+            DawnVertexAttributeDescriptor $attributes;
+            {
+              $attributes.shaderLocation = item.Get("shaderLocation").As<Napi::Number>().Uint32Value();
+            }
+            if (item.Has("offset")) {
+              bool lossless;
+              $attributes.offset = item.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+            }
+            {
+              $attributes.format = static_cast<DawnVertexFormat>(GPUVertexFormat[item.Get("format").As<Napi::String>().Utf8Value()]);
+            }
+            data.push_back($attributes);
+          };
+          $buffers.attributeCount = length;
+          $buffers.attributes = data.data();
+        }
+        data.push_back($buffers);
+      };
+      descriptor.bufferCount = length;
+      descriptor.buffers = data.data();
     }
 
     return descriptor;
@@ -907,7 +1038,49 @@ namespace DescriptorDecoder {
       descriptor.colorAttachmentCount = value.Get("colorAttachmentCount").As<Napi::Number>().Uint32Value();
     }
     {
-      // UNIMPLEMENTED
+      Napi::Array array = value.Get("colorAttachments").As<Napi::Array>();
+      uint32_t length = array.Length();
+      std::vector<DawnRenderPassColorAttachmentDescriptor> data;
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnRenderPassColorAttachmentDescriptor $colorAttachments;
+        {
+          if (!(item.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+            //NAPI_THROW_JS_CB_ERROR(device, "TypeError", "Expected type 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'attachment'");
+            return {};
+          }
+          $colorAttachments.attachment = Napi::ObjectWrap<GPUTextureView>::Unwrap(item.Get("attachment").As<Napi::Object>())->instance;
+        }
+        {
+          if (!(item.Get("resolveTarget").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+            //NAPI_THROW_JS_CB_ERROR(device, "TypeError", "Expected type 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'resolveTarget'");
+            return {};
+          }
+          $colorAttachments.resolveTarget = Napi::ObjectWrap<GPUTextureView>::Unwrap(item.Get("resolveTarget").As<Napi::Object>())->instance;
+        }
+        {
+          $colorAttachments.loadOp = static_cast<DawnLoadOp>(GPULoadOp[item.Get("loadOp").As<Napi::String>().Utf8Value()]);
+        }
+        {
+          $colorAttachments.storeOp = static_cast<DawnStoreOp>(GPUStoreOp[item.Get("storeOp").As<Napi::String>().Utf8Value()]);
+        }
+        {
+          Napi::Object $clearColor = item.Get("clearColor").As<Napi::Object>();
+          {
+            $colorAttachments.clearColor.r = $clearColor.Get("r").As<Napi::Number>().FloatValue();
+          }
+          {
+            $colorAttachments.clearColor.g = $clearColor.Get("g").As<Napi::Number>().FloatValue();
+          }
+          {
+            $colorAttachments.clearColor.b = $clearColor.Get("b").As<Napi::Number>().FloatValue();
+          }
+          {
+            $colorAttachments.clearColor.a = $clearColor.Get("a").As<Napi::Number>().FloatValue();
+          }
+        }
+        data.push_back($colorAttachments);
+      };
     }
     {
       DawnRenderPassDepthStencilAttachmentDescriptor depthStencilAttachment;
@@ -1001,7 +1174,48 @@ namespace DescriptorDecoder {
         vertexInput.bufferCount = $vertexInput.Get("bufferCount").As<Napi::Number>().Uint32Value();
       }
       {
-        // UNIMPLEMENTED
+        Napi::Array array = $vertexInput.Get("buffers").As<Napi::Array>();
+        uint32_t length = array.Length();
+        std::vector<DawnVertexBufferDescriptor> data;
+        for (unsigned int ii = 0; ii < length; ++ii) {
+          Napi::Object item = array.Get(ii).As<Napi::Object>();
+          DawnVertexBufferDescriptor $buffers;
+          {
+            bool lossless;
+            $buffers.stride = item.Get("stride").As<Napi::BigInt>().Uint64Value(&lossless);
+          }
+          if (item.Has("stepMode")) {
+            $buffers.stepMode = static_cast<DawnInputStepMode>(GPUInputStepMode[item.Get("stepMode").As<Napi::String>().Utf8Value()]);
+          }
+          {
+            $buffers.attributeCount = item.Get("attributeCount").As<Napi::Number>().Uint32Value();
+          }
+          {
+            Napi::Array array = item.Get("attributes").As<Napi::Array>();
+            uint32_t length = array.Length();
+            std::vector<DawnVertexAttributeDescriptor> data;
+            for (unsigned int ii = 0; ii < length; ++ii) {
+              Napi::Object item = array.Get(ii).As<Napi::Object>();
+              DawnVertexAttributeDescriptor $attributes;
+              {
+                $attributes.shaderLocation = item.Get("shaderLocation").As<Napi::Number>().Uint32Value();
+              }
+              if (item.Has("offset")) {
+                bool lossless;
+                $attributes.offset = item.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+              }
+              {
+                $attributes.format = static_cast<DawnVertexFormat>(GPUVertexFormat[item.Get("format").As<Napi::String>().Utf8Value()]);
+              }
+              data.push_back($attributes);
+            };
+            $buffers.attributeCount = length;
+            $buffers.attributes = data.data();
+          }
+          data.push_back($buffers);
+        };
+        vertexInput.bufferCount = length;
+        vertexInput.buffers = data.data();
       }
       {
         descriptor.vertexInput = new DawnVertexInputDescriptor;
@@ -1094,7 +1308,44 @@ namespace DescriptorDecoder {
       descriptor.colorStateCount = value.Get("colorStateCount").As<Napi::Number>().Uint32Value();
     }
     {
-      // UNIMPLEMENTED
+      Napi::Array array = value.Get("colorStates").As<Napi::Array>();
+      uint32_t length = array.Length();
+      std::vector<DawnColorStateDescriptor> data;
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnColorStateDescriptor $colorStates;
+        {
+          $colorStates.format = static_cast<DawnTextureFormat>(GPUTextureFormat[item.Get("format").As<Napi::String>().Utf8Value()]);
+        }
+        {
+          Napi::Object $alphaBlend = item.Get("alphaBlend").As<Napi::Object>();
+          if ($alphaBlend.Has("operation")) {
+            $colorStates.alphaBlend.operation = static_cast<DawnBlendOperation>(GPUBlendOperation[$alphaBlend.Get("operation").As<Napi::String>().Utf8Value()]);
+          }
+          if ($alphaBlend.Has("srcFactor")) {
+            $colorStates.alphaBlend.srcFactor = static_cast<DawnBlendFactor>(GPUBlendFactor[$alphaBlend.Get("srcFactor").As<Napi::String>().Utf8Value()]);
+          }
+          if ($alphaBlend.Has("dstFactor")) {
+            $colorStates.alphaBlend.dstFactor = static_cast<DawnBlendFactor>(GPUBlendFactor[$alphaBlend.Get("dstFactor").As<Napi::String>().Utf8Value()]);
+          }
+        }
+        {
+          Napi::Object $colorBlend = item.Get("colorBlend").As<Napi::Object>();
+          if ($colorBlend.Has("operation")) {
+            $colorStates.colorBlend.operation = static_cast<DawnBlendOperation>(GPUBlendOperation[$colorBlend.Get("operation").As<Napi::String>().Utf8Value()]);
+          }
+          if ($colorBlend.Has("srcFactor")) {
+            $colorStates.colorBlend.srcFactor = static_cast<DawnBlendFactor>(GPUBlendFactor[$colorBlend.Get("srcFactor").As<Napi::String>().Utf8Value()]);
+          }
+          if ($colorBlend.Has("dstFactor")) {
+            $colorStates.colorBlend.dstFactor = static_cast<DawnBlendFactor>(GPUBlendFactor[$colorBlend.Get("dstFactor").As<Napi::String>().Utf8Value()]);
+          }
+        }
+        if (item.Has("writeMask")) {
+          $colorStates.writeMask = static_cast<DawnColorWriteMask>(item.Get("writeMask").As<Napi::Number>().Uint32Value());
+        }
+        data.push_back($colorStates);
+      };
     }
     if (value.Has("sampleMask")) {
       descriptor.sampleMask = value.Get("sampleMask").As<Napi::Number>().Uint32Value();

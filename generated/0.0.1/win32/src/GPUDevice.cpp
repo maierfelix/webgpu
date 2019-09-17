@@ -8,6 +8,7 @@
 #include "GPUPipelineLayout.h"
 #include "GPUBindGroup.h"
 #include "GPUShaderModule.h"
+#include "GPURenderPipeline.h"
 
 Napi::FunctionReference GPUDevice::constructor;
 
@@ -226,6 +227,16 @@ Napi::Value GPUDevice::createShaderModule(const Napi::CallbackInfo &info) {
   return shaderModule;
 }
 
+Napi::Value GPUDevice::createRenderPipeline(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  };
+  Napi::Object renderPipeline = GPURenderPipeline::constructor.New(args);
+  return renderPipeline;
+}
+
 Napi::Value GPUDevice::getQueue(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   return this->mainQueue.Value().As<Napi::Object>();
@@ -311,6 +322,11 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "createShaderModule",
       &GPUDevice::createShaderModule,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createRenderPipeline",
+      &GPUDevice::createRenderPipeline,
       napi_enumerable
     ),
   });

@@ -12,8 +12,8 @@ inline char* getNAPIStringCopy(Napi::Value& value) {
   return str;
 };
 
-template<typename T> inline T* getTypedArrayData(Napi::Value& value, size_t *len = nullptr) {
-  T *data = nullptr;
+template<typename T> inline T* getTypedArrayData(Napi::Value& value, size_t* len = nullptr) {
+  T* data = nullptr;
   if (len) *len = 0;
   if (!value.IsTypedArray()) {
     Napi::Env env = value.Env();

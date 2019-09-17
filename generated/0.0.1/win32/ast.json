@@ -2,12 +2,12 @@
   "enums": [
     {
       "name": "DawnAddressMode",
-      "externalName": "AddressMode",
+      "externalName": "GPUAddressMode",
       "type": "enum",
       "textName": "address mode",
       "children": [
         {
-          "name": "REPEAT",
+          "name": "repeat",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -19,7 +19,7 @@
           "value": 0
         },
         {
-          "name": "MIRROR_REPEAT",
+          "name": "mirror repeat",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -31,7 +31,7 @@
           "value": 1
         },
         {
-          "name": "CLAMP_TO_EDGE",
+          "name": "clamp to edge",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -46,12 +46,12 @@
     },
     {
       "name": "DawnBindingType",
-      "externalName": "BindingType",
+      "externalName": "GPUBindingType",
       "type": "enum",
       "textName": "binding type",
       "children": [
         {
-          "name": "UNIFORM_BUFFER",
+          "name": "uniform buffer",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -63,7 +63,7 @@
           "value": 0
         },
         {
-          "name": "STORAGE_BUFFER",
+          "name": "storage buffer",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -75,7 +75,7 @@
           "value": 1
         },
         {
-          "name": "READONLY_STORAGE_BUFFER",
+          "name": "readonly storage buffer",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -87,7 +87,7 @@
           "value": 2
         },
         {
-          "name": "SAMPLER",
+          "name": "sampler",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -99,7 +99,7 @@
           "value": 3
         },
         {
-          "name": "SAMPLED_TEXTURE",
+          "name": "sampled texture",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -111,7 +111,7 @@
           "value": 4
         },
         {
-          "name": "STORAGE_TEXTURE",
+          "name": "storage texture",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -126,12 +126,12 @@
     },
     {
       "name": "DawnBlendFactor",
-      "externalName": "BlendFactor",
+      "externalName": "GPUBlendFactor",
       "type": "enum",
       "textName": "blend factor",
       "children": [
         {
-          "name": "ZERO",
+          "name": "zero",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -143,7 +143,7 @@
           "value": 0
         },
         {
-          "name": "ONE",
+          "name": "one",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -155,7 +155,7 @@
           "value": 1
         },
         {
-          "name": "SRC_COLOR",
+          "name": "src color",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -167,7 +167,7 @@
           "value": 2
         },
         {
-          "name": "ONE_MINUS_SRC_COLOR",
+          "name": "one minus src color",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -179,7 +179,7 @@
           "value": 3
         },
         {
-          "name": "SRC_ALPHA",
+          "name": "src alpha",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -191,7 +191,7 @@
           "value": 4
         },
         {
-          "name": "ONE_MINUS_SRC_ALPHA",
+          "name": "one minus src alpha",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -203,7 +203,7 @@
           "value": 5
         },
         {
-          "name": "DST_COLOR",
+          "name": "dst color",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -215,7 +215,7 @@
           "value": 6
         },
         {
-          "name": "ONE_MINUS_DST_COLOR",
+          "name": "one minus dst color",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -227,7 +227,7 @@
           "value": 7
         },
         {
-          "name": "DST_ALPHA",
+          "name": "dst alpha",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -239,7 +239,7 @@
           "value": 8
         },
         {
-          "name": "ONE_MINUS_DST_ALPHA",
+          "name": "one minus dst alpha",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -251,7 +251,7 @@
           "value": 9
         },
         {
-          "name": "SRC_ALPHA_SATURATED",
+          "name": "src alpha saturated",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -263,7 +263,7 @@
           "value": 10
         },
         {
-          "name": "BLEND_COLOR",
+          "name": "blend color",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -275,7 +275,7 @@
           "value": 11
         },
         {
-          "name": "ONE_MINUS_BLEND_COLOR",
+          "name": "one minus blend color",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -290,12 +290,12 @@
     },
     {
       "name": "DawnBlendOperation",
-      "externalName": "BlendOperation",
+      "externalName": "GPUBlendOperation",
       "type": "enum",
       "textName": "blend operation",
       "children": [
         {
-          "name": "ADD",
+          "name": "add",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -307,7 +307,7 @@
           "value": 0
         },
         {
-          "name": "SUBTRACT",
+          "name": "subtract",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -319,7 +319,7 @@
           "value": 1
         },
         {
-          "name": "REVERSE_SUBTRACT",
+          "name": "reverse subtract",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -331,7 +331,7 @@
           "value": 2
         },
         {
-          "name": "MIN",
+          "name": "min",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -343,7 +343,7 @@
           "value": 3
         },
         {
-          "name": "MAX",
+          "name": "max",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -358,12 +358,12 @@
     },
     {
       "name": "DawnBufferMapAsyncStatus",
-      "externalName": "BufferMapAsyncStatus",
+      "externalName": "GPUBufferMapAsyncStatus",
       "type": "enum",
       "textName": "buffer map async status",
       "children": [
         {
-          "name": "SUCCESS",
+          "name": "success",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -375,7 +375,7 @@
           "value": 0
         },
         {
-          "name": "ERROR",
+          "name": "error",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -387,7 +387,7 @@
           "value": 1
         },
         {
-          "name": "UNKNOWN",
+          "name": "unknown",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -399,7 +399,7 @@
           "value": 2
         },
         {
-          "name": "DEVICE_LOST",
+          "name": "device lost",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -414,12 +414,12 @@
     },
     {
       "name": "DawnCompareFunction",
-      "externalName": "CompareFunction",
+      "externalName": "GPUCompareFunction",
       "type": "enum",
       "textName": "compare function",
       "children": [
         {
-          "name": "NEVER",
+          "name": "never",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -431,7 +431,7 @@
           "value": 0
         },
         {
-          "name": "LESS",
+          "name": "less",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -443,7 +443,7 @@
           "value": 1
         },
         {
-          "name": "LESS_EQUAL",
+          "name": "less equal",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -455,7 +455,7 @@
           "value": 2
         },
         {
-          "name": "GREATER",
+          "name": "greater",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -467,7 +467,7 @@
           "value": 3
         },
         {
-          "name": "GREATER_EQUAL",
+          "name": "greater equal",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -479,7 +479,7 @@
           "value": 4
         },
         {
-          "name": "EQUAL",
+          "name": "equal",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -491,7 +491,7 @@
           "value": 5
         },
         {
-          "name": "NOT_EQUAL",
+          "name": "not equal",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -503,7 +503,7 @@
           "value": 6
         },
         {
-          "name": "ALWAYS",
+          "name": "always",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -518,12 +518,12 @@
     },
     {
       "name": "DawnCullMode",
-      "externalName": "CullMode",
+      "externalName": "GPUCullMode",
       "type": "enum",
       "textName": "cull mode",
       "children": [
         {
-          "name": "NONE",
+          "name": "none",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -535,7 +535,7 @@
           "value": 0
         },
         {
-          "name": "FRONT",
+          "name": "front",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -547,7 +547,7 @@
           "value": 1
         },
         {
-          "name": "BACK",
+          "name": "back",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -562,12 +562,12 @@
     },
     {
       "name": "DawnErrorFilter",
-      "externalName": "ErrorFilter",
+      "externalName": "GPUErrorFilter",
       "type": "enum",
       "textName": "error filter",
       "children": [
         {
-          "name": "NONE",
+          "name": "none",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -579,7 +579,7 @@
           "value": 0
         },
         {
-          "name": "VALIDATION",
+          "name": "validation",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -591,7 +591,7 @@
           "value": 1
         },
         {
-          "name": "OUT_OF_MEMORY",
+          "name": "out of memory",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -606,12 +606,12 @@
     },
     {
       "name": "DawnErrorType",
-      "externalName": "ErrorType",
+      "externalName": "GPUErrorType",
       "type": "enum",
       "textName": "error type",
       "children": [
         {
-          "name": "NO_ERROR",
+          "name": "no error",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -623,7 +623,7 @@
           "value": 0
         },
         {
-          "name": "VALIDATION",
+          "name": "validation",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -635,7 +635,7 @@
           "value": 1
         },
         {
-          "name": "OUT_OF_MEMORY",
+          "name": "out of memory",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -647,7 +647,7 @@
           "value": 2
         },
         {
-          "name": "UNKNOWN",
+          "name": "unknown",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -659,7 +659,7 @@
           "value": 3
         },
         {
-          "name": "DEVICE_LOST",
+          "name": "device lost",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -674,12 +674,12 @@
     },
     {
       "name": "DawnFenceCompletionStatus",
-      "externalName": "FenceCompletionStatus",
+      "externalName": "GPUFenceCompletionStatus",
       "type": "enum",
       "textName": "fence completion status",
       "children": [
         {
-          "name": "SUCCESS",
+          "name": "success",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -691,7 +691,7 @@
           "value": 0
         },
         {
-          "name": "ERROR",
+          "name": "error",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -703,7 +703,7 @@
           "value": 1
         },
         {
-          "name": "UNKNOWN",
+          "name": "unknown",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -715,7 +715,7 @@
           "value": 2
         },
         {
-          "name": "DEVICE_LOST",
+          "name": "device lost",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -730,12 +730,12 @@
     },
     {
       "name": "DawnFilterMode",
-      "externalName": "FilterMode",
+      "externalName": "GPUFilterMode",
       "type": "enum",
       "textName": "filter mode",
       "children": [
         {
-          "name": "NEAREST",
+          "name": "nearest",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -747,7 +747,7 @@
           "value": 0
         },
         {
-          "name": "LINEAR",
+          "name": "linear",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -762,7 +762,7 @@
     },
     {
       "name": "DawnFrontFace",
-      "externalName": "FrontFace",
+      "externalName": "GPUFrontFace",
       "type": "enum",
       "textName": "front face",
       "children": [
@@ -794,12 +794,12 @@
     },
     {
       "name": "DawnIndexFormat",
-      "externalName": "IndexFormat",
+      "externalName": "GPUIndexFormat",
       "type": "enum",
       "textName": "index format",
       "children": [
         {
-          "name": "UINT16",
+          "name": "uint16",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -811,7 +811,7 @@
           "value": 0
         },
         {
-          "name": "UINT32",
+          "name": "uint32",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -826,12 +826,12 @@
     },
     {
       "name": "DawnInputStepMode",
-      "externalName": "InputStepMode",
+      "externalName": "GPUInputStepMode",
       "type": "enum",
       "textName": "input step mode",
       "children": [
         {
-          "name": "VERTEX",
+          "name": "vertex",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -843,7 +843,7 @@
           "value": 0
         },
         {
-          "name": "INSTANCE",
+          "name": "instance",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -858,12 +858,12 @@
     },
     {
       "name": "DawnLoadOp",
-      "externalName": "LoadOp",
+      "externalName": "GPULoadOp",
       "type": "enum",
       "textName": "load op",
       "children": [
         {
-          "name": "CLEAR",
+          "name": "clear",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -875,7 +875,7 @@
           "value": 0
         },
         {
-          "name": "LOAD",
+          "name": "load",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -890,12 +890,12 @@
     },
     {
       "name": "DawnStoreOp",
-      "externalName": "StoreOp",
+      "externalName": "GPUStoreOp",
       "type": "enum",
       "textName": "store op",
       "children": [
         {
-          "name": "STORE",
+          "name": "store",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -910,12 +910,12 @@
     },
     {
       "name": "DawnPrimitiveTopology",
-      "externalName": "PrimitiveTopology",
+      "externalName": "GPUPrimitiveTopology",
       "type": "enum",
       "textName": "primitive topology",
       "children": [
         {
-          "name": "POINT_LIST",
+          "name": "point list",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -927,7 +927,7 @@
           "value": 0
         },
         {
-          "name": "LINE_LIST",
+          "name": "line list",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -939,7 +939,7 @@
           "value": 1
         },
         {
-          "name": "LINE_STRIP",
+          "name": "line strip",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -951,7 +951,7 @@
           "value": 2
         },
         {
-          "name": "TRIANGLE_LIST",
+          "name": "triangle list",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -963,7 +963,7 @@
           "value": 3
         },
         {
-          "name": "TRIANGLE_STRIP",
+          "name": "triangle strip",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -978,12 +978,12 @@
     },
     {
       "name": "DawnStencilOperation",
-      "externalName": "StencilOperation",
+      "externalName": "GPUStencilOperation",
       "type": "enum",
       "textName": "stencil operation",
       "children": [
         {
-          "name": "KEEP",
+          "name": "keep",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -995,7 +995,7 @@
           "value": 0
         },
         {
-          "name": "ZERO",
+          "name": "zero",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1007,7 +1007,7 @@
           "value": 1
         },
         {
-          "name": "REPLACE",
+          "name": "replace",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1019,7 +1019,7 @@
           "value": 2
         },
         {
-          "name": "INVERT",
+          "name": "invert",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1031,7 +1031,7 @@
           "value": 3
         },
         {
-          "name": "INCREMENT_CLAMP",
+          "name": "increment clamp",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1043,7 +1043,7 @@
           "value": 4
         },
         {
-          "name": "DECREMENT_CLAMP",
+          "name": "decrement clamp",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1055,7 +1055,7 @@
           "value": 5
         },
         {
-          "name": "INCREMENT_WRAP",
+          "name": "increment wrap",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1067,7 +1067,7 @@
           "value": 6
         },
         {
-          "name": "DECREMENT_WRAP",
+          "name": "decrement wrap",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1082,12 +1082,12 @@
     },
     {
       "name": "DawnTextureAspect",
-      "externalName": "TextureAspect",
+      "externalName": "GPUTextureAspect",
       "type": "enum",
       "textName": "texture aspect",
       "children": [
         {
-          "name": "ALL",
+          "name": "all",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1099,7 +1099,7 @@
           "value": 0
         },
         {
-          "name": "STENCIL_ONLY",
+          "name": "stencil only",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1111,7 +1111,7 @@
           "value": 1
         },
         {
-          "name": "DEPTH_ONLY",
+          "name": "depth only",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1126,12 +1126,12 @@
     },
     {
       "name": "DawnTextureComponentType",
-      "externalName": "TextureComponentType",
+      "externalName": "GPUTextureComponentType",
       "type": "enum",
       "textName": "texture component type",
       "children": [
         {
-          "name": "FLOAT",
+          "name": "float",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1143,7 +1143,7 @@
           "value": 0
         },
         {
-          "name": "SINT",
+          "name": "sint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1155,7 +1155,7 @@
           "value": 1
         },
         {
-          "name": "UINT",
+          "name": "uint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1170,7 +1170,7 @@
     },
     {
       "name": "DawnTextureDimension",
-      "externalName": "TextureDimension",
+      "externalName": "GPUTextureDimension",
       "type": "enum",
       "textName": "texture dimension",
       "children": [
@@ -1214,12 +1214,12 @@
     },
     {
       "name": "DawnTextureFormat",
-      "externalName": "TextureFormat",
+      "externalName": "GPUTextureFormat",
       "type": "enum",
       "textName": "texture format",
       "children": [
         {
-          "name": "UNDEFINED",
+          "name": "undefined",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1231,7 +1231,7 @@
           "value": 0
         },
         {
-          "name": "R8_UNORM",
+          "name": "R8 unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1243,7 +1243,7 @@
           "value": 1
         },
         {
-          "name": "R8_SNORM",
+          "name": "R8 snorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1255,7 +1255,7 @@
           "value": 2
         },
         {
-          "name": "R8_UINT",
+          "name": "R8 uint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1267,7 +1267,7 @@
           "value": 3
         },
         {
-          "name": "R8_SINT",
+          "name": "R8 sint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1279,7 +1279,7 @@
           "value": 4
         },
         {
-          "name": "R16_UINT",
+          "name": "R16 uint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1291,7 +1291,7 @@
           "value": 5
         },
         {
-          "name": "R16_SINT",
+          "name": "R16 sint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1303,7 +1303,7 @@
           "value": 6
         },
         {
-          "name": "R16_FLOAT",
+          "name": "R16 float",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1315,7 +1315,7 @@
           "value": 7
         },
         {
-          "name": "RG8_UNORM",
+          "name": "RG8 unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1327,7 +1327,7 @@
           "value": 8
         },
         {
-          "name": "RG8_SNORM",
+          "name": "RG8 snorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1339,7 +1339,7 @@
           "value": 9
         },
         {
-          "name": "RG8_UINT",
+          "name": "RG8 uint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1351,7 +1351,7 @@
           "value": 10
         },
         {
-          "name": "RG8_SINT",
+          "name": "RG8 sint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1363,7 +1363,7 @@
           "value": 11
         },
         {
-          "name": "R32_FLOAT",
+          "name": "R32 float",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1375,7 +1375,7 @@
           "value": 12
         },
         {
-          "name": "R32_UINT",
+          "name": "R32 uint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1387,7 +1387,7 @@
           "value": 13
         },
         {
-          "name": "R32_SINT",
+          "name": "R32 sint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1399,7 +1399,7 @@
           "value": 14
         },
         {
-          "name": "RG16_UINT",
+          "name": "RG16 uint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1411,7 +1411,7 @@
           "value": 15
         },
         {
-          "name": "RG16_SINT",
+          "name": "RG16 sint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1423,7 +1423,7 @@
           "value": 16
         },
         {
-          "name": "RG16_FLOAT",
+          "name": "RG16 float",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1435,7 +1435,7 @@
           "value": 17
         },
         {
-          "name": "RGBA8_UNORM",
+          "name": "RGBA8 unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1447,7 +1447,7 @@
           "value": 18
         },
         {
-          "name": "RGBA8_UNORM_SRGB",
+          "name": "RGBA8 unorm srgb",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1459,7 +1459,7 @@
           "value": 19
         },
         {
-          "name": "RGBA8_SNORM",
+          "name": "RGBA8 snorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1471,7 +1471,7 @@
           "value": 20
         },
         {
-          "name": "RGBA8_UINT",
+          "name": "RGBA8 uint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1483,7 +1483,7 @@
           "value": 21
         },
         {
-          "name": "RGBA8_SINT",
+          "name": "RGBA8 sint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1495,7 +1495,7 @@
           "value": 22
         },
         {
-          "name": "BGRA8_UNORM",
+          "name": "BGRA8 unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1507,7 +1507,7 @@
           "value": 23
         },
         {
-          "name": "BGRA8_UNORM_SRGB",
+          "name": "BGRA8 unorm srgb",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1519,7 +1519,7 @@
           "value": 24
         },
         {
-          "name": "RGB10_A2_UNORM",
+          "name": "RGB10 A2 unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1531,7 +1531,7 @@
           "value": 25
         },
         {
-          "name": "RG11_B10_FLOAT",
+          "name": "RG11 B10 float",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1543,7 +1543,7 @@
           "value": 26
         },
         {
-          "name": "RG32_FLOAT",
+          "name": "RG32 float",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1555,7 +1555,7 @@
           "value": 27
         },
         {
-          "name": "RG32_UINT",
+          "name": "RG32 uint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1567,7 +1567,7 @@
           "value": 28
         },
         {
-          "name": "RG32_SINT",
+          "name": "RG32 sint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1579,7 +1579,7 @@
           "value": 29
         },
         {
-          "name": "RGBA16_UINT",
+          "name": "RGBA16 uint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1591,7 +1591,7 @@
           "value": 30
         },
         {
-          "name": "RGBA16_SINT",
+          "name": "RGBA16 sint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1603,7 +1603,7 @@
           "value": 31
         },
         {
-          "name": "RGBA16_FLOAT",
+          "name": "RGBA16 float",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1615,7 +1615,7 @@
           "value": 32
         },
         {
-          "name": "RGBA32_FLOAT",
+          "name": "RGBA32 float",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1627,7 +1627,7 @@
           "value": 33
         },
         {
-          "name": "RGBA32_UINT",
+          "name": "RGBA32 uint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1639,7 +1639,7 @@
           "value": 34
         },
         {
-          "name": "RGBA32_SINT",
+          "name": "RGBA32 sint",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1651,7 +1651,7 @@
           "value": 35
         },
         {
-          "name": "DEPTH32_FLOAT",
+          "name": "depth32 float",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1663,7 +1663,7 @@
           "value": 36
         },
         {
-          "name": "DEPTH24_PLUS",
+          "name": "depth24 plus",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1675,7 +1675,7 @@
           "value": 37
         },
         {
-          "name": "DEPTH24_PLUS_STENCIL8",
+          "name": "depth24 plus stencil8",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1687,7 +1687,7 @@
           "value": 38
         },
         {
-          "name": "BC1_RGBA_UNORM",
+          "name": "BC1 RGBA unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1699,7 +1699,7 @@
           "value": 39
         },
         {
-          "name": "BC1_RGBA_UNORM_SRGB",
+          "name": "BC1 RGBA unorm srgb",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1711,7 +1711,7 @@
           "value": 40
         },
         {
-          "name": "BC2_RGBA_UNORM",
+          "name": "BC2 RGBA unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1723,7 +1723,7 @@
           "value": 41
         },
         {
-          "name": "BC2_RGBA_UNORM_SRGB",
+          "name": "BC2 RGBA unorm srgb",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1735,7 +1735,7 @@
           "value": 42
         },
         {
-          "name": "BC3_RGBA_UNORM",
+          "name": "BC3 RGBA unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1747,7 +1747,7 @@
           "value": 43
         },
         {
-          "name": "BC3_RGBA_UNORM_SRGB",
+          "name": "BC3 RGBA unorm srgb",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1759,7 +1759,7 @@
           "value": 44
         },
         {
-          "name": "BC4_R_UNORM",
+          "name": "BC4 R unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1771,7 +1771,7 @@
           "value": 45
         },
         {
-          "name": "BC4_R_SNORM",
+          "name": "BC4 R snorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1783,7 +1783,7 @@
           "value": 46
         },
         {
-          "name": "BC5_RG_UNORM",
+          "name": "BC5 RG unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1795,7 +1795,7 @@
           "value": 47
         },
         {
-          "name": "BC5_RG_SNORM",
+          "name": "BC5 RG snorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1807,7 +1807,7 @@
           "value": 48
         },
         {
-          "name": "BC6H_RGB_UFLOAT",
+          "name": "BC6H RGB ufloat",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1819,7 +1819,7 @@
           "value": 49
         },
         {
-          "name": "BC6H_RGB_SFLOAT",
+          "name": "BC6H RGB sfloat",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1831,7 +1831,7 @@
           "value": 50
         },
         {
-          "name": "BC7_RGBA_UNORM",
+          "name": "BC7 RGBA unorm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1843,7 +1843,7 @@
           "value": 51
         },
         {
-          "name": "BC7_RGBA_UNORM_SRGB",
+          "name": "BC7 RGBA unorm srgb",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1858,12 +1858,12 @@
     },
     {
       "name": "DawnTextureViewDimension",
-      "externalName": "TextureViewDimension",
+      "externalName": "GPUTextureViewDimension",
       "type": "enum",
       "textName": "texture view dimension",
       "children": [
         {
-          "name": "UNDEFINED",
+          "name": "undefined",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1899,7 +1899,7 @@
           "value": 2
         },
         {
-          "name": "2D_ARRAY",
+          "name": "2D array",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1911,7 +1911,7 @@
           "value": 3
         },
         {
-          "name": "CUBE",
+          "name": "cube",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1923,7 +1923,7 @@
           "value": 4
         },
         {
-          "name": "CUBE_ARRAY",
+          "name": "cube array",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1950,12 +1950,12 @@
     },
     {
       "name": "DawnVertexFormat",
-      "externalName": "VertexFormat",
+      "externalName": "GPUVertexFormat",
       "type": "enum",
       "textName": "vertex format",
       "children": [
         {
-          "name": "UCHAR2",
+          "name": "uChar2",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1967,7 +1967,7 @@
           "value": 0
         },
         {
-          "name": "UCHAR4",
+          "name": "uChar4",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1979,7 +1979,7 @@
           "value": 1
         },
         {
-          "name": "CHAR2",
+          "name": "char2",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1991,7 +1991,7 @@
           "value": 2
         },
         {
-          "name": "CHAR4",
+          "name": "char4",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2003,7 +2003,7 @@
           "value": 3
         },
         {
-          "name": "UCHAR2_NORM",
+          "name": "uChar2 norm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2015,7 +2015,7 @@
           "value": 4
         },
         {
-          "name": "UCHAR4_NORM",
+          "name": "uChar4 norm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2027,7 +2027,7 @@
           "value": 5
         },
         {
-          "name": "CHAR2_NORM",
+          "name": "char2 norm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2039,7 +2039,7 @@
           "value": 6
         },
         {
-          "name": "CHAR4_NORM",
+          "name": "char4 norm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2051,7 +2051,7 @@
           "value": 7
         },
         {
-          "name": "USHORT2",
+          "name": "uShort2",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2063,7 +2063,7 @@
           "value": 8
         },
         {
-          "name": "USHORT4",
+          "name": "uShort4",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2075,7 +2075,7 @@
           "value": 9
         },
         {
-          "name": "SHORT2",
+          "name": "short2",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2087,7 +2087,7 @@
           "value": 10
         },
         {
-          "name": "SHORT4",
+          "name": "short4",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2099,7 +2099,7 @@
           "value": 11
         },
         {
-          "name": "USHORT2_NORM",
+          "name": "uShort2 norm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2111,7 +2111,7 @@
           "value": 12
         },
         {
-          "name": "USHORT4_NORM",
+          "name": "uShort4 norm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2123,7 +2123,7 @@
           "value": 13
         },
         {
-          "name": "SHORT2_NORM",
+          "name": "short2 norm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2135,7 +2135,7 @@
           "value": 14
         },
         {
-          "name": "SHORT4_NORM",
+          "name": "short4 norm",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2147,7 +2147,7 @@
           "value": 15
         },
         {
-          "name": "HALF2",
+          "name": "half2",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2159,7 +2159,7 @@
           "value": 16
         },
         {
-          "name": "HALF4",
+          "name": "half4",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2171,7 +2171,7 @@
           "value": 17
         },
         {
-          "name": "FLOAT",
+          "name": "float",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2183,7 +2183,7 @@
           "value": 18
         },
         {
-          "name": "FLOAT2",
+          "name": "float2",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2195,7 +2195,7 @@
           "value": 19
         },
         {
-          "name": "FLOAT3",
+          "name": "float3",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2207,7 +2207,7 @@
           "value": 20
         },
         {
-          "name": "FLOAT4",
+          "name": "float4",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2219,7 +2219,7 @@
           "value": 21
         },
         {
-          "name": "UINT",
+          "name": "uInt",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2231,7 +2231,7 @@
           "value": 22
         },
         {
-          "name": "UINT2",
+          "name": "uInt2",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2243,7 +2243,7 @@
           "value": 23
         },
         {
-          "name": "UINT3",
+          "name": "uInt3",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2255,7 +2255,7 @@
           "value": 24
         },
         {
-          "name": "UINT4",
+          "name": "uInt4",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2267,7 +2267,7 @@
           "value": 25
         },
         {
-          "name": "INT",
+          "name": "int",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2279,7 +2279,7 @@
           "value": 26
         },
         {
-          "name": "INT2",
+          "name": "int2",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2291,7 +2291,7 @@
           "value": 27
         },
         {
-          "name": "INT3",
+          "name": "int3",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2303,7 +2303,7 @@
           "value": 28
         },
         {
-          "name": "INT4",
+          "name": "int4",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -2320,7 +2320,7 @@
   "bitmasks": [
     {
       "name": "DawnBufferUsage",
-      "externalName": "BufferUsage",
+      "externalName": "GPUBufferUsage",
       "type": "bitmask",
       "textName": "buffer usage",
       "children": [
@@ -2448,7 +2448,7 @@
     },
     {
       "name": "DawnColorWriteMask",
-      "externalName": "ColorWriteMask",
+      "externalName": "GPUColorWriteMask",
       "type": "bitmask",
       "textName": "color write mask",
       "children": [
@@ -2528,7 +2528,7 @@
     },
     {
       "name": "DawnShaderStage",
-      "externalName": "ShaderStage",
+      "externalName": "GPUShaderStage",
       "type": "bitmask",
       "textName": "shader stage",
       "children": [
@@ -2584,7 +2584,7 @@
     },
     {
       "name": "DawnTextureUsage",
-      "externalName": "TextureUsage",
+      "externalName": "GPUTextureUsage",
       "type": "bitmask",
       "textName": "texture usage",
       "children": [
@@ -2678,21 +2678,21 @@
   "objects": [
     {
       "name": "DawnBindGroup",
-      "externalName": "BindGroup",
+      "externalName": "GPUBindGroup",
       "type": "object",
       "textName": "bind group",
       "children": []
     },
     {
       "name": "DawnBindGroupLayout",
-      "externalName": "BindGroupLayout",
+      "externalName": "GPUBindGroupLayout",
       "type": "object",
       "textName": "bind group layout",
       "children": []
     },
     {
       "name": "DawnBuffer",
-      "externalName": "Buffer",
+      "externalName": "GPUBuffer",
       "type": "object",
       "textName": "buffer",
       "children": [
@@ -2732,6 +2732,7 @@
               "type": {
                 "length": "count",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const void*",
                 "isRequired": true,
                 "jsType": {
@@ -2852,14 +2853,14 @@
     },
     {
       "name": "DawnCommandBuffer",
-      "externalName": "CommandBuffer",
+      "externalName": "GPUCommandBuffer",
       "type": "object",
       "textName": "command buffer",
       "children": []
     },
     {
       "name": "DawnCommandEncoder",
-      "externalName": "CommandEncoder",
+      "externalName": "GPUCommandEncoder",
       "type": "object",
       "textName": "command encoder",
       "children": [
@@ -3208,6 +3209,7 @@
                 "isDynamicLength": true,
                 "length": "strlen",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const char*",
                 "isRequired": true,
                 "jsType": {
@@ -3248,6 +3250,7 @@
                 "isDynamicLength": true,
                 "length": "strlen",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const char*",
                 "isRequired": true,
                 "jsType": {
@@ -3270,7 +3273,7 @@
     },
     {
       "name": "DawnComputePassEncoder",
-      "externalName": "ComputePassEncoder",
+      "externalName": "GPUComputePassEncoder",
       "type": "object",
       "textName": "compute pass encoder",
       "children": [
@@ -3284,6 +3287,7 @@
                 "isDynamicLength": true,
                 "length": "strlen",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const char*",
                 "isRequired": true,
                 "jsType": {
@@ -3324,6 +3328,7 @@
                 "isDynamicLength": true,
                 "length": "strlen",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const char*",
                 "isRequired": true,
                 "jsType": {
@@ -3413,16 +3418,14 @@
             {
               "name": "dynamicOffsets",
               "type": {
-                "isNumber": true,
-                "initialValue": "0",
                 "length": "dynamicOffsetCount",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const uint64_t*",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "BigUint64Array",
+                  "isTypedArray": true
                 }
               }
             }
@@ -3544,14 +3547,14 @@
     },
     {
       "name": "DawnComputePipeline",
-      "externalName": "ComputePipeline",
+      "externalName": "GPUComputePipeline",
       "type": "object",
       "textName": "compute pipeline",
       "children": []
     },
     {
       "name": "DawnDevice",
-      "externalName": "Device",
+      "externalName": "GPUDevice",
       "type": "object",
       "textName": "device",
       "children": [
@@ -4116,7 +4119,7 @@
     },
     {
       "name": "DawnFence",
-      "externalName": "Fence",
+      "externalName": "GPUFence",
       "type": "object",
       "textName": "fence",
       "children": [
@@ -4190,14 +4193,14 @@
     },
     {
       "name": "DawnPipelineLayout",
-      "externalName": "PipelineLayout",
+      "externalName": "GPUPipelineLayout",
       "type": "object",
       "textName": "pipeline layout",
       "children": []
     },
     {
       "name": "DawnQueue",
-      "externalName": "Queue",
+      "externalName": "GPUQueue",
       "type": "object",
       "textName": "queue",
       "children": [
@@ -4224,6 +4227,7 @@
                 "nativeType": "DawnCommandBuffer",
                 "length": "commandCount",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const DawnCommandBuffer*",
                 "isRequired": true,
                 "jsType": {
@@ -4315,14 +4319,14 @@
     },
     {
       "name": "DawnRenderBundle",
-      "externalName": "RenderBundle",
+      "externalName": "GPURenderBundle",
       "type": "object",
       "textName": "render bundle",
       "children": []
     },
     {
       "name": "DawnRenderBundleEncoder",
-      "externalName": "RenderBundleEncoder",
+      "externalName": "GPURenderBundleEncoder",
       "type": "object",
       "textName": "render bundle encoder",
       "children": [
@@ -4397,16 +4401,14 @@
             {
               "name": "dynamicOffsets",
               "type": {
-                "isNumber": true,
-                "initialValue": "0",
                 "length": "dynamicOffsetCount",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const uint64_t*",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "BigUint64Array",
+                  "isTypedArray": true
                 }
               }
             }
@@ -4653,6 +4655,7 @@
                 "isDynamicLength": true,
                 "length": "strlen",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const char*",
                 "isRequired": true,
                 "jsType": {
@@ -4693,6 +4696,7 @@
                 "isDynamicLength": true,
                 "length": "strlen",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const char*",
                 "isRequired": true,
                 "jsType": {
@@ -4747,6 +4751,7 @@
                 "nativeType": "DawnBuffer",
                 "length": "count",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const DawnBuffer*",
                 "isRequired": true,
                 "jsType": {
@@ -4758,16 +4763,14 @@
             {
               "name": "offsets",
               "type": {
-                "isNumber": true,
-                "initialValue": "0",
                 "length": "count",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const uint64_t*",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "BigUint64Array",
+                  "isTypedArray": true
                 }
               }
             }
@@ -4855,7 +4858,7 @@
     },
     {
       "name": "DawnRenderPassEncoder",
-      "externalName": "RenderPassEncoder",
+      "externalName": "GPURenderPassEncoder",
       "type": "object",
       "textName": "render pass encoder",
       "children": [
@@ -4930,16 +4933,14 @@
             {
               "name": "dynamicOffsets",
               "type": {
-                "isNumber": true,
-                "initialValue": "0",
                 "length": "dynamicOffsetCount",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const uint64_t*",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "BigUint64Array",
+                  "isTypedArray": true
                 }
               }
             }
@@ -5199,6 +5200,7 @@
                 "nativeType": "DawnRenderBundle",
                 "length": "bundlesCount",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const DawnRenderBundle*",
                 "isRequired": true,
                 "jsType": {
@@ -5227,6 +5229,7 @@
                 "isDynamicLength": true,
                 "length": "strlen",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const char*",
                 "isRequired": true,
                 "jsType": {
@@ -5267,6 +5270,7 @@
                 "isDynamicLength": true,
                 "length": "strlen",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const char*",
                 "isRequired": true,
                 "jsType": {
@@ -5530,6 +5534,7 @@
                 "nativeType": "DawnBuffer",
                 "length": "count",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const DawnBuffer*",
                 "isRequired": true,
                 "jsType": {
@@ -5541,16 +5546,14 @@
             {
               "name": "offsets",
               "type": {
-                "isNumber": true,
-                "initialValue": "0",
                 "length": "count",
                 "isReference": true,
+                "isArray": true,
                 "rawType": "const uint64_t*",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "BigUint64Array",
+                  "isTypedArray": true
                 }
               }
             }
@@ -5620,28 +5623,28 @@
     },
     {
       "name": "DawnRenderPipeline",
-      "externalName": "RenderPipeline",
+      "externalName": "GPURenderPipeline",
       "type": "object",
       "textName": "render pipeline",
       "children": []
     },
     {
       "name": "DawnSampler",
-      "externalName": "Sampler",
+      "externalName": "GPUSampler",
       "type": "object",
       "textName": "sampler",
       "children": []
     },
     {
       "name": "DawnShaderModule",
-      "externalName": "ShaderModule",
+      "externalName": "GPUShaderModule",
       "type": "object",
       "textName": "shader module",
       "children": []
     },
     {
       "name": "DawnSwapChain",
-      "externalName": "SwapChain",
+      "externalName": "GPUSwapChain",
       "type": "object",
       "textName": "swap chain",
       "children": [
@@ -5754,7 +5757,7 @@
     },
     {
       "name": "DawnTexture",
-      "externalName": "Texture",
+      "externalName": "GPUTexture",
       "type": "object",
       "textName": "texture",
       "children": [
@@ -5804,7 +5807,7 @@
     },
     {
       "name": "DawnTextureView",
-      "externalName": "TextureView",
+      "externalName": "GPUTextureView",
       "type": "object",
       "textName": "texture view",
       "children": []
@@ -5813,7 +5816,7 @@
   "structures": [
     {
       "name": "DawnBindGroupBinding",
-      "externalName": "BindGroupBinding",
+      "externalName": "GPUBindGroupBinding",
       "type": "structure",
       "textName": "bind group binding",
       "children": [
@@ -5856,7 +5859,9 @@
               "isNumber": true,
               "isBigInt": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "size",
@@ -5904,8 +5909,9 @@
     },
     {
       "name": "DawnBindGroupDescriptor",
-      "externalName": "BindGroupDescriptor",
+      "externalName": "GPUBindGroupDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "bind group descriptor",
       "children": [
         {
@@ -5941,6 +5947,7 @@
             "nativeType": "DawnBindGroupBinding",
             "length": "bindingCount",
             "isReference": true,
+            "isArray": true,
             "rawType": "const DawnBindGroupBinding*",
             "isRequired": true,
             "jsType": {
@@ -5953,7 +5960,7 @@
     },
     {
       "name": "DawnBindGroupLayoutBinding",
-      "externalName": "BindGroupLayoutBinding",
+      "externalName": "GPUBindGroupLayoutBinding",
       "type": "structure",
       "textName": "bind group layout binding",
       "children": [
@@ -6007,7 +6014,9 @@
               "type": "Boolean",
               "isBoolean": true
             }
-          }
+          },
+          "defaultValue": false,
+          "defaultValueNative": "false"
         },
         {
           "name": "multisampled",
@@ -6020,7 +6029,9 @@
               "type": "Boolean",
               "isBoolean": true
             }
-          }
+          },
+          "defaultValue": false,
+          "defaultValueNative": "false"
         },
         {
           "name": "textureDimension",
@@ -6046,14 +6057,17 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"float\"",
+          "defaultValueNative": 0
         }
       ]
     },
     {
       "name": "DawnBindGroupLayoutDescriptor",
-      "externalName": "BindGroupLayoutDescriptor",
+      "externalName": "GPUBindGroupLayoutDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "bind group layout descriptor",
       "children": [
         {
@@ -6076,6 +6090,7 @@
             "nativeType": "DawnBindGroupLayoutBinding",
             "length": "bindingCount",
             "isReference": true,
+            "isArray": true,
             "rawType": "const DawnBindGroupLayoutBinding*",
             "isRequired": true,
             "jsType": {
@@ -6088,7 +6103,7 @@
     },
     {
       "name": "DawnBlendDescriptor",
-      "externalName": "BlendDescriptor",
+      "externalName": "GPUBlendDescriptor",
       "type": "structure",
       "textName": "blend descriptor",
       "children": [
@@ -6103,7 +6118,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"add\"",
+          "defaultValueNative": 0
         },
         {
           "name": "srcFactor",
@@ -6116,7 +6133,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"one\"",
+          "defaultValueNative": 1
         },
         {
           "name": "dstFactor",
@@ -6129,14 +6148,17 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"zero\"",
+          "defaultValueNative": 0
         }
       ]
     },
     {
       "name": "DawnColorStateDescriptor",
-      "externalName": "ColorStateDescriptor",
+      "externalName": "GPUColorStateDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "color state descriptor",
       "children": [
         {
@@ -6189,14 +6211,17 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "\"all\"",
+          "defaultValueNative": 15
         }
       ]
     },
     {
       "name": "DawnBufferCopyView",
-      "externalName": "BufferCopyView",
+      "externalName": "GPUBufferCopyView",
       "type": "structure",
+      "isExtensible": true,
       "textName": "buffer copy view",
       "children": [
         {
@@ -6224,7 +6249,9 @@
               "isNumber": true,
               "isBigInt": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": 0
         },
         {
           "name": "rowPitch",
@@ -6256,8 +6283,9 @@
     },
     {
       "name": "DawnBufferDescriptor",
-      "externalName": "BufferDescriptor",
+      "externalName": "GPUBufferDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "buffer descriptor",
       "children": [
         {
@@ -6291,7 +6319,7 @@
     },
     {
       "name": "DawnCreateBufferMappedResult",
-      "externalName": "CreateBufferMappedResult",
+      "externalName": "GPUCreateBufferMappedResult",
       "type": "structure",
       "textName": "create buffer mapped result",
       "children": [
@@ -6327,6 +6355,7 @@
           "type": {
             "length": "dataLength",
             "isReference": true,
+            "isArray": true,
             "rawType": "void*",
             "isRequired": true,
             "jsType": {
@@ -6339,7 +6368,7 @@
     },
     {
       "name": "DawnColor",
-      "externalName": "Color",
+      "externalName": "GPUColor",
       "type": "structure",
       "textName": "color",
       "children": [
@@ -6399,29 +6428,33 @@
     },
     {
       "name": "DawnCommandBufferDescriptor",
-      "externalName": "CommandBufferDescriptor",
+      "externalName": "GPUCommandBufferDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "command buffer descriptor",
       "children": []
     },
     {
       "name": "DawnCommandEncoderDescriptor",
-      "externalName": "CommandEncoderDescriptor",
+      "externalName": "GPUCommandEncoderDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "command encoder descriptor",
       "children": []
     },
     {
       "name": "DawnComputePassDescriptor",
-      "externalName": "ComputePassDescriptor",
+      "externalName": "GPUComputePassDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "compute pass descriptor",
       "children": []
     },
     {
       "name": "DawnComputePipelineDescriptor",
-      "externalName": "ComputePipelineDescriptor",
+      "externalName": "GPUComputePipelineDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "compute pipeline descriptor",
       "children": [
         {
@@ -6454,8 +6487,9 @@
     },
     {
       "name": "DawnDepthStencilStateDescriptor",
-      "externalName": "DepthStencilStateDescriptor",
+      "externalName": "GPUDepthStencilStateDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "depth stencil state descriptor",
       "children": [
         {
@@ -6482,7 +6516,9 @@
               "type": "Boolean",
               "isBoolean": true
             }
-          }
+          },
+          "defaultValue": false,
+          "defaultValueNative": "false"
         },
         {
           "name": "depthCompare",
@@ -6495,7 +6531,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"always\"",
+          "defaultValueNative": 7
         },
         {
           "name": "stencilFront",
@@ -6534,7 +6572,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0xFFFFFFFF",
+          "defaultValueNative": "0xFFFFFFFF"
         },
         {
           "name": "stencilWriteMask",
@@ -6547,13 +6587,15 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0xFFFFFFFF",
+          "defaultValueNative": "0xFFFFFFFF"
         }
       ]
     },
     {
       "name": "DawnExtent3D",
-      "externalName": "Extent3D",
+      "externalName": "GPUExtent3D",
       "type": "structure",
       "textName": "extent 3D",
       "children": [
@@ -6600,8 +6642,9 @@
     },
     {
       "name": "DawnFenceDescriptor",
-      "externalName": "FenceDescriptor",
+      "externalName": "GPUFenceDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "fence descriptor",
       "children": [
         {
@@ -6616,13 +6659,15 @@
               "isNumber": true,
               "isBigInt": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         }
       ]
     },
     {
       "name": "DawnVertexAttributeDescriptor",
-      "externalName": "VertexAttributeDescriptor",
+      "externalName": "GPUVertexAttributeDescriptor",
       "type": "structure",
       "textName": "vertex attribute descriptor",
       "children": [
@@ -6651,7 +6696,9 @@
               "isNumber": true,
               "isBigInt": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "format",
@@ -6670,7 +6717,7 @@
     },
     {
       "name": "DawnVertexBufferDescriptor",
-      "externalName": "VertexBufferDescriptor",
+      "externalName": "GPUVertexBufferDescriptor",
       "type": "structure",
       "textName": "vertex buffer descriptor",
       "children": [
@@ -6699,7 +6746,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"vertex\"",
+          "defaultValueNative": 0
         },
         {
           "name": "attributeCount",
@@ -6721,6 +6770,7 @@
             "nativeType": "DawnVertexAttributeDescriptor",
             "length": "attributeCount",
             "isReference": true,
+            "isArray": true,
             "rawType": "const DawnVertexAttributeDescriptor*",
             "isRequired": true,
             "jsType": {
@@ -6733,8 +6783,9 @@
     },
     {
       "name": "DawnVertexInputDescriptor",
-      "externalName": "VertexInputDescriptor",
+      "externalName": "GPUVertexInputDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "vertex input descriptor",
       "children": [
         {
@@ -6748,7 +6799,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"uint32\"",
+          "defaultValueNative": 1
         },
         {
           "name": "bufferCount",
@@ -6761,7 +6814,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": 0
         },
         {
           "name": "buffers",
@@ -6770,6 +6825,7 @@
             "nativeType": "DawnVertexBufferDescriptor",
             "length": "bufferCount",
             "isReference": true,
+            "isArray": true,
             "rawType": "const DawnVertexBufferDescriptor*",
             "isRequired": true,
             "jsType": {
@@ -6782,7 +6838,7 @@
     },
     {
       "name": "DawnOrigin3D",
-      "externalName": "Origin3D",
+      "externalName": "GPUOrigin3D",
       "type": "structure",
       "textName": "origin 3D",
       "children": [
@@ -6797,7 +6853,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "y",
@@ -6810,7 +6868,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "z",
@@ -6823,14 +6883,17 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         }
       ]
     },
     {
       "name": "DawnPipelineLayoutDescriptor",
-      "externalName": "PipelineLayoutDescriptor",
+      "externalName": "GPUPipelineLayoutDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "pipeline layout descriptor",
       "children": [
         {
@@ -6853,6 +6916,7 @@
             "nativeType": "DawnBindGroupLayout",
             "length": "bindGroupLayoutCount",
             "isReference": true,
+            "isArray": true,
             "rawType": "const DawnBindGroupLayout*",
             "isRequired": true,
             "jsType": {
@@ -6865,8 +6929,9 @@
     },
     {
       "name": "DawnPipelineStageDescriptor",
-      "externalName": "PipelineStageDescriptor",
+      "externalName": "GPUPipelineStageDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "pipeline stage descriptor",
       "children": [
         {
@@ -6889,6 +6954,7 @@
             "isDynamicLength": true,
             "length": "strlen",
             "isReference": true,
+            "isArray": true,
             "rawType": "const char*",
             "isRequired": true,
             "jsType": {
@@ -6901,8 +6967,9 @@
     },
     {
       "name": "DawnRasterizationStateDescriptor",
-      "externalName": "RasterizationStateDescriptor",
+      "externalName": "GPURasterizationStateDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "rasterization state descriptor",
       "children": [
         {
@@ -6916,7 +6983,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"CCW\"",
+          "defaultValueNative": 0
         },
         {
           "name": "cullMode",
@@ -6929,7 +6998,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"none\"",
+          "defaultValueNative": 0
         },
         {
           "name": "depthBias",
@@ -6942,7 +7013,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "depthBiasSlopeScale",
@@ -6955,7 +7028,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0.0f",
+          "defaultValueNative": "0.0f"
         },
         {
           "name": "depthBiasClamp",
@@ -6968,21 +7043,25 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0.0f",
+          "defaultValueNative": "0.0f"
         }
       ]
     },
     {
       "name": "DawnRenderBundleDescriptor",
-      "externalName": "RenderBundleDescriptor",
+      "externalName": "GPURenderBundleDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "render bundle descriptor",
       "children": []
     },
     {
       "name": "DawnRenderBundleEncoderDescriptor",
-      "externalName": "RenderBundleEncoderDescriptor",
+      "externalName": "GPURenderBundleEncoderDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "render bundle encoder descriptor",
       "children": [
         {
@@ -7005,6 +7084,7 @@
             "nativeType": "DawnTextureFormat",
             "length": "colorFormatsCount",
             "isReference": true,
+            "isArray": true,
             "rawType": "const DawnTextureFormat*",
             "isRequired": true,
             "jsType": {
@@ -7037,13 +7117,15 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "1",
+          "defaultValueNative": "1"
         }
       ]
     },
     {
       "name": "DawnRenderPassColorAttachmentDescriptor",
-      "externalName": "RenderPassColorAttachmentDescriptor",
+      "externalName": "GPURenderPassColorAttachmentDescriptor",
       "type": "structure",
       "textName": "render pass color attachment descriptor",
       "children": [
@@ -7117,7 +7199,7 @@
     },
     {
       "name": "DawnRenderPassDepthStencilAttachmentDescriptor",
-      "externalName": "RenderPassDepthStencilAttachmentDescriptor",
+      "externalName": "GPURenderPassDepthStencilAttachmentDescriptor",
       "type": "structure",
       "textName": "render pass depth stencil attachment descriptor",
       "children": [
@@ -7210,13 +7292,15 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         }
       ]
     },
     {
       "name": "DawnRenderPassDescriptor",
-      "externalName": "RenderPassDescriptor",
+      "externalName": "GPURenderPassDescriptor",
       "type": "structure",
       "textName": "render pass descriptor",
       "children": [
@@ -7268,8 +7352,9 @@
     },
     {
       "name": "DawnRenderPipelineDescriptor",
-      "externalName": "RenderPipelineDescriptor",
+      "externalName": "GPURenderPipelineDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "render pipeline descriptor",
       "children": [
         {
@@ -7367,7 +7452,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "1",
+          "defaultValueNative": "1"
         },
         {
           "name": "depthStencilState",
@@ -7424,7 +7511,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0xFFFFFFFF",
+          "defaultValueNative": "0xFFFFFFFF"
         },
         {
           "name": "alphaToCoverageEnabled",
@@ -7437,14 +7526,17 @@
               "type": "Boolean",
               "isBoolean": true
             }
-          }
+          },
+          "defaultValue": false,
+          "defaultValueNative": "false"
         }
       ]
     },
     {
       "name": "DawnSamplerDescriptor",
-      "externalName": "SamplerDescriptor",
+      "externalName": "GPUSamplerDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "sampler descriptor",
       "children": [
         {
@@ -7458,7 +7550,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"clamp to edge\"",
+          "defaultValueNative": 2
         },
         {
           "name": "addressModeV",
@@ -7471,7 +7565,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"clamp to edge\"",
+          "defaultValueNative": 2
         },
         {
           "name": "addressModeW",
@@ -7484,7 +7580,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"clamp to edge\"",
+          "defaultValueNative": 2
         },
         {
           "name": "magFilter",
@@ -7497,7 +7595,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"nearest\"",
+          "defaultValueNative": 0
         },
         {
           "name": "minFilter",
@@ -7510,7 +7610,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"nearest\"",
+          "defaultValueNative": 0
         },
         {
           "name": "mipmapFilter",
@@ -7523,7 +7625,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"nearest\"",
+          "defaultValueNative": 0
         },
         {
           "name": "lodMinClamp",
@@ -7536,7 +7640,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0.0f",
+          "defaultValueNative": "0.0f"
         },
         {
           "name": "lodMaxClamp",
@@ -7549,7 +7655,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "1000.0f",
+          "defaultValueNative": "1000.0f"
         },
         {
           "name": "compare",
@@ -7562,14 +7670,17 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"never\"",
+          "defaultValueNative": 0
         }
       ]
     },
     {
       "name": "DawnShaderModuleDescriptor",
-      "externalName": "ShaderModuleDescriptor",
+      "externalName": "GPUShaderModuleDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "shader module descriptor",
       "children": [
         {
@@ -7588,15 +7699,14 @@
         {
           "name": "code",
           "type": {
-            "isNumber": true,
-            "initialValue": "0",
             "length": "codeSize",
             "isReference": true,
+            "isArray": true,
             "rawType": "const uint32_t*",
             "isRequired": true,
             "jsType": {
-              "type": "Number",
-              "isNumber": true
+              "type": "Uint32Array",
+              "isTypedArray": true
             }
           }
         }
@@ -7604,7 +7714,7 @@
     },
     {
       "name": "DawnStencilStateFaceDescriptor",
-      "externalName": "StencilStateFaceDescriptor",
+      "externalName": "GPUStencilStateFaceDescriptor",
       "type": "structure",
       "textName": "stencil state face descriptor",
       "children": [
@@ -7619,7 +7729,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"always\"",
+          "defaultValueNative": 7
         },
         {
           "name": "failOp",
@@ -7632,7 +7744,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"keep\"",
+          "defaultValueNative": 0
         },
         {
           "name": "depthFailOp",
@@ -7645,7 +7759,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"keep\"",
+          "defaultValueNative": 0
         },
         {
           "name": "passOp",
@@ -7658,14 +7774,17 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"keep\"",
+          "defaultValueNative": 0
         }
       ]
     },
     {
       "name": "DawnSwapChainDescriptor",
-      "externalName": "SwapChainDescriptor",
+      "externalName": "GPUSwapChainDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "swap chain descriptor",
       "children": [
         {
@@ -7686,8 +7805,9 @@
     },
     {
       "name": "DawnTextureCopyView",
-      "externalName": "TextureCopyView",
+      "externalName": "GPUTextureCopyView",
       "type": "structure",
+      "isExtensible": true,
       "textName": "texture copy view",
       "children": [
         {
@@ -7714,7 +7834,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "arrayLayer",
@@ -7727,7 +7849,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "origin",
@@ -7746,8 +7870,9 @@
     },
     {
       "name": "DawnTextureDescriptor",
-      "externalName": "TextureDescriptor",
+      "externalName": "GPUTextureDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "texture descriptor",
       "children": [
         {
@@ -7774,7 +7899,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "2D",
+          "defaultValueNative": "2D"
         },
         {
           "name": "size",
@@ -7800,7 +7927,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "1",
+          "defaultValueNative": "1"
         },
         {
           "name": "format",
@@ -7826,7 +7955,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "1",
+          "defaultValueNative": 1
         },
         {
           "name": "sampleCount",
@@ -7839,14 +7970,17 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "1",
+          "defaultValueNative": 1
         }
       ]
     },
     {
       "name": "DawnTextureViewDescriptor",
-      "externalName": "TextureViewDescriptor",
+      "externalName": "GPUTextureViewDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "texture view descriptor",
       "children": [
         {
@@ -7886,7 +8020,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "mipLevelCount",
@@ -7899,7 +8035,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "baseArrayLayer",
@@ -7912,7 +8050,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "arrayLayerCount",
@@ -7925,7 +8065,9 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
           "name": "aspect",
@@ -7938,7 +8080,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"all\"",
+          "defaultValueNative": 0
         }
       ]
     }

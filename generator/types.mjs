@@ -12,7 +12,7 @@ export function getDawnDeclarationName(name) {
 
 export function getExplortDeclarationName(name) {
   if (name.substr(0, 4) !== "Dawn") warn(`Expected name [0-4] to be 'Dawn'`);
-  return name.substr(4);
+  return "GPU" + name.substr(4);
 };
 
 export function getASTNodeByName(name, ast) {
@@ -37,13 +37,28 @@ export function getASTJavaScriptType(type, member, ast) {
     case "float":
     case "int32_t":
     case "uint32_t": {
-      out.type = "Number";
-      out.isNumber = true;
+      if (type.isArray) {
+        let arrayName = member.type.replace("_t", "");
+        arrayName = arrayName[0].toUpperCase() + arrayName.substr(1);
+        out.type = arrayName + "Array";
+        out.isTypedArray = true;
+      } else {
+        out.type = "Number";
+        out.isNumber = true;
+      }
     } break;
+    case "int64_t":
     case "uint64_t": {
-      out.type = "BigInt";
-      out.isNumber = true;
-      out.isBigInt = true;
+      if (type.isArray) {
+        let arrayName = member.type.replace("_t", "");
+        arrayName = arrayName[0].toUpperCase() + arrayName.substr(1);
+        out.type = "Big" + arrayName + "Array";
+        out.isTypedArray = true;
+      } else {
+        out.type = "BigInt";
+        out.isNumber = true;
+        out.isBigInt = true;
+      }
     } break;
     case "bool": {
       out.type = "Boolean";
@@ -89,19 +104,6 @@ export function getASTJavaScriptType(type, member, ast) {
     break;
   };
   return out;
-};
-
-export function isOwnMemberOfNode(name, node) {
-  if (!node.hasOwnProperty("members")) {
-    warn(`Node doesn't have a 'members' property`);
-    return false;
-  }
-  let {members} = node;
-  for (let ii = 0; ii < members.length; ++ii) {
-    let member = members[ii];
-    if (member.name === name) return true;
-  };
-  return false;
 };
 
 export function getASTType(member, ast) {
@@ -194,7 +196,14 @@ export function getASTType(member, ast) {
   }
   // if the type is generally a reference
   {
-    if (member.annotation === "*" || member.annotation === "const*") out.isReference = true;
+    if (member.annotation === "*" || member.annotation === "const*") {
+      out.isReference = true;
+      if (member.hasOwnProperty("length")) {
+        delete out.isNumber;
+        delete out.initialValue;
+        out.isArray = true;
+      }
+    }
     else if (member.annotation === "const*const*") {
       out.isArray = true;
       out.isReference = true;

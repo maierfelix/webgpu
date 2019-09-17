@@ -6,6 +6,7 @@ import {
 
 import {
   getASTType,
+  getASTNodeByName,
   getASTCategoryByName,
   getDawnDeclarationName,
   getExplortDeclarationName
@@ -42,7 +43,7 @@ export default function generateAST(ast) {
       node.children = [];
       enu.values.map(member => {
         let {value} = member;
-        let name = getSnakeCaseName(member.name);
+        let name = member.name;
         let type = {
           isString: true,
           nativeType: "char",
@@ -140,10 +141,11 @@ export default function generateAST(ast) {
     });
     structures = structures.map(structure => {
       let node = {};
-      let {textName} = structure;
+      let {textName, extensible} = structure;
       node.name = getDawnDeclarationName(textName);
       node.externalName = getExplortDeclarationName(node.name);
       node.type = getASTCategoryByName(textName, ast);
+      if (extensible) node.isExtensible = true;
       node.textName = textName;
       node.children = [];
       structure.members.map(member => {
@@ -154,6 +156,23 @@ export default function generateAST(ast) {
           type
         };
         if (member.optional) child.isOptional = true;
+        if (member.hasOwnProperty("default") && member.default !== "undefined") {
+          let defaultValue = member.default;
+          if (defaultValue === "true" || defaultValue === "false") {
+            child.defaultValue = defaultValue === "true";
+            child.defaultValueNative = defaultValue;
+          } else if (Number.isInteger(parseInt(defaultValue))) {
+            child.defaultValue = String(defaultValue);
+            child.defaultValueNative = defaultValue;
+          } else if (typeof defaultValue === "string") {
+            child.defaultValue = `"${member.default}"`;
+            child.defaultValueNative = getASTNodeByName(member.type, ast).values.filter(({ name }) => {
+              return name === member.default;
+            })[0].value;
+          } else {
+            warn(`Unexpected default value for '${node.externalName}'.'${child.name}'`);
+          }
+        }
         node.children.push(child);
       });
       return node;

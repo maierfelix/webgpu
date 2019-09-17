@@ -46,3 +46,7 @@ export function getSnakeCaseName(name) {
     .toUpperCase()
   );
 };
+
+export function isQuotedString(str) {
+  return !!((String(str)).match(/"[^"]*"/g));
+};

@@ -12,8 +12,8 @@ import {
 import generateAST from "./generators/ast.mjs";
 import generateGyp from "./generators/gyp.mjs";
 import generateIndex from "./generators/index.mjs";
-import generateObjects from "./generators/objects.mjs";
 import generateMemoryLayouts from "./generators/memoryLayouts.mjs";
+import generateDescriptorDecoder from "./generators/descriptorDecoder.mjs";
 
 const GEN_FILE_NOTICE = `/*
  * MACHINE GENERATED, DO NOT EDIT
@@ -86,19 +86,19 @@ async function generateBindings(version, enableMinification, includeMemoryLayout
     // .cpp
     writeGeneratedFile(`${generatePath}/src/index.cpp`, out.source);
   }
-  // generate objects
-  {
-    let out = generateObjects(ast);
-    // .h
-    writeGeneratedFile(`${generatePath}/src/objects.h`, out.header);
-    // .cpp
-    writeGeneratedFile(`${generatePath}/src/objects.cpp`, out.source);
-  }
   // generate memorylayouts
   {
     let out = generateMemoryLayouts(ast);
     // .h
     writeGeneratedFile(`${generatePath}/src/memoryLayouts.h`, out.header);
+  }
+  // generate descriptor decoder
+  {
+    let out = generateDescriptorDecoder(ast);
+    // .h
+    writeGeneratedFile(`${generatePath}/src/DescriptorDecoder.h`, out.header);
+    // .cpp
+    writeGeneratedFile(`${generatePath}/src/DescriptorDecoder.cpp`, out.source);
   }
   console.log(`Successfully generated bindings!`);
 };

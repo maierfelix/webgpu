@@ -18,6 +18,9 @@
 #include "GPUPipelineLayout.h"
 #include "GPUBindGroup.h"
 #include "GPUShaderModule.h"
+#include "GPURenderPipeline.h"
+
+#include "DescriptorDecoder.h"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
@@ -34,6 +37,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUPipelineLayout::Initialize(env, exports);
   GPUBindGroup::Initialize(env, exports);
   GPUShaderModule::Initialize(env, exports);
+  GPURenderPipeline::Initialize(env, exports);
 
   
   return exports;

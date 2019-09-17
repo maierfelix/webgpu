@@ -21,6 +21,8 @@ import WebGPU from "../index.js";
     console.log("Fence Completed Value:", fence.getCompletedValue());
   }
 
+  return;
+
   {
     const buffer = device.createBuffer({
       size: 128n,
@@ -205,14 +207,5 @@ import WebGPU from "../index.js";
 
   let swapchainTexture = swapchain.getCurrentTexture();
   let renderAttachment = swapchain.createDefaultView();
-
-  /*
-  let bindGroup = device.createBindGroup({
-    layout: pipelineLayout,
-    bindings: [
-      { binding: 0, resource: sampler }
-    ]
-  });
-  */
 
 })();

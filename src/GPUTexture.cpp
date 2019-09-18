@@ -10,6 +10,11 @@ GPUTexture::GPUTexture(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUTex
   Napi::Env env = info.Env();
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
+
+  // constructor called internally to create this->instance manually
+  if (info[2].IsBoolean() && info[2].As<Napi::Boolean>().Value() == true) {
+    return;
+  }
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
   DawnTextureDescriptor descriptor = DescriptorDecoder::GPUTextureDescriptor(device, info[1].As<Napi::Value>());

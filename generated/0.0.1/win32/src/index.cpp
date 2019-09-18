@@ -19,6 +19,8 @@
 #include "GPUBindGroup.h"
 #include "GPUShaderModule.h"
 #include "GPURenderPipeline.h"
+#include "GPUCanvasContext.h"
+#include "GPUSwapChain.h"
 
 //#include "DescriptorDecoder.h"
 
@@ -38,6 +40,8 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUBindGroup::Initialize(env, exports);
   GPUShaderModule::Initialize(env, exports);
   GPURenderPipeline::Initialize(env, exports);
+  GPUCanvasContext::Initialize(env, exports);
+  GPUSwapChain::Initialize(env, exports);
 
   
   return exports;

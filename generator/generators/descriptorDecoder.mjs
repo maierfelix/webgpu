@@ -36,34 +36,36 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
   let {input, output, padding} = opts;
   let out = ``;
   if (member.isInternalProperty) return out;
-  if (type.isRequired) {
-    out += `\n${padding}{`;
-  } else {
+  if (type.isOptional) {
     out += `\n${padding}if (${input.name}.Has("${member.name}")) {`;
+    padding = opts.padding += `  `;
+  } else if (type.isArray) {
+    out += `\n${padding}{`;
+    padding = opts.padding += `  `;
   }
   // decode (unwrap) object typed members
   if (type.isObject && !type.isArray) {
     let unwrapType = getExplortDeclarationName(type.nativeType);
-    out += `\n${padding}  if (!(${input.name}.Get("${member.name}").As<Napi::Object>().InstanceOf(${unwrapType}::constructor.Value()))) {`;
-    out += `\n${padding}    //NAPI_THROW_JS_CB_ERROR(device, "TypeError", "Expected type '${unwrapType}' for '${structure.externalName}'.'${member.name}'");`;
-    out += `\n${padding}    return {};`;
-    out += `\n${padding}  }`;
-    out += `\n${padding}  ${output.name}.${member.name} = Napi::ObjectWrap<${unwrapType}>::Unwrap(${input.name}.Get("${member.name}").As<Napi::Object>())->instance;`;
+    out += `\n${padding}if (!(${input.name}.Get("${member.name}").As<Napi::Object>().InstanceOf(${unwrapType}::constructor.Value()))) {`;
+    out += `\n${padding}  //NAPI_THROW_JS_CB_ERROR(device, "TypeError", "Expected type '${unwrapType}' for '${structure.externalName}'.'${member.name}'");`;
+    out += `\n${padding}  return {};`;
+    out += `\n${padding}}`;
+    out += `\n${padding}${output.name}.${member.name} = Napi::ObjectWrap<${unwrapType}>::Unwrap(${input.name}.Get("${member.name}").As<Napi::Object>())->instance;`;
   // decode descriptor object array
   } else if (type.isObject && type.isArray) {
     let unwrapType = getExplortDeclarationName(type.nativeType);
     out += `
-${padding}  Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
-${padding}  uint32_t length = array.Length();
-${padding}  std::vector<${type.nativeType}> data;
-${padding}  for (unsigned int ii = 0; ii < length; ++ii) {
-${padding}    Napi::Object item = array.Get(ii).As<Napi::Object>();
-${padding}    ${type.nativeType} value = Napi::ObjectWrap<${unwrapType}>::Unwrap(item)->instance;
-${padding}    data.push_back(value);
-${padding}  };`;
+${padding}Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
+${padding}uint32_t length = array.Length();
+${padding}std::vector<${type.nativeType}> data;
+${padding}for (unsigned int ii = 0; ii < length; ++ii) {
+${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
+${padding}  ${type.nativeType} value = Napi::ObjectWrap<${unwrapType}>::Unwrap(item)->instance;
+${padding}  data.push_back(value);
+${padding}};`;
     out += `
-${padding}  ${output.name}.${type.length} = length;
-${padding}  ${output.name}.${member.name} = data.data();`;
+${padding}${output.name}.${type.length} = length;
+${padding}${output.name}.${member.name} = data.data();`;
   // decode descriptor structure
   } else if (type.isStructure && !type.isArray) {
     let memberTypeStructure = ast.structures.filter(s => s.name === type.nativeType)[0] || null;
@@ -87,11 +89,11 @@ ${padding}  ${output.name}.${member.name} = data.data();`;
     });
     // link the struct member reference to top structure
     if (type.isReference) {
-      out += `\n${padding}  {`;
-      out += `\n${padding}    ${output.name}.${member.name} = new ${type.nativeType};`;
-      //out += `\n${padding}    ${getDescriptorInstanceReset(memberTypeStructure)};`;
-      out += `\n${padding}    memcpy(const_cast<${type.nativeType}*>(${output.name}.${member.name}), &${member.name}, sizeof(${type.nativeType}));`;
-      out += `\n${padding}  }`;
+      out += `\n${padding}{`;
+      out += `\n${padding}  ${output.name}.${member.name} = new ${type.nativeType};`;
+      //out += `\n${padding}  ${getDescriptorInstanceReset(memberTypeStructure)};`;
+      out += `\n${padding}  memcpy(const_cast<${type.nativeType}*>(${output.name}.${member.name}), &${member.name}, sizeof(${type.nativeType}));`;
+      out += `\n${padding}}`;
     }
   // decode descriptor structure array
   } else if (type.isStructure && type.isArray) {
@@ -100,12 +102,12 @@ ${padding}  ${output.name}.${member.name} = data.data();`;
       warn(`Cannot resolve relative structure of member '${structure.externalName}'.'${member.name}'`);
     }
     out += `
-${padding}  Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
-${padding}  uint32_t length = array.Length();
-${padding}  std::vector<${type.nativeType}> data;
-${padding}  for (unsigned int ii = 0; ii < length; ++ii) {
-${padding}    Napi::Object item = array.Get(ii).As<Napi::Object>();
-${padding}    ${type.nativeType} $${member.name};`;
+${padding}Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
+${padding}uint32_t length = array.Length();
+${padding}std::vector<${type.nativeType}> data;
+${padding}for (unsigned int ii = 0; ii < length; ++ii) {
+${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
+${padding}  ${type.nativeType} $${member.name};`;
 
     let nextOpts = {
       padding: opts.padding + `    `,
@@ -117,36 +119,38 @@ ${padding}    ${type.nativeType} $${member.name};`;
     });
 
     out += `
-${padding}    data.push_back($${member.name});
-${padding}  };`;
+${padding}  data.push_back($${member.name});
+${padding}};`;
     // create array of pointers
     if (type.isArrayOfPointers) {
 out += `
-${padding}  ${output.name}.${type.length} = length;
-${padding}  std::vector<${type.nativeType}*> dst(length);
-${padding}  std::transform(data.begin(), data.end(), dst.begin(), [](${type.nativeType}& d) { return &d; });
-${padding}  ${output.name}.${member.name} = dst.data();`;
+${padding}${output.name}.${type.length} = length;
+${padding}std::vector<${type.nativeType}*> dst(length);
+${padding}std::transform(data.begin(), data.end(), dst.begin(), [](${type.nativeType}& d) { return &d; });
+${padding}${output.name}.${member.name} = dst.data();`;
     // normal struct array
     } else {
 out += `
-${padding}  ${output.name}.${type.length} = length;
-${padding}  ${output.name}.${member.name} = data.data();`;
+${padding}${output.name}.${type.length} = length;
+${padding}${output.name}.${member.name} = data.data();`;
     }
   // decode numeric typed members
   } else if (type.isNumber) {
     switch (rawType) {
       case "int32_t": {
-        out += `\n${padding}  ${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::Number>().Int32Value();`;
+        out += `\n${padding}${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::Number>().Int32Value();`;
       } break;
       case "uint32_t": {
-        out += `\n${padding}  ${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::Number>().Uint32Value();`;
+        out += `\n${padding}${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::Number>().Uint32Value();`;
       } break;
       case "float": {
-        out += `\n${padding}  ${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::Number>().FloatValue();`;
+        out += `\n${padding}${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::Number>().FloatValue();`;
       } break;
       case "uint64_t": {
+        out += `\n${padding}{`;
         out += `\n${padding}  bool lossless;`;
         out += `\n${padding}  ${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::BigInt>().Uint64Value(&lossless);`;
+        out += `\n${padding}}`;
       } break;
       case "const uint32_t*": {
         /*out += `\n      size_t size;`;
@@ -159,14 +163,14 @@ ${padding}  ${output.name}.${member.name} = data.data();`;
     };
   // decode boolean member
   } else if (type.isBoolean && !type.isArray) {
-    out += `\n${padding}  ${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::Boolean>().Value();`;
+    out += `\n${padding}${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::Boolean>().Value();`;
   // decode boolean member array
   } else if (type.isBoolean && type.isArray) {
     warn(`Unimplemented Boolean Array member: '${structure.externalName}'.'${member.name}'`);
   // decode enum member
   } else if (type.isEnum && !type.isArray) {
     let decodeMap = getExplortDeclarationName(type.nativeType);
-    out += `\n${padding}  ${output.name}.${member.name} = `;
+    out += `\n${padding}${output.name}.${member.name} = `;
     out += `static_cast<${type.nativeType}>(`;
     out += `${decodeMap}[${input.name}.Get("${member.name}").As<Napi::String>().Utf8Value()]`;
     out += `);`;
@@ -174,35 +178,38 @@ ${padding}  ${output.name}.${member.name} = data.data();`;
   } else if (type.isEnum && type.isArray) {
     let decodeMap = getExplortDeclarationName(type.nativeType);
     out += `
-${padding}  Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
-${padding}  uint32_t length = array.Length();
-${padding}  std::vector<${type.nativeType}> data;
-${padding}  for (unsigned int ii = 0; ii < length; ++ii) {
-${padding}    Napi::Object item = array.Get(ii).As<Napi::Object>();
-${padding}    ${type.nativeType} value = static_cast<${type.nativeType}>(
-${padding}      ${decodeMap}[item.As<Napi::String>().Utf8Value()]
-${padding}    );
-${padding}    data.push_back(value);
-${padding}  };`;
+${padding}Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
+${padding}uint32_t length = array.Length();
+${padding}std::vector<${type.nativeType}> data;
+${padding}for (unsigned int ii = 0; ii < length; ++ii) {
+${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
+${padding}  ${type.nativeType} value = static_cast<${type.nativeType}>(
+${padding}    ${decodeMap}[item.As<Napi::String>().Utf8Value()]
+${padding}  );
+${padding}  data.push_back(value);
+${padding}};`;
     out += `
-${padding}  ${output.name}.${member.name} = data.data();`;
+${padding}${output.name}.${member.name} = data.data();`;
   // decode bitmask member
   } else if (type.isBitmask && !type.isArray) {
-    out += `\n${padding}  ${output.name}.${member.name} = static_cast<${type.nativeType}>(${input.name}.Get("${member.name}").As<Napi::Number>().Uint32Value());`;
+    out += `\n${padding}${output.name}.${member.name} = static_cast<${type.nativeType}>(${input.name}.Get("${member.name}").As<Napi::Number>().Uint32Value());`;
   // decode bitmask member array
   } else if (type.isBitmask && type.isArray) {
     warn(`Unimplemented Bitmask Array member: '${structure.externalName}'.'${member.name}'`);
   // decode string member
   } else if (type.isString) {
     if (type.isDynamicLength) {
-      out += `\n${padding}  ${output.name}.${member.name} = getNAPIStringCopy(${input.name}.Get("${member.name}"));`;
+      out += `\n${padding}${output.name}.${member.name} = getNAPIStringCopy(${input.name}.Get("${member.name}"));`;
     } else {
       warn(`Cannot handle fixed String length in '${structure.externalName}'.'${member.name}'`);
     }
   } else {
     warn(`Unexpected member type '${rawType}' in '${structure.externalName}'.'${member.name}'`);
   }
-  out += `\n${padding}}`;
+  if (type.isOptional || type.isArray) {
+    padding = opts.padding = opts.padding.substr(0, opts.padding.length - 2);
+    out += `\n${padding}}`;
+  }
   return out;
 };
 

@@ -16,8 +16,9 @@ class GPUFence : public Napi::ObjectWrap<GPUFence> {
     Napi::Value getCompletedValue(const Napi::CallbackInfo &info);
     Napi::Value onCompletion(const Napi::CallbackInfo &info);
 
-    Napi::ObjectReference queue;
     Napi::ObjectReference device;
+
+    Napi::ObjectReference queue;
 
     DawnFence instance;
   private:

@@ -2,6 +2,8 @@
 #include "GPUDevice.h"
 #include "GPUBindGroupLayout.h"
 
+#include "DescriptorDecoder.h"
+
 #include <vector>
 
 Napi::FunctionReference GPUPipelineLayout::constructor;
@@ -10,27 +12,11 @@ GPUPipelineLayout::GPUPipelineLayout(const Napi::CallbackInfo& info) : Napi::Obj
   Napi::Env env = info.Env();
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
-  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->instance;
+  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnPipelineLayoutDescriptor descriptor;
-  descriptor.nextInChain = nullptr;
+  DawnPipelineLayoutDescriptor descriptor = DescriptorDecoder::GPUPipelineLayoutDescriptor(device, info[1].As<Napi::Value>());
 
-  {
-    Napi::Object obj = info[1].As<Napi::Object>();
-    Napi::Array array = obj.Get("bindGroupLayouts").As<Napi::Array>();
-    uint32_t length = array.Length();
-    std::vector<DawnBindGroupLayout> bindGroupLayouts;
-    for (unsigned int ii = 0; ii < length; ++ii) {
-      Napi::Value item = array.Get(ii);
-      Napi::Object obj = item.As<Napi::Object>();
-      DawnBindGroupLayout bindGroupLayout = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(obj)->instance;
-      bindGroupLayouts.push_back(bindGroupLayout);
-    };
-    descriptor.bindGroupLayoutCount = length;
-    descriptor.bindGroupLayouts = bindGroupLayouts.data();
-  }
-
-  this->instance = dawnDeviceCreatePipelineLayout(backendDevice, &descriptor);
+  this->instance = dawnDeviceCreatePipelineLayout(device->instance, &descriptor);
 }
 
 GPUPipelineLayout::~GPUPipelineLayout() {

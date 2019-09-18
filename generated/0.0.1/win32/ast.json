@@ -2874,7 +2874,7 @@
                 "nativeType": "DawnCommandBufferDescriptor",
                 "isReference": true,
                 "rawType": "const DawnCommandBufferDescriptor*",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -2904,7 +2904,7 @@
                 "nativeType": "DawnComputePassDescriptor",
                 "isReference": true,
                 "rawType": "const DawnComputePassDescriptor*",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -3735,7 +3735,7 @@
                 "nativeType": "DawnCommandEncoderDescriptor",
                 "isReference": true,
                 "rawType": "const DawnCommandEncoderDescriptor*",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -4834,7 +4834,7 @@
                 "nativeType": "DawnRenderBundleDescriptor",
                 "isReference": true,
                 "rawType": "const DawnRenderBundleDescriptor*",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -5771,7 +5771,7 @@
                 "nativeType": "DawnTextureViewDescriptor",
                 "isReference": true,
                 "rawType": "const DawnTextureViewDescriptor*",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Object",
                   "isObject": true
@@ -5839,7 +5839,7 @@
             "isObject": true,
             "nativeType": "DawnBuffer",
             "rawType": "DawnBuffer",
-            "isRequired": true,
+            "isOptional": true,
             "jsType": {
               "type": "DawnBuffer",
               "isObject": true
@@ -5883,7 +5883,7 @@
             "isObject": true,
             "nativeType": "DawnSampler",
             "rawType": "DawnSampler",
-            "isRequired": true,
+            "isOptional": true,
             "jsType": {
               "type": "DawnSampler",
               "isObject": true
@@ -5897,7 +5897,7 @@
             "isObject": true,
             "nativeType": "DawnTextureView",
             "rawType": "DawnTextureView",
-            "isRequired": true,
+            "isOptional": true,
             "jsType": {
               "type": "DawnTextureView",
               "isObject": true
@@ -5938,7 +5938,8 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "isInternalProperty": true
         },
         {
           "name": "bindings",
@@ -6081,7 +6082,8 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "isInternalProperty": true
         },
         {
           "name": "bindings",
@@ -6348,7 +6350,8 @@
               "isNumber": true,
               "isBigInt": true
             }
-          }
+          },
+          "isInternalProperty": true
         },
         {
           "name": "data",
@@ -6761,7 +6764,8 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "isInternalProperty": true
         },
         {
           "name": "attributes",
@@ -6816,7 +6820,8 @@
             }
           },
           "defaultValue": "0",
-          "defaultValueNative": 0
+          "defaultValueNative": 0,
+          "isInternalProperty": true
         },
         {
           "name": "buffers",
@@ -6907,7 +6912,8 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "isInternalProperty": true
         },
         {
           "name": "bindGroupLayouts",
@@ -7075,7 +7081,8 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "isInternalProperty": true
         },
         {
           "name": "colorFormats",
@@ -7148,7 +7155,7 @@
             "isObject": true,
             "nativeType": "DawnTextureView",
             "rawType": "DawnTextureView",
-            "isRequired": true,
+            "isOptional": true,
             "jsType": {
               "type": "DawnTextureView",
               "isObject": true
@@ -7315,7 +7322,8 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "isInternalProperty": true
         },
         {
           "name": "colorAttachments",
@@ -7341,7 +7349,7 @@
             "nativeType": "DawnRenderPassDepthStencilAttachmentDescriptor",
             "isReference": true,
             "rawType": "const DawnRenderPassDepthStencilAttachmentDescriptor*",
-            "isRequired": true,
+            "isOptional": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7391,7 +7399,7 @@
             "nativeType": "DawnPipelineStageDescriptor",
             "isReference": true,
             "rawType": "const DawnPipelineStageDescriptor*",
-            "isRequired": true,
+            "isOptional": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7406,7 +7414,7 @@
             "nativeType": "DawnVertexInputDescriptor",
             "isReference": true,
             "rawType": "const DawnVertexInputDescriptor*",
-            "isRequired": true,
+            "isOptional": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7434,7 +7442,7 @@
             "nativeType": "DawnRasterizationStateDescriptor",
             "isReference": true,
             "rawType": "const DawnRasterizationStateDescriptor*",
-            "isRequired": true,
+            "isOptional": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7464,7 +7472,7 @@
             "nativeType": "DawnDepthStencilStateDescriptor",
             "isReference": true,
             "rawType": "const DawnDepthStencilStateDescriptor*",
-            "isRequired": true,
+            "isOptional": true,
             "jsType": {
               "type": "Object",
               "isObject": true
@@ -7483,7 +7491,8 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "isInternalProperty": true
         },
         {
           "name": "colorStates",
@@ -7696,7 +7705,8 @@
               "type": "Number",
               "isNumber": true
             }
-          }
+          },
+          "isInternalProperty": true
         },
         {
           "name": "code",

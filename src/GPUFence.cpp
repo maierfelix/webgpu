@@ -2,6 +2,8 @@
 #include "GPUQueue.h"
 #include "GPUDevice.h"
 
+#include "DescriptorDecoder.h"
+
 #include <thread>
 #include <chrono>
 
@@ -11,19 +13,12 @@ GPUFence::GPUFence(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUFence>(
   Napi::Env env = info.Env();
 
   this->queue.Reset(info[0].As<Napi::Object>(), 1);
-  DawnQueue queue = Napi::ObjectWrap<GPUQueue>::Unwrap(this->queue.Value())->instance;
+  GPUQueue* queue = Napi::ObjectWrap<GPUQueue>::Unwrap(this->queue.Value());
+  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(queue->device.Value());
 
-  DawnFenceDescriptor descriptor;
-  if (info[1].IsObject()) {
-    Napi::Object obj = info[1].As<Napi::Object>();
-    if (obj.Has(Napi::String::New(env, "initialValue"))) {
-      bool lossless;
-      descriptor.initialValue = obj.Get("initialValue").As<Napi::BigInt>().Uint64Value(&lossless);
-    }
-    descriptor.nextInChain = nullptr;
-  }
+  DawnFenceDescriptor descriptor = DescriptorDecoder::GPUFenceDescriptor(device, info[1].As<Napi::Value>());
 
-  this->instance = dawnQueueCreateFence(queue, &descriptor);
+  this->instance = dawnQueueCreateFence(queue->instance, &descriptor);
 }
 
 GPUFence::~GPUFence() {

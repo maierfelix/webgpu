@@ -220,7 +220,7 @@ export function getASTType(member, ast) {
   } else {
     out.rawType = type;
   }
-  if (member.hasOwnProperty("default")) out.isOptional = true;
+  if (member.hasOwnProperty("default") || member.optional) out.isOptional = true;
   else out.isRequired = true;
   // append javascript relative type
   out.jsType = getASTJavaScriptType(out, member, ast);

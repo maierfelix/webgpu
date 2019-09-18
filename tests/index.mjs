@@ -105,7 +105,11 @@ import WebGPU from "../index.js";
 
   let bindGroupLayout = device.createBindGroupLayout({ 
     bindings: [
-      { binding: 0, visibility: 0x00000002, type: 0x00000003 }
+      {
+        binding: 0,
+        visibility: 0x00000002,
+        type: "sampler"
+      }
     ] 
   });
   console.log("Bind Group Layout:", bindGroupLayout);
@@ -147,20 +151,18 @@ import WebGPU from "../index.js";
   });
   console.log("Fragment Shader Module:", fragmentShaderModule);
 
-  return;
-
   // TODO: to hex
   let colorState = {
-    format: 0x00000017, //"bgra8unorm"
+    format: "bgra8unorm",
     alphaBlend: {
-      srcFactor: 0x00000004, // "src-alpha"
-      dstFactor: 0x00000005, // "one-minus-src-alpha"
-      operation: 0x00000000  // "add"
+      srcFactor: "src-alpha",
+      dstFactor: "one-minus-src-alpha",
+      operation: "add"
     },
     colorBlend: {
-      srcFactor: 0x00000004, // "src-alpha"
-      dstFactor: 0x00000005, // "one-minus-src-alpha"
-      operation: 0x00000000  // "add"
+      srcFactor: "src-alpha",
+      dstFactor: "one-minus-src-alpha",
+      operation: "add"
     },
     writeMask: 0x0000000F
   };
@@ -175,32 +177,35 @@ import WebGPU from "../index.js";
   };
 
   let positionAttribute = {
-    shaderLocation: positionLocation,
-    offset: 0,
-    format: 0x00000015
+    shaderLocation: 0,
+    offset: 0n,
+    format: "float4"
   };
 
   let vertexBufferDescriptor = {
-    stride: 8 * 4,
-    attributeSet: [positionAttribute]
+    stride: BigInt(8 * 4),
+    attributes: [positionAttribute]
   };
 
   let vertexInputDescriptor = {
-    vertexBuffers: [vertexBufferDescriptor]
+    buffers: [vertexBufferDescriptor]
   };
 
   let pipeline = device.createRenderPipeline({
     layout: pipelineLayout,
     vertexStage: vertexStageDescriptor,
     fragmentStage: fragmentStageDescriptor,
-    primitiveTopology: 0x00000003,
+    primitiveTopology: "triangle-list",
     colorStates: [colorState],
     vertexInput: vertexInputDescriptor
   });
+  console.log("Render Pipeline:", pipeline);
+
+  return;
 
   let swapChainDescriptor = {
     device: device,
-    format: 0x00000017 //"bgra8unorm"
+    format: "bgra8unorm"
   };
 
   let swapchain = gpu.configureSwapChain(swapChainDescriptor);

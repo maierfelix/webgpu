@@ -8,9 +8,9 @@ GPUQueue::GPUQueue(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUQueue>(
   Napi::Env env = info.Env();
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
-  DawnDevice backendDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value())->instance;
+  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  this->instance = dawnDeviceCreateQueue(backendDevice);
+  this->instance = dawnDeviceCreateQueue(device->instance);
 }
 
 GPUQueue::~GPUQueue() {

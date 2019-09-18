@@ -21,79 +21,79 @@
 
 namespace DescriptorDecoder {
   
-  DawnBindGroupBinding GPUBindGroupBinding(GPUDevice* device, Napi::Object& value);
+  DawnBindGroupBinding GPUBindGroupBinding(GPUDevice* device, Napi::Value& value);
   
-  DawnBindGroupDescriptor GPUBindGroupDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnBindGroupDescriptor GPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnBindGroupLayoutBinding GPUBindGroupLayoutBinding(GPUDevice* device, Napi::Object& value);
+  DawnBindGroupLayoutBinding GPUBindGroupLayoutBinding(GPUDevice* device, Napi::Value& value);
   
-  DawnBindGroupLayoutDescriptor GPUBindGroupLayoutDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnBindGroupLayoutDescriptor GPUBindGroupLayoutDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnBlendDescriptor GPUBlendDescriptor(GPUDevice* device, Napi::Object& value);
+  DawnBlendDescriptor GPUBlendDescriptor(GPUDevice* device, Napi::Value& value);
   
-  DawnColorStateDescriptor GPUColorStateDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnColorStateDescriptor GPUColorStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnBufferCopyView GPUBufferCopyView(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnBufferCopyView GPUBufferCopyView(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnBufferDescriptor GPUBufferDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnBufferDescriptor GPUBufferDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnCreateBufferMappedResult GPUCreateBufferMappedResult(GPUDevice* device, Napi::Object& value);
+  DawnCreateBufferMappedResult GPUCreateBufferMappedResult(GPUDevice* device, Napi::Value& value);
   
-  DawnColor GPUColor(GPUDevice* device, Napi::Object& value);
+  DawnColor GPUColor(GPUDevice* device, Napi::Value& value);
   
-  DawnCommandBufferDescriptor GPUCommandBufferDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnCommandBufferDescriptor GPUCommandBufferDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnCommandEncoderDescriptor GPUCommandEncoderDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnCommandEncoderDescriptor GPUCommandEncoderDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnComputePassDescriptor GPUComputePassDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnComputePassDescriptor GPUComputePassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnComputePipelineDescriptor GPUComputePipelineDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnComputePipelineDescriptor GPUComputePipelineDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnDepthStencilStateDescriptor GPUDepthStencilStateDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnDepthStencilStateDescriptor GPUDepthStencilStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnExtent3D GPUExtent3D(GPUDevice* device, Napi::Object& value);
+  DawnExtent3D GPUExtent3D(GPUDevice* device, Napi::Value& value);
   
-  DawnFenceDescriptor GPUFenceDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnFenceDescriptor GPUFenceDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnVertexAttributeDescriptor GPUVertexAttributeDescriptor(GPUDevice* device, Napi::Object& value);
+  DawnVertexAttributeDescriptor GPUVertexAttributeDescriptor(GPUDevice* device, Napi::Value& value);
   
-  DawnVertexBufferDescriptor GPUVertexBufferDescriptor(GPUDevice* device, Napi::Object& value);
+  DawnVertexBufferDescriptor GPUVertexBufferDescriptor(GPUDevice* device, Napi::Value& value);
   
-  DawnVertexInputDescriptor GPUVertexInputDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnVertexInputDescriptor GPUVertexInputDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnOrigin3D GPUOrigin3D(GPUDevice* device, Napi::Object& value);
+  DawnOrigin3D GPUOrigin3D(GPUDevice* device, Napi::Value& value);
   
-  DawnPipelineLayoutDescriptor GPUPipelineLayoutDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnPipelineLayoutDescriptor GPUPipelineLayoutDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnPipelineStageDescriptor GPUPipelineStageDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnPipelineStageDescriptor GPUPipelineStageDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnRasterizationStateDescriptor GPURasterizationStateDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnRasterizationStateDescriptor GPURasterizationStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnRenderBundleDescriptor GPURenderBundleDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnRenderBundleDescriptor GPURenderBundleDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnRenderBundleEncoderDescriptor GPURenderBundleEncoderDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnRenderBundleEncoderDescriptor GPURenderBundleEncoderDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnRenderPassColorAttachmentDescriptor GPURenderPassColorAttachmentDescriptor(GPUDevice* device, Napi::Object& value);
+  DawnRenderPassColorAttachmentDescriptor GPURenderPassColorAttachmentDescriptor(GPUDevice* device, Napi::Value& value);
   
-  DawnRenderPassDepthStencilAttachmentDescriptor GPURenderPassDepthStencilAttachmentDescriptor(GPUDevice* device, Napi::Object& value);
+  DawnRenderPassDepthStencilAttachmentDescriptor GPURenderPassDepthStencilAttachmentDescriptor(GPUDevice* device, Napi::Value& value);
   
-  DawnRenderPassDescriptor GPURenderPassDescriptor(GPUDevice* device, Napi::Object& value);
+  DawnRenderPassDescriptor GPURenderPassDescriptor(GPUDevice* device, Napi::Value& value);
   
-  DawnRenderPipelineDescriptor GPURenderPipelineDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnRenderPipelineDescriptor GPURenderPipelineDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnSamplerDescriptor GPUSamplerDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnSamplerDescriptor GPUSamplerDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnShaderModuleDescriptor GPUShaderModuleDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnShaderModuleDescriptor GPUShaderModuleDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnStencilStateFaceDescriptor GPUStencilStateFaceDescriptor(GPUDevice* device, Napi::Object& value);
+  DawnStencilStateFaceDescriptor GPUStencilStateFaceDescriptor(GPUDevice* device, Napi::Value& value);
   
-  DawnSwapChainDescriptor GPUSwapChainDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnSwapChainDescriptor GPUSwapChainDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnTextureCopyView GPUTextureCopyView(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnTextureCopyView GPUTextureCopyView(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnTextureDescriptor GPUTextureDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnTextureDescriptor GPUTextureDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
-  DawnTextureViewDescriptor GPUTextureViewDescriptor(GPUDevice* device, Napi::Object& value, void* nextInChain = nullptr);
+  DawnTextureViewDescriptor GPUTextureViewDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
 }
 

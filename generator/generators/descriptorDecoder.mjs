@@ -17,7 +17,7 @@ let ast = null;
 
 const DEFAULT_OPTS_DECODE_STRUCT_MEMBER = {
   padding: `    `,
-  input: { name: "value" },
+  input: { name: "obj" },
   output: { name: "descriptor" }
 };
 
@@ -35,6 +35,7 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
   let {jsType, rawType} = type;
   let {input, output, padding} = opts;
   let out = ``;
+  if (member.isInternalProperty) return out;
   if (type.isRequired) {
     out += `\n${padding}{`;
   } else {
@@ -57,10 +58,11 @@ ${padding}  uint32_t length = array.Length();
 ${padding}  std::vector<${type.nativeType}> data;
 ${padding}  for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}    Napi::Object item = array.Get(ii).As<Napi::Object>();
-${padding}    ${type.nativeType} value = Napi::ObjectWrap<${unwrapType}>::Unwrap(item.Get("${member.name}").As<Napi::Object>())->instance;
+${padding}    ${type.nativeType} value = Napi::ObjectWrap<${unwrapType}>::Unwrap(item)->instance;
 ${padding}    data.push_back(value);
 ${padding}  };`;
     out += `
+${padding}  ${output.name}.${type.length} = length;
 ${padding}  ${output.name}.${member.name} = data.data();`;
   // decode descriptor structure
   } else if (type.isStructure && !type.isArray) {
@@ -207,7 +209,7 @@ ${padding}  ${output.name}.${member.name} = data.data();`;
 function getDecodeStructureParameters(structure, isHeaderFile) {
   let out = ``;
   out += `GPUDevice* device`;
-  out += `, Napi::Object& value`;
+  out += `, Napi::Value& value`;
   if (isHeaderFile) {
     if (structure.isExtensible) {
       out += `, void* nextInChain = nullptr`;

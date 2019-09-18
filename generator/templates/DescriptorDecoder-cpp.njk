@@ -30,6 +30,10 @@ namespace DescriptorDecoder {
     {{ struct.name }} descriptor;
     {{- getDescriptorInstanceReset(struct) | safe }}
 
+    if (!(value.IsObject())) return descriptor;
+
+    Napi::Object obj = value.As<Napi::Object>();
+
     {%- for member in struct.children %}
     {{- getDecodeStructureMember(struct, member) | safe -}}
     {% endfor %}

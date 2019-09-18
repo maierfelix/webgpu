@@ -1,5 +1,6 @@
 #include "GPUBuffer.h"
 #include "GPUDevice.h"
+
 #include "DescriptorDecoder.h"
 
 #include <thread>
@@ -18,11 +19,10 @@ GPUBuffer::GPUBuffer(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUBuffe
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
-  DawnDevice backendDevice = device->instance;
 
-  DawnBufferDescriptor descriptor = DescriptorDecoder::GPUBufferDescriptor(device, info[1].As<Napi::Object>());
+  DawnBufferDescriptor descriptor = DescriptorDecoder::GPUBufferDescriptor(device, info[1].As<Napi::Value>());
 
-  this->instance = dawnDeviceCreateBuffer(backendDevice, &descriptor);
+  this->instance = dawnDeviceCreateBuffer(device->instance, &descriptor);
 }
 
 GPUBuffer::~GPUBuffer() {

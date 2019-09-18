@@ -185,6 +185,23 @@ export default function generateAST(ast) {
       });
       return node;
     });
+    // find length members and mark them as "isInternalProperty"
+    structures.map(structure => {
+      let {children} = structure;
+      children.map(child => {
+        let {type} = child;
+        if (type.hasOwnProperty("length") && !type.isDynamicLength) {
+          let lengthMember = children.filter(child => {
+            return child.name === type.length;
+          })[0] || null;
+          if (!lengthMember) {
+            warn(`Cannot resolve relative length member for '${structure.externalName}'.'${child.name}'`);
+          } else {
+            lengthMember.isInternalProperty = true;
+          }
+        }
+      });
+    });
     out.structures = structures;
   }
   return out;

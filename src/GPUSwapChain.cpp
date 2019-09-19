@@ -24,6 +24,7 @@ GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
   this->device.Reset(args.Get("device").As<Napi::Object>(), 1);
 
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
+
   BackendBinding* binding = device->binding;
 
   DawnSwapChainDescriptor descriptor;
@@ -47,13 +48,13 @@ Napi::Value GPUSwapChain::getCurrentTexture(const Napi::CallbackInfo &info) {
     info[0].As<Napi::Value>(),
     Napi::Boolean::New(env, true)
   };
-  Napi::Object out = GPUTexture::constructor.New(args);
+  Napi::Object texture = GPUTexture::constructor.New(args);
 
-  GPUTexture* texture = Napi::ObjectWrap<GPUTexture>::Unwrap(out);
-  texture->instance = nextTexture;
+  GPUTexture* uwTexture = Napi::ObjectWrap<GPUTexture>::Unwrap(texture);
+  uwTexture->instance = nextTexture;
 
-  return out;
-};
+  return texture;
+}
 
 Napi::Object GPUSwapChain::Initialize(Napi::Env env, Napi::Object exports) {
   Napi::HandleScope scope(env);

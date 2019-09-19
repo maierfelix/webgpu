@@ -81,8 +81,11 @@ DawnDevice GPUDevice::createDevice() {
 
 BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, DawnDevice device) {
   Napi::Env env = info.Env();
-  dawn_native::BackendType backendType = this->_adapter.GetBackendType();
-  BackendBinding* binding = CreateBinding(backendType, nullptr, device);
+  GPUAdapter* adapter = Napi::ObjectWrap<GPUAdapter>::Unwrap(this->adapter.Value());
+  dawn_native::BackendType backendType = adapter->instance.GetBackendType();
+  GLFWwindow* window = adapter->window;
+
+  BackendBinding* binding = CreateBinding(backendType, window, device);
   if (binding == nullptr) {
     Napi::Error::New(env, "Failed to create binding backend").ThrowAsJavaScriptException();
   }

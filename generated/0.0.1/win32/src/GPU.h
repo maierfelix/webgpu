@@ -3,14 +3,15 @@
 
 #include "Base.h"
 
-#include "GPUAdapter.h"
-
 class GPU : public Napi::ObjectWrap<GPU> {
 
   public:
 
     static Napi::Object Initialize(Napi::Env env, Napi::Object exports);
     static Napi::FunctionReference constructor;
+
+    static Napi::Value requestAdapter(const Napi::CallbackInfo &info);
+    static Napi::Value getContext(const Napi::CallbackInfo &info);
 
     GPU(const Napi::CallbackInfo &info);
     ~GPU();

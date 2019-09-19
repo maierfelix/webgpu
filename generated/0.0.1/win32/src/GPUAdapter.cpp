@@ -35,7 +35,7 @@ Napi::Value GPUAdapter::requestDevice(const Napi::CallbackInfo &info) {
   deferred.Resolve(device);
 
   return deferred.Promise();
-};
+}
 
 GLFWwindow* GPUAdapter::createWindow(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();

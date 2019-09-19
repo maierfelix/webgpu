@@ -201,16 +201,21 @@ import WebGPU from "../index.js";
   });
   console.log("Render Pipeline:", pipeline);
 
-  return;
-
   let swapChainDescriptor = {
     device: device,
     format: "bgra8unorm"
   };
 
-  let swapchain = gpu.configureSwapChain(swapChainDescriptor);
+  let context = WebGPU.GPU.getContext("webgpu");
+  console.log("Canvas Context:", context);
+
+  let swapchain = context.configureSwapChain(swapChainDescriptor);
+  console.log("Swapchain:", swapchain);
 
   let swapchainTexture = swapchain.getCurrentTexture();
-  let renderAttachment = swapchain.createDefaultView();
+  console.log("Swapchain Texture:", swapchainTexture);
+
+  let renderAttachment = swapchainTexture.createView();
+  console.log("Render Attachment:", renderAttachment);
 
 })();

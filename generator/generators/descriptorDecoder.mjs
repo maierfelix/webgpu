@@ -22,6 +22,7 @@ const DEFAULT_OPTS_DECODE_STRUCT_MEMBER = {
 };
 
 const DEFAULT_OPTS_RESET_STRUCT = {
+  padding: `  `,
   output: { name: "descriptor" }
 };
 
@@ -47,7 +48,9 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
   if (type.isObject && !type.isArray) {
     let unwrapType = getExplortDeclarationName(type.nativeType);
     out += `\n${padding}if (!(${input.name}.Get("${member.name}").As<Napi::Object>().InstanceOf(${unwrapType}::constructor.Value()))) {`;
-    out += `\n${padding}  //NAPI_THROW_JS_CB_ERROR(device, "TypeError", "Expected type '${unwrapType}' for '${structure.externalName}'.'${member.name}'");`;
+    out += `\n${padding}  Napi::String type = Napi::String::New(value.Env(), "Type");`;
+    out += `\n${padding}  Napi::String message = Napi::String::New(value.Env(), "Expected type '${unwrapType}' for '${structure.externalName}'.'${member.name}'");`;
+    out += `\n${padding}  device->throwCallbackError(type, message);`;
     out += `\n${padding}  return {};`;
     out += `\n${padding}}`;
     out += `\n${padding}${output.name}.${member.name} = Napi::ObjectWrap<${unwrapType}>::Unwrap(${input.name}.Get("${member.name}").As<Napi::Object>())->instance;`;
@@ -82,6 +85,19 @@ ${padding}${output.name}.${member.name} = data.data();`;
     if (type.isReference) {
       nextOpts.output = { name: member.name };
       out += `\n${padding}  ${type.nativeType} ${member.name};`;
+      // reset descriptor
+      let resetOpts = {
+        padding: padding + "  ",
+        output: { name: member.name }
+      };
+      out += getDescriptorInstanceReset(memberTypeStructure, resetOpts);
+    } else {
+      // reset descriptor
+      let resetOpts = {
+        padding: padding + "  ",
+        output: { name: output.name + "." + member.name }
+      };
+      out += getDescriptorInstanceReset(memberTypeStructure, resetOpts);
     }
     out += `\n${padding}  Napi::Object $${member.name} = ${input.name}.Get("${member.name}").As<Napi::Object>();`;
     memberTypeStructure.children.map(member => {
@@ -91,7 +107,6 @@ ${padding}${output.name}.${member.name} = data.data();`;
     if (type.isReference) {
       out += `\n${padding}{`;
       out += `\n${padding}  ${output.name}.${member.name} = new ${type.nativeType};`;
-      //out += `\n${padding}  ${getDescriptorInstanceReset(memberTypeStructure)};`;
       out += `\n${padding}  memcpy(const_cast<${type.nativeType}*>(${output.name}.${member.name}), &${member.name}, sizeof(${type.nativeType}));`;
       out += `\n${padding}}`;
     }
@@ -108,6 +123,13 @@ ${padding}std::vector<${type.nativeType}> data;
 ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
 ${padding}  ${type.nativeType} $${member.name};`;
+
+    // reset descriptor
+    let resetOpts = {
+      padding: padding + "  ",
+      output: { name: "$" + member.name }
+    };
+    out += getDescriptorInstanceReset(memberTypeStructure, resetOpts);
 
     let nextOpts = {
       padding: opts.padding + `    `,
@@ -230,23 +252,26 @@ function getDecodeStructureParameters(structure, isHeaderFile) {
 };
 
 function getDescriptorInstanceReset(structure, opts = DEFAULT_OPTS_RESET_STRUCT) {
-  let {output} = opts;
+  let {padding, output} = opts;
   let {children} = structure;
   let out = ``;
   if (structure.isExtensible) {
-    out += `\n    ${output.name}.nextInChain = nullptr;`;
+    out += `\n${padding}${output.name}.nextInChain = nullptr;`;
   }
   //console.log(structure.externalName);
   children.map(child => {
     let {type} = child;
+    if (type.isReference) {
+      out += `\n${padding}${output.name}.${child.name} = nullptr;`;
+    }
     if (child.hasOwnProperty("defaultValue")) {
       //console.log("  ", child.name, child.defaultValue, isQuotedString(child.defaultValue));
       if (type.isEnum) {
-        out += `\n    ${output.name}.${child.name} = static_cast<${type.nativeType}>(${child.defaultValueNative});`;
+        out += `\n${padding}${output.name}.${child.name} = static_cast<${type.nativeType}>(${child.defaultValueNative});`;
       } else if (type.isBitmask) {
-        out += `\n    ${output.name}.${child.name} = static_cast<${type.nativeType}>(${child.defaultValueNative});`;
+        out += `\n${padding}${output.name}.${child.name} = static_cast<${type.nativeType}>(${child.defaultValueNative});`;
       } else {
-        out += `\n    ${output.name}.${child.name} = ${child.defaultValueNative};`;
+        out += `\n${padding}${output.name}.${child.name} = ${child.defaultValueNative};`;
       }
     }
   });

@@ -130,6 +130,7 @@ void GPUDevice::throwCallbackError(const Napi::Value& type, const Napi::Value& m
 Napi::Value GPUDevice::tick(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   this->device.Tick();
+  glfwPollEvents();
   return env.Undefined();
 }
 

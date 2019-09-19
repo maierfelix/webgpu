@@ -3,7 +3,7 @@
 
 #include "Base.h"
 
-class GPUPipelineLayout  : public Napi::ObjectWrap<GPUPipelineLayout > {
+class GPUPipelineLayout : public Napi::ObjectWrap<GPUPipelineLayout> {
 
   public:
 

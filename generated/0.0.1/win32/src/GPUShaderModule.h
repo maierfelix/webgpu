@@ -3,7 +3,7 @@
 
 #include "Base.h"
 
-class GPUShaderModule  : public Napi::ObjectWrap<GPUShaderModule > {
+class GPUShaderModule : public Napi::ObjectWrap<GPUShaderModule> {
 
   public:
 

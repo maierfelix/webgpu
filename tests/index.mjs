@@ -122,13 +122,9 @@ import WebGPU from "../index.js";
   let vertexShaderSource = `
     #version 450
     #pragma shader_stage(vertex)
-    const vec2 pos[3] = vec2[3](
-      vec2(0.0f, 0.5f),
-      vec2(-0.5f, -0.5f),
-      vec2(0.5f, -0.5f)
-    );
+    layout(location = 0) in vec4 position;
     void main() {
-      gl_Position = vec4(pos[gl_VertexIndex], 0.0, 1.0);
+      gl_Position = vec4(position);
     }
   `;
 
@@ -137,7 +133,7 @@ import WebGPU from "../index.js";
     #pragma shader_stage(fragment)
     layout(location = 0) out vec4 fragColor;
     void main() {
-      fragColor = vec4(mix(vec3(0.25), vec3(0.5), 0.5), 1.0);
+      fragColor = vec4(1, 0, 0, 1);
     }
   `;
 
@@ -151,7 +147,24 @@ import WebGPU from "../index.js";
   });
   console.log("Fragment Shader Module:", fragmentShaderModule);
 
-  // TODO: to hex
+  let vertexDataBufferDescriptor = {
+    size: BigInt((4 * 4) * 3),
+    usage: 0x00000001 | 0x00000002
+  };
+  let vertexBuffer = device.createBuffer(vertexDataBufferDescriptor);
+  console.log("Vertex Buffer:", vertexBuffer);
+
+  let vertexArrayBuffer = await vertexBuffer.mapWriteAsync();
+  console.log("Vertex Buffer Map Wirte:", vertexArrayBuffer);
+
+  let vertexWriteArray = new Float32Array(vertexArrayBuffer);
+  vertexWriteArray.set(new Float32Array([
+    0, 0.8, 0, 1,
+    -0.8, -0.8, 0, 1,
+    0.8, -0.8, 0, 1
+  ]));
+  vertexBuffer.unmap();
+
   let colorState = {
     format: "bgra8unorm",
     alphaBlend: {
@@ -183,7 +196,7 @@ import WebGPU from "../index.js";
   };
 
   let vertexBufferDescriptor = {
-    stride: BigInt(8 * 4),
+    stride: BigInt(4 * 4),
     attributes: [positionAttribute]
   };
 
@@ -191,7 +204,7 @@ import WebGPU from "../index.js";
     buffers: [vertexBufferDescriptor]
   };
 
-  let pipeline = device.createRenderPipeline({
+  let renderPipeline = device.createRenderPipeline({
     layout: pipelineLayout,
     vertexStage: vertexStageDescriptor,
     fragmentStage: fragmentStageDescriptor,
@@ -199,7 +212,7 @@ import WebGPU from "../index.js";
     colorStates: [colorState],
     vertexInput: vertexInputDescriptor
   });
-  console.log("Render Pipeline:", pipeline);
+  console.log("Render Pipeline:", renderPipeline);
 
   let swapChainDescriptor = {
     device: device,
@@ -217,5 +230,38 @@ import WebGPU from "../index.js";
 
   let renderAttachment = swapchainTexture.createView();
   console.log("Render Attachment:", renderAttachment);
+
+  let darkBlue = {
+    r: 0.15,
+    g: 0.15,
+    b: 0.5,
+    a: 1
+  };
+
+  let colorAttachmentDescriptor = {
+    attachment: renderAttachment,
+    loadOp: "clear",
+    storeOp: "store",
+    clearColor: darkBlue
+  };
+
+  let renderPassDescriptor = {
+    colorAttachments: [colorAttachmentDescriptor]
+  };
+
+  let commandEncoder = device.createCommandEncoder();
+  console.log("Command Encoder:", commandEncoder);
+
+  let renderPassEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
+  console.log("RenderPass Encoder:", renderPassEncoder);
+
+  renderPassEncoder.setPipeline(renderPipeline);
+  renderPassEncoder.setVertexBuffers(0, [vertexBuffer], [0n]);
+  renderPassEncoder.draw(3, 1, 0, 0);
+  renderPassEncoder.endPass();
+
+  let commandBuffer = commandEncoder.finish();
+
+  queue.submit([commandBuffer]);
 
 })();

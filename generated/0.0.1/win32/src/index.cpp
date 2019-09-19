@@ -21,6 +21,9 @@
 #include "GPURenderPipeline.h"
 #include "GPUCanvasContext.h"
 #include "GPUSwapChain.h"
+#include "GPUCommandBuffer.h"
+#include "GPUCommandEncoder.h"
+#include "GPURenderPassEncoder.h"
 
 //#include "DescriptorDecoder.h"
 
@@ -42,6 +45,9 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPURenderPipeline::Initialize(env, exports);
   GPUCanvasContext::Initialize(env, exports);
   GPUSwapChain::Initialize(env, exports);
+  GPUCommandBuffer::Initialize(env, exports);
+  GPUCommandEncoder::Initialize(env, exports);
+  GPURenderPassEncoder::Initialize(env, exports);
 
   
   return exports;

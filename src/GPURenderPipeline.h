@@ -3,7 +3,7 @@
 
 #include "Base.h"
 
-class GPURenderPipeline  : public Napi::ObjectWrap<GPURenderPipeline > {
+class GPURenderPipeline : public Napi::ObjectWrap<GPURenderPipeline> {
 
   public:
 

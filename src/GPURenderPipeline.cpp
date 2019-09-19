@@ -19,7 +19,6 @@ GPURenderPipeline::GPURenderPipeline(const Napi::CallbackInfo& info) : Napi::Obj
   DawnRenderPipelineDescriptor descriptor = DescriptorDecoder::GPURenderPipelineDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnDeviceCreateRenderPipeline(device->instance, &descriptor);
-
 }
 
 GPURenderPipeline::~GPURenderPipeline() {

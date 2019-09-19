@@ -15,6 +15,8 @@ class GPUQueue : public Napi::ObjectWrap<GPUQueue> {
 
     Napi::ObjectReference device;
 
+    Napi::Value submit(const Napi::CallbackInfo &info);
+
     Napi::Value createFence(const Napi::CallbackInfo &info);
     Napi::Value signal(const Napi::CallbackInfo &info);
 

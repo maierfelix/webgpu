@@ -3,7 +3,7 @@
 
 #include "Base.h"
 
-class GPUBindGroup  : public Napi::ObjectWrap<GPUBindGroup > {
+class GPUBindGroup : public Napi::ObjectWrap<GPUBindGroup> {
 
   public:
 

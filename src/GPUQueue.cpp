@@ -1,6 +1,9 @@
 #include "GPUQueue.h"
 #include "GPUDevice.h"
 #include "GPUFence.h"
+#include "GPUCommandBuffer.h"
+
+#include <vector>
 
 Napi::FunctionReference GPUQueue::constructor;
 
@@ -15,6 +18,24 @@ GPUQueue::GPUQueue(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUQueue>(
 
 GPUQueue::~GPUQueue() {
   // destructor
+}
+
+Napi::Value GPUQueue::submit(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+
+  Napi::Array array = info[0].As<Napi::Array>();
+
+  uint32_t length = array.Length();
+  std::vector<DawnCommandBuffer> commands;
+  for (unsigned int ii = 0; ii < length; ++ii) {
+    Napi::Object item = array.Get(ii).As<Napi::Object>();
+    DawnCommandBuffer value = Napi::ObjectWrap<GPUCommandBuffer>::Unwrap(item)->instance;
+    commands.push_back(value);
+  };
+
+  dawnQueueSubmit(this->instance, length, commands.data());
+
+  return env.Undefined();
 }
 
 Napi::Value GPUQueue::createFence(const Napi::CallbackInfo &info) {
@@ -43,6 +64,11 @@ Napi::Value GPUQueue::signal(const Napi::CallbackInfo &info) {
 Napi::Object GPUQueue::Initialize(Napi::Env env, Napi::Object exports) {
   Napi::HandleScope scope(env);
   Napi::Function func = DefineClass(env, "GPUQueue", {
+    InstanceMethod(
+      "submit",
+      &GPUQueue::submit,
+      napi_enumerable
+    ),
     InstanceMethod(
       "createFence",
       &GPUQueue::createFence,

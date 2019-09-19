@@ -9,6 +9,7 @@
 #include "GPUBindGroup.h"
 #include "GPUShaderModule.h"
 #include "GPURenderPipeline.h"
+#include "GPUCommandEncoder.h"
 
 Napi::FunctionReference GPUDevice::constructor;
 
@@ -240,6 +241,16 @@ Napi::Value GPUDevice::createRenderPipeline(const Napi::CallbackInfo &info) {
   return renderPipeline;
 }
 
+Napi::Value GPUDevice::createCommandEncoder(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>()
+  };
+  if (info[0].IsObject()) args.push_back(info[0].As<Napi::Value>());
+  Napi::Object commandEncoder = GPUCommandEncoder::constructor.New(args);
+  return commandEncoder;
+}
+
 Napi::Value GPUDevice::getQueue(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   return this->mainQueue.Value().As<Napi::Object>();
@@ -330,6 +341,11 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "createRenderPipeline",
       &GPUDevice::createRenderPipeline,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createCommandEncoder",
+      &GPUDevice::createCommandEncoder,
       napi_enumerable
     ),
   });

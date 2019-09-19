@@ -31,7 +31,14 @@ GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
   descriptor.nextInChain = nullptr;
   descriptor.implementation = binding->GetSwapChainImplementation();
 
+  // TODO: this should be inside a window class
   this->instance = dawnDeviceCreateSwapChain(device->instance, &descriptor);
+
+  uint32_t width = 640;
+  uint32_t height = 480;
+  DawnTextureFormat swapChainFormat = DAWN_TEXTURE_FORMAT_BGRA8_UNORM;
+
+  dawnSwapChainConfigure(this->instance, swapChainFormat, DAWN_TEXTURE_USAGE_OUTPUT_ATTACHMENT, width, height);
 }
 
 GPUSwapChain::~GPUSwapChain() {

@@ -6832,11 +6832,12 @@
             "isReference": true,
             "isArray": true,
             "rawType": "const DawnVertexBufferDescriptor*",
-            "isRequired": true,
+            "isRequired": false,
             "jsType": {
               "type": "Object",
               "isObject": true
-            }
+            },
+            "isOptional": true
           }
         }
       ]

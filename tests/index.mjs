@@ -3,7 +3,11 @@ import WebGPU from "../index.js";
 const vertexShaderGLSL = `
   #version 450
   #pragma shader_stage(vertex)
-  const vec2 pos[3] = vec2[3](vec2(0.0f, 0.5f), vec2(-0.5f, -0.5f), vec2(0.5f, -0.5f));
+  const vec2 pos[3] = vec2[3](
+    vec2(0.0f, 0.5f),
+    vec2(-0.5f, -0.5f),
+    vec2(0.5f, -0.5f)
+  );
   void main() {
     gl_Position = vec4(pos[gl_VertexIndex], 0.0, 1.0);
   }
@@ -28,16 +32,16 @@ const fragmentShaderGLSL = `
   const device = await adapter.requestDevice();
   console.log("Device:", device);
 
-  const swapChainFormat = "bgra8unorm";
+  const swapChainFormat = "BGRA8 unorm";
 
   const context = WebGPU.GPU.getContext("webgpu");
   console.log("Canvas Context:", context);
 
-  const swapchain = context.configureSwapChain({
+  const swapChain = context.configureSwapChain({
     device: device,
-    format: "bgra8unorm"
+    format: swapChainFormat
   });
-  console.log("Swapchain:", swapchain);
+  console.log("Swapchain:", swapChain);
 
   const layout = device.createPipelineLayout({
     bindGroupLayouts: []
@@ -64,13 +68,13 @@ const fragmentShaderGLSL = `
       module: fragmentShaderModule,
       entryPoint: "main"
     },
-    primitiveTopology: "triangle-list",
+    primitiveTopology: "triangle list",
     vertexInput: {
       indexFormat: "uint32",
       buffers: []
     },
     rasterizationState: {
-      frontFace: "ccw",
+      frontFace: "CCW",
       cullMode: "none"
     },
     colorStates: [{
@@ -81,22 +85,26 @@ const fragmentShaderGLSL = `
   });
   console.log("Pipeline:", pipeline);
 
+  const queue = device.getQueue();
+  console.log("Queue:", queue);
+
   function onFrame() {
     const commandEncoder = device.createCommandEncoder({});
     const textureView = swapChain.getCurrentTexture().createView();
-    const renderPassDescriptor = {
+    const passEncoder = commandEncoder.beginRenderPass({
       colorAttachments: [{
-        loadValue: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
+        clearColor: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
+        loadOp: "load",
         storeOp: "store",
         attachment: textureView
-      }],
-    };
-    const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
+      }]
+    });
     passEncoder.setPipeline(pipeline);
     passEncoder.draw(3, 1, 0, 0);
     passEncoder.endPass();
-    device.getQueue().submit([commandEncoder.finish()]);
-    setTimeout(frame, 1e3 / 60);
+    queue.submit([
+      commandEncoder.finish()
+    ]);
   };
   setTimeout(onFrame, 1e3 / 60);
 

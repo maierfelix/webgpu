@@ -851,7 +851,7 @@ namespace DescriptorDecoder {
     if (obj.Has("indexFormat")) {
       descriptor.indexFormat = static_cast<DawnIndexFormat>(GPUIndexFormat[obj.Get("indexFormat").As<Napi::String>().Utf8Value()]);
     }
-    {
+    if (obj.Has("buffers")) {
       Napi::Array array = obj.Get("buffers").As<Napi::Array>();
       uint32_t length = array.Length();
       std::vector<DawnVertexBufferDescriptor> data;
@@ -1246,7 +1246,7 @@ namespace DescriptorDecoder {
         if ($vertexInput.Has("indexFormat")) {
           vertexInput.indexFormat = static_cast<DawnIndexFormat>(GPUIndexFormat[$vertexInput.Get("indexFormat").As<Napi::String>().Utf8Value()]);
         }
-        {
+        if ($vertexInput.Has("buffers")) {
           Napi::Array array = $vertexInput.Get("buffers").As<Napi::Array>();
           uint32_t length = array.Length();
           std::vector<DawnVertexBufferDescriptor> data;

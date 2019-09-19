@@ -36,7 +36,7 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
   DawnProcTable procs = dawn_native::GetProcs();
 
   dawnSetProcs(&procs);
-  /*procs.deviceSetUncapturedErrorCallback(
+  procs.deviceSetUncapturedErrorCallback(
     this->instance,
     [](DawnErrorType errorType, const char* message, void* devicePtr) {
       std::string type;
@@ -65,7 +65,7 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
       });
     },
     reinterpret_cast<void*>(this)
-  );*/
+  );
   this->device = dawn::Device::Acquire(this->instance);
 
   this->mainQueue.Reset(this->createQueue(info), 1);

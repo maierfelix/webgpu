@@ -25,7 +25,6 @@ module.exports = require(`${generatedPath}/build/Release/addon-${platform}.node`
     for (let ii = 0; ii < devices.length; ++ii) {
       /*if (!device.isDestroyed) */
       devices[ii].tick();
-      if (Math.random() < 0.01)console.log(1);
     };
   });
   const {GPUAdapter} = module.exports;

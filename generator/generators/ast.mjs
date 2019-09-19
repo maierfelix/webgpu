@@ -195,9 +195,14 @@ export default function generateAST(ast) {
             return child.name === type.length;
           })[0] || null;
           if (!lengthMember) {
-            warn(`Cannot resolve relative length member for '${structure.externalName}'.'${child.name}'`);
-          } else {
-            lengthMember.isInternalProperty = true;
+            return warn(`Cannot resolve relative length member for '${structure.externalName}'.'${child.name}'`);
+          }
+          lengthMember.isInternalProperty = true;
+          // if array length member is optional
+          // then that means the relative array member is optional too
+          if (lengthMember.type.isOptional) {
+            type.isRequired = false;
+            type.isOptional = true;
           }
         }
       });

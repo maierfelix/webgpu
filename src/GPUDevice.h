@@ -34,6 +34,7 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     Napi::Value createShaderModule(const Napi::CallbackInfo &info);
     Napi::Value createRenderPipeline(const Napi::CallbackInfo &info);
     Napi::Value createCommandEncoder(const Napi::CallbackInfo &info);
+    Napi::Value createRenderBundleEncoder(const Napi::CallbackInfo &info);
 
     void throwCallbackError(const Napi::Value& type, const Napi::Value& msg);
 

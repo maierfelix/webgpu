@@ -24,6 +24,7 @@
 #include "GPUCommandEncoder.h"
 #include "GPURenderPassEncoder.h"
 #include "GPUComputePassEncoder.h"
+#include "GPURenderBundle.h"
 
 //#include "DescriptorDecoder.h"
 
@@ -50,6 +51,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUCommandEncoder::Initialize(env, exports);
   GPURenderPassEncoder::Initialize(env, exports);
   GPUComputePassEncoder::Initialize(env, exports);
+  GPURenderBundle::Initialize(env, exports);
 
   {% if includeMemoryLayouts == true %}
   exports["$getMemoryLayouts"] = Napi::Function::New(env, MemoryLayouts, "MemoryLayouts");

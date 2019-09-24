@@ -19,11 +19,13 @@
 #include "GPUBindGroup.h"
 #include "GPUShaderModule.h"
 #include "GPURenderPipeline.h"
+#include "GPUComputePipeline.h"
 #include "GPUCanvasContext.h"
 #include "GPUSwapChain.h"
 #include "GPUCommandBuffer.h"
 #include "GPUCommandEncoder.h"
 #include "GPURenderPassEncoder.h"
+#include "GPUComputePassEncoder.h"
 
 //#include "DescriptorDecoder.h"
 
@@ -43,11 +45,13 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUBindGroup::Initialize(env, exports);
   GPUShaderModule::Initialize(env, exports);
   GPURenderPipeline::Initialize(env, exports);
+  GPUComputePipeline::Initialize(env, exports);
   GPUCanvasContext::Initialize(env, exports);
   GPUSwapChain::Initialize(env, exports);
   GPUCommandBuffer::Initialize(env, exports);
   GPUCommandEncoder::Initialize(env, exports);
   GPURenderPassEncoder::Initialize(env, exports);
+  GPUComputePassEncoder::Initialize(env, exports);
 
   
   return exports;

@@ -42,6 +42,7 @@ class GPURenderPassEncoder : public Napi::ObjectWrap<GPURenderPassEncoder> {
     // GPURenderPassEncoder END
 
     // GPUProgrammablePassEncoder BEGIN
+    Napi::Value setBindGroup(const Napi::CallbackInfo &info);
     Napi::Value pushDebugGroup(const Napi::CallbackInfo &info);
     Napi::Value popDebugGroup(const Napi::CallbackInfo &info);
     Napi::Value insertDebugMarker(const Napi::CallbackInfo &info);

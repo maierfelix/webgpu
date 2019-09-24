@@ -4,10 +4,6 @@
 
 #include "DescriptorDecoder.h"
 
-#include <vector>
-
-#include <shaderc/shaderc.hpp>
-
 Napi::FunctionReference GPURenderPipeline::constructor;
 
 GPURenderPipeline::GPURenderPipeline(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPURenderPipeline>(info) {

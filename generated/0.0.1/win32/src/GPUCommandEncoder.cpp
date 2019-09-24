@@ -3,7 +3,7 @@
 #include "GPUBuffer.h"
 #include "GPUCommandBuffer.h"
 #include "GPURenderPassEncoder.h"
-//#include "GPUComputePassEncoder.h"
+#include "GPUComputePassEncoder.h"
 
 #include "DescriptorDecoder.h"
 
@@ -35,12 +35,11 @@ Napi::Value GPUCommandEncoder::beginRenderPass(const Napi::CallbackInfo &info) {
 
 Napi::Value GPUCommandEncoder::beginComputePass(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
-  /*Napi::Object computePass = GPUComputePassEncoder::constructor.New({
+  Napi::Object computePass = GPUComputePassEncoder::constructor.New({
     info.This().As<Napi::Value>(),
     info[0].As<Napi::Value>()
   });
-  return computePass;*/
-  return env.Undefined();
+  return computePass;
 }
 
 Napi::Value GPUCommandEncoder::copyBufferToBuffer(const Napi::CallbackInfo &info) {

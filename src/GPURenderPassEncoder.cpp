@@ -3,6 +3,7 @@
 #include "GPUCommandEncoder.h"
 #include "GPURenderPipeline.h"
 #include "GPUBuffer.h"
+#include "GPUBindGroup.h"
 
 #include "DescriptorDecoder.h"
 
@@ -199,6 +200,30 @@ Napi::Value GPURenderPassEncoder::endPass(const Napi::CallbackInfo &info) {
   return env.Undefined();
 }
 
+Napi::Value GPURenderPassEncoder::setBindGroup(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+
+  uint32_t groupIndex = info[0].As<Napi::Number>().Uint32Value();
+
+  DawnBindGroup group = Napi::ObjectWrap<GPUBindGroup>::Unwrap(info[1].As<Napi::Object>())->instance;
+
+  uint32_t dynamicOffsetCount;
+  std::vector<uint64_t> dynamicOffsets;
+  if (info[2].IsArray()) {
+    Napi::Array array = info[2].As<Napi::Array>();
+    for (unsigned int ii = 0; ii < array.Length(); ++ii) {
+      bool lossless;
+      uint64_t offset = array.Get(ii).As<Napi::BigInt>().Uint64Value(&lossless);
+      dynamicOffsets.push_back(offset);
+    };
+    dynamicOffsetCount = array.Length();
+  }
+
+  dawnRenderPassEncoderSetBindGroup(this->instance, groupIndex, group, dynamicOffsetCount, dynamicOffsets.data());
+
+  return env.Undefined();
+}
+
 Napi::Value GPURenderPassEncoder::pushDebugGroup(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
@@ -291,6 +316,11 @@ Napi::Object GPURenderPassEncoder::Initialize(Napi::Env env, Napi::Object export
     InstanceMethod(
       "endPass",
       &GPURenderPassEncoder::endPass,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "setBindGroup",
+      &GPURenderPassEncoder::setBindGroup,
       napi_enumerable
     ),
     InstanceMethod(

@@ -36,7 +36,7 @@ GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
 
   uint32_t width = 640;
   uint32_t height = 480;
-  DawnTextureFormat swapChainFormat = DAWN_TEXTURE_FORMAT_BGRA8_UNORM;
+  DawnTextureFormat swapChainFormat = DAWN_TEXTURE_FORMAT_RGBA8_UNORM;
 
   dawnSwapChainConfigure(this->instance, swapChainFormat, DAWN_TEXTURE_USAGE_OUTPUT_ATTACHMENT, width, height);
 }
@@ -63,12 +63,27 @@ Napi::Value GPUSwapChain::getCurrentTexture(const Napi::CallbackInfo &info) {
   return texture;
 }
 
+Napi::Value GPUSwapChain::present(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+
+  GPUTexture* texture = Napi::ObjectWrap<GPUTexture>::Unwrap(info[0].As<Napi::Object>());
+
+  dawnSwapChainPresent(this->instance, texture->instance);
+
+  return env.Undefined();
+}
+
 Napi::Object GPUSwapChain::Initialize(Napi::Env env, Napi::Object exports) {
   Napi::HandleScope scope(env);
   Napi::Function func = DefineClass(env, "GPUSwapChain", {
     InstanceMethod(
       "getCurrentTexture",
       &GPUSwapChain::getCurrentTexture,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "present",
+      &GPUSwapChain::present,
       napi_enumerable
     )
   });

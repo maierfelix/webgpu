@@ -41,9 +41,9 @@ if (!fs.existsSync(generatePath)) {
 // build
 // build/release
 let buildDir = `${generatePath}/build/`;
-let buildReleaseDir = buildDir + "Release/";
+let buildOutputDir = buildDir + "Release/";
 if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir);
-if (!fs.existsSync(buildReleaseDir)) fs.mkdirSync(buildReleaseDir);
+if (!fs.existsSync(buildOutputDir)) fs.mkdirSync(buildOutputDir);
 
 process.stdout.write(`
 Compiling bindings for version ${dawnVersion}...
@@ -59,7 +59,7 @@ function copyFiles() {
     let dawnDir = fs.readFileSync(pkg.config.DAWN_PATH, "utf-8");
     let dawnOutputDir = dawnDir + "/out/Shared2";
     let baseDir = `./lib/${unitPlatform}/${architecture}`;
-    let targetDir = `${generatePath}/build/Release`;
+    let targetDir = buildOutputDir;
     let files = [
       // src folder
       [`./src/`, targetDir + "/../../src/"]
@@ -69,7 +69,7 @@ function copyFiles() {
       files.push([`${baseDir}/GLFW/glfw3.dll`, targetDir]);
       // dawn dlls
       {
-        files.push([`${dawnOutputDir}/libc++.dll`, targetDir]);
+        //files.push([`${dawnOutputDir}/libc++.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libdawn.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libdawn_native.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libdawn_wire.dll`, targetDir]);
@@ -78,7 +78,7 @@ function copyFiles() {
       }
       // dawn libs
       {
-        files.push([`${dawnOutputDir}/libc++.dll.lib`, targetDir + "/../"]);
+        //files.push([`${dawnOutputDir}/libc++.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libdawn.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libdawn_native.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libdawn_wire.dll.lib`, targetDir + "/../"]);
@@ -120,7 +120,7 @@ function buildFiles() {
     if (platform === "win32") {
       msargs += `--msvs_version ${msvsVersion}`;
     }
-    let cmd = `cd ${generatePath} && node-gyp configure ${msargs} && node-gyp build`;
+    let cmd = `cd ${generatePath} && node-gyp configure && node-gyp build`;
     let shell = spawn(cmd, { shell: true, stdio: "inherit" }, { stdio: "pipe" });
     shell.on("exit", error => {
       if (!error) {
@@ -133,7 +133,7 @@ function buildFiles() {
 };
 
 function inlineMemoryLayouts() {
-  const addon = require(`${buildReleaseDir}/addon-${platform}.node`);
+  const addon = require(`${buildOutputDir}/addon-${platform}.node`);
   if (!addon.$getMemoryLayouts) return;
   process.stdout.write(`Inlining memory layouts..\n`);
   let memoryLayouts = addon.$getMemoryLayouts();

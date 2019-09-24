@@ -118,8 +118,17 @@ ${padding}${output.name}.${member.name} = data.data();`;
     }
     out += `
 ${padding}Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
-${padding}uint32_t length = array.Length();
-${padding}std::vector<${type.nativeType}> data;
+${padding}uint32_t length = array.Length();`;
+
+    if (type.isArrayOfPointers) {
+      out += `
+${padding}auto data = new std::vector<${type.nativeType}*>;`;
+    } else {
+      out += `
+${padding}std::vector<${type.nativeType}${type.isArrayOfPointers ? "*" : ""}> data;`;
+    }
+
+    out += `
 ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
 ${padding}  ${type.nativeType} $${member.name};`;
@@ -140,22 +149,27 @@ ${padding}  ${type.nativeType} $${member.name};`;
       out += getDecodeStructureMember(memberTypeStructure, member, nextOpts);
     });
 
+    // create a heap copy
+    if (type.isArrayOfPointers) {
+    out += `
+${padding}  ${type.nativeType}* $$${member.name} = new ${type.nativeType};
+${padding}  memcpy(
+${padding}    reinterpret_cast<void*>($$${member.name}),
+${padding}    reinterpret_cast<void*>(&$${member.name}),
+${padding}    sizeof(${type.nativeType})
+${padding}  );
+${padding}  data->push_back($$${member.name});
+${padding}};
+${padding}${output.name}.${type.length} = length;
+${padding}${output.name}.${member.name} = data->data();`;
+    } else {
     out += `
 ${padding}  data.push_back($${member.name});
-${padding}};`;
-    // create array of pointers
-    if (type.isArrayOfPointers) {
-out += `
-${padding}${output.name}.${type.length} = length;
-${padding}std::vector<${type.nativeType}*> dst(length);
-${padding}std::transform(data.begin(), data.end(), dst.begin(), [](${type.nativeType}& d) { return &d; });
-${padding}${output.name}.${member.name} = dst.data();`;
-    // normal struct array
-    } else {
-out += `
+${padding}};
 ${padding}${output.name}.${type.length} = length;
 ${padding}${output.name}.${member.name} = data.data();`;
     }
+
   // decode numeric typed members
   } else if (type.isNumber) {
     switch (rawType) {
@@ -258,10 +272,9 @@ function getDescriptorInstanceReset(structure, opts = DEFAULT_OPTS_RESET_STRUCT)
   if (structure.isExtensible) {
     out += `\n${padding}${output.name}.nextInChain = nullptr;`;
   }
-  //console.log(structure.externalName);
   children.map(child => {
     let {type} = child;
-    if (type.isReference) {
+    if (type.isReference || type.isObject) {
       out += `\n${padding}${output.name}.${child.name} = nullptr;`;
     }
     if (child.hasOwnProperty("defaultValue")) {

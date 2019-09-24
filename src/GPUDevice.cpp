@@ -67,7 +67,6 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
     reinterpret_cast<void*>(this)
   );
   this->device = dawn::Device::Acquire(this->instance);
-
   this->mainQueue.Reset(this->createQueue(info), 1);
 }
 
@@ -120,7 +119,7 @@ Napi::Value GPUDevice::GetAdapter(const Napi::CallbackInfo& info) {
 
 void GPUDevice::SetOnErrorCallback(const Napi::CallbackInfo& info, const Napi::Value& value) {
   Napi::Env env = info.Env();
-  this->onErrorCallback.Reset(value.As<Napi::Function>());
+  this->onErrorCallback.Reset(value.As<Napi::Function>(), 1);
 }
 
 void GPUDevice::throwCallbackError(const Napi::Value& type, const Napi::Value& msg) {

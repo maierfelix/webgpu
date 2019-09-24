@@ -14,6 +14,7 @@ class GPUSwapChain : public Napi::ObjectWrap<GPUSwapChain> {
     ~GPUSwapChain();
 
     Napi::Value getCurrentTexture(const Napi::CallbackInfo &info);
+    Napi::Value present(const Napi::CallbackInfo &info);
 
     Napi::ObjectReference device;
 

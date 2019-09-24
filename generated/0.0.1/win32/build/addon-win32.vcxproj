@@ -55,13 +55,12 @@
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4351;4355;4800;4251;4275;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MinimalRebuild>false</MinimalRebuild>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OmitFramePointers>false</OmitFramePointers>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=addon-win32;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;/bigobj;_LIBCPP_ABI_UNSTABLE;_LIBCPP_ENABLE_NODISCARD;_LIBCPP_NO_AUTO_LINK;__STD_C;_CRT_RAND_S;_SCL_SECURE_NO_DEPRECATE;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;DAWN_ENABLE_BACKEND_D3D12;DAWN_ENABLE_BACKEND_NULL;_GLFW_WIN32;DAWN_NATIVE_SHARED_LIBRARY;DAWN_WIRE_SHARED_LIBRARY;VK_USE_PLATFORM_WIN32_KHR;DAWN_SHARED_LIBRARY;NAPI_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;DEBUG;_DEBUG;V8_ENABLE_CHECKS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=addon-win32;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;DAWN_ENABLE_BACKEND_D3D12;_GLFW_WIN32;DAWN_NATIVE_SHARED_LIBRARY;DAWN_WIRE_SHARED_LIBRARY;VK_USE_PLATFORM_WIN32_KHR;DAWN_SHARED_LIBRARY;NAPI_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;DEBUG;_DEBUG;V8_ENABLE_CHECKS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <StringPooling>true</StringPooling>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -72,7 +71,7 @@
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\User\.node-gyp\12.10.0\x64\node.lib&quot;;glfw3dll.lib;libc++.dll.lib;libdawn.dll.lib;libdawn_native.dll.lib;libdawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\User\.node-gyp\12.10.0\x64\node.lib&quot;;glfw3dll.lib;libdawn.dll.lib;libdawn_native.dll.lib;libdawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../@PROJECT_SOURCE_DIR@/lib/win/x64;C:\Users\User\Documents\GitHub\n-wgpu\generated\0.0.1\win32/build/;..\..\..\..\lib\win\x64\GLFW;C:\Users\User\Documents\GitHub\n-wgpu\generated\0.0.1\win32\build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <DelayLoadDLLs>iojs.exe;node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -84,7 +83,7 @@
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>C:\Users\User\.node-gyp\12.10.0\include\node;C:\Users\User\.node-gyp\12.10.0\src;C:\Users\User\.node-gyp\12.10.0\deps\openssl\config;C:\Users\User\.node-gyp\12.10.0\deps\openssl\openssl\include;C:\Users\User\.node-gyp\12.10.0\deps\uv\include;C:\Users\User\.node-gyp\12.10.0\deps\zlib;C:\Users\User\.node-gyp\12.10.0\deps\v8\include;C:\Users\User\Documents\GitHub\n-wgpu\node_modules\node-addon-api;..\..\..\..\lib\include;C:\Users\User\Documents\GitHub\dawn\src\include;C:\Users\User\Documents\GitHub\dawn\out\Shared2\gen;C:\Users\User\Documents\GitHub\dawn\third_party\shaderc\libshaderc\include;C:\Users\User\Documents\GitHub\dawn\third_party\shaderc\libshaderc\src\shaderc.cc;C:\Users\User\Documents\GitHub\dawn\third_party\shaderc\libshaderc\src\shaderc_private.h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=addon-win32;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;/bigobj;_LIBCPP_ABI_UNSTABLE;_LIBCPP_ENABLE_NODISCARD;_LIBCPP_NO_AUTO_LINK;__STD_C;_CRT_RAND_S;_SCL_SECURE_NO_DEPRECATE;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;DAWN_ENABLE_BACKEND_D3D12;DAWN_ENABLE_BACKEND_NULL;_GLFW_WIN32;DAWN_NATIVE_SHARED_LIBRARY;DAWN_WIRE_SHARED_LIBRARY;VK_USE_PLATFORM_WIN32_KHR;DAWN_SHARED_LIBRARY;NAPI_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;DEBUG;_DEBUG;V8_ENABLE_CHECKS;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=addon-win32;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;DAWN_ENABLE_BACKEND_D3D12;_GLFW_WIN32;DAWN_NATIVE_SHARED_LIBRARY;DAWN_WIRE_SHARED_LIBRARY;VK_USE_PLATFORM_WIN32_KHR;DAWN_SHARED_LIBRARY;NAPI_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;DEBUG;_DEBUG;V8_ENABLE_CHECKS;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -104,7 +103,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <Optimization>Full</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=addon-win32;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;/bigobj;_LIBCPP_ABI_UNSTABLE;_LIBCPP_ENABLE_NODISCARD;_LIBCPP_NO_AUTO_LINK;__STD_C;_CRT_RAND_S;_SCL_SECURE_NO_DEPRECATE;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;DAWN_ENABLE_BACKEND_D3D12;DAWN_ENABLE_BACKEND_NULL;_GLFW_WIN32;DAWN_NATIVE_SHARED_LIBRARY;DAWN_WIRE_SHARED_LIBRARY;VK_USE_PLATFORM_WIN32_KHR;DAWN_SHARED_LIBRARY;NAPI_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=addon-win32;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;DAWN_ENABLE_BACKEND_D3D12;_GLFW_WIN32;DAWN_NATIVE_SHARED_LIBRARY;DAWN_WIRE_SHARED_LIBRARY;VK_USE_PLATFORM_WIN32_KHR;DAWN_SHARED_LIBRARY;NAPI_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <StringPooling>true</StringPooling>
@@ -116,7 +115,7 @@
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\User\.node-gyp\12.10.0\x64\node.lib&quot;;glfw3dll.lib;libc++.dll.lib;libdawn.dll.lib;libdawn_native.dll.lib;libdawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\User\.node-gyp\12.10.0\x64\node.lib&quot;;glfw3dll.lib;libdawn.dll.lib;libdawn_native.dll.lib;libdawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../@PROJECT_SOURCE_DIR@/lib/win/x64;C:\Users\User\Documents\GitHub\n-wgpu\generated\0.0.1\win32/build/;..\..\..\..\lib\win\x64\GLFW;C:\Users\User\Documents\GitHub\n-wgpu\generated\0.0.1\win32\build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <DelayLoadDLLs>iojs.exe;node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -128,7 +127,7 @@
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>C:\Users\User\.node-gyp\12.10.0\include\node;C:\Users\User\.node-gyp\12.10.0\src;C:\Users\User\.node-gyp\12.10.0\deps\openssl\config;C:\Users\User\.node-gyp\12.10.0\deps\openssl\openssl\include;C:\Users\User\.node-gyp\12.10.0\deps\uv\include;C:\Users\User\.node-gyp\12.10.0\deps\zlib;C:\Users\User\.node-gyp\12.10.0\deps\v8\include;C:\Users\User\Documents\GitHub\n-wgpu\node_modules\node-addon-api;..\..\..\..\lib\include;C:\Users\User\Documents\GitHub\dawn\src\include;C:\Users\User\Documents\GitHub\dawn\out\Shared2\gen;C:\Users\User\Documents\GitHub\dawn\third_party\shaderc\libshaderc\include;C:\Users\User\Documents\GitHub\dawn\third_party\shaderc\libshaderc\src\shaderc.cc;C:\Users\User\Documents\GitHub\dawn\third_party\shaderc\libshaderc\src\shaderc_private.h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=addon-win32;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;/bigobj;_LIBCPP_ABI_UNSTABLE;_LIBCPP_ENABLE_NODISCARD;_LIBCPP_NO_AUTO_LINK;__STD_C;_CRT_RAND_S;_SCL_SECURE_NO_DEPRECATE;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;DAWN_ENABLE_BACKEND_D3D12;DAWN_ENABLE_BACKEND_NULL;_GLFW_WIN32;DAWN_NATIVE_SHARED_LIBRARY;DAWN_WIRE_SHARED_LIBRARY;VK_USE_PLATFORM_WIN32_KHR;DAWN_SHARED_LIBRARY;NAPI_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=addon-win32;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;DAWN_ENABLE_BACKEND_D3D12;_GLFW_WIN32;DAWN_NATIVE_SHARED_LIBRARY;DAWN_WIRE_SHARED_LIBRARY;VK_USE_PLATFORM_WIN32_KHR;DAWN_SHARED_LIBRARY;NAPI_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>

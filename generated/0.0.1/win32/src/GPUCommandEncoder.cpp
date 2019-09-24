@@ -139,11 +139,10 @@ Napi::Value GPUCommandEncoder::insertDebugMarker(const Napi::CallbackInfo &info)
 Napi::Value GPUCommandEncoder::finish(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
+  //GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
+  //DawnCommandBufferDescriptor descriptor = DescriptorDecoder::GPUCommandBufferDescriptor(device, info[0].As<Napi::Value>());
 
-  DawnCommandBufferDescriptor descriptor = DescriptorDecoder::GPUCommandBufferDescriptor(device, info[0].As<Napi::Value>());
-
-  DawnCommandBuffer buffer = dawnCommandEncoderFinish(this->instance, &descriptor);
+  DawnCommandBuffer buffer = dawnCommandEncoderFinish(this->instance, nullptr);
 
   Napi::Object commandBuffer = GPUCommandBuffer::constructor.New({});
   GPUCommandBuffer* uwCommandBuffer = Napi::ObjectWrap<GPUCommandBuffer>::Unwrap(commandBuffer);

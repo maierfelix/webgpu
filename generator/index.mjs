@@ -38,9 +38,15 @@ const includeMemoryLayouts = !fs.existsSync(`${generatePath}/memoryLayouts.json`
 
 function writeGeneratedFile(path, text, includeNotice = true) {
   if (typeof text !== "string") throw new TypeError(`Expected 'string' type for parameter 'text'`);
+  let source = null;
+  try {
+    source = fs.readFileSync(path, "utf-8");
+  } catch(e) { };
   // append notice
   if (includeNotice) text = GEN_FILE_NOTICE + text;
-  fs.writeFileSync(path, text);
+  if (source !== text) {
+    fs.writeFileSync(path, text, "utf-8");
+  }
 };
 
 async function generateBindings(version, enableMinification, includeMemoryLayouts) {

@@ -11,11 +11,9 @@ module.exports = require(`${generatedPath}/interfaces.js`);
 
 const dawnVersion = "0.0.1";
 
-const releasePath = `${pkg.config.GEN_OUT_DIR}/${dawnVersion}/${platform}/build/Release`;
 const bindingsPath = path.join(__dirname, `${pkg.config.GEN_OUT_DIR}/`);
 const generatedPath = bindingsPath + `${dawnVersion}/${platform}`;
 
-console.log(`${generatedPath}/build/Release/addon-${platform}.node`);
 module.exports = require(`${generatedPath}/build/Release/addon-${platform}.node`);
 
 // the creates an auto tick loop for each device

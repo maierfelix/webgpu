@@ -1,4 +1,5 @@
 #include "GPURenderPassEncoder.h"
+#include "GPUDevice.h"
 #include "GPUCommandEncoder.h"
 #include "GPURenderPipeline.h"
 #include "GPUBuffer.h"
@@ -12,8 +13,7 @@ GPURenderPassEncoder::GPURenderPassEncoder(const Napi::CallbackInfo& info) : Nap
 
   this->commandEncoder.Reset(info[0].As<Napi::Object>(), 1);
   GPUCommandEncoder* commandEncoder = Napi::ObjectWrap<GPUCommandEncoder>::Unwrap(this->commandEncoder.Value());
-  this->device.Reset(commandEncoder->device.Value(), 1);
-  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
+  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(commandEncoder->device.Value());
 
   DawnRenderPassDescriptor descriptor = DescriptorDecoder::GPURenderPassDescriptor(device, info[1].As<Napi::Value>());
 
@@ -165,7 +165,8 @@ Napi::Value GPURenderPassEncoder::setScissorRect(const Napi::CallbackInfo &info)
 Napi::Value GPURenderPassEncoder::setBlendColor(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
+  GPUCommandEncoder* commandEncoder = Napi::ObjectWrap<GPUCommandEncoder>::Unwrap(this->commandEncoder.Value());
+  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(commandEncoder->device.Value());
 
   DawnColor color = DescriptorDecoder::GPUColor(device, info[0].As<Napi::Value>());
 

@@ -47,8 +47,8 @@ class GPURenderPassEncoder : public Napi::ObjectWrap<GPURenderPassEncoder> {
     Napi::Value insertDebugMarker(const Napi::CallbackInfo &info);
     // GPUProgrammablePassEncoder END
 
-    Napi::ObjectReference commandEncoder;
     Napi::ObjectReference device;
+    Napi::ObjectReference commandEncoder;
 
     DawnRenderPassEncoder instance;
   private:

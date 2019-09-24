@@ -52,7 +52,6 @@
             "link_settings": {
               "libraries": [
                 "-lglfw3dll.lib",
-                "-llibc++.dll.lib",
                 "-llibdawn.dll.lib",
                 "-llibdawn_native.dll.lib",
                 "-llibdawn_wire.dll.lib",
@@ -61,20 +60,11 @@
               ]
             },
             "defines": [
-              "/bigobj",
-              "_LIBCPP_ABI_UNSTABLE",
-              "_LIBCPP_ENABLE_NODISCARD",
-              "_LIBCPP_NO_AUTO_LINK",
-              "__STD_C",
-              "_CRT_RAND_S",
-              "_CRT_SECURE_NO_DEPRECATE",
-              "_SCL_SECURE_NO_DEPRECATE",
               "WIN32_LEAN_AND_MEAN",
               "NOMINMAX",
               "_UNICODE",
               "UNICODE",
               "DAWN_ENABLE_BACKEND_D3D12",
-              "DAWN_ENABLE_BACKEND_NULL",
               "_GLFW_WIN32",
               "DAWN_NATIVE_SHARED_LIBRARY",
               "DAWN_WIRE_SHARED_LIBRARY",
@@ -84,10 +74,6 @@
             ],
             "msvs_settings": {
               "VCCLCompilerTool": {
-                "FavorSizeOrSpeed": 1,
-                "StringPooling": "true",
-                "Optimization": 2,
-                "WarningLevel": 3,
                 "AdditionalOptions": ["/MP /EHsc"],
                 "ExceptionHandling": 1
               },

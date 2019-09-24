@@ -32,7 +32,7 @@ const fragmentShaderGLSL = `
   const device = await adapter.requestDevice();
   console.log("Device:", device);
 
-  const swapChainFormat = "BGRA8 unorm";
+  const swapChainFormat = "RGBA8 unorm";
 
   const context = WebGPU.GPU.getContext("webgpu");
   console.log("Canvas Context:", context);
@@ -60,6 +60,7 @@ const fragmentShaderGLSL = `
 
   const pipeline = device.createRenderPipeline({
     layout,
+    sampleCount: 1,
     vertexStage: {
       module: vertexShaderModule,
       entryPoint: "main"
@@ -89,22 +90,29 @@ const fragmentShaderGLSL = `
   console.log("Queue:", queue);
 
   function onFrame() {
+    setTimeout(onFrame, 1e3 / 60);
+
+    const backBuffer = swapChain.getCurrentTexture();
+    const backBufferView = backBuffer.createView();
+
     const commandEncoder = device.createCommandEncoder({});
-    const textureView = swapChain.getCurrentTexture().createView();
-    const passEncoder = commandEncoder.beginRenderPass({
+
+    const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [{
         clearColor: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
-        loadOp: "load",
+        loadOp: "clear",
         storeOp: "store",
-        attachment: textureView
+        attachment: backBufferView
       }]
     });
-    passEncoder.setPipeline(pipeline);
-    passEncoder.draw(3, 1, 0, 0);
-    passEncoder.endPass();
-    queue.submit([
-      commandEncoder.finish()
-    ]);
+
+    renderPass.setPipeline(pipeline);
+    renderPass.draw(3, 1, 0, 0);
+    renderPass.endPass();
+
+    const commandBuffer = commandEncoder.finish();
+    queue.submit([ commandBuffer ]);
+    swapChain.present(backBuffer);
   };
   setTimeout(onFrame, 1e3 / 60);
 

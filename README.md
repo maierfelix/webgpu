@@ -2,6 +2,16 @@
 
 This is a WebGPU API for native JavaScript, based on chromium's [Dawn Project](https://dawn.googlesource.com/dawn/)
 
+### Platforms:
+
+This project comes with pre-built N-API binaries for the following platforms:
+
+|       OS      |     Status    |
+| ------------- | ------------- |
+| <img src="https://i.imgur.com/FF3Ssp6.png" alt="" height="16px">  Windows       | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
+| <img src="https://i.imgur.com/bkBCY7V.png" alt="" height="16px">  Linux         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ X ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
+| <img src="https://i.imgur.com/iPt4GHz.png" alt="" height="16px">  MacOS         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ X ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
+
 ## Installation
 
 ## Building

@@ -9,18 +9,15 @@ GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
   Napi::Env env = info.Env();
 
   Napi::Object args = info[0].As<Napi::Object>();
-  /*
-  // seems to be ignored right now
+
   DawnTextureFormat textureFormat = static_cast<DawnTextureFormat>(
     args.Get("format").As<Napi::Number>().Uint32Value()
   );
-  */
-  /*
-  // seems to be ignored right now
+
   DawnTextureFormat usage = static_cast<DawnTextureUsage>(
     args.Get("usage").As<Napi::Number>().Uint32Value()
   );
-  */
+
   this->device.Reset(args.Get("device").As<Napi::Object>(), 1);
 
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());

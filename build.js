@@ -85,7 +85,6 @@ function copyFiles() {
         files.push([`${dawnOutputDir}/libshaderc.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libshaderc_spvc.dll.lib`, targetDir + "/../"]);
       }
-      //files.push([`${dawnDir}/src/utils`, generatePath + "/src"]);
     }
     let counter = 0;
     if (!files.length) return resolve(true);

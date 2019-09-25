@@ -47,6 +47,22 @@ export function getSnakeCaseName(name) {
   );
 };
 
+// "R16 float" -> "r16float"
+// "depth24 plus stencil8" -> "depth24plus-stencil8"
+export function getEnumNameFromDawnEnumName(name) {
+  let chunks = name.split(/\s/g);
+  chunks = chunks.map((v, i) => {
+    if (i < chunks.length - 1) {
+      if (v.match(/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$/gm)) return v;
+      else return v + "-";
+    }
+    return v;
+  });
+  chunks = chunks.map(v => v.toLowerCase());
+  let out = chunks.join("");
+  return out;
+};
+
 export function getSnakeCaseFromCamelCaseName(name) {
   return name.split(/(?=[A-Z])/).join('_').toUpperCase();
 };

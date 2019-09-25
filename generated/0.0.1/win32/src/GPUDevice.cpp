@@ -10,6 +10,7 @@
 #include "GPUShaderModule.h"
 #include "GPURenderPipeline.h"
 #include "GPUCommandEncoder.h"
+#include "GPURenderBundleEncoder.h"
 
 Napi::FunctionReference GPUDevice::constructor;
 
@@ -251,6 +252,16 @@ Napi::Value GPUDevice::createCommandEncoder(const Napi::CallbackInfo &info) {
   return commandEncoder;
 }
 
+Napi::Value GPUDevice::createRenderBundleEncoder(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  };
+  Napi::Object renderBundleEncoder = GPURenderBundleEncoder::constructor.New(args);
+  return renderBundleEncoder;
+}
+
 Napi::Value GPUDevice::getQueue(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   return this->mainQueue.Value().As<Napi::Object>();
@@ -346,6 +357,11 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "createCommandEncoder",
       &GPUDevice::createCommandEncoder,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createRenderBundleEncoder",
+      &GPUDevice::createRenderBundleEncoder,
       napi_enumerable
     ),
   });

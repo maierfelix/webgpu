@@ -1,6 +1,8 @@
 import WebGPU from "../index.js";
 
-const vertexShaderGLSL = `
+Object.assign(global, WebGPU);
+
+const vsSrc = `
   #version 450
   #pragma shader_stage(vertex)
   const vec2 pos[3] = vec2[3](
@@ -13,7 +15,7 @@ const vertexShaderGLSL = `
   }
 `;
 
-const fragmentShaderGLSL = `
+const fsSrc = `
   #version 450
   #pragma shader_stage(fragment)
   layout(location = 0) out vec4 outColor;
@@ -24,39 +26,28 @@ const fragmentShaderGLSL = `
 
 (async function main() {
 
-  const adapter = await WebGPU.GPU.requestAdapter();
+  const swapChainFormat = "rgba8unorm";
+
+  const adapter = await GPU.requestAdapter();
   console.log("Adapter:", adapter);
   console.log("Adapter Name:", adapter.name);
   console.log("Adapter Extensions:", adapter.extensions);
 
   const device = await adapter.requestDevice();
-  console.log("Device:", device);
-
-  const swapChainFormat = "RGBA8 unorm";
-
-  const context = WebGPU.GPU.getContext("webgpu");
-  console.log("Canvas Context:", context);
+  const queue = device.getQueue();
+  const context = GPU.getContext("webgpu");
 
   const swapChain = context.configureSwapChain({
     device: device,
     format: swapChainFormat
   });
-  console.log("Swapchain:", swapChain);
 
   const layout = device.createPipelineLayout({
     bindGroupLayouts: []
   });
-  console.log("Layout:", layout);
 
-  const vertexShaderModule = device.createShaderModule({
-    code: vertexShaderGLSL
-  });
-  console.log("Vertex Shader Module:", vertexShaderModule);
-
-  const fragmentShaderModule = device.createShaderModule({
-    code: fragmentShaderGLSL
-  });
-  console.log("Fragment Shader Module:", fragmentShaderModule);
+  const vertexShaderModule = device.createShaderModule({ code: vsSrc });
+  const fragmentShaderModule = device.createShaderModule({ code: fsSrc });
 
   const pipeline = device.createRenderPipeline({
     layout,
@@ -69,7 +60,7 @@ const fragmentShaderGLSL = `
       module: fragmentShaderModule,
       entryPoint: "main"
     },
-    primitiveTopology: "triangle list",
+    primitiveTopology: "triangle-list",
     vertexInput: {
       indexFormat: "uint32",
       buffers: []
@@ -84,19 +75,13 @@ const fragmentShaderGLSL = `
       colorBlend: {}
     }]
   });
-  console.log("Pipeline:", pipeline);
-
-  const queue = device.getQueue();
-  console.log("Queue:", queue);
 
   function onFrame() {
     setTimeout(onFrame, 1e3 / 60);
 
     const backBuffer = swapChain.getCurrentTexture();
     const backBufferView = backBuffer.createView();
-
     const commandEncoder = device.createCommandEncoder({});
-
     const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [{
         clearColor: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
@@ -105,7 +90,6 @@ const fragmentShaderGLSL = `
         attachment: backBufferView
       }]
     });
-
     renderPass.setPipeline(pipeline);
     renderPass.draw(3, 1, 0, 0);
     renderPass.endPass();

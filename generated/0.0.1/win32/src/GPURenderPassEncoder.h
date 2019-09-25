@@ -19,13 +19,10 @@ class GPURenderPassEncoder : public Napi::ObjectWrap<GPURenderPassEncoder> {
 
     // GPURenderEncoderBase BEGIN
     Napi::Value setPipeline(const Napi::CallbackInfo &info);
-
     Napi::Value setIndexBuffer(const Napi::CallbackInfo &info);
     Napi::Value setVertexBuffers(const Napi::CallbackInfo &info);
-
     Napi::Value draw(const Napi::CallbackInfo &info);
     Napi::Value drawIndexed(const Napi::CallbackInfo &info);
-
     Napi::Value drawIndirect(const Napi::CallbackInfo &info);
     Napi::Value drawIndexedIndirect(const Napi::CallbackInfo &info);
     // GPURenderEncoderBase END

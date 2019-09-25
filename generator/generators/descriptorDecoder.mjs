@@ -5,7 +5,8 @@ import pkg from "../../package.json";
 
 import {
   warn,
-  isQuotedString
+  isQuotedString,
+  getEnumNameFromDawnEnumName
 } from "../utils.mjs";
 
 import {
@@ -301,6 +302,7 @@ export default function(astReference) {
     structures,
     getDecodeStructureMember,
     getDescriptorInstanceReset,
+    getEnumNameFromDawnEnumName,
     getDecodeStructureParameters
   };
   // h

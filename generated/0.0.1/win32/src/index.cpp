@@ -27,6 +27,7 @@
 #include "GPURenderPassEncoder.h"
 #include "GPUComputePassEncoder.h"
 #include "GPURenderBundle.h"
+#include "GPURenderBundleEncoder.h"
 
 //#include "DescriptorDecoder.h"
 
@@ -54,6 +55,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPURenderPassEncoder::Initialize(env, exports);
   GPUComputePassEncoder::Initialize(env, exports);
   GPURenderBundle::Initialize(env, exports);
+  GPURenderBundleEncoder::Initialize(env, exports);
 
   
   return exports;

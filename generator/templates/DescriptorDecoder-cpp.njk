@@ -18,7 +18,7 @@
 {% for enum in enums %}
 static std::unordered_map<std::string, uint32_t> {{ enum.externalName }} = {
   {%- for member in enum.children %}
-  { "{{ member.name }}", {{ member.value }} },
+  { "{{ getEnumNameFromDawnEnumName(member.name) | safe }}", {{ member.value }} },
   {%- endfor %}
 };
 {% endfor %}

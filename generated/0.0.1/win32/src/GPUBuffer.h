@@ -13,6 +13,8 @@ class GPUBuffer : public Napi::ObjectWrap<GPUBuffer> {
     GPUBuffer(const Napi::CallbackInfo &info);
     ~GPUBuffer();
 
+    Napi::Value setSubData(const Napi::CallbackInfo &info);
+
     Napi::Value mapReadAsync(const Napi::CallbackInfo &info);
     Napi::Value mapWriteAsync(const Napi::CallbackInfo &info);
 

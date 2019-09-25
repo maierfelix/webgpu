@@ -8,6 +8,7 @@
 #include "GPUPipelineLayout.h"
 #include "GPUBindGroup.h"
 #include "GPUShaderModule.h"
+#include "GPUComputePipeline.h"
 #include "GPURenderPipeline.h"
 #include "GPUCommandEncoder.h"
 #include "GPURenderBundleEncoder.h"
@@ -235,6 +236,16 @@ Napi::Value GPUDevice::createShaderModule(const Napi::CallbackInfo &info) {
   return shaderModule;
 }
 
+Napi::Value GPUDevice::createComputePipeline(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  std::vector<napi_value> args = {
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  };
+  Napi::Object computePipeline = GPUComputePipeline::constructor.New(args);
+  return computePipeline;
+}
+
 Napi::Value GPUDevice::createRenderPipeline(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
   std::vector<napi_value> args = {
@@ -350,6 +361,11 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "createShaderModule",
       &GPUDevice::createShaderModule,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createComputePipeline",
+      &GPUDevice::createComputePipeline,
       napi_enumerable
     ),
     InstanceMethod(

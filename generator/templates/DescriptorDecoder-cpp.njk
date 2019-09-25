@@ -29,6 +29,19 @@ namespace DescriptorDecoder {
   uint32_t {{ enum.externalName }}(std::string name) {
     return {{ enum.externalName }}Map[name];
   };
+  std::string {{ enum.externalName }}(uint32_t value) {
+    auto it = std::find_if(
+      std::begin({{ enum.externalName }}Map),
+      std::end({{ enum.externalName }}Map),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end({{ enum.externalName }}Map)) return "";
+
+    return it->first;
+  };
   {% endfor %}
 
   {% for struct in structures %}

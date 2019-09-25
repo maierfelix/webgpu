@@ -29,6 +29,20 @@ GPUBuffer::~GPUBuffer() {
   // destructor
 }
 
+Napi::Value GPUBuffer::setSubData(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+
+  bool lossless;
+  uint64_t start = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+  size_t count = 0;
+
+  uint8_t* data = getTypedArrayData<uint8_t>(info[1].As<Napi::Value>(), &count);
+
+  dawnBufferSetSubData(this->instance, start, count, data);
+
+  return env.Undefined();
+}
+
 Napi::Value GPUBuffer::mapReadAsync(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
@@ -128,6 +142,11 @@ Napi::Value GPUBuffer::destroy(const Napi::CallbackInfo &info) {
 Napi::Object GPUBuffer::Initialize(Napi::Env env, Napi::Object exports) {
   Napi::HandleScope scope(env);
   Napi::Function func = DefineClass(env, "GPUBuffer", {
+    InstanceMethod(
+      "setSubData",
+      &GPUBuffer::setSubData,
+      napi_enumerable
+    ),
     InstanceMethod(
       "_mapReadAsync",
       &GPUBuffer::mapReadAsync,

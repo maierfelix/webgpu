@@ -3,6 +3,8 @@
 #include "GPUSwapChain.h"
 #include "BackendBinding.h"
 
+#include "DescriptorDecoder.h"
+
 Napi::FunctionReference GPUCanvasContext::constructor;
 
 GPUCanvasContext::GPUCanvasContext(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUCanvasContext>(info) {
@@ -30,9 +32,9 @@ Napi::Value GPUCanvasContext::getSwapChainPreferredFormat(const Napi::CallbackIn
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(info[0].As<Napi::Object>());
   BackendBinding* binding = device->binding;
 
-  DawnTextureFormat format = static_cast<DawnTextureFormat>(binding->GetPreferredSwapChainTextureFormat());
+  uint32_t format = static_cast<uint32_t>(binding->GetPreferredSwapChainTextureFormat());
 
-  deferred.Resolve(Napi::Number::New(env, static_cast<uint32_t>(format)));
+  deferred.Resolve(Napi::String::New(env, DescriptorDecoder::GPUTextureFormat(format)));
 
   return deferred.Promise();
 }

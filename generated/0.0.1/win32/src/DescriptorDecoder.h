@@ -22,52 +22,76 @@
 namespace DescriptorDecoder {
   
   uint32_t GPUAddressMode(std::string name);
+  std::string GPUAddressMode(uint32_t value);
   
   uint32_t GPUBindingType(std::string name);
+  std::string GPUBindingType(uint32_t value);
   
   uint32_t GPUBlendFactor(std::string name);
+  std::string GPUBlendFactor(uint32_t value);
   
   uint32_t GPUBlendOperation(std::string name);
+  std::string GPUBlendOperation(uint32_t value);
   
   uint32_t GPUBufferMapAsyncStatus(std::string name);
+  std::string GPUBufferMapAsyncStatus(uint32_t value);
   
   uint32_t GPUCompareFunction(std::string name);
+  std::string GPUCompareFunction(uint32_t value);
   
   uint32_t GPUCullMode(std::string name);
+  std::string GPUCullMode(uint32_t value);
   
   uint32_t GPUErrorFilter(std::string name);
+  std::string GPUErrorFilter(uint32_t value);
   
   uint32_t GPUErrorType(std::string name);
+  std::string GPUErrorType(uint32_t value);
   
   uint32_t GPUFenceCompletionStatus(std::string name);
+  std::string GPUFenceCompletionStatus(uint32_t value);
   
   uint32_t GPUFilterMode(std::string name);
+  std::string GPUFilterMode(uint32_t value);
   
   uint32_t GPUFrontFace(std::string name);
+  std::string GPUFrontFace(uint32_t value);
   
   uint32_t GPUIndexFormat(std::string name);
+  std::string GPUIndexFormat(uint32_t value);
   
   uint32_t GPUInputStepMode(std::string name);
+  std::string GPUInputStepMode(uint32_t value);
   
   uint32_t GPULoadOp(std::string name);
+  std::string GPULoadOp(uint32_t value);
   
   uint32_t GPUStoreOp(std::string name);
+  std::string GPUStoreOp(uint32_t value);
   
   uint32_t GPUPrimitiveTopology(std::string name);
+  std::string GPUPrimitiveTopology(uint32_t value);
   
   uint32_t GPUStencilOperation(std::string name);
+  std::string GPUStencilOperation(uint32_t value);
   
   uint32_t GPUTextureAspect(std::string name);
+  std::string GPUTextureAspect(uint32_t value);
   
   uint32_t GPUTextureComponentType(std::string name);
+  std::string GPUTextureComponentType(uint32_t value);
   
   uint32_t GPUTextureDimension(std::string name);
+  std::string GPUTextureDimension(uint32_t value);
   
   uint32_t GPUTextureFormat(std::string name);
+  std::string GPUTextureFormat(uint32_t value);
   
   uint32_t GPUTextureViewDimension(std::string name);
+  std::string GPUTextureViewDimension(uint32_t value);
   
   uint32_t GPUVertexFormat(std::string name);
+  std::string GPUVertexFormat(uint32_t value);
   
   
   DawnBindGroupBinding GPUBindGroupBinding(GPUDevice* device, Napi::Value& value);

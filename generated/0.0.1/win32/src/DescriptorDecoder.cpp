@@ -276,97 +276,409 @@ namespace DescriptorDecoder {
   uint32_t GPUAddressMode(std::string name) {
     return GPUAddressModeMap[name];
   };
+  std::string GPUAddressMode(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUAddressModeMap),
+      std::end(GPUAddressModeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUAddressModeMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUBindingType(std::string name) {
     return GPUBindingTypeMap[name];
+  };
+  std::string GPUBindingType(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUBindingTypeMap),
+      std::end(GPUBindingTypeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUBindingTypeMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPUBlendFactor(std::string name) {
     return GPUBlendFactorMap[name];
   };
+  std::string GPUBlendFactor(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUBlendFactorMap),
+      std::end(GPUBlendFactorMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUBlendFactorMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUBlendOperation(std::string name) {
     return GPUBlendOperationMap[name];
+  };
+  std::string GPUBlendOperation(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUBlendOperationMap),
+      std::end(GPUBlendOperationMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUBlendOperationMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPUBufferMapAsyncStatus(std::string name) {
     return GPUBufferMapAsyncStatusMap[name];
   };
+  std::string GPUBufferMapAsyncStatus(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUBufferMapAsyncStatusMap),
+      std::end(GPUBufferMapAsyncStatusMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUBufferMapAsyncStatusMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUCompareFunction(std::string name) {
     return GPUCompareFunctionMap[name];
+  };
+  std::string GPUCompareFunction(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUCompareFunctionMap),
+      std::end(GPUCompareFunctionMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUCompareFunctionMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPUCullMode(std::string name) {
     return GPUCullModeMap[name];
   };
+  std::string GPUCullMode(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUCullModeMap),
+      std::end(GPUCullModeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUCullModeMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUErrorFilter(std::string name) {
     return GPUErrorFilterMap[name];
+  };
+  std::string GPUErrorFilter(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUErrorFilterMap),
+      std::end(GPUErrorFilterMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUErrorFilterMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPUErrorType(std::string name) {
     return GPUErrorTypeMap[name];
   };
+  std::string GPUErrorType(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUErrorTypeMap),
+      std::end(GPUErrorTypeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUErrorTypeMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUFenceCompletionStatus(std::string name) {
     return GPUFenceCompletionStatusMap[name];
+  };
+  std::string GPUFenceCompletionStatus(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUFenceCompletionStatusMap),
+      std::end(GPUFenceCompletionStatusMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUFenceCompletionStatusMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPUFilterMode(std::string name) {
     return GPUFilterModeMap[name];
   };
+  std::string GPUFilterMode(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUFilterModeMap),
+      std::end(GPUFilterModeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUFilterModeMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUFrontFace(std::string name) {
     return GPUFrontFaceMap[name];
+  };
+  std::string GPUFrontFace(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUFrontFaceMap),
+      std::end(GPUFrontFaceMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUFrontFaceMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPUIndexFormat(std::string name) {
     return GPUIndexFormatMap[name];
   };
+  std::string GPUIndexFormat(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUIndexFormatMap),
+      std::end(GPUIndexFormatMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUIndexFormatMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUInputStepMode(std::string name) {
     return GPUInputStepModeMap[name];
+  };
+  std::string GPUInputStepMode(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUInputStepModeMap),
+      std::end(GPUInputStepModeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUInputStepModeMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPULoadOp(std::string name) {
     return GPULoadOpMap[name];
   };
+  std::string GPULoadOp(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPULoadOpMap),
+      std::end(GPULoadOpMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPULoadOpMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUStoreOp(std::string name) {
     return GPUStoreOpMap[name];
+  };
+  std::string GPUStoreOp(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUStoreOpMap),
+      std::end(GPUStoreOpMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUStoreOpMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPUPrimitiveTopology(std::string name) {
     return GPUPrimitiveTopologyMap[name];
   };
+  std::string GPUPrimitiveTopology(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUPrimitiveTopologyMap),
+      std::end(GPUPrimitiveTopologyMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUPrimitiveTopologyMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUStencilOperation(std::string name) {
     return GPUStencilOperationMap[name];
+  };
+  std::string GPUStencilOperation(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUStencilOperationMap),
+      std::end(GPUStencilOperationMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUStencilOperationMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPUTextureAspect(std::string name) {
     return GPUTextureAspectMap[name];
   };
+  std::string GPUTextureAspect(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUTextureAspectMap),
+      std::end(GPUTextureAspectMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUTextureAspectMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUTextureComponentType(std::string name) {
     return GPUTextureComponentTypeMap[name];
+  };
+  std::string GPUTextureComponentType(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUTextureComponentTypeMap),
+      std::end(GPUTextureComponentTypeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUTextureComponentTypeMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPUTextureDimension(std::string name) {
     return GPUTextureDimensionMap[name];
   };
+  std::string GPUTextureDimension(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUTextureDimensionMap),
+      std::end(GPUTextureDimensionMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUTextureDimensionMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUTextureFormat(std::string name) {
     return GPUTextureFormatMap[name];
+  };
+  std::string GPUTextureFormat(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUTextureFormatMap),
+      std::end(GPUTextureFormatMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUTextureFormatMap)) return "";
+
+    return it->first;
   };
   
   uint32_t GPUTextureViewDimension(std::string name) {
     return GPUTextureViewDimensionMap[name];
   };
+  std::string GPUTextureViewDimension(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUTextureViewDimensionMap),
+      std::end(GPUTextureViewDimensionMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUTextureViewDimensionMap)) return "";
+
+    return it->first;
+  };
   
   uint32_t GPUVertexFormat(std::string name) {
     return GPUVertexFormatMap[name];
+  };
+  std::string GPUVertexFormat(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUVertexFormatMap),
+      std::end(GPUVertexFormatMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUVertexFormatMap)) return "";
+
+    return it->first;
   };
   
 
@@ -444,7 +756,7 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("bindings").As<Napi::Array>();
       uint32_t length = array.Length();
-      std::vector<DawnBindGroupBinding> data;
+      auto data = new std::vector<DawnBindGroupBinding>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnBindGroupBinding $bindings;
@@ -490,10 +802,10 @@ namespace DescriptorDecoder {
             }
             $bindings.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(item.Get("textureView").As<Napi::Object>())->instance;
           }
-        data.push_back($bindings);
+        data->push_back($bindings);
       };
       descriptor.bindingCount = length;
-      descriptor.bindings = data.data();
+      descriptor.bindings = data->data();
     }
 
     return descriptor;
@@ -504,6 +816,7 @@ namespace DescriptorDecoder {
     DawnBindGroupLayoutBinding descriptor;
   descriptor.dynamic = false;
   descriptor.multisampled = false;
+  descriptor.textureDimension = static_cast<DawnTextureViewDimension>(2);
   descriptor.textureComponentType = static_cast<DawnTextureComponentType>(0);
 
     if (!(value.IsObject())) return descriptor;
@@ -540,12 +853,13 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("bindings").As<Napi::Array>();
       uint32_t length = array.Length();
-      std::vector<DawnBindGroupLayoutBinding> data;
+      auto data = new std::vector<DawnBindGroupLayoutBinding>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnBindGroupLayoutBinding $bindings;
         $bindings.dynamic = false;
         $bindings.multisampled = false;
+        $bindings.textureDimension = static_cast<DawnTextureViewDimension>(2);
         $bindings.textureComponentType = static_cast<DawnTextureComponentType>(0);
           $bindings.binding = item.Get("binding").As<Napi::Number>().Uint32Value();
           $bindings.visibility = static_cast<DawnShaderStage>(item.Get("visibility").As<Napi::Number>().Uint32Value());
@@ -562,10 +876,10 @@ namespace DescriptorDecoder {
           if (item.Has("textureComponentType")) {
             $bindings.textureComponentType = static_cast<DawnTextureComponentType>(GPUTextureComponentType(item.Get("textureComponentType").As<Napi::String>().Utf8Value()));
           }
-        data.push_back($bindings);
+        data->push_back($bindings);
       };
       descriptor.bindingCount = length;
-      descriptor.bindings = data.data();
+      descriptor.bindings = data->data();
     }
 
     return descriptor;
@@ -925,7 +1239,7 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("attributes").As<Napi::Array>();
       uint32_t length = array.Length();
-      std::vector<DawnVertexAttributeDescriptor> data;
+      auto data = new std::vector<DawnVertexAttributeDescriptor>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnVertexAttributeDescriptor $attributes;
@@ -938,10 +1252,10 @@ namespace DescriptorDecoder {
             }
           }
           $attributes.format = static_cast<DawnVertexFormat>(GPUVertexFormat(item.Get("format").As<Napi::String>().Utf8Value()));
-        data.push_back($attributes);
+        data->push_back($attributes);
       };
       descriptor.attributeCount = length;
-      descriptor.attributes = data.data();
+      descriptor.attributes = data->data();
     }
 
     return descriptor;
@@ -964,7 +1278,7 @@ namespace DescriptorDecoder {
     if (obj.Has("buffers")) {
       Napi::Array array = obj.Get("buffers").As<Napi::Array>();
       uint32_t length = array.Length();
-      std::vector<DawnVertexBufferDescriptor> data;
+      auto data = new std::vector<DawnVertexBufferDescriptor>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnVertexBufferDescriptor $buffers;
@@ -980,7 +1294,7 @@ namespace DescriptorDecoder {
           {
             Napi::Array array = item.Get("attributes").As<Napi::Array>();
             uint32_t length = array.Length();
-            std::vector<DawnVertexAttributeDescriptor> data;
+            auto data = new std::vector<DawnVertexAttributeDescriptor>;
             for (unsigned int ii = 0; ii < length; ++ii) {
               Napi::Object item = array.Get(ii).As<Napi::Object>();
               DawnVertexAttributeDescriptor $attributes;
@@ -993,15 +1307,15 @@ namespace DescriptorDecoder {
                   }
                 }
                 $attributes.format = static_cast<DawnVertexFormat>(GPUVertexFormat(item.Get("format").As<Napi::String>().Utf8Value()));
-              data.push_back($attributes);
+              data->push_back($attributes);
             };
             $buffers.attributeCount = length;
-            $buffers.attributes = data.data();
+            $buffers.attributes = data->data();
           }
-        data.push_back($buffers);
+        data->push_back($buffers);
       };
       descriptor.bufferCount = length;
-      descriptor.buffers = data.data();
+      descriptor.buffers = data->data();
     }
 
     return descriptor;
@@ -1042,14 +1356,14 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("bindGroupLayouts").As<Napi::Array>();
       uint32_t length = array.Length();
-      std::vector<DawnBindGroupLayout> data;
+      std::vector<DawnBindGroupLayout>* data = new std::vector<DawnBindGroupLayout>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnBindGroupLayout value = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(item)->instance;
-        data.push_back(value);
+        data->push_back(value);
       };
       descriptor.bindGroupLayoutCount = length;
-      descriptor.bindGroupLayouts = data.data();
+      descriptor.bindGroupLayouts = data->data();
     }
 
     return descriptor;
@@ -1136,15 +1450,15 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("colorFormats").As<Napi::Array>();
       uint32_t length = array.Length();
-      std::vector<DawnTextureFormat> data;
+      std::vector<DawnTextureFormat>* data = new std::vector<DawnTextureFormat>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnTextureFormat value = static_cast<DawnTextureFormat>(
           GPUTextureFormat(item.As<Napi::String>().Utf8Value())
         );
-        data.push_back(value);
+        data->push_back(value);
       };
-      descriptor.colorFormats = data.data();
+      descriptor.colorFormats = data->data();
     }
     if (obj.Has("depthStencilFormat")) {
       descriptor.depthStencilFormat = static_cast<DawnTextureFormat>(GPUTextureFormat(obj.Get("depthStencilFormat").As<Napi::String>().Utf8Value()));
@@ -1373,7 +1687,7 @@ namespace DescriptorDecoder {
         if ($vertexInput.Has("buffers")) {
           Napi::Array array = $vertexInput.Get("buffers").As<Napi::Array>();
           uint32_t length = array.Length();
-          std::vector<DawnVertexBufferDescriptor> data;
+          auto data = new std::vector<DawnVertexBufferDescriptor>;
           for (unsigned int ii = 0; ii < length; ++ii) {
             Napi::Object item = array.Get(ii).As<Napi::Object>();
             DawnVertexBufferDescriptor $buffers;
@@ -1389,7 +1703,7 @@ namespace DescriptorDecoder {
               {
                 Napi::Array array = item.Get("attributes").As<Napi::Array>();
                 uint32_t length = array.Length();
-                std::vector<DawnVertexAttributeDescriptor> data;
+                auto data = new std::vector<DawnVertexAttributeDescriptor>;
                 for (unsigned int ii = 0; ii < length; ++ii) {
                   Napi::Object item = array.Get(ii).As<Napi::Object>();
                   DawnVertexAttributeDescriptor $attributes;
@@ -1402,15 +1716,15 @@ namespace DescriptorDecoder {
                       }
                     }
                     $attributes.format = static_cast<DawnVertexFormat>(GPUVertexFormat(item.Get("format").As<Napi::String>().Utf8Value()));
-                  data.push_back($attributes);
+                  data->push_back($attributes);
                 };
                 $buffers.attributeCount = length;
-                $buffers.attributes = data.data();
+                $buffers.attributes = data->data();
               }
-            data.push_back($buffers);
+            data->push_back($buffers);
           };
           vertexInput.bufferCount = length;
-          vertexInput.buffers = data.data();
+          vertexInput.buffers = data->data();
         }
       {
         descriptor.vertexInput = new DawnVertexInputDescriptor;

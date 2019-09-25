@@ -61,15 +61,15 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
     out += `
 ${padding}Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
 ${padding}uint32_t length = array.Length();
-${padding}std::vector<${type.nativeType}> data;
+${padding}std::vector<${type.nativeType}>* data = new std::vector<${type.nativeType}>;
 ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
 ${padding}  ${type.nativeType} value = Napi::ObjectWrap<${unwrapType}>::Unwrap(item)->instance;
-${padding}  data.push_back(value);
+${padding}  data->push_back(value);
 ${padding}};`;
     out += `
 ${padding}${output.name}.${type.length} = length;
-${padding}${output.name}.${member.name} = data.data();`;
+${padding}${output.name}.${member.name} = data->data();`;
   // decode descriptor structure
   } else if (type.isStructure && !type.isArray) {
     let memberTypeStructure = ast.structures.filter(s => s.name === type.nativeType)[0] || null;
@@ -126,7 +126,7 @@ ${padding}uint32_t length = array.Length();`;
 ${padding}auto data = new std::vector<${type.nativeType}*>;`;
     } else {
       out += `
-${padding}std::vector<${type.nativeType}${type.isArrayOfPointers ? "*" : ""}> data;`;
+${padding}auto data = new std::vector<${type.nativeType}>;`;
     }
 
     out += `
@@ -165,10 +165,10 @@ ${padding}${output.name}.${type.length} = length;
 ${padding}${output.name}.${member.name} = data->data();`;
     } else {
     out += `
-${padding}  data.push_back($${member.name});
+${padding}  data->push_back($${member.name});
 ${padding}};
 ${padding}${output.name}.${type.length} = length;
-${padding}${output.name}.${member.name} = data.data();`;
+${padding}${output.name}.${member.name} = data->data();`;
     }
 
   // decode numeric typed members
@@ -217,16 +217,16 @@ ${padding}${output.name}.${member.name} = data.data();`;
     out += `
 ${padding}Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
 ${padding}uint32_t length = array.Length();
-${padding}std::vector<${type.nativeType}> data;
+${padding}std::vector<${type.nativeType}>* data = new std::vector<${type.nativeType}>;
 ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
 ${padding}  ${type.nativeType} value = static_cast<${type.nativeType}>(
 ${padding}    ${decodeMap}(item.As<Napi::String>().Utf8Value())
 ${padding}  );
-${padding}  data.push_back(value);
+${padding}  data->push_back(value);
 ${padding}};`;
     out += `
-${padding}${output.name}.${member.name} = data.data();`;
+${padding}${output.name}.${member.name} = data->data();`;
   // decode bitmask member
   } else if (type.isBitmask && !type.isArray) {
     out += `\n${padding}${output.name}.${member.name} = static_cast<${type.nativeType}>(${input.name}.Get("${member.name}").As<Napi::Number>().Uint32Value());`;

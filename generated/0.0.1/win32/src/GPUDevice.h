@@ -32,6 +32,7 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     Napi::Value createPipelineLayout(const Napi::CallbackInfo &info);
     Napi::Value createBindGroup(const Napi::CallbackInfo &info);
     Napi::Value createShaderModule(const Napi::CallbackInfo &info);
+    Napi::Value createComputePipeline(const Napi::CallbackInfo &info);
     Napi::Value createRenderPipeline(const Napi::CallbackInfo &info);
     Napi::Value createCommandEncoder(const Napi::CallbackInfo &info);
     Napi::Value createRenderBundleEncoder(const Napi::CallbackInfo &info);

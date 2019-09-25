@@ -16,8 +16,10 @@ nunjucks.configure({ autoescape: true });
 
 export default function(astReference, includeMemoryLayouts = false) {
   ast = astReference;
+  let {bitmasks} = ast;
   let out = {};
   let vars = {
+    bitmasks,
     includeMemoryLayouts
   };
   // h

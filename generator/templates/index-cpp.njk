@@ -27,8 +27,6 @@
 #include "GPURenderBundle.h"
 #include "GPURenderBundleEncoder.h"
 
-//#include "DescriptorDecoder.h"
-
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
   GPU::Initialize(env, exports);
@@ -58,6 +56,18 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   {% if includeMemoryLayouts == true %}
   exports["$getMemoryLayouts"] = Napi::Function::New(env, MemoryLayouts, "MemoryLayouts");
   {% endif %}
+
+  {% for bitmask in bitmasks %}
+  Napi::Object {{ bitmask.externalName }} = Napi::Object::New(env);
+    {%- for member in bitmask.children %}
+    {{ bitmask.externalName }}.Set(
+      Napi::String::New(env, "{{ member.name }}"),
+      Napi::Number::New(env, {{ member.value }})
+    );
+    {%- endfor %}
+  exports["{{ bitmask.externalName }}"] = {{ bitmask.externalName }};
+  {% endfor %}
+
   return exports;
 }
 

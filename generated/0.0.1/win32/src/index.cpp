@@ -29,8 +29,6 @@
 #include "GPURenderBundle.h"
 #include "GPURenderBundleEncoder.h"
 
-//#include "DescriptorDecoder.h"
-
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
   GPU::Initialize(env, exports);
@@ -58,6 +56,129 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPURenderBundleEncoder::Initialize(env, exports);
 
   
+
+  
+  Napi::Object GPUBufferUsage = Napi::Object::New(env);
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "NONE"),
+      Napi::Number::New(env, 0)
+    );
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "MAP_READ"),
+      Napi::Number::New(env, 1)
+    );
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "MAP_WRITE"),
+      Napi::Number::New(env, 2)
+    );
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "COPY_SRC"),
+      Napi::Number::New(env, 4)
+    );
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "COPY_DST"),
+      Napi::Number::New(env, 8)
+    );
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "INDEX"),
+      Napi::Number::New(env, 16)
+    );
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "VERTEX"),
+      Napi::Number::New(env, 32)
+    );
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "UNIFORM"),
+      Napi::Number::New(env, 64)
+    );
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "STORAGE"),
+      Napi::Number::New(env, 128)
+    );
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "INDIRECT"),
+      Napi::Number::New(env, 256)
+    );
+  exports["GPUBufferUsage"] = GPUBufferUsage;
+  
+  Napi::Object GPUColorWriteMask = Napi::Object::New(env);
+    GPUColorWriteMask.Set(
+      Napi::String::New(env, "NONE"),
+      Napi::Number::New(env, 0)
+    );
+    GPUColorWriteMask.Set(
+      Napi::String::New(env, "RED"),
+      Napi::Number::New(env, 1)
+    );
+    GPUColorWriteMask.Set(
+      Napi::String::New(env, "GREEN"),
+      Napi::Number::New(env, 2)
+    );
+    GPUColorWriteMask.Set(
+      Napi::String::New(env, "BLUE"),
+      Napi::Number::New(env, 4)
+    );
+    GPUColorWriteMask.Set(
+      Napi::String::New(env, "ALPHA"),
+      Napi::Number::New(env, 8)
+    );
+    GPUColorWriteMask.Set(
+      Napi::String::New(env, "ALL"),
+      Napi::Number::New(env, 15)
+    );
+  exports["GPUColorWriteMask"] = GPUColorWriteMask;
+  
+  Napi::Object GPUShaderStage = Napi::Object::New(env);
+    GPUShaderStage.Set(
+      Napi::String::New(env, "NONE"),
+      Napi::Number::New(env, 0)
+    );
+    GPUShaderStage.Set(
+      Napi::String::New(env, "VERTEX"),
+      Napi::Number::New(env, 1)
+    );
+    GPUShaderStage.Set(
+      Napi::String::New(env, "FRAGMENT"),
+      Napi::Number::New(env, 2)
+    );
+    GPUShaderStage.Set(
+      Napi::String::New(env, "COMPUTE"),
+      Napi::Number::New(env, 4)
+    );
+  exports["GPUShaderStage"] = GPUShaderStage;
+  
+  Napi::Object GPUTextureUsage = Napi::Object::New(env);
+    GPUTextureUsage.Set(
+      Napi::String::New(env, "NONE"),
+      Napi::Number::New(env, 0)
+    );
+    GPUTextureUsage.Set(
+      Napi::String::New(env, "COPY_SRC"),
+      Napi::Number::New(env, 1)
+    );
+    GPUTextureUsage.Set(
+      Napi::String::New(env, "COPY_DST"),
+      Napi::Number::New(env, 2)
+    );
+    GPUTextureUsage.Set(
+      Napi::String::New(env, "SAMPLED"),
+      Napi::Number::New(env, 4)
+    );
+    GPUTextureUsage.Set(
+      Napi::String::New(env, "STORAGE"),
+      Napi::Number::New(env, 8)
+    );
+    GPUTextureUsage.Set(
+      Napi::String::New(env, "OUTPUT_ATTACHMENT"),
+      Napi::Number::New(env, 16)
+    );
+    GPUTextureUsage.Set(
+      Napi::String::New(env, "PRESENT"),
+      Napi::Number::New(env, 32)
+    );
+  exports["GPUTextureUsage"] = GPUTextureUsage;
+  
+
   return exports;
 }
 

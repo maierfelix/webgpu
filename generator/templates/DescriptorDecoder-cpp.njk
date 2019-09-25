@@ -15,6 +15,7 @@
 #include "GPURenderPipeline.h"
 
 #include <unordered_map>
+
 {% for enum in enums %}
 static std::unordered_map<std::string, uint32_t> {{ enum.externalName }} = {
   {%- for member in enum.children %}

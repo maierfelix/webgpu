@@ -15,6 +15,8 @@ class GPUCanvasContext : public Napi::ObjectWrap<GPUCanvasContext> {
 
     Napi::Value configureSwapChain(const Napi::CallbackInfo &info);
     Napi::Value getSwapChainPreferredFormat(const Napi::CallbackInfo &info);
+
+    Napi::ObjectReference window;
 };
 
 #endif

@@ -16,6 +16,9 @@
 #include "GPURenderPipeline.h"
 
 namespace DescriptorDecoder {
+  {% for enum in enums %}
+  uint32_t {{ enum.externalName }}(std::string name);
+  {% endfor %}
   {% for struct in structures %}
   {{ struct.name }} {{ struct.externalName }}({{ getDecodeStructureParameters(struct, true) | safe }});
   {% endfor %}

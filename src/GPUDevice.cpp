@@ -11,6 +11,7 @@
 #include "GPURenderPipeline.h"
 #include "GPUCommandEncoder.h"
 #include "GPURenderBundleEncoder.h"
+#include "WebGPUWindow.h"
 
 Napi::FunctionReference GPUDevice::constructor;
 
@@ -82,14 +83,16 @@ DawnDevice GPUDevice::createDevice() {
 
 BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, DawnDevice device) {
   Napi::Env env = info.Env();
-  GPUAdapter* adapter = Napi::ObjectWrap<GPUAdapter>::Unwrap(this->adapter.Value());
-  dawn_native::BackendType backendType = adapter->instance.GetBackendType();
-  GLFWwindow* window = adapter->window;
 
-  BackendBinding* binding = CreateBinding(backendType, window, device);
+  GPUAdapter* adapter = Napi::ObjectWrap<GPUAdapter>::Unwrap(this->adapter.Value());
+  WebGPUWindow* window = Napi::ObjectWrap<WebGPUWindow>::Unwrap(adapter->window.Value());
+
+  dawn_native::BackendType backendType = adapter->instance.GetBackendType();
+  BackendBinding* binding = CreateBinding(backendType, window->instance, device);
   if (binding == nullptr) {
     Napi::Error::New(env, "Failed to create binding backend").ThrowAsJavaScriptException();
   }
+
   return binding;
 }
 

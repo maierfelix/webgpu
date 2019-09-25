@@ -17,7 +17,7 @@
 #include <unordered_map>
 
 {% for enum in enums %}
-static std::unordered_map<std::string, uint32_t> {{ enum.externalName }} = {
+static std::unordered_map<std::string, uint32_t> {{ enum.externalName }}Map = {
   {%- for member in enum.children %}
   { "{{ getEnumNameFromDawnEnumName(member.name) | safe }}", {{ member.value }} },
   {%- endfor %}
@@ -25,6 +25,12 @@ static std::unordered_map<std::string, uint32_t> {{ enum.externalName }} = {
 {% endfor %}
 
 namespace DescriptorDecoder {
+  {% for enum in enums %}
+  uint32_t {{ enum.externalName }}(std::string name) {
+    return {{ enum.externalName }}Map[name];
+  };
+  {% endfor %}
+
   {% for struct in structures %}
   {{ struct.name }} {{ struct.externalName }}({{ getDecodeStructureParameters(struct) | safe }}) {
 

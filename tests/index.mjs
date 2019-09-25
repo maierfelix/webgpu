@@ -1,6 +1,7 @@
 import WebGPU from "../index.js";
 
 Object.assign(global, WebGPU);
+console.log(WebGPU);
 
 const vsSrc = `
   #version 450
@@ -28,14 +29,21 @@ const fsSrc = `
 
   const swapChainFormat = "rgba8unorm";
 
-  const adapter = await GPU.requestAdapter();
+  const window = new WebGPUWindow({
+    width: 640,
+    height: 480
+  });
+
+  const adapter = await GPU.requestAdapter({ window });
   console.log("Adapter:", adapter);
   console.log("Adapter Name:", adapter.name);
   console.log("Adapter Extensions:", adapter.extensions);
 
   const device = await adapter.requestDevice();
+
   const queue = device.getQueue();
-  const context = GPU.getContext("webgpu");
+
+  const context = window.getContext("webgpu");
 
   const swapChain = context.configureSwapChain({
     device: device,
@@ -77,10 +85,13 @@ const fsSrc = `
   });
 
   function onFrame() {
-    setTimeout(onFrame, 1e3 / 60);
+    if (!window.shouldClose()) setTimeout(onFrame, 1e3 / 60);
 
     const backBuffer = swapChain.getCurrentTexture();
-    const backBufferView = backBuffer.createView();
+    const backBufferView = backBuffer.createView({
+      format: swapChainFormat,
+      dimension: "2d"
+    });
     const commandEncoder = device.createCommandEncoder({});
     const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [{
@@ -97,6 +108,7 @@ const fsSrc = `
     const commandBuffer = commandEncoder.finish();
     queue.submit([ commandBuffer ]);
     swapChain.present(backBuffer);
+    window.pollEvents();
   };
   setTimeout(onFrame, 1e3 / 60);
 

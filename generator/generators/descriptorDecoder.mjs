@@ -209,7 +209,7 @@ ${padding}${output.name}.${member.name} = data.data();`;
     let decodeMap = getExplortDeclarationName(type.nativeType);
     out += `\n${padding}${output.name}.${member.name} = `;
     out += `static_cast<${type.nativeType}>(`;
-    out += `${decodeMap}[${input.name}.Get("${member.name}").As<Napi::String>().Utf8Value()]`;
+    out += `${decodeMap}(${input.name}.Get("${member.name}").As<Napi::String>().Utf8Value())`;
     out += `);`;
   // decode enum member array
   } else if (type.isEnum && type.isArray) {
@@ -221,7 +221,7 @@ ${padding}std::vector<${type.nativeType}> data;
 ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
 ${padding}  ${type.nativeType} value = static_cast<${type.nativeType}>(
-${padding}    ${decodeMap}[item.As<Napi::String>().Utf8Value()]
+${padding}    ${decodeMap}(item.As<Napi::String>().Utf8Value())
 ${padding}  );
 ${padding}  data.push_back(value);
 ${padding}};`;

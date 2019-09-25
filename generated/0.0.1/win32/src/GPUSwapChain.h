@@ -17,6 +17,7 @@ class GPUSwapChain : public Napi::ObjectWrap<GPUSwapChain> {
     Napi::Value present(const Napi::CallbackInfo &info);
 
     Napi::ObjectReference device;
+    Napi::ObjectReference context;
 
     DawnSwapChain instance;
 };

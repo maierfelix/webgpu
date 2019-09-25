@@ -1,6 +1,5 @@
 #include "GPU.h"
 #include "GPUAdapter.h"
-#include "GPUCanvasContext.h"
 
 Napi::FunctionReference GPU::constructor;
 
@@ -10,14 +9,13 @@ GPU::~GPU() { }
 Napi::Value GPU::requestAdapter(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
   auto deferred = Napi::Promise::Deferred::New(env);
-  deferred.Resolve(GPUAdapter::constructor.New({ }));
-  return deferred.Promise();
-}
 
-Napi::Value GPU::getContext(const Napi::CallbackInfo &info) {
-  Napi::Env env = info.Env();
-  Napi::Object canvasContext = GPUCanvasContext::constructor.New({});
-  return canvasContext;
+  std::vector<napi_value> args = {};
+  if (info[0].IsObject()) args.push_back(info[0].As<Napi::Value>());
+
+  deferred.Resolve(GPUAdapter::constructor.New(args));
+
+  return deferred.Promise();
 }
 
 Napi::Object GPU::Initialize(Napi::Env env, Napi::Object exports) {
@@ -26,11 +24,6 @@ Napi::Object GPU::Initialize(Napi::Env env, Napi::Object exports) {
     StaticMethod(
       "requestAdapter",
       &GPU::requestAdapter,
-      napi_enumerable
-    ),
-    StaticMethod(
-      "getContext",
-      &GPU::getContext,
       napi_enumerable
     )
   });

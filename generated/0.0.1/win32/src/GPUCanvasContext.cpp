@@ -6,7 +6,7 @@
 Napi::FunctionReference GPUCanvasContext::constructor;
 
 GPUCanvasContext::GPUCanvasContext(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUCanvasContext>(info) {
-
+  this->window.Reset(info[0].As<Napi::Object>(), 1);
 }
 
 GPUCanvasContext::~GPUCanvasContext() {
@@ -16,6 +16,7 @@ GPUCanvasContext::~GPUCanvasContext() {
 Napi::Value GPUCanvasContext::configureSwapChain(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
   Napi::Object swapchain = GPUSwapChain::constructor.New({
+    info.This().As<Napi::Value>(),
     info[0].As<Napi::Value>()
   });
   return swapchain;

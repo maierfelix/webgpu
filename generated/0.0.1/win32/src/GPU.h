@@ -11,7 +11,6 @@ class GPU : public Napi::ObjectWrap<GPU> {
     static Napi::FunctionReference constructor;
 
     static Napi::Value requestAdapter(const Napi::CallbackInfo &info);
-    static Napi::Value getContext(const Napi::CallbackInfo &info);
 
     GPU(const Napi::CallbackInfo &info);
     ~GPU();

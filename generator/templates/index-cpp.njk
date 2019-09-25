@@ -26,6 +26,7 @@
 #include "GPUComputePassEncoder.h"
 #include "GPURenderBundle.h"
 #include "GPURenderBundleEncoder.h"
+#include "WebGPUWindow.h"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
@@ -52,6 +53,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUComputePassEncoder::Initialize(env, exports);
   GPURenderBundle::Initialize(env, exports);
   GPURenderBundleEncoder::Initialize(env, exports);
+  WebGPUWindow::Initialize(env, exports);
 
   {% if includeMemoryLayouts == true %}
   exports["$getMemoryLayouts"] = Napi::Function::New(env, MemoryLayouts, "MemoryLayouts");

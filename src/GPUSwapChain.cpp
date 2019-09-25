@@ -2,24 +2,34 @@
 #include "GPUDevice.h"
 #include "GPUTexture.h"
 #include "BackendBinding.h"
+#include "GPUCanvasContext.h"
+#include "WebGPUWindow.h"
+
+#include "DescriptorDecoder.h"
 
 Napi::FunctionReference GPUSwapChain::constructor;
 
 GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUSwapChain>(info) {
   Napi::Env env = info.Env();
 
-  Napi::Object args = info[0].As<Napi::Object>();
+  this->context.Reset(info[0].As<Napi::Object>(), 1);
+  GPUCanvasContext* context = Napi::ObjectWrap<GPUCanvasContext>::Unwrap(this->context.Value());
+  WebGPUWindow* window = Napi::ObjectWrap<WebGPUWindow>::Unwrap(context->window.Value());
 
-  DawnTextureFormat textureFormat = static_cast<DawnTextureFormat>(
-    args.Get("format").As<Napi::Number>().Uint32Value()
+  Napi::Object args = info[1].As<Napi::Object>();
+
+  DawnTextureFormat format = static_cast<DawnTextureFormat>(
+    DescriptorDecoder::GPUTextureFormat(args.Get("format").As<Napi::String>().Utf8Value())
   );
 
-  DawnTextureFormat usage = static_cast<DawnTextureUsage>(
-    args.Get("usage").As<Napi::Number>().Uint32Value()
-  );
+  DawnTextureUsage usage = DAWN_TEXTURE_USAGE_OUTPUT_ATTACHMENT;
+  if (args.Has("usage")) {
+    usage = static_cast<DawnTextureUsage>(
+      args.Get("usage").As<Napi::Number>().Uint32Value()
+    );
+  }
 
   this->device.Reset(args.Get("device").As<Napi::Object>(), 1);
-
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
   BackendBinding* binding = device->binding;
@@ -28,14 +38,9 @@ GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
   descriptor.nextInChain = nullptr;
   descriptor.implementation = binding->GetSwapChainImplementation();
 
-  // TODO: this should be inside a window class
   this->instance = dawnDeviceCreateSwapChain(device->instance, &descriptor);
 
-  uint32_t width = 640;
-  uint32_t height = 480;
-  DawnTextureFormat swapChainFormat = DAWN_TEXTURE_FORMAT_RGBA8_UNORM;
-
-  dawnSwapChainConfigure(this->instance, swapChainFormat, DAWN_TEXTURE_USAGE_OUTPUT_ATTACHMENT, width, height);
+  dawnSwapChainConfigure(this->instance, format, usage, window->width, window->height);
 }
 
 GPUSwapChain::~GPUSwapChain() {

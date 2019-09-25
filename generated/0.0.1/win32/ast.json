@@ -8020,7 +8020,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"2D\"",
+          "defaultValueNative": 2
         },
         {
           "name": "baseMipLevel",

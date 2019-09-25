@@ -1,7 +1,6 @@
 import WebGPU from "../index.js";
 
 Object.assign(global, WebGPU);
-console.log(WebGPU);
 
 const vsSrc = `
   #version 450
@@ -31,13 +30,11 @@ const fsSrc = `
 
   const window = new WebGPUWindow({
     width: 640,
-    height: 480
+    height: 480,
+    title: "WebGPU"
   });
 
   const adapter = await GPU.requestAdapter({ window });
-  console.log("Adapter:", adapter);
-  console.log("Adapter Name:", adapter.name);
-  console.log("Adapter Extensions:", adapter.extensions);
 
   const device = await adapter.requestDevice();
 
@@ -89,8 +86,7 @@ const fsSrc = `
 
     const backBuffer = swapChain.getCurrentTexture();
     const backBufferView = backBuffer.createView({
-      format: swapChainFormat,
-      dimension: "2d"
+      format: swapChainFormat
     });
     const commandEncoder = device.createCommandEncoder({});
     const renderPass = commandEncoder.beginRenderPass({

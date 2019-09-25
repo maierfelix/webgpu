@@ -1755,6 +1755,7 @@ namespace DescriptorDecoder {
 
     DawnTextureViewDescriptor descriptor;
   descriptor.nextInChain = nullptr;
+  descriptor.dimension = static_cast<DawnTextureViewDimension>(2);
   descriptor.baseMipLevel = 0;
   descriptor.mipLevelCount = 0;
   descriptor.baseArrayLayer = 0;

@@ -1,5 +1,5 @@
 import WebGPU from "../index.js";
-import glMatrix from "./libs/gl-matrix-min.js";
+import glMatrix from "gl-matrix";
 
 Object.assign(global, WebGPU);
 Object.assign(global, glMatrix);

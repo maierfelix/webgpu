@@ -194,7 +194,7 @@ const fsSrc = `
     renderPass.setBindGroup(0, uniformBindGroup);
     renderPass.setVertexBuffers(0, [stagedVertexBuffer], [0n]);
     renderPass.setIndexBuffer(stagedIndexBuffer);
-    renderPass.drawIndexed(3, 1, 0, 0, 0);
+    renderPass.drawIndexed(triangleIndices.length, 1, 0, 0, 0);
     renderPass.endPass();
 
     const commandBuffer = commandEncoder.finish();

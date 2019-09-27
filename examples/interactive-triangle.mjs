@@ -100,7 +100,7 @@ const fsSrc = `
   const uniformBindGroupLayout = device.createBindGroupLayout({
     bindings: [{
       binding: 0,
-      visibility: 1,
+      visibility: GPUShaderStage.VERTEX,
       type: "uniform-buffer"
     }]
   });

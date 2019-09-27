@@ -28,15 +28,19 @@ const fsSrc = `
 
   const swapChainFormat = "rgba8unorm";
 
+  console.log(0);
   const window = new WebGPUWindow({
     width: 640,
     height: 480,
     title: "WebGPU"
   });
+  console.log(1);
 
   const adapter = await GPU.requestAdapter({ window });
+  console.log(2);
 
   const device = await adapter.requestDevice();
+  console.log(3);
 
   const queue = device.getQueue();
 

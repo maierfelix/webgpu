@@ -2,7 +2,7 @@ import WebGPU from "../index.js";
 
 Object.assign(global, WebGPU);
 
-const numParticles = 1500;
+const numParticles = 8000;
 
 const vsSrc = `
   #version 450
@@ -129,10 +129,15 @@ const csSrc = `
 
   const context = window.getContext("webgpu");
 
-  const swapChain = context.configureSwapChain({
+  let swapChain = context.configureSwapChain({
     device: device,
     format: swapChainFormat
   });
+  window.onresize = e => {
+    swapChain.reconfigure({
+      format: swapChainFormat
+    });
+  };
 
   const vertexShaderModule = device.createShaderModule({ code: vsSrc });
   const fragmentShaderModule = device.createShaderModule({ code: fsSrc });

@@ -2,6 +2,7 @@
 #define __WEB_GPU_WINDOW_H__
 
 #include "Base.h"
+#include "GPUSwapChain.h"
 
 class WebGPUWindow : public Napi::ObjectWrap<WebGPUWindow> {
 
@@ -37,6 +38,8 @@ class WebGPUWindow : public Napi::ObjectWrap<WebGPUWindow> {
     Napi::Env env_;
 
     GLFWwindow* instance;
+
+    GPUSwapChain* swapChain;
 
     Napi::Value getContext(const Napi::CallbackInfo &info);
     Napi::Value pollEvents(const Napi::CallbackInfo &info);

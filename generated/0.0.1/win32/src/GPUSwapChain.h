@@ -20,6 +20,10 @@ class GPUSwapChain : public Napi::ObjectWrap<GPUSwapChain> {
     Napi::ObjectReference context;
 
     DawnSwapChain instance;
+
+    DawnTextureFormat format;
+    DawnTextureUsage usage;
+
 };
 
 #endif

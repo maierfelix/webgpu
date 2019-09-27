@@ -41,6 +41,11 @@ GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
   this->instance = dawnDeviceCreateSwapChain(device->instance, &descriptor);
 
   dawnSwapChainConfigure(this->instance, format, usage, window->width, window->height);
+
+  this->format = format;
+  this->usage = usage;
+
+  window->swapChain = this;
 }
 
 GPUSwapChain::~GPUSwapChain() {

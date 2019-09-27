@@ -54,7 +54,7 @@ dawn_native::Adapter GPUAdapter::createAdapter(const Napi::CallbackInfo& info) {
       adapters.begin(),
       adapters.end(),
       [](const dawn_native::Adapter adapter) -> bool {
-        return adapter.GetBackendType() == dawn_native::BackendType::D3D12;
+        return adapter.GetBackendType() == dawn_native::BackendType::Vulkan;
       }
     );
     if (adapterIt == adapters.end()) {

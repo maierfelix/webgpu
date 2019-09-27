@@ -4,7 +4,8 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "C:/Users/User/Documents/GitHub/dawn"
+    "dawn": "C:/Users/User/Documents/GitHub/dawn",
+    "vkSDK": "C:/VulkanSDK/1.1.114.0"
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],
@@ -38,19 +39,22 @@
             ],
             "include_dirs": [
               "<!@(node -p \"require('node-addon-api').include\")",
+              "<(vkSDK)/include",
               "<(root)/lib/include",
               "<(dawn)/src/include",
-              "<(dawn)/out/Shared2/gen",
+              "<(dawn)/out/Shared/gen",
               "<(dawn)/third_party/shaderc/libshaderc/include",
               "<(dawn)/third_party/shaderc/libshaderc/src/shaderc.cc",
               "<(dawn)/third_party/shaderc/libshaderc/src/shaderc_private.h"
             ],
             "library_dirs": [
               "<(root)/lib/<(platform)/<(target_arch)/GLFW",
-              "<(build)/"
+              "<(build)/",
+              "<(vkSDK)/lib"
             ],
             "link_settings": {
               "libraries": [
+                "-lvulkan-1.lib",
                 "-lglfw3dll.lib",
                 "-llibdawn.dll.lib",
                 "-llibdawn_native.dll.lib",
@@ -64,7 +68,7 @@
               "NOMINMAX",
               "_UNICODE",
               "UNICODE",
-              "DAWN_ENABLE_BACKEND_D3D12",
+              "DAWN_ENABLE_BACKEND_VULKAN",
               "_GLFW_WIN32",
               "DAWN_NATIVE_SHARED_LIBRARY",
               "DAWN_WIRE_SHARED_LIBRARY",

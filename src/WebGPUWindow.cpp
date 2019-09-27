@@ -19,7 +19,7 @@ WebGPUWindow::WebGPUWindow(const Napi::CallbackInfo& info) : Napi::ObjectWrap<We
       if (argHeight.IsNumber()) this->height = argHeight.As<Napi::Number>().Int32Value();
       if (argTitle.IsString()) this->title = argTitle.As<Napi::String>().Utf8Value();
       glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-      glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+      glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
       GLFWwindow* window = glfwCreateWindow(this->width, this->height, this->title.c_str(), nullptr, nullptr);
       this->instance = window;
       //glfwMakeContextCurrent(window);
@@ -48,11 +48,23 @@ WebGPUWindow::~WebGPUWindow() {
   // destructor
 }
 
-void WebGPUWindow::onWindowResize(GLFWwindow* window, int w, int h) {
+void WebGPUWindow::onWindowResize(GLFWwindow* window, int width, int height) {
   WebGPUWindow* self = static_cast<WebGPUWindow*>(glfwGetWindowUserPointer(window));
   Napi::Env env = self->env_;
-  self->width = w;
-  self->height = h;
+  if (width != self->width || height != self->height) {
+    // reconfigurate swapchain
+    GPUSwapChain* swapChain = self->swapChain;
+    dawnSwapChainConfigure(
+      swapChain->instance,
+      swapChain->format,
+      swapChain->usage,
+      width,
+      height
+    );
+  }
+  self->width = width;
+  self->height = height;
+
   if (self->onresize.IsEmpty()) return;
   Napi::Object out = Napi::Object::New(env);
   out.Set("width", Napi::Number::New(env, self->width));

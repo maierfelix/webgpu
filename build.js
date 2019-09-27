@@ -57,7 +57,7 @@ function copyFiles() {
   return new Promise(resolve => {
     // copy files into release folder
     let dawnDir = fs.readFileSync(pkg.config.DAWN_PATH, "utf-8");
-    let dawnOutputDir = dawnDir + "/out/Shared2";
+    let dawnOutputDir = dawnDir + "/out/Shared";
     let baseDir = `./lib/${unitPlatform}/${architecture}`;
     let targetDir = buildOutputDir;
     let files = [

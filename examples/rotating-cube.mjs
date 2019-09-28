@@ -89,7 +89,8 @@ const fsSrc = `
   const window = new WebGPUWindow({
     width: 640,
     height: 480,
-    title: "WebGPU"
+    title: "WebGPU",
+    resizable: false
   });
 
   const aspect = Math.abs(window.width / window.height);

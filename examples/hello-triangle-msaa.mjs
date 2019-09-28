@@ -29,7 +29,8 @@ const fsSrc = `
   const window = new WebGPUWindow({
     width: 640,
     height: 480,
-    title: "WebGPU"
+    title: "WebGPU",
+    resizable: false
   });
 
   const adapter = await GPU.requestAdapter({ window });

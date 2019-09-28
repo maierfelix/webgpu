@@ -19,7 +19,12 @@ WebGPUWindow::WebGPUWindow(const Napi::CallbackInfo& info) : Napi::ObjectWrap<We
       if (argHeight.IsNumber()) this->height = argHeight.As<Napi::Number>().Int32Value();
       if (argTitle.IsString()) this->title = argTitle.As<Napi::String>().Utf8Value();
       glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-      glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+      if (obj.Has("resizable") && obj.Get("resizable").IsBoolean()) {
+        bool resizable = obj.Get("resizable").As<Napi::Boolean>().Value();
+        glfwWindowHint(GLFW_RESIZABLE, resizable ? GLFW_TRUE : GLFW_FALSE);
+      } else {
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+      }
       GLFWwindow* window = glfwCreateWindow(this->width, this->height, this->title.c_str(), nullptr, nullptr);
       this->instance = window;
       //glfwMakeContextCurrent(window);

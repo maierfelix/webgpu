@@ -64,8 +64,6 @@ const fsSrc = `
      0.1, -0.1, 0.0, 0.0, 1.0
   ]);
 
-  const swapChainFormat = "rgba8unorm";
-
   const window = new WebGPUWindow({
     width: 640,
     height: 480,
@@ -76,9 +74,9 @@ const fsSrc = `
 
   const device = await adapter.requestDevice();
 
-  const queue = device.getQueue();
-
   const context = window.getContext("webgpu");
+
+  const swapChainFormat = await context.getSwapChainPreferredFormat(device);
 
   const swapChain = context.configureSwapChain({
     device: device,

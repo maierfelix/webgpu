@@ -186,8 +186,6 @@ const fsSrc = `
 
   const img = lodepng.decode(fs.readFileSync("./assets/grass-block.png"));
 
-  const swapChainFormat = "rgba8unorm";
-
   const window = new WebGPUWindow({
     width: 640,
     height: 480,
@@ -215,6 +213,8 @@ const fsSrc = `
   const queue = device.getQueue();
 
   const context = window.getContext("webgpu");
+
+  const swapChainFormat = await context.getSwapChainPreferredFormat(device);
 
   const swapChain = context.configureSwapChain({
     device: device,

@@ -113,8 +113,6 @@ const csSrc = `
 
 (async function main() {
 
-  const swapChainFormat = "rgba8unorm";
-
   const window = new WebGPUWindow({
     width: 640,
     height: 480,
@@ -128,6 +126,8 @@ const csSrc = `
   const queue = device.getQueue();
 
   const context = window.getContext("webgpu");
+
+  const swapChainFormat = await context.getSwapChainPreferredFormat(device);
 
   let swapChain = context.configureSwapChain({
     device: device,

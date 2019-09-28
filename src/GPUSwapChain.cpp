@@ -18,27 +18,25 @@ GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
 
   Napi::Object args = info[1].As<Napi::Object>();
 
+  this->device.Reset(args.Get("device").As<Napi::Object>(), 1);
+  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
+
+  // create
+  DawnSwapChainDescriptor descriptor;
+  descriptor.nextInChain = nullptr;
+  descriptor.implementation = device->binding->GetSwapChainImplementation();
+
+  this->instance = dawnDeviceCreateSwapChain(device->instance, &descriptor);
+
+  // configurate
   DawnTextureFormat format = static_cast<DawnTextureFormat>(
     DescriptorDecoder::GPUTextureFormat(args.Get("format").As<Napi::String>().Utf8Value())
   );
 
   DawnTextureUsage usage = DAWN_TEXTURE_USAGE_OUTPUT_ATTACHMENT;
   if (args.Has("usage")) {
-    usage = static_cast<DawnTextureUsage>(
-      args.Get("usage").As<Napi::Number>().Uint32Value()
-    );
+    usage = static_cast<DawnTextureUsage>(args.Get("usage").As<Napi::Number>().Uint32Value());
   }
-
-  this->device.Reset(args.Get("device").As<Napi::Object>(), 1);
-  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
-
-  BackendBinding* binding = device->binding;
-
-  DawnSwapChainDescriptor descriptor;
-  descriptor.nextInChain = nullptr;
-  descriptor.implementation = binding->GetSwapChainImplementation();
-
-  this->instance = dawnDeviceCreateSwapChain(device->instance, &descriptor);
 
   dawnSwapChainConfigure(this->instance, format, usage, window->width, window->height);
 

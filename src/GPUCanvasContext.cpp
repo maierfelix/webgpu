@@ -1,7 +1,9 @@
 #include "GPUCanvasContext.h"
 #include "GPUDevice.h"
+#include "GPUAdapter.h"
 #include "GPUSwapChain.h"
 #include "BackendBinding.h"
+#include "WebGPUWindow.h"
 
 #include "DescriptorDecoder.h"
 
@@ -30,11 +32,23 @@ Napi::Value GPUCanvasContext::getSwapChainPreferredFormat(const Napi::CallbackIn
   Napi::Promise::Deferred deferred = Napi::Promise::Deferred::New(env);
 
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(info[0].As<Napi::Object>());
-  BackendBinding* binding = device->binding;
+  GPUAdapter* adapter = Napi::ObjectWrap<GPUAdapter>::Unwrap(device->adapter.Value());
+  WebGPUWindow* window = Napi::ObjectWrap<WebGPUWindow>::Unwrap(adapter->window.Value());
 
-  uint32_t format = static_cast<uint32_t>(binding->GetPreferredSwapChainTextureFormat());
+  if (window->preferredSwapChainFormat == DAWN_TEXTURE_FORMAT_UNDEFINED) {
+    DawnSwapChainDescriptor descriptor;
+    descriptor.nextInChain = nullptr;
+    // returns always the same address, so we dont have to release this temp swapchain?
+    descriptor.implementation = device->binding->GetSwapChainImplementation();
+    DawnSwapChain instance = dawnDeviceCreateSwapChain(device->instance, &descriptor);
+    glfwPollEvents();
+    window->preferredSwapChainFormat = device->binding->GetPreferredSwapChainTextureFormat();
+  }
 
-  deferred.Resolve(Napi::String::New(env, DescriptorDecoder::GPUTextureFormat(format)));
+  std::string textureFormat = DescriptorDecoder::GPUTextureFormat(
+    static_cast<uint32_t>(window->preferredSwapChainFormat)
+  );
+  deferred.Resolve(Napi::String::New(env, textureFormat));
 
   return deferred.Promise();
 }

@@ -32,21 +32,19 @@ const fsSrc = `
     0, 1, 2
   ]);
 
-  const swapChainFormat = "rgba8unorm";
-
   const window = new WebGPUWindow({
     width: 640,
     height: 480,
     title: "WebGPU"
   });
 
+  const context = window.getContext("webgpu");
+
   const adapter = await GPU.requestAdapter({ window });
 
   const device = await adapter.requestDevice();
 
-  const queue = device.getQueue();
-
-  const context = window.getContext("webgpu");
+  const swapChainFormat = await context.getSwapChainPreferredFormat(device);
 
   const swapChain = context.configureSwapChain({
     device: device,
@@ -150,7 +148,7 @@ const fsSrc = `
     renderPass.endPass();
 
     const commandBuffer = commandEncoder.finish();
-    queue.submit([ commandBuffer ]);
+    device.getQueue().submit([ commandBuffer ]);
     swapChain.present(backBuffer);
     window.pollEvents();
   };

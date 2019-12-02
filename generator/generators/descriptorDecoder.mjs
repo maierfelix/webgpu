@@ -61,15 +61,15 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
     out += `
 ${padding}Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
 ${padding}uint32_t length = array.Length();
-${padding}std::vector<${type.nativeType}>* data = new std::vector<${type.nativeType}>;
+${padding}${type.nativeType}* data = (${type.nativeType}*) malloc(length * sizeof(${type.nativeType}));
 ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
 ${padding}  ${type.nativeType} value = Napi::ObjectWrap<${unwrapType}>::Unwrap(item)->instance;
-${padding}  data->push_back(value);
+${padding}  data[ii] = value;
 ${padding}};`;
     out += `
 ${padding}${output.name}.${type.length} = length;
-${padding}${output.name}.${member.name} = data->data();`;
+${padding}${output.name}.${member.name} = data;`;
   // decode descriptor structure
   } else if (type.isStructure && !type.isArray) {
     let memberTypeStructure = ast.structures.filter(s => s.name === type.nativeType)[0] || null;
@@ -107,7 +107,7 @@ ${padding}${output.name}.${member.name} = data->data();`;
     // link the struct member reference to top structure
     if (type.isReference) {
       out += `\n${padding}{`;
-      out += `\n${padding}  ${output.name}.${member.name} = new ${type.nativeType};`;
+      out += `\n${padding}  ${output.name}.${member.name} = (${type.nativeType}*) malloc(sizeof(${type.nativeType}));`;
       out += `\n${padding}  memcpy(const_cast<${type.nativeType}*>(${output.name}.${member.name}), &${member.name}, sizeof(${type.nativeType}));`;
       out += `\n${padding}}`;
     }
@@ -123,10 +123,10 @@ ${padding}uint32_t length = array.Length();`;
 
     if (type.isArrayOfPointers) {
       out += `
-${padding}auto data = new std::vector<${type.nativeType}*>;`;
+${padding}${type.nativeType}** data = (${type.nativeType}**) malloc(sizeof(${type.nativeType}*));`;
     } else {
       out += `
-${padding}auto data = new std::vector<${type.nativeType}>;`;
+${padding}${type.nativeType}* data = (${type.nativeType}*) malloc(length * sizeof(${type.nativeType}));`;
     }
 
     out += `
@@ -134,25 +134,26 @@ ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
 ${padding}  ${type.nativeType} $${member.name} = ${memberTypeStructure.externalName}(device, item.As<Napi::Value>());`;
 
-    // create a heap copy
+    // array of pointers to structs
     if (type.isArrayOfPointers) {
     out += `
-${padding}  ${type.nativeType}* $$${member.name} = new ${type.nativeType};
+${padding}  data[ii] = (${type.nativeType}*) malloc(sizeof(${type.nativeType}));
 ${padding}  memcpy(
-${padding}    reinterpret_cast<void*>($$${member.name}),
+${padding}    reinterpret_cast<void*>(data[ii]),
 ${padding}    reinterpret_cast<void*>(&$${member.name}),
 ${padding}    sizeof(${type.nativeType})
 ${padding}  );
-${padding}  data->push_back($$${member.name});
 ${padding}};
 ${padding}${output.name}.${type.length} = length;
-${padding}${output.name}.${member.name} = data->data();`;
-    } else {
+${padding}${output.name}.${member.name} = data;`;
+    }
+    // array of structs
+    else {
     out += `
-${padding}  data->push_back($${member.name});
+${padding}  data[ii] = $${member.name};
 ${padding}};
 ${padding}${output.name}.${type.length} = length;
-${padding}${output.name}.${member.name} = data->data();`;
+${padding}${output.name}.${member.name} = data;`;
     }
 
   // decode numeric typed members
@@ -201,16 +202,16 @@ ${padding}${output.name}.${member.name} = data->data();`;
     out += `
 ${padding}Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
 ${padding}uint32_t length = array.Length();
-${padding}std::vector<${type.nativeType}>* data = new std::vector<${type.nativeType}>;
+${padding}${type.nativeType}* data = (${type.nativeType}*) malloc(length * sizeof(${type.nativeType}));
 ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
 ${padding}  ${type.nativeType} value = static_cast<${type.nativeType}>(
 ${padding}    ${decodeMap}(item.As<Napi::String>().Utf8Value())
 ${padding}  );
-${padding}  data->push_back(value);
+${padding}  data[ii] = value;
 ${padding}};`;
     out += `
-${padding}${output.name}.${member.name} = data->data();`;
+${padding}${output.name}.${member.name} = data;`;
   // decode bitmask member
   } else if (type.isBitmask && !type.isArray) {
     out += `\n${padding}${output.name}.${member.name} = static_cast<${type.nativeType}>(${input.name}.Get("${member.name}").As<Napi::Number>().Uint32Value());`;
@@ -247,12 +248,33 @@ function getDestroyStructureMember(structure, member) {
   }
   else if (type.isStructure && !type.isArray) {
     let exportType = getExplortDeclarationName(nativeType);
-    out += `
-    if (descriptor.${member.name} != nullptr) Destroy${exportType}(descriptor.${member.name});`;
+    if (type.isReference) {
+      out += `
+    if (descriptor.${member.name} != nullptr) {
+      Destroy${exportType}(*descriptor.${member.name});
+      free((void*) const_cast<${nativeType}*>(descriptor.${member.name}));
+    };`;
+    }
+    else {
+      out += `
+    Destroy${exportType}(descriptor.${member.name});`;
+    }
   }
   else if (type.isStructure && type.isArray) {
     let exportType = getExplortDeclarationName(nativeType);
-    out += `
+    if (type.isArrayOfPointers) {
+      out += `
+    if (descriptor.${type.length} > 0) {
+      for (unsigned int ii = 0; ii < descriptor.${type.length}; ++ii) {
+        Destroy${exportType}(*descriptor.${member.name}[ii]);
+      };
+      for (unsigned int ii = 0; ii < descriptor.${type.length}; ++ii) {
+        free((void*) const_cast<${nativeType}*>(descriptor.${member.name}[ii]));
+      };
+      free((void**) const_cast<${nativeType}**>(descriptor.${member.name}));
+    }`;
+    } else {
+      out += `
     if (descriptor.${type.length} > 0) {
       for (unsigned int ii = 0; ii < descriptor.${type.length}; ++ii) {
         Destroy${exportType}(descriptor.${member.name}[ii]);
@@ -261,6 +283,7 @@ function getDestroyStructureMember(structure, member) {
     if (descriptor.${member.name}) {
       free((void*) const_cast<${nativeType}*>(descriptor.${member.name}));
     }`;
+    }
   }
   else if (type.isNumber) {
     // no need to free

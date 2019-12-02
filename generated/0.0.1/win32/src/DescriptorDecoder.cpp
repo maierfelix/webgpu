@@ -715,8 +715,8 @@ namespace DescriptorDecoder {
   };
   
   void DestroyGPUColorStateDescriptor(DawnColorStateDescriptor descriptor) {
-    if (descriptor.alphaBlend != nullptr) DestroyGPUBlendDescriptor(descriptor.alphaBlend);
-    if (descriptor.colorBlend != nullptr) DestroyGPUBlendDescriptor(descriptor.colorBlend);
+    DestroyGPUBlendDescriptor(descriptor.alphaBlend);
+    DestroyGPUBlendDescriptor(descriptor.colorBlend);
   };
   
   void DestroyGPUBufferCopyView(DawnBufferCopyView descriptor) {
@@ -741,12 +741,12 @@ namespace DescriptorDecoder {
   };
   
   void DestroyGPUComputePipelineDescriptor(DawnComputePipelineDescriptor descriptor) {
-    if (descriptor.computeStage != nullptr) DestroyGPUPipelineStageDescriptor(descriptor.computeStage);
+    DestroyGPUPipelineStageDescriptor(descriptor.computeStage);
   };
   
   void DestroyGPUDepthStencilStateDescriptor(DawnDepthStencilStateDescriptor descriptor) {
-    if (descriptor.stencilFront != nullptr) DestroyGPUStencilStateFaceDescriptor(descriptor.stencilFront);
-    if (descriptor.stencilBack != nullptr) DestroyGPUStencilStateFaceDescriptor(descriptor.stencilBack);
+    DestroyGPUStencilStateFaceDescriptor(descriptor.stencilFront);
+    DestroyGPUStencilStateFaceDescriptor(descriptor.stencilBack);
   };
   
   void DestroyGPUExtent3D(DawnExtent3D descriptor) {
@@ -805,7 +805,7 @@ namespace DescriptorDecoder {
   };
   
   void DestroyGPURenderPassColorAttachmentDescriptor(DawnRenderPassColorAttachmentDescriptor descriptor) {
-    if (descriptor.clearColor != nullptr) DestroyGPUColor(descriptor.clearColor);
+    DestroyGPUColor(descriptor.clearColor);
   };
   
   void DestroyGPURenderPassDepthStencilAttachmentDescriptor(DawnRenderPassDepthStencilAttachmentDescriptor descriptor) {
@@ -814,28 +814,45 @@ namespace DescriptorDecoder {
   void DestroyGPURenderPassDescriptor(DawnRenderPassDescriptor descriptor) {
     if (descriptor.colorAttachmentCount > 0) {
       for (unsigned int ii = 0; ii < descriptor.colorAttachmentCount; ++ii) {
-        DestroyGPURenderPassColorAttachmentDescriptor(descriptor.colorAttachments[ii]);
+        DestroyGPURenderPassColorAttachmentDescriptor(*descriptor.colorAttachments[ii]);
       };
+      for (unsigned int ii = 0; ii < descriptor.colorAttachmentCount; ++ii) {
+        free((void*) const_cast<DawnRenderPassColorAttachmentDescriptor*>(descriptor.colorAttachments[ii]));
+      };
+      free((void**) const_cast<DawnRenderPassColorAttachmentDescriptor**>(descriptor.colorAttachments));
     }
-    if (descriptor.colorAttachments) {
-      free((void*) const_cast<DawnRenderPassColorAttachmentDescriptor*>(descriptor.colorAttachments));
-    }
-    if (descriptor.depthStencilAttachment != nullptr) DestroyGPURenderPassDepthStencilAttachmentDescriptor(descriptor.depthStencilAttachment);
+    if (descriptor.depthStencilAttachment != nullptr) {
+      DestroyGPURenderPassDepthStencilAttachmentDescriptor(*descriptor.depthStencilAttachment);
+      free((void*) const_cast<DawnRenderPassDepthStencilAttachmentDescriptor*>(descriptor.depthStencilAttachment));
+    };
   };
   
   void DestroyGPURenderPipelineDescriptor(DawnRenderPipelineDescriptor descriptor) {
-    if (descriptor.vertexStage != nullptr) DestroyGPUPipelineStageDescriptor(descriptor.vertexStage);
-    if (descriptor.fragmentStage != nullptr) DestroyGPUPipelineStageDescriptor(descriptor.fragmentStage);
-    if (descriptor.vertexInput != nullptr) DestroyGPUVertexInputDescriptor(descriptor.vertexInput);
-    if (descriptor.rasterizationState != nullptr) DestroyGPURasterizationStateDescriptor(descriptor.rasterizationState);
-    if (descriptor.depthStencilState != nullptr) DestroyGPUDepthStencilStateDescriptor(descriptor.depthStencilState);
+    DestroyGPUPipelineStageDescriptor(descriptor.vertexStage);
+    if (descriptor.fragmentStage != nullptr) {
+      DestroyGPUPipelineStageDescriptor(*descriptor.fragmentStage);
+      free((void*) const_cast<DawnPipelineStageDescriptor*>(descriptor.fragmentStage));
+    };
+    if (descriptor.vertexInput != nullptr) {
+      DestroyGPUVertexInputDescriptor(*descriptor.vertexInput);
+      free((void*) const_cast<DawnVertexInputDescriptor*>(descriptor.vertexInput));
+    };
+    if (descriptor.rasterizationState != nullptr) {
+      DestroyGPURasterizationStateDescriptor(*descriptor.rasterizationState);
+      free((void*) const_cast<DawnRasterizationStateDescriptor*>(descriptor.rasterizationState));
+    };
+    if (descriptor.depthStencilState != nullptr) {
+      DestroyGPUDepthStencilStateDescriptor(*descriptor.depthStencilState);
+      free((void*) const_cast<DawnDepthStencilStateDescriptor*>(descriptor.depthStencilState));
+    };
     if (descriptor.colorStateCount > 0) {
       for (unsigned int ii = 0; ii < descriptor.colorStateCount; ++ii) {
-        DestroyGPUColorStateDescriptor(descriptor.colorStates[ii]);
+        DestroyGPUColorStateDescriptor(*descriptor.colorStates[ii]);
       };
-    }
-    if (descriptor.colorStates) {
-      free((void*) const_cast<DawnColorStateDescriptor*>(descriptor.colorStates));
+      for (unsigned int ii = 0; ii < descriptor.colorStateCount; ++ii) {
+        free((void*) const_cast<DawnColorStateDescriptor*>(descriptor.colorStates[ii]));
+      };
+      free((void**) const_cast<DawnColorStateDescriptor**>(descriptor.colorStates));
     }
   };
   
@@ -852,11 +869,11 @@ namespace DescriptorDecoder {
   };
   
   void DestroyGPUTextureCopyView(DawnTextureCopyView descriptor) {
-    if (descriptor.origin != nullptr) DestroyGPUOrigin3D(descriptor.origin);
+    DestroyGPUOrigin3D(descriptor.origin);
   };
   
   void DestroyGPUTextureDescriptor(DawnTextureDescriptor descriptor) {
-    if (descriptor.size != nullptr) DestroyGPUExtent3D(descriptor.size);
+    DestroyGPUExtent3D(descriptor.size);
   };
   
   void DestroyGPUTextureViewDescriptor(DawnTextureViewDescriptor descriptor) {
@@ -937,14 +954,14 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("bindings").As<Napi::Array>();
       uint32_t length = array.Length();
-      auto data = new std::vector<DawnBindGroupBinding>;
+      DawnBindGroupBinding* data = (DawnBindGroupBinding*) malloc(length * sizeof(DawnBindGroupBinding));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnBindGroupBinding $bindings = GPUBindGroupBinding(device, item.As<Napi::Value>());
-        data->push_back($bindings);
+        data[ii] = $bindings;
       };
       descriptor.bindingCount = length;
-      descriptor.bindings = data->data();
+      descriptor.bindings = data;
     }
 
     return descriptor;
@@ -992,14 +1009,14 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("bindings").As<Napi::Array>();
       uint32_t length = array.Length();
-      auto data = new std::vector<DawnBindGroupLayoutBinding>;
+      DawnBindGroupLayoutBinding* data = (DawnBindGroupLayoutBinding*) malloc(length * sizeof(DawnBindGroupLayoutBinding));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnBindGroupLayoutBinding $bindings = GPUBindGroupLayoutBinding(device, item.As<Napi::Value>());
-        data->push_back($bindings);
+        data[ii] = $bindings;
       };
       descriptor.bindingCount = length;
-      descriptor.bindings = data->data();
+      descriptor.bindings = data;
     }
 
     return descriptor;
@@ -1359,14 +1376,14 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("attributes").As<Napi::Array>();
       uint32_t length = array.Length();
-      auto data = new std::vector<DawnVertexAttributeDescriptor>;
+      DawnVertexAttributeDescriptor* data = (DawnVertexAttributeDescriptor*) malloc(length * sizeof(DawnVertexAttributeDescriptor));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnVertexAttributeDescriptor $attributes = GPUVertexAttributeDescriptor(device, item.As<Napi::Value>());
-        data->push_back($attributes);
+        data[ii] = $attributes;
       };
       descriptor.attributeCount = length;
-      descriptor.attributes = data->data();
+      descriptor.attributes = data;
     }
 
     return descriptor;
@@ -1389,14 +1406,14 @@ namespace DescriptorDecoder {
     if (obj.Has("buffers")) {
       Napi::Array array = obj.Get("buffers").As<Napi::Array>();
       uint32_t length = array.Length();
-      auto data = new std::vector<DawnVertexBufferDescriptor>;
+      DawnVertexBufferDescriptor* data = (DawnVertexBufferDescriptor*) malloc(length * sizeof(DawnVertexBufferDescriptor));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnVertexBufferDescriptor $buffers = GPUVertexBufferDescriptor(device, item.As<Napi::Value>());
-        data->push_back($buffers);
+        data[ii] = $buffers;
       };
       descriptor.bufferCount = length;
-      descriptor.buffers = data->data();
+      descriptor.buffers = data;
     }
 
     return descriptor;
@@ -1437,14 +1454,14 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("bindGroupLayouts").As<Napi::Array>();
       uint32_t length = array.Length();
-      std::vector<DawnBindGroupLayout>* data = new std::vector<DawnBindGroupLayout>;
+      DawnBindGroupLayout* data = (DawnBindGroupLayout*) malloc(length * sizeof(DawnBindGroupLayout));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnBindGroupLayout value = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(item)->instance;
-        data->push_back(value);
+        data[ii] = value;
       };
       descriptor.bindGroupLayoutCount = length;
-      descriptor.bindGroupLayouts = data->data();
+      descriptor.bindGroupLayouts = data;
     }
 
     return descriptor;
@@ -1531,15 +1548,15 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("colorFormats").As<Napi::Array>();
       uint32_t length = array.Length();
-      std::vector<DawnTextureFormat>* data = new std::vector<DawnTextureFormat>;
+      DawnTextureFormat* data = (DawnTextureFormat*) malloc(length * sizeof(DawnTextureFormat));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnTextureFormat value = static_cast<DawnTextureFormat>(
           GPUTextureFormat(item.As<Napi::String>().Utf8Value())
         );
-        data->push_back(value);
+        data[ii] = value;
       };
-      descriptor.colorFormats = data->data();
+      descriptor.colorFormats = data;
     }
     if (obj.Has("depthStencilFormat")) {
       descriptor.depthStencilFormat = static_cast<DawnTextureFormat>(GPUTextureFormat(obj.Get("depthStencilFormat").As<Napi::String>().Utf8Value()));
@@ -1627,20 +1644,19 @@ namespace DescriptorDecoder {
     {
       Napi::Array array = obj.Get("colorAttachments").As<Napi::Array>();
       uint32_t length = array.Length();
-      auto data = new std::vector<DawnRenderPassColorAttachmentDescriptor*>;
+      DawnRenderPassColorAttachmentDescriptor** data = (DawnRenderPassColorAttachmentDescriptor**) malloc(sizeof(DawnRenderPassColorAttachmentDescriptor*));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnRenderPassColorAttachmentDescriptor $colorAttachments = GPURenderPassColorAttachmentDescriptor(device, item.As<Napi::Value>());
-        DawnRenderPassColorAttachmentDescriptor* $$colorAttachments = new DawnRenderPassColorAttachmentDescriptor;
+        data[ii] = (DawnRenderPassColorAttachmentDescriptor*) malloc(sizeof(DawnRenderPassColorAttachmentDescriptor));
         memcpy(
-          reinterpret_cast<void*>($$colorAttachments),
+          reinterpret_cast<void*>(data[ii]),
           reinterpret_cast<void*>(&$colorAttachments),
           sizeof(DawnRenderPassColorAttachmentDescriptor)
         );
-        data->push_back($$colorAttachments);
       };
       descriptor.colorAttachmentCount = length;
-      descriptor.colorAttachments = data->data();
+      descriptor.colorAttachments = data;
     }
     if (obj.Has("depthStencilAttachment")) {
         DawnRenderPassDepthStencilAttachmentDescriptor depthStencilAttachment;
@@ -1663,7 +1679,7 @@ namespace DescriptorDecoder {
           depthStencilAttachment.clearStencil = $depthStencilAttachment.Get("clearStencil").As<Napi::Number>().Uint32Value();
         }
       {
-        descriptor.depthStencilAttachment = new DawnRenderPassDepthStencilAttachmentDescriptor;
+        descriptor.depthStencilAttachment = (DawnRenderPassDepthStencilAttachmentDescriptor*) malloc(sizeof(DawnRenderPassDepthStencilAttachmentDescriptor));
         memcpy(const_cast<DawnRenderPassDepthStencilAttachmentDescriptor*>(descriptor.depthStencilAttachment), &depthStencilAttachment, sizeof(DawnRenderPassDepthStencilAttachmentDescriptor));
       }
     }
@@ -1726,7 +1742,7 @@ namespace DescriptorDecoder {
           fragmentStage.entryPoint = getNAPIStringCopy($fragmentStage.Get("entryPoint"));
         }
       {
-        descriptor.fragmentStage = new DawnPipelineStageDescriptor;
+        descriptor.fragmentStage = (DawnPipelineStageDescriptor*) malloc(sizeof(DawnPipelineStageDescriptor));
         memcpy(const_cast<DawnPipelineStageDescriptor*>(descriptor.fragmentStage), &fragmentStage, sizeof(DawnPipelineStageDescriptor));
       }
     }
@@ -1743,17 +1759,17 @@ namespace DescriptorDecoder {
         if ($vertexInput.Has("buffers")) {
           Napi::Array array = $vertexInput.Get("buffers").As<Napi::Array>();
           uint32_t length = array.Length();
-          auto data = new std::vector<DawnVertexBufferDescriptor>;
+          DawnVertexBufferDescriptor* data = (DawnVertexBufferDescriptor*) malloc(length * sizeof(DawnVertexBufferDescriptor));
           for (unsigned int ii = 0; ii < length; ++ii) {
             Napi::Object item = array.Get(ii).As<Napi::Object>();
             DawnVertexBufferDescriptor $buffers = GPUVertexBufferDescriptor(device, item.As<Napi::Value>());
-            data->push_back($buffers);
+            data[ii] = $buffers;
           };
           vertexInput.bufferCount = length;
-          vertexInput.buffers = data->data();
+          vertexInput.buffers = data;
         }
       {
-        descriptor.vertexInput = new DawnVertexInputDescriptor;
+        descriptor.vertexInput = (DawnVertexInputDescriptor*) malloc(sizeof(DawnVertexInputDescriptor));
         memcpy(const_cast<DawnVertexInputDescriptor*>(descriptor.vertexInput), &vertexInput, sizeof(DawnVertexInputDescriptor));
       }
     }
@@ -1783,7 +1799,7 @@ namespace DescriptorDecoder {
           rasterizationState.depthBiasClamp = $rasterizationState.Get("depthBiasClamp").As<Napi::Number>().FloatValue();
         }
       {
-        descriptor.rasterizationState = new DawnRasterizationStateDescriptor;
+        descriptor.rasterizationState = (DawnRasterizationStateDescriptor*) malloc(sizeof(DawnRasterizationStateDescriptor));
         memcpy(const_cast<DawnRasterizationStateDescriptor*>(descriptor.rasterizationState), &rasterizationState, sizeof(DawnRasterizationStateDescriptor));
       }
     }
@@ -1846,27 +1862,26 @@ namespace DescriptorDecoder {
           depthStencilState.stencilWriteMask = $depthStencilState.Get("stencilWriteMask").As<Napi::Number>().Uint32Value();
         }
       {
-        descriptor.depthStencilState = new DawnDepthStencilStateDescriptor;
+        descriptor.depthStencilState = (DawnDepthStencilStateDescriptor*) malloc(sizeof(DawnDepthStencilStateDescriptor));
         memcpy(const_cast<DawnDepthStencilStateDescriptor*>(descriptor.depthStencilState), &depthStencilState, sizeof(DawnDepthStencilStateDescriptor));
       }
     }
     {
       Napi::Array array = obj.Get("colorStates").As<Napi::Array>();
       uint32_t length = array.Length();
-      auto data = new std::vector<DawnColorStateDescriptor*>;
+      DawnColorStateDescriptor** data = (DawnColorStateDescriptor**) malloc(sizeof(DawnColorStateDescriptor*));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnColorStateDescriptor $colorStates = GPUColorStateDescriptor(device, item.As<Napi::Value>());
-        DawnColorStateDescriptor* $$colorStates = new DawnColorStateDescriptor;
+        data[ii] = (DawnColorStateDescriptor*) malloc(sizeof(DawnColorStateDescriptor));
         memcpy(
-          reinterpret_cast<void*>($$colorStates),
+          reinterpret_cast<void*>(data[ii]),
           reinterpret_cast<void*>(&$colorStates),
           sizeof(DawnColorStateDescriptor)
         );
-        data->push_back($$colorStates);
       };
       descriptor.colorStateCount = length;
-      descriptor.colorStates = data->data();
+      descriptor.colorStates = data;
     }
     if (obj.Has("sampleMask")) {
       descriptor.sampleMask = obj.Get("sampleMask").As<Napi::Number>().Uint32Value();

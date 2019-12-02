@@ -132,23 +132,7 @@ ${padding}auto data = new std::vector<${type.nativeType}>;`;
     out += `
 ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
-${padding}  ${type.nativeType} $${member.name};`;
-
-    // reset descriptor
-    let resetOpts = {
-      padding: padding + "  ",
-      output: { name: "$" + member.name }
-    };
-    out += getDescriptorInstanceReset(memberTypeStructure, resetOpts);
-
-    let nextOpts = {
-      padding: opts.padding + `    `,
-      input: { name: `item` },
-      output: { name: `$${member.name}` }
-    };
-    memberTypeStructure.children.map(member => {
-      out += getDecodeStructureMember(memberTypeStructure, member, nextOpts);
-    });
+${padding}  ${type.nativeType} $${member.name} = ${memberTypeStructure.externalName}(device, item.As<Napi::Value>());`;
 
     // create a heap copy
     if (type.isArrayOfPointers) {

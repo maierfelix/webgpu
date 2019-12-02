@@ -759,49 +759,7 @@ namespace DescriptorDecoder {
       auto data = new std::vector<DawnBindGroupBinding>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnBindGroupBinding $bindings;
-        $bindings.buffer = nullptr;
-        $bindings.offset = 0;
-        $bindings.sampler = nullptr;
-        $bindings.textureView = nullptr;
-          $bindings.binding = item.Get("binding").As<Napi::Number>().Uint32Value();
-          if (item.Has("buffer")) {
-            if (!(item.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
-              Napi::String type = Napi::String::New(value.Env(), "Type");
-              Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPUBindGroupBinding'.'buffer'");
-              device->throwCallbackError(type, message);
-              return {};
-            }
-            $bindings.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(item.Get("buffer").As<Napi::Object>())->instance;
-          }
-          if (item.Has("offset")) {
-            {
-              bool lossless;
-              $bindings.offset = item.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
-            }
-          }
-          {
-            bool lossless;
-            $bindings.size = item.Get("size").As<Napi::BigInt>().Uint64Value(&lossless);
-          }
-          if (item.Has("sampler")) {
-            if (!(item.Get("sampler").As<Napi::Object>().InstanceOf(GPUSampler::constructor.Value()))) {
-              Napi::String type = Napi::String::New(value.Env(), "Type");
-              Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUSampler' for 'GPUBindGroupBinding'.'sampler'");
-              device->throwCallbackError(type, message);
-              return {};
-            }
-            $bindings.sampler = Napi::ObjectWrap<GPUSampler>::Unwrap(item.Get("sampler").As<Napi::Object>())->instance;
-          }
-          if (item.Has("textureView")) {
-            if (!(item.Get("textureView").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
-              Napi::String type = Napi::String::New(value.Env(), "Type");
-              Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPUBindGroupBinding'.'textureView'");
-              device->throwCallbackError(type, message);
-              return {};
-            }
-            $bindings.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(item.Get("textureView").As<Napi::Object>())->instance;
-          }
+        DawnBindGroupBinding $bindings = GPUBindGroupBinding(device, item.As<Napi::Value>());
         data->push_back($bindings);
       };
       descriptor.bindingCount = length;
@@ -856,26 +814,7 @@ namespace DescriptorDecoder {
       auto data = new std::vector<DawnBindGroupLayoutBinding>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnBindGroupLayoutBinding $bindings;
-        $bindings.dynamic = false;
-        $bindings.multisampled = false;
-        $bindings.textureDimension = static_cast<DawnTextureViewDimension>(2);
-        $bindings.textureComponentType = static_cast<DawnTextureComponentType>(0);
-          $bindings.binding = item.Get("binding").As<Napi::Number>().Uint32Value();
-          $bindings.visibility = static_cast<DawnShaderStage>(item.Get("visibility").As<Napi::Number>().Uint32Value());
-          $bindings.type = static_cast<DawnBindingType>(GPUBindingType(item.Get("type").As<Napi::String>().Utf8Value()));
-          if (item.Has("dynamic")) {
-            $bindings.dynamic = item.Get("dynamic").As<Napi::Boolean>().Value();
-          }
-          if (item.Has("multisampled")) {
-            $bindings.multisampled = item.Get("multisampled").As<Napi::Boolean>().Value();
-          }
-          if (item.Has("textureDimension")) {
-            $bindings.textureDimension = static_cast<DawnTextureViewDimension>(GPUTextureViewDimension(item.Get("textureDimension").As<Napi::String>().Utf8Value()));
-          }
-          if (item.Has("textureComponentType")) {
-            $bindings.textureComponentType = static_cast<DawnTextureComponentType>(GPUTextureComponentType(item.Get("textureComponentType").As<Napi::String>().Utf8Value()));
-          }
+        DawnBindGroupLayoutBinding $bindings = GPUBindGroupLayoutBinding(device, item.As<Napi::Value>());
         data->push_back($bindings);
       };
       descriptor.bindingCount = length;
@@ -1242,16 +1181,7 @@ namespace DescriptorDecoder {
       auto data = new std::vector<DawnVertexAttributeDescriptor>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnVertexAttributeDescriptor $attributes;
-        $attributes.offset = 0;
-          $attributes.shaderLocation = item.Get("shaderLocation").As<Napi::Number>().Uint32Value();
-          if (item.Has("offset")) {
-            {
-              bool lossless;
-              $attributes.offset = item.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
-            }
-          }
-          $attributes.format = static_cast<DawnVertexFormat>(GPUVertexFormat(item.Get("format").As<Napi::String>().Utf8Value()));
+        DawnVertexAttributeDescriptor $attributes = GPUVertexAttributeDescriptor(device, item.As<Napi::Value>());
         data->push_back($attributes);
       };
       descriptor.attributeCount = length;
@@ -1260,7 +1190,7 @@ namespace DescriptorDecoder {
 
     return descriptor;
   };
-  
+
   DawnVertexInputDescriptor GPUVertexInputDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
 
     DawnVertexInputDescriptor descriptor;
@@ -1281,37 +1211,7 @@ namespace DescriptorDecoder {
       auto data = new std::vector<DawnVertexBufferDescriptor>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnVertexBufferDescriptor $buffers;
-        $buffers.stepMode = static_cast<DawnInputStepMode>(0);
-        $buffers.attributes = nullptr;
-          {
-            bool lossless;
-            $buffers.stride = item.Get("stride").As<Napi::BigInt>().Uint64Value(&lossless);
-          }
-          if (item.Has("stepMode")) {
-            $buffers.stepMode = static_cast<DawnInputStepMode>(GPUInputStepMode(item.Get("stepMode").As<Napi::String>().Utf8Value()));
-          }
-          {
-            Napi::Array array = item.Get("attributes").As<Napi::Array>();
-            uint32_t length = array.Length();
-            auto data = new std::vector<DawnVertexAttributeDescriptor>;
-            for (unsigned int ii = 0; ii < length; ++ii) {
-              Napi::Object item = array.Get(ii).As<Napi::Object>();
-              DawnVertexAttributeDescriptor $attributes;
-              $attributes.offset = 0;
-                $attributes.shaderLocation = item.Get("shaderLocation").As<Napi::Number>().Uint32Value();
-                if (item.Has("offset")) {
-                  {
-                    bool lossless;
-                    $attributes.offset = item.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
-                  }
-                }
-                $attributes.format = static_cast<DawnVertexFormat>(GPUVertexFormat(item.Get("format").As<Napi::String>().Utf8Value()));
-              data->push_back($attributes);
-            };
-            $buffers.attributeCount = length;
-            $buffers.attributes = data->data();
-          }
+        DawnVertexBufferDescriptor $buffers = GPUVertexBufferDescriptor(device, item.As<Napi::Value>());
         data->push_back($buffers);
       };
       descriptor.bufferCount = length;
@@ -1549,32 +1449,7 @@ namespace DescriptorDecoder {
       auto data = new std::vector<DawnRenderPassColorAttachmentDescriptor*>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnRenderPassColorAttachmentDescriptor $colorAttachments;
-        $colorAttachments.attachment = nullptr;
-        $colorAttachments.resolveTarget = nullptr;
-          if (!(item.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
-            Napi::String type = Napi::String::New(value.Env(), "Type");
-            Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'attachment'");
-            device->throwCallbackError(type, message);
-            return {};
-          }
-          $colorAttachments.attachment = Napi::ObjectWrap<GPUTextureView>::Unwrap(item.Get("attachment").As<Napi::Object>())->instance;
-          if (item.Has("resolveTarget")) {
-            if (!(item.Get("resolveTarget").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
-              Napi::String type = Napi::String::New(value.Env(), "Type");
-              Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'resolveTarget'");
-              device->throwCallbackError(type, message);
-              return {};
-            }
-            $colorAttachments.resolveTarget = Napi::ObjectWrap<GPUTextureView>::Unwrap(item.Get("resolveTarget").As<Napi::Object>())->instance;
-          }
-          $colorAttachments.loadOp = static_cast<DawnLoadOp>(GPULoadOp(item.Get("loadOp").As<Napi::String>().Utf8Value()));
-          $colorAttachments.storeOp = static_cast<DawnStoreOp>(GPUStoreOp(item.Get("storeOp").As<Napi::String>().Utf8Value()));
-            Napi::Object $clearColor = item.Get("clearColor").As<Napi::Object>();
-            $colorAttachments.clearColor.r = $clearColor.Get("r").As<Napi::Number>().FloatValue();
-            $colorAttachments.clearColor.g = $clearColor.Get("g").As<Napi::Number>().FloatValue();
-            $colorAttachments.clearColor.b = $clearColor.Get("b").As<Napi::Number>().FloatValue();
-            $colorAttachments.clearColor.a = $clearColor.Get("a").As<Napi::Number>().FloatValue();
+        DawnRenderPassColorAttachmentDescriptor $colorAttachments = GPURenderPassColorAttachmentDescriptor(device, item.As<Napi::Value>());
         DawnRenderPassColorAttachmentDescriptor* $$colorAttachments = new DawnRenderPassColorAttachmentDescriptor;
         memcpy(
           reinterpret_cast<void*>($$colorAttachments),
@@ -1690,37 +1565,7 @@ namespace DescriptorDecoder {
           auto data = new std::vector<DawnVertexBufferDescriptor>;
           for (unsigned int ii = 0; ii < length; ++ii) {
             Napi::Object item = array.Get(ii).As<Napi::Object>();
-            DawnVertexBufferDescriptor $buffers;
-            $buffers.stepMode = static_cast<DawnInputStepMode>(0);
-            $buffers.attributes = nullptr;
-              {
-                bool lossless;
-                $buffers.stride = item.Get("stride").As<Napi::BigInt>().Uint64Value(&lossless);
-              }
-              if (item.Has("stepMode")) {
-                $buffers.stepMode = static_cast<DawnInputStepMode>(GPUInputStepMode(item.Get("stepMode").As<Napi::String>().Utf8Value()));
-              }
-              {
-                Napi::Array array = item.Get("attributes").As<Napi::Array>();
-                uint32_t length = array.Length();
-                auto data = new std::vector<DawnVertexAttributeDescriptor>;
-                for (unsigned int ii = 0; ii < length; ++ii) {
-                  Napi::Object item = array.Get(ii).As<Napi::Object>();
-                  DawnVertexAttributeDescriptor $attributes;
-                  $attributes.offset = 0;
-                    $attributes.shaderLocation = item.Get("shaderLocation").As<Napi::Number>().Uint32Value();
-                    if (item.Has("offset")) {
-                      {
-                        bool lossless;
-                        $attributes.offset = item.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
-                      }
-                    }
-                    $attributes.format = static_cast<DawnVertexFormat>(GPUVertexFormat(item.Get("format").As<Napi::String>().Utf8Value()));
-                  data->push_back($attributes);
-                };
-                $buffers.attributeCount = length;
-                $buffers.attributes = data->data();
-              }
+            DawnVertexBufferDescriptor $buffers = GPUVertexBufferDescriptor(device, item.As<Napi::Value>());
             data->push_back($buffers);
           };
           vertexInput.bufferCount = length;
@@ -1830,39 +1675,7 @@ namespace DescriptorDecoder {
       auto data = new std::vector<DawnColorStateDescriptor*>;
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnColorStateDescriptor $colorStates;
-        $colorStates.nextInChain = nullptr;
-        $colorStates.writeMask = static_cast<DawnColorWriteMask>(15);
-          $colorStates.format = static_cast<DawnTextureFormat>(GPUTextureFormat(item.Get("format").As<Napi::String>().Utf8Value()));
-            $colorStates.alphaBlend.operation = static_cast<DawnBlendOperation>(0);
-            $colorStates.alphaBlend.srcFactor = static_cast<DawnBlendFactor>(1);
-            $colorStates.alphaBlend.dstFactor = static_cast<DawnBlendFactor>(0);
-            Napi::Object $alphaBlend = item.Get("alphaBlend").As<Napi::Object>();
-            if ($alphaBlend.Has("operation")) {
-              $colorStates.alphaBlend.operation = static_cast<DawnBlendOperation>(GPUBlendOperation($alphaBlend.Get("operation").As<Napi::String>().Utf8Value()));
-            }
-            if ($alphaBlend.Has("srcFactor")) {
-              $colorStates.alphaBlend.srcFactor = static_cast<DawnBlendFactor>(GPUBlendFactor($alphaBlend.Get("srcFactor").As<Napi::String>().Utf8Value()));
-            }
-            if ($alphaBlend.Has("dstFactor")) {
-              $colorStates.alphaBlend.dstFactor = static_cast<DawnBlendFactor>(GPUBlendFactor($alphaBlend.Get("dstFactor").As<Napi::String>().Utf8Value()));
-            }
-            $colorStates.colorBlend.operation = static_cast<DawnBlendOperation>(0);
-            $colorStates.colorBlend.srcFactor = static_cast<DawnBlendFactor>(1);
-            $colorStates.colorBlend.dstFactor = static_cast<DawnBlendFactor>(0);
-            Napi::Object $colorBlend = item.Get("colorBlend").As<Napi::Object>();
-            if ($colorBlend.Has("operation")) {
-              $colorStates.colorBlend.operation = static_cast<DawnBlendOperation>(GPUBlendOperation($colorBlend.Get("operation").As<Napi::String>().Utf8Value()));
-            }
-            if ($colorBlend.Has("srcFactor")) {
-              $colorStates.colorBlend.srcFactor = static_cast<DawnBlendFactor>(GPUBlendFactor($colorBlend.Get("srcFactor").As<Napi::String>().Utf8Value()));
-            }
-            if ($colorBlend.Has("dstFactor")) {
-              $colorStates.colorBlend.dstFactor = static_cast<DawnBlendFactor>(GPUBlendFactor($colorBlend.Get("dstFactor").As<Napi::String>().Utf8Value()));
-            }
-          if (item.Has("writeMask")) {
-            $colorStates.writeMask = static_cast<DawnColorWriteMask>(item.Get("writeMask").As<Napi::Number>().Uint32Value());
-          }
+        DawnColorStateDescriptor $colorStates = GPUColorStateDescriptor(device, item.As<Napi::Value>());
         DawnColorStateDescriptor* $$colorStates = new DawnColorStateDescriptor;
         memcpy(
           reinterpret_cast<void*>($$colorStates),

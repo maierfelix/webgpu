@@ -56,7 +56,9 @@ Napi::Value GPUBuffer::mapReadAsync(const Napi::CallbackInfo &info) {
   dawnBufferMapReadAsync(
     this->instance,
     [](DawnBufferMapAsyncStatus status, const void* data, uint64_t dataLength, void* userdata) {
-      (*reinterpret_cast<BufferCallbackResult*>(userdata)) = { const_cast<void*>(data), dataLength };
+      BufferCallbackResult* result = reinterpret_cast<BufferCallbackResult*>(userdata);
+      result->addr = const_cast<void*>(data);
+      result->length = dataLength;
     },
     &callbackResult
   );
@@ -96,7 +98,9 @@ Napi::Value GPUBuffer::mapWriteAsync(const Napi::CallbackInfo &info) {
   dawnBufferMapWriteAsync(
     this->instance,
     [](DawnBufferMapAsyncStatus status, void* ptr, uint64_t dataLength, void* userdata) {
-      (*reinterpret_cast<BufferCallbackResult*>(userdata)) = { ptr, dataLength };
+      BufferCallbackResult* result = reinterpret_cast<BufferCallbackResult*>(userdata);
+      result->addr = ptr;
+      result->length = dataLength;
     },
     &callbackResult
   );

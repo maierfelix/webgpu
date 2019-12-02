@@ -5,7 +5,7 @@
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
     "dawn": "C:/Users/User/Documents/GitHub/dawn",
-    "vkSDK": "C:/VulkanSDK/1.1.114.0"
+    "vkSDK": "C:/VulkanSDK/1.1.126.0"
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],

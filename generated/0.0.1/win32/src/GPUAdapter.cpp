@@ -19,6 +19,12 @@ GPUAdapter::GPUAdapter(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUAda
     return;
   }
 
+  // we expect a string containing the process platform here
+  if (!info[1].IsString()) {
+    Napi::Error::New(env, "Invalid Function Signature").ThrowAsJavaScriptException();
+    return;
+  }
+
   this->nativeInstance = std::make_unique<dawn_native::Instance>();
 
   this->nativeInstance->DiscoverDefaultAdapters();
@@ -48,21 +54,65 @@ Napi::Value GPUAdapter::requestDevice(const Napi::CallbackInfo &info) {
 
 dawn_native::Adapter GPUAdapter::createAdapter(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  {
-    std::vector<dawn_native::Adapter> adapters = this->nativeInstance->GetAdapters();
+  std::vector<dawn_native::Adapter> adapters = this->nativeInstance->GetAdapters();
+  std::string platform = info[1].ToString().Utf8Value();
+  Napi::Object obj = info[0].As<Napi::Object>();
+  // try to use the preferred backend
+  if (obj.Has("preferredBackend")) {
+    // validate
+    if (!obj.Get("preferredBackend").IsString()) {
+      Napi::Error::New(env, "Expected 'String' for 'preferredBackend'").ThrowAsJavaScriptException();
+      return nullptr;
+    }
+    std::string preferredBackend = obj.Get("preferredBackend").ToString().Utf8Value();
     auto adapterIt = std::find_if(
       adapters.begin(),
       adapters.end(),
-      [](const dawn_native::Adapter adapter) -> bool {
-        return adapter.GetBackendType() == dawn_native::BackendType::Vulkan;
+      [&platform, &preferredBackend](const dawn_native::Adapter adapter) -> bool {
+        if (preferredBackend == "OpenGL" && (platform == "win32" || platform == "linux")) {
+          return adapter.GetBackendType() == dawn_native::BackendType::OpenGL;
+        }
+        if (preferredBackend == "D3D12" && (platform == "win32")) {
+          return adapter.GetBackendType() == dawn_native::BackendType::D3D12;
+        }
+        if (preferredBackend == "Metal" && (platform == "darwin")) {
+          return adapter.GetBackendType() == dawn_native::BackendType::Metal;
+        }
+        if (preferredBackend == "Vulkan" && (platform == "win32" || platform == "linux")) {
+          return adapter.GetBackendType() == dawn_native::BackendType::Vulkan;
+        }
+        return false;
       }
     );
-    if (adapterIt == adapters.end()) {
-      Napi::Error::New(env, "No compatible adapter found").ThrowAsJavaScriptException();
-      return nullptr;
-    }
-    return *adapterIt;
+    // we found a preferred adapter
+    if (adapterIt != adapters.end()) return *adapterIt;
+    // otherwise we try to auto-choose a backend
   }
+  // auto-choose backend
+  auto adapterIt = std::find_if(
+    adapters.begin(),
+    adapters.end(),
+    [&platform](const dawn_native::Adapter adapter) -> bool {
+      // on windows, prefer vulkan
+      if (platform == "win32") {
+        return adapter.GetBackendType() == dawn_native::BackendType::Vulkan;
+      }
+      // on linux, prefer vulkan
+      if (platform == "linux") {
+        return adapter.GetBackendType() == dawn_native::BackendType::Vulkan;
+      }
+      // on mac, prefer metal
+      if (platform == "darwin") {
+        return adapter.GetBackendType() == dawn_native::BackendType::Metal;
+      }
+      return false;
+    }
+  );
+  if (adapterIt == adapters.end()) {
+    Napi::Error::New(env, "No compatible adapter found").ThrowAsJavaScriptException();
+    return nullptr;
+  }
+  return *adapterIt;
 }
 
 Napi::Value GPUAdapter::GetName(const Napi::CallbackInfo& info) {

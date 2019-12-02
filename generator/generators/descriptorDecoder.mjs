@@ -137,12 +137,13 @@ ${padding}  ${type.nativeType}* $${member.name} = &${memberTypeStructure.externa
     // array of pointers to structs
     if (type.isArrayOfPointers) {
     out += `
-${padding}  data[ii] = (${type.nativeType}*) malloc(sizeof(${type.nativeType}));
+${padding}  ${type.nativeType}* ptr = (${type.nativeType}*) malloc(sizeof(${type.nativeType}));
 ${padding}  memcpy(
-${padding}    reinterpret_cast<void*>(data[ii]),
+${padding}    reinterpret_cast<void*>(ptr),
 ${padding}    reinterpret_cast<void*>($${member.name}),
 ${padding}    sizeof(${type.nativeType})
 ${padding}  );
+${padding}  data[ii] = ptr;
 ${padding}};
 ${padding}${output.name}.${type.length} = length;
 ${padding}${output.name}.${member.name} = data;`;
@@ -150,7 +151,11 @@ ${padding}${output.name}.${member.name} = data;`;
     // array of structs
     else {
     out += `
-${padding}  data[ii] = *$${member.name};
+${padding}  memcpy(
+${padding}    reinterpret_cast<void*>(&data[ii]),
+${padding}    reinterpret_cast<void*>($${member.name}),
+${padding}    sizeof(${type.nativeType})
+${padding}  );
 ${padding}};
 ${padding}${output.name}.${type.length} = length;
 ${padding}${output.name}.${member.name} = data;`;

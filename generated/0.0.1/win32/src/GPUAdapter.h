@@ -23,6 +23,7 @@ class GPUAdapter : public Napi::ObjectWrap<GPUAdapter> {
 
     Napi::ObjectReference window;
 
+    std::string platform;
     std::unique_ptr<dawn_native::Instance> nativeInstance;
     dawn_native::Adapter instance;
 

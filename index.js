@@ -16,6 +16,9 @@ const generatedPath = bindingsPath + `${dawnVersion}/${platform}`;
 
 module.exports = require(`${generatedPath}/build/Release/addon-${platform}.node`);
 
+// let the module know which platform we're running on
+module.exports.GPU.$setPlatform(process.platform);
+
 // the creates an auto tick loop for each device
 {
   let devices = [];

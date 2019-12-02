@@ -79,11 +79,15 @@ const fsSrc = `
     format: swapChainFormat
   });
 
+  console.log(0);
+
   const stagedVertexBuffer = device.createBuffer({
     size: BigInt(triangleVertices.byteLength),
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
   });
   stagedVertexBuffer.setSubData(0n, triangleVertices);
+
+  console.log(1);
 
   const stagedIndexBuffer = device.createBuffer({
     size: BigInt(triangleIndices.byteLength),
@@ -91,11 +95,15 @@ const fsSrc = `
   });
   stagedIndexBuffer.setSubData(0n, triangleIndices);
 
+  console.log(2);
+
   const stagedUniformBuffer = device.createBuffer({
     size: BigInt(mModelViewProjection.byteLength),
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
   });
   stagedUniformBuffer.setSubData(0n, mModelViewProjection);
+
+  console.log(3);
 
   const uniformBindGroupLayout = device.createBindGroupLayout({
     bindings: [{
@@ -105,12 +113,18 @@ const fsSrc = `
     }]
   });
 
+  console.log(4);
+
   const layout = device.createPipelineLayout({
     bindGroupLayouts: [ uniformBindGroupLayout ]
   });
 
+  console.log(5);
+
   const vertexShaderModule = device.createShaderModule({ code: vsSrc });
   const fragmentShaderModule = device.createShaderModule({ code: fsSrc });
+
+  console.log(6);
 
   const pipeline = device.createRenderPipeline({
     layout,
@@ -156,6 +170,8 @@ const fsSrc = `
     }]
   });
 
+  console.log(7);
+
   const uniformBindGroup = device.createBindGroup({
     layout: uniformBindGroupLayout,
     bindings: [{
@@ -165,6 +181,8 @@ const fsSrc = `
       size: BigInt(mModelViewProjection.byteLength)
     }]
   });
+
+  console.log(8);
 
   let isMouseButtonPressed = false;
   window.onmouseup = e => {

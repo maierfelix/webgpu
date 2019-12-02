@@ -938,7 +938,11 @@ namespace DescriptorDecoder {
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnBindGroupBinding* $bindings = &GPUBindGroupBinding(device, item.As<Napi::Value>());
-        data[ii] = *$bindings;
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>($bindings),
+          sizeof(DawnBindGroupBinding)
+        );
       };
       descriptor.bindingCount = length;
       descriptor.bindings = data;
@@ -989,7 +993,11 @@ namespace DescriptorDecoder {
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnBindGroupLayoutBinding* $bindings = &GPUBindGroupLayoutBinding(device, item.As<Napi::Value>());
-        data[ii] = *$bindings;
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>($bindings),
+          sizeof(DawnBindGroupLayoutBinding)
+        );
       };
       descriptor.bindingCount = length;
       descriptor.bindings = data;
@@ -1326,7 +1334,11 @@ namespace DescriptorDecoder {
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnVertexAttributeDescriptor* $attributes = &GPUVertexAttributeDescriptor(device, item.As<Napi::Value>());
-        data[ii] = *$attributes;
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>($attributes),
+          sizeof(DawnVertexAttributeDescriptor)
+        );
       };
       descriptor.attributeCount = length;
       descriptor.attributes = data;
@@ -1354,7 +1366,11 @@ namespace DescriptorDecoder {
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnVertexBufferDescriptor* $buffers = &GPUVertexBufferDescriptor(device, item.As<Napi::Value>());
-        data[ii] = *$buffers;
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>($buffers),
+          sizeof(DawnVertexBufferDescriptor)
+        );
       };
       descriptor.bufferCount = length;
       descriptor.buffers = data;
@@ -1574,12 +1590,13 @@ namespace DescriptorDecoder {
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnRenderPassColorAttachmentDescriptor* $colorAttachments = &GPURenderPassColorAttachmentDescriptor(device, item.As<Napi::Value>());
-        data[ii] = (DawnRenderPassColorAttachmentDescriptor*) malloc(sizeof(DawnRenderPassColorAttachmentDescriptor));
+        DawnRenderPassColorAttachmentDescriptor* ptr = (DawnRenderPassColorAttachmentDescriptor*) malloc(sizeof(DawnRenderPassColorAttachmentDescriptor));
         memcpy(
-          reinterpret_cast<void*>(data[ii]),
+          reinterpret_cast<void*>(ptr),
           reinterpret_cast<void*>($colorAttachments),
           sizeof(DawnRenderPassColorAttachmentDescriptor)
         );
+        data[ii] = ptr;
       };
       descriptor.colorAttachmentCount = length;
       descriptor.colorAttachments = data;
@@ -1687,7 +1704,11 @@ namespace DescriptorDecoder {
           for (unsigned int ii = 0; ii < length; ++ii) {
             Napi::Object item = array.Get(ii).As<Napi::Object>();
             DawnVertexBufferDescriptor* $buffers = &GPUVertexBufferDescriptor(device, item.As<Napi::Value>());
-            data[ii] = *$buffers;
+            memcpy(
+              reinterpret_cast<void*>(&data[ii]),
+              reinterpret_cast<void*>($buffers),
+              sizeof(DawnVertexBufferDescriptor)
+            );
           };
           vertexInput.bufferCount = length;
           vertexInput.buffers = data;
@@ -1797,12 +1818,13 @@ namespace DescriptorDecoder {
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
         DawnColorStateDescriptor* $colorStates = &GPUColorStateDescriptor(device, item.As<Napi::Value>());
-        data[ii] = (DawnColorStateDescriptor*) malloc(sizeof(DawnColorStateDescriptor));
+        DawnColorStateDescriptor* ptr = (DawnColorStateDescriptor*) malloc(sizeof(DawnColorStateDescriptor));
         memcpy(
-          reinterpret_cast<void*>(data[ii]),
+          reinterpret_cast<void*>(ptr),
           reinterpret_cast<void*>($colorStates),
           sizeof(DawnColorStateDescriptor)
         );
+        data[ii] = ptr;
       };
       descriptor.colorStateCount = length;
       descriptor.colorStates = data;

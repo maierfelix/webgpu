@@ -91,12 +91,12 @@ www
 
 package-lock.json
 
-generated/*/*/build/Release/obj
-generated/*/*/build/Release/*.iobj
-generated/*/*/build/Release/*.ipdb
-generated/*/*/build/Release/*.pdb
-generated/*/*/build/Release/*.map
-generated/*/*/build/Release/obj.target
+generated/0.0.1/win32/build/Release/obj
+generated/0.0.1/win32/build/Release/*.iobj
+generated/0.0.1/win32/build/Release/*.ipdb
+generated/0.0.1/win32/build/Release/*.pdb
+generated/0.0.1/win32/build/Release/*.map
+generated/0.0.1/win32/build/Release/obj.target
 
 PATH_TO_DAWN
 

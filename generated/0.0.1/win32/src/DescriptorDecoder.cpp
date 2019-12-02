@@ -866,7 +866,8 @@ namespace DescriptorDecoder {
   
 
   
-  GPUBindGroupBinding::GPUBindGroupBinding(GPUDevice* device, Napi::Value& value) {
+  DawnBindGroupBinding DecodeGPUBindGroupBinding(GPUDevice* device, Napi::Value& value) {
+    DawnBindGroupBinding descriptor;
     // reset descriptor
   descriptor.buffer = nullptr;
   descriptor.offset = 0;
@@ -880,7 +881,7 @@ namespace DescriptorDecoder {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPUBindGroupBinding'.'buffer'");
         device->throwCallbackError(type, message);
-        return;
+        return descriptor;
       }
       descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
     }
@@ -899,7 +900,7 @@ namespace DescriptorDecoder {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUSampler' for 'GPUBindGroupBinding'.'sampler'");
         device->throwCallbackError(type, message);
-        return;
+        return descriptor;
       }
       descriptor.sampler = Napi::ObjectWrap<GPUSampler>::Unwrap(obj.Get("sampler").As<Napi::Object>())->instance;
     }
@@ -908,7 +909,1149 @@ namespace DescriptorDecoder {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPUBindGroupBinding'.'textureView'");
         device->throwCallbackError(type, message);
-        return;
+        return descriptor;
+      }
+      descriptor.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("textureView").As<Napi::Object>())->instance;
+    }
+    return descriptor;
+  };
+  
+  DawnBindGroupDescriptor DecodeGPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnBindGroupDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.layout = nullptr;
+  descriptor.bindings = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUBindGroupLayout::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBindGroupLayout' for 'GPUBindGroupDescriptor'.'layout'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.layout = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(obj.Get("layout").As<Napi::Object>())->instance;
+    {
+      Napi::Array array = obj.Get("bindings").As<Napi::Array>();
+      uint32_t length = array.Length();
+      DawnBindGroupBinding* data = (DawnBindGroupBinding*) malloc(length * sizeof(DawnBindGroupBinding));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnBindGroupBinding $bindings = DecodeGPUBindGroupBinding(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$bindings),
+          sizeof(DawnBindGroupBinding)
+        );
+      };
+      descriptor.bindingCount = length;
+      descriptor.bindings = data;
+    }
+    return descriptor;
+  };
+  
+  DawnBindGroupLayoutBinding DecodeGPUBindGroupLayoutBinding(GPUDevice* device, Napi::Value& value) {
+    DawnBindGroupLayoutBinding descriptor;
+    // reset descriptor
+  descriptor.dynamic = false;
+  descriptor.multisampled = false;
+  descriptor.textureDimension = static_cast<DawnTextureViewDimension>(2);
+  descriptor.textureComponentType = static_cast<DawnTextureComponentType>(0);
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.binding = obj.Get("binding").As<Napi::Number>().Uint32Value();
+    descriptor.visibility = static_cast<DawnShaderStage>(obj.Get("visibility").As<Napi::Number>().Uint32Value());
+    descriptor.type = static_cast<DawnBindingType>(GPUBindingType(obj.Get("type").As<Napi::String>().Utf8Value()));
+    if (obj.Has("dynamic")) {
+      descriptor.dynamic = obj.Get("dynamic").As<Napi::Boolean>().Value();
+    }
+    if (obj.Has("multisampled")) {
+      descriptor.multisampled = obj.Get("multisampled").As<Napi::Boolean>().Value();
+    }
+    if (obj.Has("textureDimension")) {
+      descriptor.textureDimension = static_cast<DawnTextureViewDimension>(GPUTextureViewDimension(obj.Get("textureDimension").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("textureComponentType")) {
+      descriptor.textureComponentType = static_cast<DawnTextureComponentType>(GPUTextureComponentType(obj.Get("textureComponentType").As<Napi::String>().Utf8Value()));
+    }
+    return descriptor;
+  };
+  
+  DawnBindGroupLayoutDescriptor DecodeGPUBindGroupLayoutDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnBindGroupLayoutDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.bindings = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {
+      Napi::Array array = obj.Get("bindings").As<Napi::Array>();
+      uint32_t length = array.Length();
+      DawnBindGroupLayoutBinding* data = (DawnBindGroupLayoutBinding*) malloc(length * sizeof(DawnBindGroupLayoutBinding));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnBindGroupLayoutBinding $bindings = DecodeGPUBindGroupLayoutBinding(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$bindings),
+          sizeof(DawnBindGroupLayoutBinding)
+        );
+      };
+      descriptor.bindingCount = length;
+      descriptor.bindings = data;
+    }
+    return descriptor;
+  };
+  
+  DawnBlendDescriptor DecodeGPUBlendDescriptor(GPUDevice* device, Napi::Value& value) {
+    DawnBlendDescriptor descriptor;
+    // reset descriptor
+  descriptor.operation = static_cast<DawnBlendOperation>(0);
+  descriptor.srcFactor = static_cast<DawnBlendFactor>(1);
+  descriptor.dstFactor = static_cast<DawnBlendFactor>(0);
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("operation")) {
+      descriptor.operation = static_cast<DawnBlendOperation>(GPUBlendOperation(obj.Get("operation").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("srcFactor")) {
+      descriptor.srcFactor = static_cast<DawnBlendFactor>(GPUBlendFactor(obj.Get("srcFactor").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("dstFactor")) {
+      descriptor.dstFactor = static_cast<DawnBlendFactor>(GPUBlendFactor(obj.Get("dstFactor").As<Napi::String>().Utf8Value()));
+    }
+    return descriptor;
+  };
+  
+  DawnColorStateDescriptor DecodeGPUColorStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnColorStateDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.writeMask = static_cast<DawnColorWriteMask>(15);
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.format = static_cast<DawnTextureFormat>(GPUTextureFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+      descriptor.alphaBlend.operation = static_cast<DawnBlendOperation>(0);
+      descriptor.alphaBlend.srcFactor = static_cast<DawnBlendFactor>(1);
+      descriptor.alphaBlend.dstFactor = static_cast<DawnBlendFactor>(0);
+      Napi::Object $alphaBlend = obj.Get("alphaBlend").As<Napi::Object>();
+      if ($alphaBlend.Has("operation")) {
+        descriptor.alphaBlend.operation = static_cast<DawnBlendOperation>(GPUBlendOperation($alphaBlend.Get("operation").As<Napi::String>().Utf8Value()));
+      }
+      if ($alphaBlend.Has("srcFactor")) {
+        descriptor.alphaBlend.srcFactor = static_cast<DawnBlendFactor>(GPUBlendFactor($alphaBlend.Get("srcFactor").As<Napi::String>().Utf8Value()));
+      }
+      if ($alphaBlend.Has("dstFactor")) {
+        descriptor.alphaBlend.dstFactor = static_cast<DawnBlendFactor>(GPUBlendFactor($alphaBlend.Get("dstFactor").As<Napi::String>().Utf8Value()));
+      }
+      descriptor.colorBlend.operation = static_cast<DawnBlendOperation>(0);
+      descriptor.colorBlend.srcFactor = static_cast<DawnBlendFactor>(1);
+      descriptor.colorBlend.dstFactor = static_cast<DawnBlendFactor>(0);
+      Napi::Object $colorBlend = obj.Get("colorBlend").As<Napi::Object>();
+      if ($colorBlend.Has("operation")) {
+        descriptor.colorBlend.operation = static_cast<DawnBlendOperation>(GPUBlendOperation($colorBlend.Get("operation").As<Napi::String>().Utf8Value()));
+      }
+      if ($colorBlend.Has("srcFactor")) {
+        descriptor.colorBlend.srcFactor = static_cast<DawnBlendFactor>(GPUBlendFactor($colorBlend.Get("srcFactor").As<Napi::String>().Utf8Value()));
+      }
+      if ($colorBlend.Has("dstFactor")) {
+        descriptor.colorBlend.dstFactor = static_cast<DawnBlendFactor>(GPUBlendFactor($colorBlend.Get("dstFactor").As<Napi::String>().Utf8Value()));
+      }
+    if (obj.Has("writeMask")) {
+      descriptor.writeMask = static_cast<DawnColorWriteMask>(obj.Get("writeMask").As<Napi::Number>().Uint32Value());
+    }
+    return descriptor;
+  };
+  
+  DawnBufferCopyView DecodeGPUBufferCopyView(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnBufferCopyView descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.buffer = nullptr;
+  descriptor.offset = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPUBufferCopyView'.'buffer'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
+    if (obj.Has("offset")) {
+      {
+        bool lossless;
+        descriptor.offset = obj.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+      }
+    }
+    descriptor.rowPitch = obj.Get("rowPitch").As<Napi::Number>().Uint32Value();
+    descriptor.imageHeight = obj.Get("imageHeight").As<Napi::Number>().Uint32Value();
+    return descriptor;
+  };
+  
+  DawnBufferDescriptor DecodeGPUBufferDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnBufferDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.usage = static_cast<DawnBufferUsage>(obj.Get("usage").As<Napi::Number>().Uint32Value());
+    {
+      bool lossless;
+      descriptor.size = obj.Get("size").As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    return descriptor;
+  };
+  
+  DawnCreateBufferMappedResult DecodeGPUCreateBufferMappedResult(GPUDevice* device, Napi::Value& value) {
+    DawnCreateBufferMappedResult descriptor;
+    // reset descriptor
+  descriptor.buffer = nullptr;
+  descriptor.data = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPUCreateBufferMappedResult'.'buffer'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
+    {
+    }
+    return descriptor;
+  };
+  
+  DawnColor DecodeGPUColor(GPUDevice* device, Napi::Value& value) {
+    DawnColor descriptor;
+    // reset descriptor
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.r = obj.Get("r").As<Napi::Number>().FloatValue();
+    descriptor.g = obj.Get("g").As<Napi::Number>().FloatValue();
+    descriptor.b = obj.Get("b").As<Napi::Number>().FloatValue();
+    descriptor.a = obj.Get("a").As<Napi::Number>().FloatValue();
+    return descriptor;
+  };
+  
+  DawnCommandBufferDescriptor DecodeGPUCommandBufferDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnCommandBufferDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    return descriptor;
+  };
+  
+  DawnCommandEncoderDescriptor DecodeGPUCommandEncoderDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnCommandEncoderDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    return descriptor;
+  };
+  
+  DawnComputePassDescriptor DecodeGPUComputePassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnComputePassDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    return descriptor;
+  };
+  
+  DawnComputePipelineDescriptor DecodeGPUComputePipelineDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnComputePipelineDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.layout = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUPipelineLayout' for 'GPUComputePipelineDescriptor'.'layout'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.layout = Napi::ObjectWrap<GPUPipelineLayout>::Unwrap(obj.Get("layout").As<Napi::Object>())->instance;
+      descriptor.computeStage.nextInChain = nullptr;
+      descriptor.computeStage.module = nullptr;
+      descriptor.computeStage.entryPoint = nullptr;
+      Napi::Object $computeStage = obj.Get("computeStage").As<Napi::Object>();
+      if (!($computeStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUShaderModule' for 'GPUPipelineStageDescriptor'.'module'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.computeStage.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap($computeStage.Get("module").As<Napi::Object>())->instance;
+      {
+        descriptor.computeStage.entryPoint = getNAPIStringCopy($computeStage.Get("entryPoint"));
+      }
+    return descriptor;
+  };
+  
+  DawnDepthStencilStateDescriptor DecodeGPUDepthStencilStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnDepthStencilStateDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.depthWriteEnabled = false;
+  descriptor.depthCompare = static_cast<DawnCompareFunction>(7);
+  descriptor.stencilReadMask = 0xFFFFFFFF;
+  descriptor.stencilWriteMask = 0xFFFFFFFF;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.format = static_cast<DawnTextureFormat>(GPUTextureFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+    if (obj.Has("depthWriteEnabled")) {
+      descriptor.depthWriteEnabled = obj.Get("depthWriteEnabled").As<Napi::Boolean>().Value();
+    }
+    if (obj.Has("depthCompare")) {
+      descriptor.depthCompare = static_cast<DawnCompareFunction>(GPUCompareFunction(obj.Get("depthCompare").As<Napi::String>().Utf8Value()));
+    }
+      descriptor.stencilFront.compare = static_cast<DawnCompareFunction>(7);
+      descriptor.stencilFront.failOp = static_cast<DawnStencilOperation>(0);
+      descriptor.stencilFront.depthFailOp = static_cast<DawnStencilOperation>(0);
+      descriptor.stencilFront.passOp = static_cast<DawnStencilOperation>(0);
+      Napi::Object $stencilFront = obj.Get("stencilFront").As<Napi::Object>();
+      if ($stencilFront.Has("compare")) {
+        descriptor.stencilFront.compare = static_cast<DawnCompareFunction>(GPUCompareFunction($stencilFront.Get("compare").As<Napi::String>().Utf8Value()));
+      }
+      if ($stencilFront.Has("failOp")) {
+        descriptor.stencilFront.failOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilFront.Get("failOp").As<Napi::String>().Utf8Value()));
+      }
+      if ($stencilFront.Has("depthFailOp")) {
+        descriptor.stencilFront.depthFailOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilFront.Get("depthFailOp").As<Napi::String>().Utf8Value()));
+      }
+      if ($stencilFront.Has("passOp")) {
+        descriptor.stencilFront.passOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilFront.Get("passOp").As<Napi::String>().Utf8Value()));
+      }
+      descriptor.stencilBack.compare = static_cast<DawnCompareFunction>(7);
+      descriptor.stencilBack.failOp = static_cast<DawnStencilOperation>(0);
+      descriptor.stencilBack.depthFailOp = static_cast<DawnStencilOperation>(0);
+      descriptor.stencilBack.passOp = static_cast<DawnStencilOperation>(0);
+      Napi::Object $stencilBack = obj.Get("stencilBack").As<Napi::Object>();
+      if ($stencilBack.Has("compare")) {
+        descriptor.stencilBack.compare = static_cast<DawnCompareFunction>(GPUCompareFunction($stencilBack.Get("compare").As<Napi::String>().Utf8Value()));
+      }
+      if ($stencilBack.Has("failOp")) {
+        descriptor.stencilBack.failOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilBack.Get("failOp").As<Napi::String>().Utf8Value()));
+      }
+      if ($stencilBack.Has("depthFailOp")) {
+        descriptor.stencilBack.depthFailOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilBack.Get("depthFailOp").As<Napi::String>().Utf8Value()));
+      }
+      if ($stencilBack.Has("passOp")) {
+        descriptor.stencilBack.passOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilBack.Get("passOp").As<Napi::String>().Utf8Value()));
+      }
+    if (obj.Has("stencilReadMask")) {
+      descriptor.stencilReadMask = obj.Get("stencilReadMask").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("stencilWriteMask")) {
+      descriptor.stencilWriteMask = obj.Get("stencilWriteMask").As<Napi::Number>().Uint32Value();
+    }
+    return descriptor;
+  };
+  
+  DawnExtent3D DecodeGPUExtent3D(GPUDevice* device, Napi::Value& value) {
+    DawnExtent3D descriptor;
+    // reset descriptor
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.width = obj.Get("width").As<Napi::Number>().Uint32Value();
+    descriptor.height = obj.Get("height").As<Napi::Number>().Uint32Value();
+    descriptor.depth = obj.Get("depth").As<Napi::Number>().Uint32Value();
+    return descriptor;
+  };
+  
+  DawnFenceDescriptor DecodeGPUFenceDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnFenceDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.initialValue = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("initialValue")) {
+      {
+        bool lossless;
+        descriptor.initialValue = obj.Get("initialValue").As<Napi::BigInt>().Uint64Value(&lossless);
+      }
+    }
+    return descriptor;
+  };
+  
+  DawnVertexAttributeDescriptor DecodeGPUVertexAttributeDescriptor(GPUDevice* device, Napi::Value& value) {
+    DawnVertexAttributeDescriptor descriptor;
+    // reset descriptor
+  descriptor.offset = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.shaderLocation = obj.Get("shaderLocation").As<Napi::Number>().Uint32Value();
+    if (obj.Has("offset")) {
+      {
+        bool lossless;
+        descriptor.offset = obj.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+      }
+    }
+    descriptor.format = static_cast<DawnVertexFormat>(GPUVertexFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+    return descriptor;
+  };
+  
+  DawnVertexBufferDescriptor DecodeGPUVertexBufferDescriptor(GPUDevice* device, Napi::Value& value) {
+    DawnVertexBufferDescriptor descriptor;
+    // reset descriptor
+  descriptor.stepMode = static_cast<DawnInputStepMode>(0);
+  descriptor.attributes = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {
+      bool lossless;
+      descriptor.stride = obj.Get("stride").As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    if (obj.Has("stepMode")) {
+      descriptor.stepMode = static_cast<DawnInputStepMode>(GPUInputStepMode(obj.Get("stepMode").As<Napi::String>().Utf8Value()));
+    }
+    {
+      Napi::Array array = obj.Get("attributes").As<Napi::Array>();
+      uint32_t length = array.Length();
+      DawnVertexAttributeDescriptor* data = (DawnVertexAttributeDescriptor*) malloc(length * sizeof(DawnVertexAttributeDescriptor));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnVertexAttributeDescriptor $attributes = DecodeGPUVertexAttributeDescriptor(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$attributes),
+          sizeof(DawnVertexAttributeDescriptor)
+        );
+      };
+      descriptor.attributeCount = length;
+      descriptor.attributes = data;
+    }
+    return descriptor;
+  };
+  
+  DawnVertexInputDescriptor DecodeGPUVertexInputDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnVertexInputDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.indexFormat = static_cast<DawnIndexFormat>(1);
+  descriptor.bufferCount = 0;
+  descriptor.buffers = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("indexFormat")) {
+      descriptor.indexFormat = static_cast<DawnIndexFormat>(GPUIndexFormat(obj.Get("indexFormat").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("buffers")) {
+      Napi::Array array = obj.Get("buffers").As<Napi::Array>();
+      uint32_t length = array.Length();
+      DawnVertexBufferDescriptor* data = (DawnVertexBufferDescriptor*) malloc(length * sizeof(DawnVertexBufferDescriptor));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnVertexBufferDescriptor $buffers = DecodeGPUVertexBufferDescriptor(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$buffers),
+          sizeof(DawnVertexBufferDescriptor)
+        );
+      };
+      descriptor.bufferCount = length;
+      descriptor.buffers = data;
+    }
+    return descriptor;
+  };
+  
+  DawnOrigin3D DecodeGPUOrigin3D(GPUDevice* device, Napi::Value& value) {
+    DawnOrigin3D descriptor;
+    // reset descriptor
+  descriptor.x = 0;
+  descriptor.y = 0;
+  descriptor.z = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("x")) {
+      descriptor.x = obj.Get("x").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("y")) {
+      descriptor.y = obj.Get("y").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("z")) {
+      descriptor.z = obj.Get("z").As<Napi::Number>().Uint32Value();
+    }
+    return descriptor;
+  };
+  
+  DawnPipelineLayoutDescriptor DecodeGPUPipelineLayoutDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnPipelineLayoutDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.bindGroupLayouts = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {
+      Napi::Array array = obj.Get("bindGroupLayouts").As<Napi::Array>();
+      uint32_t length = array.Length();
+      DawnBindGroupLayout* data = (DawnBindGroupLayout*) malloc(length * sizeof(DawnBindGroupLayout));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnBindGroupLayout value = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(item)->instance;
+        data[ii] = value;
+      };
+      descriptor.bindGroupLayoutCount = length;
+      descriptor.bindGroupLayouts = data;
+    }
+    return descriptor;
+  };
+  
+  DawnPipelineStageDescriptor DecodeGPUPipelineStageDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnPipelineStageDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.module = nullptr;
+  descriptor.entryPoint = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUShaderModule' for 'GPUPipelineStageDescriptor'.'module'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap(obj.Get("module").As<Napi::Object>())->instance;
+    {
+      descriptor.entryPoint = getNAPIStringCopy(obj.Get("entryPoint"));
+    }
+    return descriptor;
+  };
+  
+  DawnRasterizationStateDescriptor DecodeGPURasterizationStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnRasterizationStateDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.frontFace = static_cast<DawnFrontFace>(0);
+  descriptor.cullMode = static_cast<DawnCullMode>(0);
+  descriptor.depthBias = 0;
+  descriptor.depthBiasSlopeScale = 0.0f;
+  descriptor.depthBiasClamp = 0.0f;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("frontFace")) {
+      descriptor.frontFace = static_cast<DawnFrontFace>(GPUFrontFace(obj.Get("frontFace").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("cullMode")) {
+      descriptor.cullMode = static_cast<DawnCullMode>(GPUCullMode(obj.Get("cullMode").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("depthBias")) {
+      descriptor.depthBias = obj.Get("depthBias").As<Napi::Number>().Int32Value();
+    }
+    if (obj.Has("depthBiasSlopeScale")) {
+      descriptor.depthBiasSlopeScale = obj.Get("depthBiasSlopeScale").As<Napi::Number>().FloatValue();
+    }
+    if (obj.Has("depthBiasClamp")) {
+      descriptor.depthBiasClamp = obj.Get("depthBiasClamp").As<Napi::Number>().FloatValue();
+    }
+    return descriptor;
+  };
+  
+  DawnRenderBundleDescriptor DecodeGPURenderBundleDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnRenderBundleDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    return descriptor;
+  };
+  
+  DawnRenderBundleEncoderDescriptor DecodeGPURenderBundleEncoderDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnRenderBundleEncoderDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.colorFormats = nullptr;
+  descriptor.sampleCount = 1;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {
+      Napi::Array array = obj.Get("colorFormats").As<Napi::Array>();
+      uint32_t length = array.Length();
+      DawnTextureFormat* data = (DawnTextureFormat*) malloc(length * sizeof(DawnTextureFormat));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnTextureFormat value = static_cast<DawnTextureFormat>(
+          GPUTextureFormat(item.As<Napi::String>().Utf8Value())
+        );
+        data[ii] = value;
+      };
+      descriptor.colorFormats = data;
+    }
+    if (obj.Has("depthStencilFormat")) {
+      descriptor.depthStencilFormat = static_cast<DawnTextureFormat>(GPUTextureFormat(obj.Get("depthStencilFormat").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("sampleCount")) {
+      descriptor.sampleCount = obj.Get("sampleCount").As<Napi::Number>().Uint32Value();
+    }
+    return descriptor;
+  };
+  
+  DawnRenderPassColorAttachmentDescriptor DecodeGPURenderPassColorAttachmentDescriptor(GPUDevice* device, Napi::Value& value) {
+    DawnRenderPassColorAttachmentDescriptor descriptor;
+    // reset descriptor
+  descriptor.attachment = nullptr;
+  descriptor.resolveTarget = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'attachment'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.attachment = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("attachment").As<Napi::Object>())->instance;
+    if (obj.Has("resolveTarget")) {
+      if (!(obj.Get("resolveTarget").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'resolveTarget'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.resolveTarget = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("resolveTarget").As<Napi::Object>())->instance;
+    }
+    descriptor.loadOp = static_cast<DawnLoadOp>(GPULoadOp(obj.Get("loadOp").As<Napi::String>().Utf8Value()));
+    descriptor.storeOp = static_cast<DawnStoreOp>(GPUStoreOp(obj.Get("storeOp").As<Napi::String>().Utf8Value()));
+      Napi::Object $clearColor = obj.Get("clearColor").As<Napi::Object>();
+      descriptor.clearColor.r = $clearColor.Get("r").As<Napi::Number>().FloatValue();
+      descriptor.clearColor.g = $clearColor.Get("g").As<Napi::Number>().FloatValue();
+      descriptor.clearColor.b = $clearColor.Get("b").As<Napi::Number>().FloatValue();
+      descriptor.clearColor.a = $clearColor.Get("a").As<Napi::Number>().FloatValue();
+    return descriptor;
+  };
+  
+  DawnRenderPassDepthStencilAttachmentDescriptor DecodeGPURenderPassDepthStencilAttachmentDescriptor(GPUDevice* device, Napi::Value& value) {
+    DawnRenderPassDepthStencilAttachmentDescriptor descriptor;
+    // reset descriptor
+  descriptor.attachment = nullptr;
+  descriptor.clearStencil = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPURenderPassDepthStencilAttachmentDescriptor'.'attachment'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.attachment = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("attachment").As<Napi::Object>())->instance;
+    descriptor.depthLoadOp = static_cast<DawnLoadOp>(GPULoadOp(obj.Get("depthLoadOp").As<Napi::String>().Utf8Value()));
+    descriptor.depthStoreOp = static_cast<DawnStoreOp>(GPUStoreOp(obj.Get("depthStoreOp").As<Napi::String>().Utf8Value()));
+    descriptor.clearDepth = obj.Get("clearDepth").As<Napi::Number>().FloatValue();
+    descriptor.stencilLoadOp = static_cast<DawnLoadOp>(GPULoadOp(obj.Get("stencilLoadOp").As<Napi::String>().Utf8Value()));
+    descriptor.stencilStoreOp = static_cast<DawnStoreOp>(GPUStoreOp(obj.Get("stencilStoreOp").As<Napi::String>().Utf8Value()));
+    if (obj.Has("clearStencil")) {
+      descriptor.clearStencil = obj.Get("clearStencil").As<Napi::Number>().Uint32Value();
+    }
+    return descriptor;
+  };
+  
+  DawnRenderPassDescriptor DecodeGPURenderPassDescriptor(GPUDevice* device, Napi::Value& value) {
+    DawnRenderPassDescriptor descriptor;
+    // reset descriptor
+  descriptor.colorAttachments = nullptr;
+  descriptor.depthStencilAttachment = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {
+      Napi::Array array = obj.Get("colorAttachments").As<Napi::Array>();
+      uint32_t length = array.Length();
+      DawnRenderPassColorAttachmentDescriptor** data = (DawnRenderPassColorAttachmentDescriptor**) malloc(sizeof(DawnRenderPassColorAttachmentDescriptor*));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnRenderPassColorAttachmentDescriptor $colorAttachments = DecodeGPURenderPassColorAttachmentDescriptor(device, item.As<Napi::Value>());
+        data[ii] = (DawnRenderPassColorAttachmentDescriptor*) malloc(sizeof(DawnRenderPassColorAttachmentDescriptor));
+        memcpy(
+          reinterpret_cast<void*>(data[ii]),
+          reinterpret_cast<void*>(&$colorAttachments),
+          sizeof(DawnRenderPassColorAttachmentDescriptor)
+        );
+      };
+      descriptor.colorAttachmentCount = length;
+      descriptor.colorAttachments = data;
+    }
+    if (obj.Has("depthStencilAttachment")) {
+        DawnRenderPassDepthStencilAttachmentDescriptor depthStencilAttachment;
+        depthStencilAttachment.attachment = nullptr;
+        depthStencilAttachment.clearStencil = 0;
+        Napi::Object $depthStencilAttachment = obj.Get("depthStencilAttachment").As<Napi::Object>();
+        if (!($depthStencilAttachment.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPURenderPassDepthStencilAttachmentDescriptor'.'attachment'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        depthStencilAttachment.attachment = Napi::ObjectWrap<GPUTextureView>::Unwrap($depthStencilAttachment.Get("attachment").As<Napi::Object>())->instance;
+        depthStencilAttachment.depthLoadOp = static_cast<DawnLoadOp>(GPULoadOp($depthStencilAttachment.Get("depthLoadOp").As<Napi::String>().Utf8Value()));
+        depthStencilAttachment.depthStoreOp = static_cast<DawnStoreOp>(GPUStoreOp($depthStencilAttachment.Get("depthStoreOp").As<Napi::String>().Utf8Value()));
+        depthStencilAttachment.clearDepth = $depthStencilAttachment.Get("clearDepth").As<Napi::Number>().FloatValue();
+        depthStencilAttachment.stencilLoadOp = static_cast<DawnLoadOp>(GPULoadOp($depthStencilAttachment.Get("stencilLoadOp").As<Napi::String>().Utf8Value()));
+        depthStencilAttachment.stencilStoreOp = static_cast<DawnStoreOp>(GPUStoreOp($depthStencilAttachment.Get("stencilStoreOp").As<Napi::String>().Utf8Value()));
+        if ($depthStencilAttachment.Has("clearStencil")) {
+          depthStencilAttachment.clearStencil = $depthStencilAttachment.Get("clearStencil").As<Napi::Number>().Uint32Value();
+        }
+      {
+        descriptor.depthStencilAttachment = (DawnRenderPassDepthStencilAttachmentDescriptor*) malloc(sizeof(DawnRenderPassDepthStencilAttachmentDescriptor));
+        memcpy(const_cast<DawnRenderPassDepthStencilAttachmentDescriptor*>(descriptor.depthStencilAttachment), &depthStencilAttachment, sizeof(DawnRenderPassDepthStencilAttachmentDescriptor));
+      }
+    }
+    return descriptor;
+  };
+  
+  DawnRenderPipelineDescriptor DecodeGPURenderPipelineDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnRenderPipelineDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.layout = nullptr;
+  descriptor.fragmentStage = nullptr;
+  descriptor.vertexInput = nullptr;
+  descriptor.rasterizationState = nullptr;
+  descriptor.sampleCount = 1;
+  descriptor.depthStencilState = nullptr;
+  descriptor.colorStates = nullptr;
+  descriptor.sampleMask = 0xFFFFFFFF;
+  descriptor.alphaToCoverageEnabled = false;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUPipelineLayout' for 'GPURenderPipelineDescriptor'.'layout'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.layout = Napi::ObjectWrap<GPUPipelineLayout>::Unwrap(obj.Get("layout").As<Napi::Object>())->instance;
+      descriptor.vertexStage.nextInChain = nullptr;
+      descriptor.vertexStage.module = nullptr;
+      descriptor.vertexStage.entryPoint = nullptr;
+      Napi::Object $vertexStage = obj.Get("vertexStage").As<Napi::Object>();
+      if (!($vertexStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUShaderModule' for 'GPUPipelineStageDescriptor'.'module'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.vertexStage.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap($vertexStage.Get("module").As<Napi::Object>())->instance;
+      {
+        descriptor.vertexStage.entryPoint = getNAPIStringCopy($vertexStage.Get("entryPoint"));
+      }
+    if (obj.Has("fragmentStage")) {
+        DawnPipelineStageDescriptor fragmentStage;
+        fragmentStage.nextInChain = nullptr;
+        fragmentStage.module = nullptr;
+        fragmentStage.entryPoint = nullptr;
+        Napi::Object $fragmentStage = obj.Get("fragmentStage").As<Napi::Object>();
+        if (!($fragmentStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUShaderModule' for 'GPUPipelineStageDescriptor'.'module'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        fragmentStage.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap($fragmentStage.Get("module").As<Napi::Object>())->instance;
+        {
+          fragmentStage.entryPoint = getNAPIStringCopy($fragmentStage.Get("entryPoint"));
+        }
+      {
+        descriptor.fragmentStage = (DawnPipelineStageDescriptor*) malloc(sizeof(DawnPipelineStageDescriptor));
+        memcpy(const_cast<DawnPipelineStageDescriptor*>(descriptor.fragmentStage), &fragmentStage, sizeof(DawnPipelineStageDescriptor));
+      }
+    }
+    if (obj.Has("vertexInput")) {
+        DawnVertexInputDescriptor vertexInput;
+        vertexInput.nextInChain = nullptr;
+        vertexInput.indexFormat = static_cast<DawnIndexFormat>(1);
+        vertexInput.bufferCount = 0;
+        vertexInput.buffers = nullptr;
+        Napi::Object $vertexInput = obj.Get("vertexInput").As<Napi::Object>();
+        if ($vertexInput.Has("indexFormat")) {
+          vertexInput.indexFormat = static_cast<DawnIndexFormat>(GPUIndexFormat($vertexInput.Get("indexFormat").As<Napi::String>().Utf8Value()));
+        }
+        if ($vertexInput.Has("buffers")) {
+          Napi::Array array = $vertexInput.Get("buffers").As<Napi::Array>();
+          uint32_t length = array.Length();
+          DawnVertexBufferDescriptor* data = (DawnVertexBufferDescriptor*) malloc(length * sizeof(DawnVertexBufferDescriptor));
+          for (unsigned int ii = 0; ii < length; ++ii) {
+            Napi::Object item = array.Get(ii).As<Napi::Object>();
+            DawnVertexBufferDescriptor $buffers = DecodeGPUVertexBufferDescriptor(device, item.As<Napi::Value>());
+            memcpy(
+              reinterpret_cast<void*>(&data[ii]),
+              reinterpret_cast<void*>(&$buffers),
+              sizeof(DawnVertexBufferDescriptor)
+            );
+          };
+          vertexInput.bufferCount = length;
+          vertexInput.buffers = data;
+        }
+      {
+        descriptor.vertexInput = (DawnVertexInputDescriptor*) malloc(sizeof(DawnVertexInputDescriptor));
+        memcpy(const_cast<DawnVertexInputDescriptor*>(descriptor.vertexInput), &vertexInput, sizeof(DawnVertexInputDescriptor));
+      }
+    }
+    descriptor.primitiveTopology = static_cast<DawnPrimitiveTopology>(GPUPrimitiveTopology(obj.Get("primitiveTopology").As<Napi::String>().Utf8Value()));
+    if (obj.Has("rasterizationState")) {
+        DawnRasterizationStateDescriptor rasterizationState;
+        rasterizationState.nextInChain = nullptr;
+        rasterizationState.frontFace = static_cast<DawnFrontFace>(0);
+        rasterizationState.cullMode = static_cast<DawnCullMode>(0);
+        rasterizationState.depthBias = 0;
+        rasterizationState.depthBiasSlopeScale = 0.0f;
+        rasterizationState.depthBiasClamp = 0.0f;
+        Napi::Object $rasterizationState = obj.Get("rasterizationState").As<Napi::Object>();
+        if ($rasterizationState.Has("frontFace")) {
+          rasterizationState.frontFace = static_cast<DawnFrontFace>(GPUFrontFace($rasterizationState.Get("frontFace").As<Napi::String>().Utf8Value()));
+        }
+        if ($rasterizationState.Has("cullMode")) {
+          rasterizationState.cullMode = static_cast<DawnCullMode>(GPUCullMode($rasterizationState.Get("cullMode").As<Napi::String>().Utf8Value()));
+        }
+        if ($rasterizationState.Has("depthBias")) {
+          rasterizationState.depthBias = $rasterizationState.Get("depthBias").As<Napi::Number>().Int32Value();
+        }
+        if ($rasterizationState.Has("depthBiasSlopeScale")) {
+          rasterizationState.depthBiasSlopeScale = $rasterizationState.Get("depthBiasSlopeScale").As<Napi::Number>().FloatValue();
+        }
+        if ($rasterizationState.Has("depthBiasClamp")) {
+          rasterizationState.depthBiasClamp = $rasterizationState.Get("depthBiasClamp").As<Napi::Number>().FloatValue();
+        }
+      {
+        descriptor.rasterizationState = (DawnRasterizationStateDescriptor*) malloc(sizeof(DawnRasterizationStateDescriptor));
+        memcpy(const_cast<DawnRasterizationStateDescriptor*>(descriptor.rasterizationState), &rasterizationState, sizeof(DawnRasterizationStateDescriptor));
+      }
+    }
+    if (obj.Has("sampleCount")) {
+      descriptor.sampleCount = obj.Get("sampleCount").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("depthStencilState")) {
+        DawnDepthStencilStateDescriptor depthStencilState;
+        depthStencilState.nextInChain = nullptr;
+        depthStencilState.depthWriteEnabled = false;
+        depthStencilState.depthCompare = static_cast<DawnCompareFunction>(7);
+        depthStencilState.stencilReadMask = 0xFFFFFFFF;
+        depthStencilState.stencilWriteMask = 0xFFFFFFFF;
+        Napi::Object $depthStencilState = obj.Get("depthStencilState").As<Napi::Object>();
+        depthStencilState.format = static_cast<DawnTextureFormat>(GPUTextureFormat($depthStencilState.Get("format").As<Napi::String>().Utf8Value()));
+        if ($depthStencilState.Has("depthWriteEnabled")) {
+          depthStencilState.depthWriteEnabled = $depthStencilState.Get("depthWriteEnabled").As<Napi::Boolean>().Value();
+        }
+        if ($depthStencilState.Has("depthCompare")) {
+          depthStencilState.depthCompare = static_cast<DawnCompareFunction>(GPUCompareFunction($depthStencilState.Get("depthCompare").As<Napi::String>().Utf8Value()));
+        }
+          depthStencilState.stencilFront.compare = static_cast<DawnCompareFunction>(7);
+          depthStencilState.stencilFront.failOp = static_cast<DawnStencilOperation>(0);
+          depthStencilState.stencilFront.depthFailOp = static_cast<DawnStencilOperation>(0);
+          depthStencilState.stencilFront.passOp = static_cast<DawnStencilOperation>(0);
+          Napi::Object $stencilFront = $depthStencilState.Get("stencilFront").As<Napi::Object>();
+          if ($stencilFront.Has("compare")) {
+            depthStencilState.stencilFront.compare = static_cast<DawnCompareFunction>(GPUCompareFunction($stencilFront.Get("compare").As<Napi::String>().Utf8Value()));
+          }
+          if ($stencilFront.Has("failOp")) {
+            depthStencilState.stencilFront.failOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilFront.Get("failOp").As<Napi::String>().Utf8Value()));
+          }
+          if ($stencilFront.Has("depthFailOp")) {
+            depthStencilState.stencilFront.depthFailOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilFront.Get("depthFailOp").As<Napi::String>().Utf8Value()));
+          }
+          if ($stencilFront.Has("passOp")) {
+            depthStencilState.stencilFront.passOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilFront.Get("passOp").As<Napi::String>().Utf8Value()));
+          }
+          depthStencilState.stencilBack.compare = static_cast<DawnCompareFunction>(7);
+          depthStencilState.stencilBack.failOp = static_cast<DawnStencilOperation>(0);
+          depthStencilState.stencilBack.depthFailOp = static_cast<DawnStencilOperation>(0);
+          depthStencilState.stencilBack.passOp = static_cast<DawnStencilOperation>(0);
+          Napi::Object $stencilBack = $depthStencilState.Get("stencilBack").As<Napi::Object>();
+          if ($stencilBack.Has("compare")) {
+            depthStencilState.stencilBack.compare = static_cast<DawnCompareFunction>(GPUCompareFunction($stencilBack.Get("compare").As<Napi::String>().Utf8Value()));
+          }
+          if ($stencilBack.Has("failOp")) {
+            depthStencilState.stencilBack.failOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilBack.Get("failOp").As<Napi::String>().Utf8Value()));
+          }
+          if ($stencilBack.Has("depthFailOp")) {
+            depthStencilState.stencilBack.depthFailOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilBack.Get("depthFailOp").As<Napi::String>().Utf8Value()));
+          }
+          if ($stencilBack.Has("passOp")) {
+            depthStencilState.stencilBack.passOp = static_cast<DawnStencilOperation>(GPUStencilOperation($stencilBack.Get("passOp").As<Napi::String>().Utf8Value()));
+          }
+        if ($depthStencilState.Has("stencilReadMask")) {
+          depthStencilState.stencilReadMask = $depthStencilState.Get("stencilReadMask").As<Napi::Number>().Uint32Value();
+        }
+        if ($depthStencilState.Has("stencilWriteMask")) {
+          depthStencilState.stencilWriteMask = $depthStencilState.Get("stencilWriteMask").As<Napi::Number>().Uint32Value();
+        }
+      {
+        descriptor.depthStencilState = (DawnDepthStencilStateDescriptor*) malloc(sizeof(DawnDepthStencilStateDescriptor));
+        memcpy(const_cast<DawnDepthStencilStateDescriptor*>(descriptor.depthStencilState), &depthStencilState, sizeof(DawnDepthStencilStateDescriptor));
+      }
+    }
+    {
+      Napi::Array array = obj.Get("colorStates").As<Napi::Array>();
+      uint32_t length = array.Length();
+      DawnColorStateDescriptor** data = (DawnColorStateDescriptor**) malloc(sizeof(DawnColorStateDescriptor*));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        DawnColorStateDescriptor $colorStates = DecodeGPUColorStateDescriptor(device, item.As<Napi::Value>());
+        data[ii] = (DawnColorStateDescriptor*) malloc(sizeof(DawnColorStateDescriptor));
+        memcpy(
+          reinterpret_cast<void*>(data[ii]),
+          reinterpret_cast<void*>(&$colorStates),
+          sizeof(DawnColorStateDescriptor)
+        );
+      };
+      descriptor.colorStateCount = length;
+      descriptor.colorStates = data;
+    }
+    if (obj.Has("sampleMask")) {
+      descriptor.sampleMask = obj.Get("sampleMask").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("alphaToCoverageEnabled")) {
+      descriptor.alphaToCoverageEnabled = obj.Get("alphaToCoverageEnabled").As<Napi::Boolean>().Value();
+    }
+    return descriptor;
+  };
+  
+  DawnSamplerDescriptor DecodeGPUSamplerDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnSamplerDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.addressModeU = static_cast<DawnAddressMode>(2);
+  descriptor.addressModeV = static_cast<DawnAddressMode>(2);
+  descriptor.addressModeW = static_cast<DawnAddressMode>(2);
+  descriptor.magFilter = static_cast<DawnFilterMode>(0);
+  descriptor.minFilter = static_cast<DawnFilterMode>(0);
+  descriptor.mipmapFilter = static_cast<DawnFilterMode>(0);
+  descriptor.lodMinClamp = 0.0f;
+  descriptor.lodMaxClamp = 1000.0f;
+  descriptor.compare = static_cast<DawnCompareFunction>(0);
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("addressModeU")) {
+      descriptor.addressModeU = static_cast<DawnAddressMode>(GPUAddressMode(obj.Get("addressModeU").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("addressModeV")) {
+      descriptor.addressModeV = static_cast<DawnAddressMode>(GPUAddressMode(obj.Get("addressModeV").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("addressModeW")) {
+      descriptor.addressModeW = static_cast<DawnAddressMode>(GPUAddressMode(obj.Get("addressModeW").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("magFilter")) {
+      descriptor.magFilter = static_cast<DawnFilterMode>(GPUFilterMode(obj.Get("magFilter").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("minFilter")) {
+      descriptor.minFilter = static_cast<DawnFilterMode>(GPUFilterMode(obj.Get("minFilter").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("mipmapFilter")) {
+      descriptor.mipmapFilter = static_cast<DawnFilterMode>(GPUFilterMode(obj.Get("mipmapFilter").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("lodMinClamp")) {
+      descriptor.lodMinClamp = obj.Get("lodMinClamp").As<Napi::Number>().FloatValue();
+    }
+    if (obj.Has("lodMaxClamp")) {
+      descriptor.lodMaxClamp = obj.Get("lodMaxClamp").As<Napi::Number>().FloatValue();
+    }
+    if (obj.Has("compare")) {
+      descriptor.compare = static_cast<DawnCompareFunction>(GPUCompareFunction(obj.Get("compare").As<Napi::String>().Utf8Value()));
+    }
+    return descriptor;
+  };
+  
+  DawnShaderModuleDescriptor DecodeGPUShaderModuleDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnShaderModuleDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.code = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {
+    }
+    return descriptor;
+  };
+  
+  DawnStencilStateFaceDescriptor DecodeGPUStencilStateFaceDescriptor(GPUDevice* device, Napi::Value& value) {
+    DawnStencilStateFaceDescriptor descriptor;
+    // reset descriptor
+  descriptor.compare = static_cast<DawnCompareFunction>(7);
+  descriptor.failOp = static_cast<DawnStencilOperation>(0);
+  descriptor.depthFailOp = static_cast<DawnStencilOperation>(0);
+  descriptor.passOp = static_cast<DawnStencilOperation>(0);
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("compare")) {
+      descriptor.compare = static_cast<DawnCompareFunction>(GPUCompareFunction(obj.Get("compare").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("failOp")) {
+      descriptor.failOp = static_cast<DawnStencilOperation>(GPUStencilOperation(obj.Get("failOp").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("depthFailOp")) {
+      descriptor.depthFailOp = static_cast<DawnStencilOperation>(GPUStencilOperation(obj.Get("depthFailOp").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("passOp")) {
+      descriptor.passOp = static_cast<DawnStencilOperation>(GPUStencilOperation(obj.Get("passOp").As<Napi::String>().Utf8Value()));
+    }
+    return descriptor;
+  };
+  
+  DawnSwapChainDescriptor DecodeGPUSwapChainDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnSwapChainDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {
+      bool lossless;
+      descriptor.implementation = obj.Get("implementation").As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    return descriptor;
+  };
+  
+  DawnTextureCopyView DecodeGPUTextureCopyView(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnTextureCopyView descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.texture = nullptr;
+  descriptor.mipLevel = 0;
+  descriptor.arrayLayer = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("texture").As<Napi::Object>().InstanceOf(GPUTexture::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTexture' for 'GPUTextureCopyView'.'texture'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.texture = Napi::ObjectWrap<GPUTexture>::Unwrap(obj.Get("texture").As<Napi::Object>())->instance;
+    if (obj.Has("mipLevel")) {
+      descriptor.mipLevel = obj.Get("mipLevel").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("arrayLayer")) {
+      descriptor.arrayLayer = obj.Get("arrayLayer").As<Napi::Number>().Uint32Value();
+    }
+      descriptor.origin.x = 0;
+      descriptor.origin.y = 0;
+      descriptor.origin.z = 0;
+      Napi::Object $origin = obj.Get("origin").As<Napi::Object>();
+      if ($origin.Has("x")) {
+        descriptor.origin.x = $origin.Get("x").As<Napi::Number>().Uint32Value();
+      }
+      if ($origin.Has("y")) {
+        descriptor.origin.y = $origin.Get("y").As<Napi::Number>().Uint32Value();
+      }
+      if ($origin.Has("z")) {
+        descriptor.origin.z = $origin.Get("z").As<Napi::Number>().Uint32Value();
+      }
+    return descriptor;
+  };
+  
+  DawnTextureDescriptor DecodeGPUTextureDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnTextureDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.dimension = static_cast<DawnTextureDimension>(1);
+  descriptor.arrayLayerCount = 1;
+  descriptor.mipLevelCount = 1;
+  descriptor.sampleCount = 1;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.usage = static_cast<DawnTextureUsage>(obj.Get("usage").As<Napi::Number>().Uint32Value());
+    if (obj.Has("dimension")) {
+      descriptor.dimension = static_cast<DawnTextureDimension>(GPUTextureDimension(obj.Get("dimension").As<Napi::String>().Utf8Value()));
+    }
+      Napi::Object $size = obj.Get("size").As<Napi::Object>();
+      descriptor.size.width = $size.Get("width").As<Napi::Number>().Uint32Value();
+      descriptor.size.height = $size.Get("height").As<Napi::Number>().Uint32Value();
+      descriptor.size.depth = $size.Get("depth").As<Napi::Number>().Uint32Value();
+    if (obj.Has("arrayLayerCount")) {
+      descriptor.arrayLayerCount = obj.Get("arrayLayerCount").As<Napi::Number>().Uint32Value();
+    }
+    descriptor.format = static_cast<DawnTextureFormat>(GPUTextureFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+    if (obj.Has("mipLevelCount")) {
+      descriptor.mipLevelCount = obj.Get("mipLevelCount").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("sampleCount")) {
+      descriptor.sampleCount = obj.Get("sampleCount").As<Napi::Number>().Uint32Value();
+    }
+    return descriptor;
+  };
+  
+  DawnTextureViewDescriptor DecodeGPUTextureViewDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    DawnTextureViewDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.dimension = static_cast<DawnTextureViewDimension>(2);
+  descriptor.baseMipLevel = 0;
+  descriptor.mipLevelCount = 0;
+  descriptor.baseArrayLayer = 0;
+  descriptor.arrayLayerCount = 0;
+  descriptor.aspect = static_cast<DawnTextureAspect>(0);
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("format")) {
+      descriptor.format = static_cast<DawnTextureFormat>(GPUTextureFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("dimension")) {
+      descriptor.dimension = static_cast<DawnTextureViewDimension>(GPUTextureViewDimension(obj.Get("dimension").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("baseMipLevel")) {
+      descriptor.baseMipLevel = obj.Get("baseMipLevel").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("mipLevelCount")) {
+      descriptor.mipLevelCount = obj.Get("mipLevelCount").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("baseArrayLayer")) {
+      descriptor.baseArrayLayer = obj.Get("baseArrayLayer").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("arrayLayerCount")) {
+      descriptor.arrayLayerCount = obj.Get("arrayLayerCount").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("aspect")) {
+      descriptor.aspect = static_cast<DawnTextureAspect>(GPUTextureAspect(obj.Get("aspect").As<Napi::String>().Utf8Value()));
+    }
+    return descriptor;
+  };
+  
+
+  
+  GPUBindGroupBinding::GPUBindGroupBinding(GPUDevice* device, Napi::Value& value) {
+    // reset descriptor
+  descriptor.buffer = nullptr;
+  descriptor.offset = 0;
+  descriptor.sampler = nullptr;
+  descriptor.textureView = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.binding = obj.Get("binding").As<Napi::Number>().Uint32Value();
+    if (obj.Has("buffer")) {
+      if (!(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPUBindGroupBinding'.'buffer'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
+    }
+    if (obj.Has("offset")) {
+      {
+        bool lossless;
+        descriptor.offset = obj.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+      }
+    }
+    {
+      bool lossless;
+      descriptor.size = obj.Get("size").As<Napi::BigInt>().Uint64Value(&lossless);
+    }
+    if (obj.Has("sampler")) {
+      if (!(obj.Get("sampler").As<Napi::Object>().InstanceOf(GPUSampler::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUSampler' for 'GPUBindGroupBinding'.'sampler'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.sampler = Napi::ObjectWrap<GPUSampler>::Unwrap(obj.Get("sampler").As<Napi::Object>())->instance;
+    }
+    if (obj.Has("textureView")) {
+      if (!(obj.Get("textureView").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPUBindGroupBinding'.'textureView'");
+        device->throwCallbackError(type, message);
+        return ;
       }
       descriptor.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("textureView").As<Napi::Object>())->instance;
     }
@@ -928,7 +2071,7 @@ namespace DescriptorDecoder {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBindGroupLayout' for 'GPUBindGroupDescriptor'.'layout'");
       device->throwCallbackError(type, message);
-      return;
+      return ;
     }
     descriptor.layout = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(obj.Get("layout").As<Napi::Object>())->instance;
     {
@@ -937,10 +2080,10 @@ namespace DescriptorDecoder {
       DawnBindGroupBinding* data = (DawnBindGroupBinding*) malloc(length * sizeof(DawnBindGroupBinding));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnBindGroupBinding* $bindings = &GPUBindGroupBinding(device, item.As<Napi::Value>());
+        DawnBindGroupBinding $bindings = DecodeGPUBindGroupBinding(device, item.As<Napi::Value>());
         memcpy(
           reinterpret_cast<void*>(&data[ii]),
-          reinterpret_cast<void*>($bindings),
+          reinterpret_cast<void*>(&$bindings),
           sizeof(DawnBindGroupBinding)
         );
       };
@@ -992,10 +2135,10 @@ namespace DescriptorDecoder {
       DawnBindGroupLayoutBinding* data = (DawnBindGroupLayoutBinding*) malloc(length * sizeof(DawnBindGroupLayoutBinding));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnBindGroupLayoutBinding* $bindings = &GPUBindGroupLayoutBinding(device, item.As<Napi::Value>());
+        DawnBindGroupLayoutBinding $bindings = DecodeGPUBindGroupLayoutBinding(device, item.As<Napi::Value>());
         memcpy(
           reinterpret_cast<void*>(&data[ii]),
-          reinterpret_cast<void*>($bindings),
+          reinterpret_cast<void*>(&$bindings),
           sizeof(DawnBindGroupLayoutBinding)
         );
       };
@@ -1080,7 +2223,7 @@ namespace DescriptorDecoder {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPUBufferCopyView'.'buffer'");
       device->throwCallbackError(type, message);
-      return;
+      return ;
     }
     descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
     if (obj.Has("offset")) {
@@ -1121,7 +2264,7 @@ namespace DescriptorDecoder {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPUCreateBufferMappedResult'.'buffer'");
       device->throwCallbackError(type, message);
-      return;
+      return ;
     }
     descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
     {
@@ -1184,7 +2327,7 @@ namespace DescriptorDecoder {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUPipelineLayout' for 'GPUComputePipelineDescriptor'.'layout'");
       device->throwCallbackError(type, message);
-      return;
+      return ;
     }
     descriptor.layout = Napi::ObjectWrap<GPUPipelineLayout>::Unwrap(obj.Get("layout").As<Napi::Object>())->instance;
       descriptor.computeStage.nextInChain = nullptr;
@@ -1195,7 +2338,7 @@ namespace DescriptorDecoder {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUShaderModule' for 'GPUPipelineStageDescriptor'.'module'");
         device->throwCallbackError(type, message);
-        return;
+        return ;
       }
       descriptor.computeStage.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap($computeStage.Get("module").As<Napi::Object>())->instance;
       {
@@ -1333,10 +2476,10 @@ namespace DescriptorDecoder {
       DawnVertexAttributeDescriptor* data = (DawnVertexAttributeDescriptor*) malloc(length * sizeof(DawnVertexAttributeDescriptor));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnVertexAttributeDescriptor* $attributes = &GPUVertexAttributeDescriptor(device, item.As<Napi::Value>());
+        DawnVertexAttributeDescriptor $attributes = DecodeGPUVertexAttributeDescriptor(device, item.As<Napi::Value>());
         memcpy(
           reinterpret_cast<void*>(&data[ii]),
-          reinterpret_cast<void*>($attributes),
+          reinterpret_cast<void*>(&$attributes),
           sizeof(DawnVertexAttributeDescriptor)
         );
       };
@@ -1365,10 +2508,10 @@ namespace DescriptorDecoder {
       DawnVertexBufferDescriptor* data = (DawnVertexBufferDescriptor*) malloc(length * sizeof(DawnVertexBufferDescriptor));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnVertexBufferDescriptor* $buffers = &GPUVertexBufferDescriptor(device, item.As<Napi::Value>());
+        DawnVertexBufferDescriptor $buffers = DecodeGPUVertexBufferDescriptor(device, item.As<Napi::Value>());
         memcpy(
           reinterpret_cast<void*>(&data[ii]),
-          reinterpret_cast<void*>($buffers),
+          reinterpret_cast<void*>(&$buffers),
           sizeof(DawnVertexBufferDescriptor)
         );
       };
@@ -1435,7 +2578,7 @@ namespace DescriptorDecoder {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUShaderModule' for 'GPUPipelineStageDescriptor'.'module'");
       device->throwCallbackError(type, message);
-      return;
+      return ;
     }
     descriptor.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap(obj.Get("module").As<Napi::Object>())->instance;
     {
@@ -1527,7 +2670,7 @@ namespace DescriptorDecoder {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'attachment'");
       device->throwCallbackError(type, message);
-      return;
+      return ;
     }
     descriptor.attachment = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("attachment").As<Napi::Object>())->instance;
     if (obj.Has("resolveTarget")) {
@@ -1535,7 +2678,7 @@ namespace DescriptorDecoder {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'resolveTarget'");
         device->throwCallbackError(type, message);
-        return;
+        return ;
       }
       descriptor.resolveTarget = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("resolveTarget").As<Napi::Object>())->instance;
     }
@@ -1561,7 +2704,7 @@ namespace DescriptorDecoder {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPURenderPassDepthStencilAttachmentDescriptor'.'attachment'");
       device->throwCallbackError(type, message);
-      return;
+      return ;
     }
     descriptor.attachment = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("attachment").As<Napi::Object>())->instance;
     descriptor.depthLoadOp = static_cast<DawnLoadOp>(GPULoadOp(obj.Get("depthLoadOp").As<Napi::String>().Utf8Value()));
@@ -1589,14 +2732,13 @@ namespace DescriptorDecoder {
       DawnRenderPassColorAttachmentDescriptor** data = (DawnRenderPassColorAttachmentDescriptor**) malloc(sizeof(DawnRenderPassColorAttachmentDescriptor*));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnRenderPassColorAttachmentDescriptor* $colorAttachments = &GPURenderPassColorAttachmentDescriptor(device, item.As<Napi::Value>());
-        DawnRenderPassColorAttachmentDescriptor* ptr = (DawnRenderPassColorAttachmentDescriptor*) malloc(sizeof(DawnRenderPassColorAttachmentDescriptor));
+        DawnRenderPassColorAttachmentDescriptor $colorAttachments = DecodeGPURenderPassColorAttachmentDescriptor(device, item.As<Napi::Value>());
+        data[ii] = (DawnRenderPassColorAttachmentDescriptor*) malloc(sizeof(DawnRenderPassColorAttachmentDescriptor));
         memcpy(
-          reinterpret_cast<void*>(ptr),
-          reinterpret_cast<void*>($colorAttachments),
+          reinterpret_cast<void*>(data[ii]),
+          reinterpret_cast<void*>(&$colorAttachments),
           sizeof(DawnRenderPassColorAttachmentDescriptor)
         );
-        data[ii] = ptr;
       };
       descriptor.colorAttachmentCount = length;
       descriptor.colorAttachments = data;
@@ -1610,7 +2752,7 @@ namespace DescriptorDecoder {
           Napi::String type = Napi::String::New(value.Env(), "Type");
           Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTextureView' for 'GPURenderPassDepthStencilAttachmentDescriptor'.'attachment'");
           device->throwCallbackError(type, message);
-          return;
+          return ;
         }
         depthStencilAttachment.attachment = Napi::ObjectWrap<GPUTextureView>::Unwrap($depthStencilAttachment.Get("attachment").As<Napi::Object>())->instance;
         depthStencilAttachment.depthLoadOp = static_cast<DawnLoadOp>(GPULoadOp($depthStencilAttachment.Get("depthLoadOp").As<Napi::String>().Utf8Value()));
@@ -1649,7 +2791,7 @@ namespace DescriptorDecoder {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUPipelineLayout' for 'GPURenderPipelineDescriptor'.'layout'");
       device->throwCallbackError(type, message);
-      return;
+      return ;
     }
     descriptor.layout = Napi::ObjectWrap<GPUPipelineLayout>::Unwrap(obj.Get("layout").As<Napi::Object>())->instance;
       descriptor.vertexStage.nextInChain = nullptr;
@@ -1660,7 +2802,7 @@ namespace DescriptorDecoder {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUShaderModule' for 'GPUPipelineStageDescriptor'.'module'");
         device->throwCallbackError(type, message);
-        return;
+        return ;
       }
       descriptor.vertexStage.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap($vertexStage.Get("module").As<Napi::Object>())->instance;
       {
@@ -1676,7 +2818,7 @@ namespace DescriptorDecoder {
           Napi::String type = Napi::String::New(value.Env(), "Type");
           Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUShaderModule' for 'GPUPipelineStageDescriptor'.'module'");
           device->throwCallbackError(type, message);
-          return;
+          return ;
         }
         fragmentStage.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap($fragmentStage.Get("module").As<Napi::Object>())->instance;
         {
@@ -1703,10 +2845,10 @@ namespace DescriptorDecoder {
           DawnVertexBufferDescriptor* data = (DawnVertexBufferDescriptor*) malloc(length * sizeof(DawnVertexBufferDescriptor));
           for (unsigned int ii = 0; ii < length; ++ii) {
             Napi::Object item = array.Get(ii).As<Napi::Object>();
-            DawnVertexBufferDescriptor* $buffers = &GPUVertexBufferDescriptor(device, item.As<Napi::Value>());
+            DawnVertexBufferDescriptor $buffers = DecodeGPUVertexBufferDescriptor(device, item.As<Napi::Value>());
             memcpy(
               reinterpret_cast<void*>(&data[ii]),
-              reinterpret_cast<void*>($buffers),
+              reinterpret_cast<void*>(&$buffers),
               sizeof(DawnVertexBufferDescriptor)
             );
           };
@@ -1817,14 +2959,13 @@ namespace DescriptorDecoder {
       DawnColorStateDescriptor** data = (DawnColorStateDescriptor**) malloc(sizeof(DawnColorStateDescriptor*));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        DawnColorStateDescriptor* $colorStates = &GPUColorStateDescriptor(device, item.As<Napi::Value>());
-        DawnColorStateDescriptor* ptr = (DawnColorStateDescriptor*) malloc(sizeof(DawnColorStateDescriptor));
+        DawnColorStateDescriptor $colorStates = DecodeGPUColorStateDescriptor(device, item.As<Napi::Value>());
+        data[ii] = (DawnColorStateDescriptor*) malloc(sizeof(DawnColorStateDescriptor));
         memcpy(
-          reinterpret_cast<void*>(ptr),
-          reinterpret_cast<void*>($colorStates),
+          reinterpret_cast<void*>(data[ii]),
+          reinterpret_cast<void*>(&$colorStates),
           sizeof(DawnColorStateDescriptor)
         );
-        data[ii] = ptr;
       };
       descriptor.colorStateCount = length;
       descriptor.colorStates = data;
@@ -1950,7 +3091,7 @@ namespace DescriptorDecoder {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUTexture' for 'GPUTextureCopyView'.'texture'");
       device->throwCallbackError(type, message);
-      return;
+      return ;
     }
     descriptor.texture = Napi::ObjectWrap<GPUTexture>::Unwrap(obj.Get("texture").As<Napi::Object>())->instance;
     if (obj.Has("mipLevel")) {

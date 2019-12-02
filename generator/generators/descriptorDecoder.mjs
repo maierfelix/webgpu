@@ -32,7 +32,7 @@ const CPP_TEMPLATE = fs.readFileSync(`${pkg.config.TEMPLATE_DIR}/DescriptorDecod
 
 nunjucks.configure({ autoescape: true });
 
-export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_DECODE_STRUCT_MEMBER) {
+export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_DECODE_STRUCT_MEMBER, insideDecoder = false) {
   let {type} = member;
   let {jsType, rawType} = type;
   let {input, output, padding} = opts;
@@ -52,7 +52,7 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
     out += `\n${padding}  Napi::String type = Napi::String::New(value.Env(), "Type");`;
     out += `\n${padding}  Napi::String message = Napi::String::New(value.Env(), "Expected type '${unwrapType}' for '${structure.externalName}'.'${member.name}'");`;
     out += `\n${padding}  device->throwCallbackError(type, message);`;
-    out += `\n${padding}  return;`;
+    out += `\n${padding}  return ${insideDecoder ? "descriptor" : ""};`;
     out += `\n${padding}}`;
     out += `\n${padding}${output.name}.${member.name} = Napi::ObjectWrap<${unwrapType}>::Unwrap(${input.name}.Get("${member.name}").As<Napi::Object>())->instance;`;
   // decode descriptor object array
@@ -102,7 +102,7 @@ ${padding}${output.name}.${member.name} = data;`;
     }
     out += `\n${padding}  Napi::Object $${member.name} = ${input.name}.Get("${member.name}").As<Napi::Object>();`;
     memberTypeStructure.children.map(member => {
-      out += getDecodeStructureMember(memberTypeStructure, member, nextOpts);
+      out += getDecodeStructureMember(memberTypeStructure, member, nextOpts, insideDecoder);
     });
     // link the struct member reference to top structure
     if (type.isReference) {
@@ -132,18 +132,17 @@ ${padding}${type.nativeType}* data = (${type.nativeType}*) malloc(length * sizeo
     out += `
 ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
-${padding}  ${type.nativeType}* $${member.name} = &${memberTypeStructure.externalName}(device, item.As<Napi::Value>());`;
+${padding}  ${type.nativeType} $${member.name} = Decode${memberTypeStructure.externalName}(device, item.As<Napi::Value>());`;
 
     // array of pointers to structs
     if (type.isArrayOfPointers) {
     out += `
-${padding}  ${type.nativeType}* ptr = (${type.nativeType}*) malloc(sizeof(${type.nativeType}));
+${padding}  data[ii] = (${type.nativeType}*) malloc(sizeof(${type.nativeType}));
 ${padding}  memcpy(
-${padding}    reinterpret_cast<void*>(ptr),
-${padding}    reinterpret_cast<void*>($${member.name}),
+${padding}    reinterpret_cast<void*>(data[ii]),
+${padding}    reinterpret_cast<void*>(&$${member.name}),
 ${padding}    sizeof(${type.nativeType})
 ${padding}  );
-${padding}  data[ii] = ptr;
 ${padding}};
 ${padding}${output.name}.${type.length} = length;
 ${padding}${output.name}.${member.name} = data;`;
@@ -153,7 +152,7 @@ ${padding}${output.name}.${member.name} = data;`;
     out += `
 ${padding}  memcpy(
 ${padding}    reinterpret_cast<void*>(&data[ii]),
-${padding}    reinterpret_cast<void*>($${member.name}),
+${padding}    reinterpret_cast<void*>(&$${member.name}),
 ${padding}    sizeof(${type.nativeType})
 ${padding}  );
 ${padding}};

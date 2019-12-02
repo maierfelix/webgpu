@@ -24,6 +24,10 @@ namespace DescriptorDecoder {
   {% endfor %}
 
   {% for struct in structures %}
+  {{ struct.name }} Decode{{ struct.externalName }}({{ getDecodeStructureParameters(struct, true) | safe }});
+  {% endfor %}
+
+  {% for struct in structures %}
   class {{ struct.externalName }} {
     public:
       {{ struct.externalName }}({{ getDecodeStructureParameters(struct, true) | safe }});

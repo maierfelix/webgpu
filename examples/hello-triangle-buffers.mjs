@@ -44,6 +44,8 @@ const fsSrc = `
 
   const device = await adapter.requestDevice();
 
+  const queue = device.getQueue();
+
   const swapChainFormat = await context.getSwapChainPreferredFormat(device);
 
   const swapChain = context.configureSwapChain({
@@ -51,8 +53,9 @@ const fsSrc = `
     format: swapChainFormat
   });
 
+  // !! FOR SOME REASON THIS CRASHES !!
   // demonstrate verbose staging process
-  const stagingVertexBuffer = device.createBuffer({
+  /*const stagingVertexBuffer = device.createBuffer({
     size: BigInt(triangleVertices.byteLength),
     usage: GPUBufferUsage.MAP_WRITE | GPUBufferUsage.COPY_SRC
   });
@@ -74,7 +77,14 @@ const fsSrc = `
     0n,
     BigInt(triangleVertices.byteLength)
   );
-  device.getQueue().submit([ bufferCopyEncoder.finish() ]);
+  queue.submit([ bufferCopyEncoder.finish() ]);*/
+
+  // staging shortcut using buffer.setSubData
+  const stagedVertexBuffer = device.createBuffer({
+    size: BigInt(triangleVertices.byteLength),
+    usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
+  });
+  stagedVertexBuffer.setSubData(0n, triangleVertices);
 
   // staging shortcut using buffer.setSubData
   const stagedIndexBuffer = device.createBuffer({
@@ -148,7 +158,7 @@ const fsSrc = `
     renderPass.endPass();
 
     const commandBuffer = commandEncoder.finish();
-    device.getQueue().submit([ commandBuffer ]);
+    queue.submit([ commandBuffer ]);
     swapChain.present(backBuffer);
     window.pollEvents();
   };

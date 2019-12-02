@@ -214,29 +214,32 @@ const fsSrc = `
     mat4.multiply(mModelViewProjection, mProjection, mModelViewProjection);
     stagedUniformBuffer.setSubData(0n, mModelViewProjection);
 
-    const backBuffer = swapChain.getCurrentTexture();
-    const backBufferView = backBuffer.createView({
-      format: swapChainFormat
-    });
-    const commandEncoder = device.createCommandEncoder({});
-    const renderPass = commandEncoder.beginRenderPass({
-      colorAttachments: [{
-        clearColor: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
-        loadOp: "clear",
-        storeOp: "store",
-        attachment: backBufferView
-      }]
-    });
-    renderPass.setPipeline(pipeline);
-    renderPass.setBindGroup(0, uniformBindGroup);
-    renderPass.setVertexBuffers(0, [stagedVertexBuffer], [0n]);
-    renderPass.setIndexBuffer(stagedIndexBuffer);
-    renderPass.drawIndexed(triangleIndices.length, 1, 0, 0, 0);
-    renderPass.endPass();
+    {
+      const backBuffer = swapChain.getCurrentTexture();
+      const backBufferView = backBuffer.createView({
+        format: swapChainFormat
+      });
+      const commandEncoder = device.createCommandEncoder({});
+      const renderPass = commandEncoder.beginRenderPass({
+        colorAttachments: [{
+          clearColor: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
+          loadOp: "clear",
+          storeOp: "store",
+          attachment: backBufferView
+        }]
+      });
+      renderPass.setPipeline(pipeline);
+      renderPass.setBindGroup(0, uniformBindGroup);
+      renderPass.setVertexBuffers(0, [stagedVertexBuffer], [0n]);
+      renderPass.setIndexBuffer(stagedIndexBuffer);
+      renderPass.drawIndexed(triangleIndices.length, 1, 0, 0, 0);
+      renderPass.endPass();
 
-    const commandBuffer = commandEncoder.finish();
-    queue.submit([ commandBuffer ]);
-    swapChain.present(backBuffer);
+      const commandBuffer = commandEncoder.finish();
+      queue.submit([ commandBuffer ]);
+      swapChain.present(backBuffer);
+
+    }
 
     triangleRotation += triangleRotateAcceleration *= 0.9;
     if (!isMouseButtonPressed) {

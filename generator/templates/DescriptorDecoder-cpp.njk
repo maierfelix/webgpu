@@ -38,13 +38,27 @@ namespace DescriptorDecoder {
   {% endfor %}
 
   {% for struct in structures %}
+  {{ struct.name }} Decode{{ struct.externalName }}({{ getDecodeStructureParameters(struct, false) | safe }}) {
+    {{ struct.name }} descriptor;
+    // reset descriptor
+    {{- getDescriptorInstanceReset(struct) | safe }}
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {%- for member in struct.children %}
+    {{- getDecodeStructureMember(struct, member, undefined, true) | safe -}}
+    {% endfor %}
+    return descriptor;
+  };
+  {% endfor %}
+
+  {% for struct in structures %}
   {{ struct.externalName }}::{{ struct.externalName }}({{ getDecodeStructureParameters(struct, false) | safe }}) {
     // reset descriptor
     {{- getDescriptorInstanceReset(struct) | safe }}
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     {%- for member in struct.children %}
-    {{- getDecodeStructureMember(struct, member) | safe -}}
+    {{- getDecodeStructureMember(struct, member, undefined, false) | safe -}}
     {% endfor %}
   };
   {{ struct.externalName }}::~{{ struct.externalName }}() {

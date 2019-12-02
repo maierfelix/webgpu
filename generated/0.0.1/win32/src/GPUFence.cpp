@@ -16,7 +16,7 @@ GPUFence::GPUFence(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUFence>(
   GPUQueue* queue = Napi::ObjectWrap<GPUQueue>::Unwrap(this->queue.Value());
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(queue->device.Value());
 
-  DawnFenceDescriptor descriptor = DescriptorDecoder::GPUFenceDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPUFenceDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnQueueCreateFence(queue->instance, &descriptor);
 }

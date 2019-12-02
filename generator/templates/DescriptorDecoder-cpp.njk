@@ -1,21 +1,5 @@
 #include "DescriptorDecoder.h"
 
-#include "GPUDevice.h"
-#include "GPUAdapter.h"
-#include "GPUQueue.h"
-#include "GPUFence.h"
-#include "GPUBuffer.h"
-#include "GPUTexture.h"
-#include "GPUTextureView.h"
-#include "GPUSampler.h"
-#include "GPUBindGroupLayout.h"
-#include "GPUPipelineLayout.h"
-#include "GPUBindGroup.h"
-#include "GPUShaderModule.h"
-#include "GPURenderPipeline.h"
-
-#include <unordered_map>
-
 {% for enum in enums %}
 static std::unordered_map<std::string, uint32_t> {{ enum.externalName }}Map = {
   {%- for member in enum.children %}
@@ -25,6 +9,7 @@ static std::unordered_map<std::string, uint32_t> {{ enum.externalName }}Map = {
 {% endfor %}
 
 namespace DescriptorDecoder {
+
   {% for enum in enums %}
   uint32_t {{ enum.externalName }}(std::string name) {
     return {{ enum.externalName }}Map[name];
@@ -53,20 +38,18 @@ namespace DescriptorDecoder {
   {% endfor %}
 
   {% for struct in structures %}
-  {{ struct.name }} {{ struct.externalName }}({{ getDecodeStructureParameters(struct) | safe }}) {
-
-    {{ struct.name }} descriptor;
+  {{ struct.externalName }}::{{ struct.externalName }}({{ getDecodeStructureParameters(struct, false) | safe }}) {
+    // reset descriptor
     {{- getDescriptorInstanceReset(struct) | safe }}
-
-    if (!(value.IsObject())) return descriptor;
-
+    // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-
     {%- for member in struct.children %}
     {{- getDecodeStructureMember(struct, member) | safe -}}
     {% endfor %}
-
-    return descriptor;
+  };
+  {{ struct.externalName }}::~{{ struct.externalName }}() {
+    Destroy{{ struct.externalName }}(descriptor);
   };
   {% endfor %}
+
 }

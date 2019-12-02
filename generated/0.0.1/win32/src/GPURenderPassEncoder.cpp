@@ -16,7 +16,7 @@ GPURenderPassEncoder::GPURenderPassEncoder(const Napi::CallbackInfo& info) : Nap
   GPUCommandEncoder* commandEncoder = Napi::ObjectWrap<GPUCommandEncoder>::Unwrap(this->commandEncoder.Value());
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(commandEncoder->device.Value());
 
-  DawnRenderPassDescriptor descriptor = DescriptorDecoder::GPURenderPassDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPURenderPassDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnCommandEncoderBeginRenderPass(commandEncoder->instance, &descriptor);
 }
@@ -169,7 +169,7 @@ Napi::Value GPURenderPassEncoder::setBlendColor(const Napi::CallbackInfo &info) 
   GPUCommandEncoder* commandEncoder = Napi::ObjectWrap<GPUCommandEncoder>::Unwrap(this->commandEncoder.Value());
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(commandEncoder->device.Value());
 
-  DawnColor color = DescriptorDecoder::GPUColor(device, info[0].As<Napi::Value>());
+  auto color = DescriptorDecoder::GPUColor(device, info[0].As<Napi::Value>());
 
   dawnRenderPassEncoderSetBlendColor(this->instance, &color);
 

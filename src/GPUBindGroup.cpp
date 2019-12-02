@@ -17,7 +17,7 @@ GPUBindGroup::GPUBindGroup(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnBindGroupDescriptor descriptor = DescriptorDecoder::GPUBindGroupDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPUBindGroupDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnDeviceCreateBindGroup(device->instance, &descriptor);
 }

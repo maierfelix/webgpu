@@ -20,7 +20,7 @@ GPUBuffer::GPUBuffer(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUBuffe
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnBufferDescriptor descriptor = DescriptorDecoder::GPUBufferDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPUBufferDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnDeviceCreateBuffer(device->instance, &descriptor);
 }

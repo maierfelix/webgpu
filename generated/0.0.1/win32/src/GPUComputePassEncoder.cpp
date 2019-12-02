@@ -16,7 +16,7 @@ GPUComputePassEncoder::GPUComputePassEncoder(const Napi::CallbackInfo& info) : N
   GPUCommandEncoder* commandEncoder = Napi::ObjectWrap<GPUCommandEncoder>::Unwrap(this->commandEncoder.Value());
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(commandEncoder->device.Value());
 
-  DawnComputePassDescriptor descriptor = DescriptorDecoder::GPUComputePassDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPUComputePassDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnCommandEncoderBeginComputePass(commandEncoder->instance, &descriptor);
 }

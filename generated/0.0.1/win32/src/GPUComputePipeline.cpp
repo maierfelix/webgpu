@@ -12,7 +12,7 @@ GPUComputePipeline::GPUComputePipeline(const Napi::CallbackInfo& info) : Napi::O
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnComputePipelineDescriptor descriptor = DescriptorDecoder::GPUComputePipelineDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPUComputePipelineDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnDeviceCreateComputePipeline(device->instance, &descriptor);
 }

@@ -11,7 +11,7 @@ GPUSampler::GPUSampler(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUSam
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnSamplerDescriptor descriptor = DescriptorDecoder::GPUSamplerDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPUSamplerDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnDeviceCreateSampler(device->instance, &descriptor);
 }

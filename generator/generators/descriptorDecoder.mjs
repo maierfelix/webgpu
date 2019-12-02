@@ -52,7 +52,7 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
     out += `\n${padding}  Napi::String type = Napi::String::New(value.Env(), "Type");`;
     out += `\n${padding}  Napi::String message = Napi::String::New(value.Env(), "Expected type '${unwrapType}' for '${structure.externalName}'.'${member.name}'");`;
     out += `\n${padding}  device->throwCallbackError(type, message);`;
-    out += `\n${padding}  return {};`;
+    out += `\n${padding}  return;`;
     out += `\n${padding}}`;
     out += `\n${padding}${output.name}.${member.name} = Napi::ObjectWrap<${unwrapType}>::Unwrap(${input.name}.Get("${member.name}").As<Napi::Object>())->instance;`;
   // decode descriptor object array
@@ -132,7 +132,7 @@ ${padding}${type.nativeType}* data = (${type.nativeType}*) malloc(length * sizeo
     out += `
 ${padding}for (unsigned int ii = 0; ii < length; ++ii) {
 ${padding}  Napi::Object item = array.Get(ii).As<Napi::Object>();
-${padding}  ${type.nativeType} $${member.name} = ${memberTypeStructure.externalName}(device, item.As<Napi::Value>());`;
+${padding}  ${type.nativeType}* $${member.name} = &${memberTypeStructure.externalName}(device, item.As<Napi::Value>());`;
 
     // array of pointers to structs
     if (type.isArrayOfPointers) {
@@ -140,7 +140,7 @@ ${padding}  ${type.nativeType} $${member.name} = ${memberTypeStructure.externalN
 ${padding}  data[ii] = (${type.nativeType}*) malloc(sizeof(${type.nativeType}));
 ${padding}  memcpy(
 ${padding}    reinterpret_cast<void*>(data[ii]),
-${padding}    reinterpret_cast<void*>(&$${member.name}),
+${padding}    reinterpret_cast<void*>($${member.name}),
 ${padding}    sizeof(${type.nativeType})
 ${padding}  );
 ${padding}};
@@ -150,7 +150,7 @@ ${padding}${output.name}.${member.name} = data;`;
     // array of structs
     else {
     out += `
-${padding}  data[ii] = $${member.name};
+${padding}  data[ii] = *$${member.name};
 ${padding}};
 ${padding}${output.name}.${type.length} = length;
 ${padding}${output.name}.${member.name} = data;`;

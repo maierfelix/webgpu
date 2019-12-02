@@ -15,7 +15,7 @@ GPUCommandEncoder::GPUCommandEncoder(const Napi::CallbackInfo& info) : Napi::Obj
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnCommandEncoderDescriptor descriptor = DescriptorDecoder::GPUCommandEncoderDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPUCommandEncoderDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnDeviceCreateCommandEncoder(device->instance, &descriptor);
 }
@@ -66,9 +66,9 @@ Napi::Value GPUCommandEncoder::copyBufferToTexture(const Napi::CallbackInfo &inf
 
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnBufferCopyView source = DescriptorDecoder::GPUBufferCopyView(device, info[0].As<Napi::Value>());
-  DawnTextureCopyView destination = DescriptorDecoder::GPUTextureCopyView(device, info[1].As<Napi::Value>());
-  DawnExtent3D copySize = DescriptorDecoder::GPUExtent3D(device, info[2].As<Napi::Value>());
+  auto source = DescriptorDecoder::GPUBufferCopyView(device, info[0].As<Napi::Value>());
+  auto destination = DescriptorDecoder::GPUTextureCopyView(device, info[1].As<Napi::Value>());
+  auto copySize = DescriptorDecoder::GPUExtent3D(device, info[2].As<Napi::Value>());
 
   dawnCommandEncoderCopyBufferToTexture(this->instance, &source, &destination, &copySize);
 
@@ -80,9 +80,9 @@ Napi::Value GPUCommandEncoder::copyTextureToBuffer(const Napi::CallbackInfo &inf
 
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnTextureCopyView source = DescriptorDecoder::GPUTextureCopyView(device, info[0].As<Napi::Value>());
-  DawnBufferCopyView destination = DescriptorDecoder::GPUBufferCopyView(device, info[1].As<Napi::Value>());
-  DawnExtent3D copySize = DescriptorDecoder::GPUExtent3D(device, info[2].As<Napi::Value>());
+  auto source = DescriptorDecoder::GPUTextureCopyView(device, info[0].As<Napi::Value>());
+  auto destination = DescriptorDecoder::GPUBufferCopyView(device, info[1].As<Napi::Value>());
+  auto copySize = DescriptorDecoder::GPUExtent3D(device, info[2].As<Napi::Value>());
 
   dawnCommandEncoderCopyTextureToBuffer(this->instance, &source, &destination, &copySize);
 
@@ -94,9 +94,9 @@ Napi::Value GPUCommandEncoder::copyTextureToTexture(const Napi::CallbackInfo &in
 
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnTextureCopyView source = DescriptorDecoder::GPUTextureCopyView(device, info[0].As<Napi::Value>());
-  DawnTextureCopyView destination = DescriptorDecoder::GPUTextureCopyView(device, info[1].As<Napi::Value>());
-  DawnExtent3D copySize = DescriptorDecoder::GPUExtent3D(device, info[2].As<Napi::Value>());
+  auto source = DescriptorDecoder::GPUTextureCopyView(device, info[0].As<Napi::Value>());
+  auto destination = DescriptorDecoder::GPUTextureCopyView(device, info[1].As<Napi::Value>());
+  auto copySize = DescriptorDecoder::GPUExtent3D(device, info[2].As<Napi::Value>());
 
   dawnCommandEncoderCopyTextureToTexture(this->instance, &source, &destination, &copySize);
 

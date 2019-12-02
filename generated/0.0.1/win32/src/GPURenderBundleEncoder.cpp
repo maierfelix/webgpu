@@ -16,7 +16,7 @@ GPURenderBundleEncoder::GPURenderBundleEncoder(const Napi::CallbackInfo& info) :
   GPUCommandEncoder* commandEncoder = Napi::ObjectWrap<GPUCommandEncoder>::Unwrap(this->commandEncoder.Value());
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(commandEncoder->device.Value());
 
-  DawnRenderBundleEncoderDescriptor descriptor = DescriptorDecoder::GPURenderBundleEncoderDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPURenderBundleEncoderDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnDeviceCreateRenderBundleEncoder(device->instance, &descriptor);
 }
@@ -141,7 +141,7 @@ Napi::Value GPURenderBundleEncoder::finish(const Napi::CallbackInfo &info) {
   GPUCommandEncoder* commandEncoder = Napi::ObjectWrap<GPUCommandEncoder>::Unwrap(this->commandEncoder.Value());
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(commandEncoder->device.Value());
 
-  DawnRenderBundleDescriptor descriptor = DescriptorDecoder::GPURenderBundleDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPURenderBundleDescriptor(device, info[1].As<Napi::Value>());
 
   dawnRenderBundleEncoderFinish(this->instance, &descriptor);
 

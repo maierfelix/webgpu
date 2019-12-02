@@ -17,7 +17,7 @@ GPUTexture::GPUTexture(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUTex
   }
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnTextureDescriptor descriptor = DescriptorDecoder::GPUTextureDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPUTextureDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnDeviceCreateTexture(device->instance, &descriptor);
 }

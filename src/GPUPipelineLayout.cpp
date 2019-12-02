@@ -14,7 +14,7 @@ GPUPipelineLayout::GPUPipelineLayout(const Napi::CallbackInfo& info) : Napi::Obj
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnPipelineLayoutDescriptor descriptor = DescriptorDecoder::GPUPipelineLayoutDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPUPipelineLayoutDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnDeviceCreatePipelineLayout(device->instance, &descriptor);
 }

@@ -12,7 +12,7 @@ GPURenderPipeline::GPURenderPipeline(const Napi::CallbackInfo& info) : Napi::Obj
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  DawnRenderPipelineDescriptor descriptor = DescriptorDecoder::GPURenderPipelineDescriptor(device, info[1].As<Napi::Value>());
+  auto descriptor = DescriptorDecoder::GPURenderPipelineDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = dawnDeviceCreateRenderPipeline(device->instance, &descriptor);
 }

@@ -683,6 +683,187 @@ namespace DescriptorDecoder {
   
 
   
+  void DestroyGPUBindGroupBinding(DawnBindGroupBinding descriptor) {
+  };
+  
+  void DestroyGPUBindGroupDescriptor(DawnBindGroupDescriptor descriptor) {
+    if (descriptor.bindingCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.bindingCount; ++ii) {
+        DestroyGPUBindGroupBinding(descriptor.bindings[ii]);
+      };
+    }
+    if (descriptor.bindings) {
+      free((void*) const_cast<DawnBindGroupBinding*>(descriptor.bindings));
+    }
+  };
+  
+  void DestroyGPUBindGroupLayoutBinding(DawnBindGroupLayoutBinding descriptor) {
+  };
+  
+  void DestroyGPUBindGroupLayoutDescriptor(DawnBindGroupLayoutDescriptor descriptor) {
+    if (descriptor.bindingCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.bindingCount; ++ii) {
+        DestroyGPUBindGroupLayoutBinding(descriptor.bindings[ii]);
+      };
+    }
+    if (descriptor.bindings) {
+      free((void*) const_cast<DawnBindGroupLayoutBinding*>(descriptor.bindings));
+    }
+  };
+  
+  void DestroyGPUBlendDescriptor(DawnBlendDescriptor descriptor) {
+  };
+  
+  void DestroyGPUColorStateDescriptor(DawnColorStateDescriptor descriptor) {
+    if (descriptor.alphaBlend != nullptr) DestroyGPUBlendDescriptor(descriptor.alphaBlend);
+    if (descriptor.colorBlend != nullptr) DestroyGPUBlendDescriptor(descriptor.colorBlend);
+  };
+  
+  void DestroyGPUBufferCopyView(DawnBufferCopyView descriptor) {
+  };
+  
+  void DestroyGPUBufferDescriptor(DawnBufferDescriptor descriptor) {
+  };
+  
+  void DestroyGPUCreateBufferMappedResult(DawnCreateBufferMappedResult descriptor) {
+  };
+  
+  void DestroyGPUColor(DawnColor descriptor) {
+  };
+  
+  void DestroyGPUCommandBufferDescriptor(DawnCommandBufferDescriptor descriptor) {
+  };
+  
+  void DestroyGPUCommandEncoderDescriptor(DawnCommandEncoderDescriptor descriptor) {
+  };
+  
+  void DestroyGPUComputePassDescriptor(DawnComputePassDescriptor descriptor) {
+  };
+  
+  void DestroyGPUComputePipelineDescriptor(DawnComputePipelineDescriptor descriptor) {
+    if (descriptor.computeStage != nullptr) DestroyGPUPipelineStageDescriptor(descriptor.computeStage);
+  };
+  
+  void DestroyGPUDepthStencilStateDescriptor(DawnDepthStencilStateDescriptor descriptor) {
+    if (descriptor.stencilFront != nullptr) DestroyGPUStencilStateFaceDescriptor(descriptor.stencilFront);
+    if (descriptor.stencilBack != nullptr) DestroyGPUStencilStateFaceDescriptor(descriptor.stencilBack);
+  };
+  
+  void DestroyGPUExtent3D(DawnExtent3D descriptor) {
+  };
+  
+  void DestroyGPUFenceDescriptor(DawnFenceDescriptor descriptor) {
+  };
+  
+  void DestroyGPUVertexAttributeDescriptor(DawnVertexAttributeDescriptor descriptor) {
+  };
+  
+  void DestroyGPUVertexBufferDescriptor(DawnVertexBufferDescriptor descriptor) {
+    if (descriptor.attributeCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.attributeCount; ++ii) {
+        DestroyGPUVertexAttributeDescriptor(descriptor.attributes[ii]);
+      };
+    }
+    if (descriptor.attributes) {
+      free((void*) const_cast<DawnVertexAttributeDescriptor*>(descriptor.attributes));
+    }
+  };
+  
+  void DestroyGPUVertexInputDescriptor(DawnVertexInputDescriptor descriptor) {
+    if (descriptor.bufferCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.bufferCount; ++ii) {
+        DestroyGPUVertexBufferDescriptor(descriptor.buffers[ii]);
+      };
+    }
+    if (descriptor.buffers) {
+      free((void*) const_cast<DawnVertexBufferDescriptor*>(descriptor.buffers));
+    }
+  };
+  
+  void DestroyGPUOrigin3D(DawnOrigin3D descriptor) {
+  };
+  
+  void DestroyGPUPipelineLayoutDescriptor(DawnPipelineLayoutDescriptor descriptor) {
+  };
+  
+  void DestroyGPUPipelineStageDescriptor(DawnPipelineStageDescriptor descriptor) {
+    if (descriptor.entryPoint) {
+      delete[] descriptor.entryPoint;
+    }
+  };
+  
+  void DestroyGPURasterizationStateDescriptor(DawnRasterizationStateDescriptor descriptor) {
+  };
+  
+  void DestroyGPURenderBundleDescriptor(DawnRenderBundleDescriptor descriptor) {
+  };
+  
+  void DestroyGPURenderBundleEncoderDescriptor(DawnRenderBundleEncoderDescriptor descriptor) {
+    if (descriptor.colorFormats) {
+      free((void*) const_cast<DawnTextureFormat*>(descriptor.colorFormats));
+    }
+  };
+  
+  void DestroyGPURenderPassColorAttachmentDescriptor(DawnRenderPassColorAttachmentDescriptor descriptor) {
+    if (descriptor.clearColor != nullptr) DestroyGPUColor(descriptor.clearColor);
+  };
+  
+  void DestroyGPURenderPassDepthStencilAttachmentDescriptor(DawnRenderPassDepthStencilAttachmentDescriptor descriptor) {
+  };
+  
+  void DestroyGPURenderPassDescriptor(DawnRenderPassDescriptor descriptor) {
+    if (descriptor.colorAttachmentCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.colorAttachmentCount; ++ii) {
+        DestroyGPURenderPassColorAttachmentDescriptor(descriptor.colorAttachments[ii]);
+      };
+    }
+    if (descriptor.colorAttachments) {
+      free((void*) const_cast<DawnRenderPassColorAttachmentDescriptor*>(descriptor.colorAttachments));
+    }
+    if (descriptor.depthStencilAttachment != nullptr) DestroyGPURenderPassDepthStencilAttachmentDescriptor(descriptor.depthStencilAttachment);
+  };
+  
+  void DestroyGPURenderPipelineDescriptor(DawnRenderPipelineDescriptor descriptor) {
+    if (descriptor.vertexStage != nullptr) DestroyGPUPipelineStageDescriptor(descriptor.vertexStage);
+    if (descriptor.fragmentStage != nullptr) DestroyGPUPipelineStageDescriptor(descriptor.fragmentStage);
+    if (descriptor.vertexInput != nullptr) DestroyGPUVertexInputDescriptor(descriptor.vertexInput);
+    if (descriptor.rasterizationState != nullptr) DestroyGPURasterizationStateDescriptor(descriptor.rasterizationState);
+    if (descriptor.depthStencilState != nullptr) DestroyGPUDepthStencilStateDescriptor(descriptor.depthStencilState);
+    if (descriptor.colorStateCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.colorStateCount; ++ii) {
+        DestroyGPUColorStateDescriptor(descriptor.colorStates[ii]);
+      };
+    }
+    if (descriptor.colorStates) {
+      free((void*) const_cast<DawnColorStateDescriptor*>(descriptor.colorStates));
+    }
+  };
+  
+  void DestroyGPUSamplerDescriptor(DawnSamplerDescriptor descriptor) {
+  };
+  
+  void DestroyGPUShaderModuleDescriptor(DawnShaderModuleDescriptor descriptor) {
+  };
+  
+  void DestroyGPUStencilStateFaceDescriptor(DawnStencilStateFaceDescriptor descriptor) {
+  };
+  
+  void DestroyGPUSwapChainDescriptor(DawnSwapChainDescriptor descriptor) {
+  };
+  
+  void DestroyGPUTextureCopyView(DawnTextureCopyView descriptor) {
+    if (descriptor.origin != nullptr) DestroyGPUOrigin3D(descriptor.origin);
+  };
+  
+  void DestroyGPUTextureDescriptor(DawnTextureDescriptor descriptor) {
+    if (descriptor.size != nullptr) DestroyGPUExtent3D(descriptor.size);
+  };
+  
+  void DestroyGPUTextureViewDescriptor(DawnTextureViewDescriptor descriptor) {
+  };
+  
+
+  
   DawnBindGroupBinding GPUBindGroupBinding(GPUDevice* device, Napi::Value& value) {
 
     DawnBindGroupBinding descriptor;
@@ -1190,7 +1371,7 @@ namespace DescriptorDecoder {
 
     return descriptor;
   };
-
+  
   DawnVertexInputDescriptor GPUVertexInputDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
 
     DawnVertexInputDescriptor descriptor;

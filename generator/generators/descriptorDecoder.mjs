@@ -234,6 +234,67 @@ ${padding}${output.name}.${member.name} = data->data();`;
   return out;
 };
 
+function getDestroyStructureMember(structure, member) {
+  let {type} = member;
+  let {jsType, rawType, nativeType} = type;
+  let out = ``;
+  if (member.isInternalProperty) return out;
+  if (type.isObject && !type.isArray) {
+    // no need to free
+  }
+  else if (type.isObject && type.isArray) {
+    // no need to free
+  }
+  else if (type.isStructure && !type.isArray) {
+    let exportType = getExplortDeclarationName(nativeType);
+    out += `
+    if (descriptor.${member.name} != nullptr) Destroy${exportType}(descriptor.${member.name});`;
+  }
+  else if (type.isStructure && type.isArray) {
+    let exportType = getExplortDeclarationName(nativeType);
+    out += `
+    if (descriptor.${type.length} > 0) {
+      for (unsigned int ii = 0; ii < descriptor.${type.length}; ++ii) {
+        Destroy${exportType}(descriptor.${member.name}[ii]);
+      };
+    }
+    if (descriptor.${member.name}) {
+      free((void*) const_cast<${nativeType}*>(descriptor.${member.name}));
+    }`;
+  }
+  else if (type.isNumber) {
+    // no need to free
+  }
+  else if (type.isBoolean && !type.isArray) {
+    // no need to free
+  }
+  else if (type.isBoolean && type.isArray) {
+    warn(`Unimplemented`);
+  }
+  else if (type.isEnum && !type.isArray) {
+    // no need to free
+  }
+  else if (type.isEnum && type.isArray) {
+    out += `
+    if (descriptor.${member.name}) {
+      free((void*) const_cast<${nativeType}*>(descriptor.${member.name}));
+    }`;
+  }
+  else if (type.isBitmask && !type.isArray) {
+    // no need to free
+  }
+  else if (type.isBitmask && type.isArray) {
+    warn(`Unimplemented`);
+  }
+  else if (type.isString) {
+    out += `
+    if (descriptor.${member.name}) {
+      delete[] descriptor.${member.name};
+    }`;
+  }
+  return out;
+};
+
 function getDecodeStructureParameters(structure, isHeaderFile) {
   let out = ``;
   out += `GPUDevice* device`;
@@ -284,6 +345,7 @@ export default function(astReference) {
   let vars = {
     enums,
     structures,
+    getDestroyStructureMember,
     getDecodeStructureMember,
     getDescriptorInstanceReset,
     getEnumNameFromDawnEnumName,

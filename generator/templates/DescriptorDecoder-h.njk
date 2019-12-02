@@ -20,6 +20,11 @@ namespace DescriptorDecoder {
   uint32_t {{ enum.externalName }}(std::string name);
   std::string {{ enum.externalName }}(uint32_t value);
   {% endfor %}
+  
+  {% for struct in structures %}
+  void Destroy{{ struct.externalName }}({{ struct.name }} descriptor);
+  {% endfor %}
+
   {% for struct in structures %}
   {{ struct.name }} {{ struct.externalName }}({{ getDecodeStructureParameters(struct, true) | safe }});
   {% endfor %}

@@ -94,6 +94,83 @@ namespace DescriptorDecoder {
   std::string GPUVertexFormat(uint32_t value);
   
   
+  
+  void DestroyGPUBindGroupBinding(DawnBindGroupBinding descriptor);
+  
+  void DestroyGPUBindGroupDescriptor(DawnBindGroupDescriptor descriptor);
+  
+  void DestroyGPUBindGroupLayoutBinding(DawnBindGroupLayoutBinding descriptor);
+  
+  void DestroyGPUBindGroupLayoutDescriptor(DawnBindGroupLayoutDescriptor descriptor);
+  
+  void DestroyGPUBlendDescriptor(DawnBlendDescriptor descriptor);
+  
+  void DestroyGPUColorStateDescriptor(DawnColorStateDescriptor descriptor);
+  
+  void DestroyGPUBufferCopyView(DawnBufferCopyView descriptor);
+  
+  void DestroyGPUBufferDescriptor(DawnBufferDescriptor descriptor);
+  
+  void DestroyGPUCreateBufferMappedResult(DawnCreateBufferMappedResult descriptor);
+  
+  void DestroyGPUColor(DawnColor descriptor);
+  
+  void DestroyGPUCommandBufferDescriptor(DawnCommandBufferDescriptor descriptor);
+  
+  void DestroyGPUCommandEncoderDescriptor(DawnCommandEncoderDescriptor descriptor);
+  
+  void DestroyGPUComputePassDescriptor(DawnComputePassDescriptor descriptor);
+  
+  void DestroyGPUComputePipelineDescriptor(DawnComputePipelineDescriptor descriptor);
+  
+  void DestroyGPUDepthStencilStateDescriptor(DawnDepthStencilStateDescriptor descriptor);
+  
+  void DestroyGPUExtent3D(DawnExtent3D descriptor);
+  
+  void DestroyGPUFenceDescriptor(DawnFenceDescriptor descriptor);
+  
+  void DestroyGPUVertexAttributeDescriptor(DawnVertexAttributeDescriptor descriptor);
+  
+  void DestroyGPUVertexBufferDescriptor(DawnVertexBufferDescriptor descriptor);
+  
+  void DestroyGPUVertexInputDescriptor(DawnVertexInputDescriptor descriptor);
+  
+  void DestroyGPUOrigin3D(DawnOrigin3D descriptor);
+  
+  void DestroyGPUPipelineLayoutDescriptor(DawnPipelineLayoutDescriptor descriptor);
+  
+  void DestroyGPUPipelineStageDescriptor(DawnPipelineStageDescriptor descriptor);
+  
+  void DestroyGPURasterizationStateDescriptor(DawnRasterizationStateDescriptor descriptor);
+  
+  void DestroyGPURenderBundleDescriptor(DawnRenderBundleDescriptor descriptor);
+  
+  void DestroyGPURenderBundleEncoderDescriptor(DawnRenderBundleEncoderDescriptor descriptor);
+  
+  void DestroyGPURenderPassColorAttachmentDescriptor(DawnRenderPassColorAttachmentDescriptor descriptor);
+  
+  void DestroyGPURenderPassDepthStencilAttachmentDescriptor(DawnRenderPassDepthStencilAttachmentDescriptor descriptor);
+  
+  void DestroyGPURenderPassDescriptor(DawnRenderPassDescriptor descriptor);
+  
+  void DestroyGPURenderPipelineDescriptor(DawnRenderPipelineDescriptor descriptor);
+  
+  void DestroyGPUSamplerDescriptor(DawnSamplerDescriptor descriptor);
+  
+  void DestroyGPUShaderModuleDescriptor(DawnShaderModuleDescriptor descriptor);
+  
+  void DestroyGPUStencilStateFaceDescriptor(DawnStencilStateFaceDescriptor descriptor);
+  
+  void DestroyGPUSwapChainDescriptor(DawnSwapChainDescriptor descriptor);
+  
+  void DestroyGPUTextureCopyView(DawnTextureCopyView descriptor);
+  
+  void DestroyGPUTextureDescriptor(DawnTextureDescriptor descriptor);
+  
+  void DestroyGPUTextureViewDescriptor(DawnTextureViewDescriptor descriptor);
+  
+
+  
   DawnBindGroupBinding GPUBindGroupBinding(GPUDevice* device, Napi::Value& value);
   
   DawnBindGroupDescriptor GPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);

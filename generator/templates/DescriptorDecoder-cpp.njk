@@ -45,6 +45,14 @@ namespace DescriptorDecoder {
   {% endfor %}
 
   {% for struct in structures %}
+  void Destroy{{ struct.externalName }}({{ struct.name }} descriptor) {
+    {%- for member in struct.children %}
+    {{- getDestroyStructureMember(struct, member) | safe -}}
+    {% endfor %}
+  };
+  {% endfor %}
+
+  {% for struct in structures %}
   {{ struct.name }} {{ struct.externalName }}({{ getDecodeStructureParameters(struct) | safe }}) {
 
     {{ struct.name }} descriptor;

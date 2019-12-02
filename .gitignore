@@ -91,6 +91,7 @@ www
 
 package-lock.json
 
+generated/*/win32/build/.vs
 generated/*/win32/build/Release/obj
 generated/*/win32/build/Release/*.iobj
 generated/*/win32/build/Release/*.ipdb

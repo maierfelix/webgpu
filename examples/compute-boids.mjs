@@ -156,11 +156,11 @@ const csSrc = `
       entryPoint: "main"
     },
     primitiveTopology: "triangle-list",
-    vertexInput: {
+    vertexState: {
       indexFormat: "uint32",
-      buffers: [
+      vertexBuffers: [
         {
-          stride: BigInt(4 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: BigInt(4 * Float32Array.BYTES_PER_ELEMENT),
           stepMode: "instance",
           attributes: [
             {
@@ -176,7 +176,7 @@ const csSrc = `
           ]
         },
         {
-          stride: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
           stepMode: "vertex",
           attributes: [
             {
@@ -201,7 +201,7 @@ const csSrc = `
 
   const computeBindGroupLayout = device.createBindGroupLayout({
     bindings: [
-      { binding: 0, visibility: GPUShaderStage.COMPUTE, type: "uniform-buffer" },
+      { binding: 0, visibility: GPUShaderStage.COMPUTE, type: "uniform-buffer", textureDimension: "2D" },
       { binding: 1, visibility: GPUShaderStage.COMPUTE, type: "storage-buffer" },
       { binding: 2, visibility: GPUShaderStage.COMPUTE, type: "storage-buffer" }
     ]
@@ -269,12 +269,11 @@ const csSrc = `
   function onFrame() {
     if (!window.shouldClose()) setTimeout(onFrame, 1e3 / 60);
 
-    const backBuffer = swapChain.getCurrentTexture();
-    const backBufferView = backBuffer.createView({ format: swapChainFormat });
+    const backBufferView = swapChain.getCurrentTextureView();
 
     const commandEncoder = device.createCommandEncoder({});
     {
-      const passEncoder = commandEncoder.beginComputePass();
+      const passEncoder = commandEncoder.beginComputePass({});
       passEncoder.setPipeline(computePipeline);
       passEncoder.setBindGroup(0, particleBindGroups[frames % 2]);
       passEncoder.dispatch(numParticles);
@@ -291,13 +290,14 @@ const csSrc = `
         }]
       });
       passEncoder.setPipeline(renderPipeline);
-      passEncoder.setVertexBuffers(0, [particleBuffers[(frames + 1) % 2], verticesBuffer], [0n, 0n]);
+      passEncoder.setVertexBuffer(0, particleBuffers[(frames + 1) % 2], 0);
+      passEncoder.setVertexBuffer(1, verticesBuffer, 0);
       passEncoder.draw(3, numParticles, 0, 0);
       passEncoder.endPass();
     }
     queue.submit([ commandEncoder.finish() ]);
 
-    swapChain.present(backBuffer);
+    swapChain.present();
     window.pollEvents();
     frames++;
   };

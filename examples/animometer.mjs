@@ -99,7 +99,8 @@ const fsSrc = `
       {
         binding: 0,
         visibility: GPUShaderStage.VERTEX,
-        type: "uniform-buffer"
+        type: "uniform-buffer",
+        textureDimension: "2D"
       },
     ]
   });
@@ -109,7 +110,8 @@ const fsSrc = `
       {
         binding: 0,
         visibility: GPUShaderStage.VERTEX,
-        type: "uniform-buffer"
+        type: "uniform-buffer",
+        textureDimension: "2D"
       },
     ]
   });
@@ -120,7 +122,8 @@ const fsSrc = `
         binding: 0,
         visibility: GPUShaderStage.VERTEX,
         type: "uniform-buffer",
-        dynamic: true
+        dynamic: true,
+        textureDimension: "2D"
       },
     ]
   });
@@ -144,11 +147,11 @@ const fsSrc = `
       entryPoint: "main"
     },
     primitiveTopology: "triangle-list",
-    vertexInput: {
+    vertexState: {
       indexFormat: "uint32",
-      buffers: [
+      vertexBuffers: [
         {
-          stride: BigInt(5 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: BigInt(5 * Float32Array.BYTES_PER_ELEMENT),
           stepMode: "vertex",
           attributes: [
             {
@@ -258,12 +261,12 @@ const fsSrc = `
       } else {
         passEncoder.setPipeline(pipeline);
       }
-      passEncoder.setVertexBuffers(0, [stagedVertexBuffer], [0n]);
+      passEncoder.setVertexBuffer(0, stagedVertexBuffer, 0);
       passEncoder.setBindGroup(0, timeBindGroup);
-      const dynamicOffsets = [0n];
+      const dynamicOffsets = [0];
       for (let i = 0; i < numTriangles; ++i) {
         if (/*settings.dynamicOffsets*/true) {
-          dynamicOffsets[0] = BigInt(i * alignedUniformBytes);
+          dynamicOffsets[0] = (i * alignedUniformBytes);
           passEncoder.setBindGroup(1, dynamicBindGroup, dynamicOffsets);
         } else {
           passEncoder.setBindGroup(1, bindGroups[i]);
@@ -326,7 +329,7 @@ const fsSrc = `
           commandEncoder.finish(),
         ]);
       } else {
-        const textureView = swapChain.getCurrentTexture().createView({ format: swapChainFormat });
+        const textureView = swapChain.getCurrentTextureView();
         device.getQueue().submit([ createCommandBuffer(textureView) ]);
       }
     }
@@ -367,7 +370,7 @@ const fsSrc = `
       window.title = `Avg Javascript: ${jsTimeAvg.toFixed(2)} ms\nAvg Frame: ${frameTimeAvg.toFixed(2)} ms`;
 
     }
-    swapChain.present(swapChain.getCurrentTexture());
+    swapChain.present();
     window.pollEvents();
     if (!window.shouldClose()) setTimeout(onFrame, 1e3 / 60);
   }

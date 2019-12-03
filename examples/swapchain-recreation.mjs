@@ -138,7 +138,8 @@ const fsSrc = `
     bindings: [{
       binding: 0,
       visibility: GPUShaderStage.VERTEX,
-      type: "uniform-buffer"
+      type: "uniform-buffer",
+      textureDimension: "2D"
     }]
   });
 
@@ -168,11 +169,11 @@ const fsSrc = `
       stencilFront: {},
       stencilBack: {},
     },
-    vertexInput: {
+    vertexState: {
       indexFormat: "uint32",
-      buffers: [
+      vertexBuffers: [
         {
-          stride: BigInt(6 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: BigInt(6 * Float32Array.BYTES_PER_ELEMENT),
           stepMode: "vertex",
           attributes: [
             {
@@ -266,8 +267,7 @@ const fsSrc = `
     mat4.multiply(mModelViewProjection, mProjection, mModelViewProjection);
     stagedUniformBuffer.setSubData(0n, mModelViewProjection);
 
-    const backBuffer = swapChain.getCurrentTexture();
-    const backBufferView = backBuffer.createView({ format: swapChainFormat });
+    const backBufferView = swapChain.getCurrentTextureView();
     const commandEncoder = device.createCommandEncoder({});
     const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [{
@@ -280,14 +280,14 @@ const fsSrc = `
     });
     renderPass.setPipeline(pipeline);
     renderPass.setBindGroup(0, uniformBindGroup);
-    renderPass.setVertexBuffers(0, [stagedVertexBuffer], [0n]);
+    renderPass.setVertexBuffer(0, stagedVertexBuffer, 0);
     renderPass.setIndexBuffer(stagedIndexBuffer);
     renderPass.drawIndexed(modelIndices.length, 1, 0, 0, 0);
     renderPass.endPass();
 
     const commandBuffer = commandEncoder.finish();
     queue.submit([ commandBuffer ]);
-    swapChain.present(backBuffer);
+    swapChain.present();
     window.pollEvents();
   };
   setTimeout(onFrame, 1e3 / 60);

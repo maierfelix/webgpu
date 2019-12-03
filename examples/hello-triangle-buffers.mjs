@@ -112,10 +112,10 @@ const fsSrc = `
       entryPoint: "main"
     },
     primitiveTopology: "triangle-list",
-    vertexInput: {
+    vertexState: {
       indexFormat: "uint32",
-      buffers: [{
-          stride: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
+      vertexBuffers: [{
+          arrayStride: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
           stepMode: "vertex",
           attributes: [{
             shaderLocation: 0,
@@ -138,10 +138,7 @@ const fsSrc = `
   function onFrame() {
     if (!window.shouldClose()) setTimeout(onFrame, 1e3 / 60);
 
-    const backBuffer = swapChain.getCurrentTexture();
-    const backBufferView = backBuffer.createView({
-      format: swapChainFormat
-    });
+    const backBufferView = swapChain.getCurrentTextureView();
     const commandEncoder = device.createCommandEncoder({});
     const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [{
@@ -152,14 +149,14 @@ const fsSrc = `
       }]
     });
     renderPass.setPipeline(pipeline);
-    renderPass.setVertexBuffers(0, [stagedVertexBuffer], [0n]);
+    renderPass.setVertexBuffer(0, stagedVertexBuffer, 0);
     renderPass.setIndexBuffer(stagedIndexBuffer);
     renderPass.drawIndexed(triangleIndices.length, 1, 0, 0, 0);
     renderPass.endPass();
 
     const commandBuffer = commandEncoder.finish();
     queue.submit([ commandBuffer ]);
-    swapChain.present(backBuffer);
+    swapChain.present();
     window.pollEvents();
   };
   setTimeout(onFrame, 1e3 / 60);

@@ -55,17 +55,17 @@ Napi::Value GPUSwapChain::getCurrentTextureView(const Napi::CallbackInfo &info) 
 
   WGPUTextureView nextTextureView = wgpuSwapChainGetCurrentTextureView(this->instance);
 
-  /*std::vector<napi_value> args = {
+  std::vector<napi_value> args = {
     info.This().As<Napi::Value>(),
-    info[0].As<Napi::Value>()
+    info[0].As<Napi::Value>(),
+    Napi::Boolean::New(env, true)
   };
   Napi::Object textureView = GPUTextureView::constructor.New(args);
 
   GPUTextureView* uwTexture = Napi::ObjectWrap<GPUTextureView>::Unwrap(textureView);
-  uwTexture->instance = nextTexture;
+  uwTexture->instance = nextTextureView;
 
-  return textureView;*/
-  return env.Undefined();
+  return textureView;
 }
 
 Napi::Value GPUSwapChain::present(const Napi::CallbackInfo &info) {

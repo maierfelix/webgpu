@@ -57,7 +57,7 @@ Napi::Value GPURenderPassEncoder::setVertexBuffer(const Napi::CallbackInfo &info
   WGPUBuffer buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[1].As<Napi::Object>())->instance;
   uint32_t offset = 0;
   if (info[2].IsNumber()) {
-    offset = info[1].As<Napi::Number>().Uint32Value();
+    offset = info[2].As<Napi::Number>().Uint32Value();
   }
 
   wgpuRenderPassEncoderSetVertexBuffer(this->instance, startSlot, buffer, offset);

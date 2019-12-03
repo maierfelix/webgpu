@@ -79,15 +79,11 @@ const fsSrc = `
     format: swapChainFormat
   });
 
-  console.log(0);
-
   const stagedVertexBuffer = device.createBuffer({
     size: BigInt(triangleVertices.byteLength),
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
   });
   stagedVertexBuffer.setSubData(0n, triangleVertices);
-
-  console.log(1);
 
   const stagedIndexBuffer = device.createBuffer({
     size: BigInt(triangleIndices.byteLength),
@@ -95,36 +91,27 @@ const fsSrc = `
   });
   stagedIndexBuffer.setSubData(0n, triangleIndices);
 
-  console.log(2);
-
   const stagedUniformBuffer = device.createBuffer({
     size: BigInt(mModelViewProjection.byteLength),
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
   });
   stagedUniformBuffer.setSubData(0n, mModelViewProjection);
 
-  console.log(3);
-
   const uniformBindGroupLayout = device.createBindGroupLayout({
     bindings: [{
       binding: 0,
       visibility: GPUShaderStage.VERTEX,
-      type: "uniform-buffer"
+      type: "uniform-buffer",
+      textureDimension: "2D"
     }]
   });
-
-  console.log(4);
 
   const layout = device.createPipelineLayout({
     bindGroupLayouts: [ uniformBindGroupLayout ]
   });
 
-  console.log(5);
-
   const vertexShaderModule = device.createShaderModule({ code: vsSrc });
   const fragmentShaderModule = device.createShaderModule({ code: fsSrc });
-
-  console.log(6);
 
   const pipeline = device.createRenderPipeline({
     layout,
@@ -138,26 +125,24 @@ const fsSrc = `
       entryPoint: "main"
     },
     primitiveTopology: "triangle-list",
-    vertexInput: {
+    vertexState: {
       indexFormat: "uint32",
-      buffers: [
-        {
-          stride: BigInt(5 * Float32Array.BYTES_PER_ELEMENT),
-          stepMode: "vertex",
-          attributes: [
-            {
-              shaderLocation: 0,
-              offset: BigInt(0 * Float32Array.BYTES_PER_ELEMENT),
-              format: "float2"
-            },
-            {
-              shaderLocation: 1,
-              offset: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
-              format: "float3"
-            }
-          ]
-        },
-      ]
+      vertexBuffers: [{
+        arrayStride: BigInt(5 * Float32Array.BYTES_PER_ELEMENT),
+        stepMode: "vertex",
+        attributes: [
+          {
+            shaderLocation: 0,
+            offset: BigInt(0 * Float32Array.BYTES_PER_ELEMENT),
+            format: "float2"
+          },
+          {
+            shaderLocation: 1,
+            offset: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
+            format: "float3"
+          }
+        ]
+      }]
     },
     rasterizationState: {
       frontFace: "CCW",
@@ -170,8 +155,6 @@ const fsSrc = `
     }]
   });
 
-  console.log(7);
-
   const uniformBindGroup = device.createBindGroup({
     layout: uniformBindGroupLayout,
     bindings: [{
@@ -181,8 +164,6 @@ const fsSrc = `
       size: BigInt(mModelViewProjection.byteLength)
     }]
   });
-
-  console.log(8);
 
   let isMouseButtonPressed = false;
   window.onmouseup = e => {
@@ -215,10 +196,7 @@ const fsSrc = `
     stagedUniformBuffer.setSubData(0n, mModelViewProjection);
 
     {
-      const backBuffer = swapChain.getCurrentTexture();
-      const backBufferView = backBuffer.createView({
-        format: swapChainFormat
-      });
+      const backBufferView = swapChain.getCurrentTextureView();
       const commandEncoder = device.createCommandEncoder({});
       const renderPass = commandEncoder.beginRenderPass({
         colorAttachments: [{
@@ -230,14 +208,14 @@ const fsSrc = `
       });
       renderPass.setPipeline(pipeline);
       renderPass.setBindGroup(0, uniformBindGroup);
-      renderPass.setVertexBuffers(0, [stagedVertexBuffer], [0n]);
+      renderPass.setVertexBuffer(0, stagedVertexBuffer, 0);
       renderPass.setIndexBuffer(stagedIndexBuffer);
       renderPass.drawIndexed(triangleIndices.length, 1, 0, 0, 0);
       renderPass.endPass();
 
       const commandBuffer = commandEncoder.finish();
       queue.submit([ commandBuffer ]);
-      swapChain.present(backBuffer);
+      swapChain.present();
 
     }
 

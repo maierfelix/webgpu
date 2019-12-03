@@ -84,10 +84,7 @@ const fsSrc = `
   function onFrame() {
     if (!window.shouldClose()) setTimeout(onFrame, 1e3 / 60);
 
-    const backBuffer = swapChain.getCurrentTexture();
-    const backBufferView = backBuffer.createView({
-      format: swapChainFormat
-    });
+    const backBufferView = swapChain.getCurrentTextureView();
     const commandEncoder = device.createCommandEncoder({});
     const renderPass = commandEncoder.beginRenderPass({
       colorAttachments: [{
@@ -103,7 +100,7 @@ const fsSrc = `
 
     const commandBuffer = commandEncoder.finish();
     queue.submit([ commandBuffer ]);
-    swapChain.present(backBuffer);
+    swapChain.present();
     window.pollEvents();
   };
   setTimeout(onFrame, 1e3 / 60);

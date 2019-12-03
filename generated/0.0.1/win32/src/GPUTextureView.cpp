@@ -8,6 +8,13 @@ Napi::FunctionReference GPUTextureView::constructor;
 GPUTextureView::GPUTextureView(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUTextureView>(info) {
   Napi::Env env = info.Env();
 
+  // constructor called internally:
+  // prevents this constructor to create a new texture,
+  // since the texture is expected to be created externally
+  if (info[2].IsBoolean() && info[2].As<Napi::Boolean>().Value() == true) {
+    return;
+  }
+
   this->texture.Reset(info[0].As<Napi::Object>(), 1);
   GPUTexture* texture = Napi::ObjectWrap<GPUTexture>::Unwrap(this->texture.Value());
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(texture->device.Value());

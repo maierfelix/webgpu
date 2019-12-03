@@ -23,3 +23,22 @@ Now in order to generate the bindings and build this project, run:
 ````
 npm run all --dawnversion=0.0.1
 ````
+
+### Windows
+
+Follow dawn's initial setup instructions, but instead of the standard build, do the following:
+
+To generate the project as a shared library using MSVS:
+````
+gn gen out/Shared --ide=vs --target_cpu="x64" --args="is_component_build=true is_debug=false is_clang=false"
+````
+It's important that you build using MSVS and **not** clang, as otherwise you will potentially get linking errors.
+
+To build the project run:
+````
+ninja -C out/Shared
+````
+
+### Linux // TODO
+
+### MacOS // TODO

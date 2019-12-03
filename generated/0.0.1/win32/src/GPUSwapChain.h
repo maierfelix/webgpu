@@ -13,17 +13,16 @@ class GPUSwapChain : public Napi::ObjectWrap<GPUSwapChain> {
     GPUSwapChain(const Napi::CallbackInfo &info);
     ~GPUSwapChain();
 
-    Napi::Value getCurrentTexture(const Napi::CallbackInfo &info);
+    Napi::Value getCurrentTextureView(const Napi::CallbackInfo &info);
     Napi::Value present(const Napi::CallbackInfo &info);
 
     Napi::ObjectReference device;
     Napi::ObjectReference context;
 
-    DawnSwapChain instance;
+    WGPUSwapChain instance;
 
-    DawnTextureFormat format;
-    DawnTextureUsage usage;
-
+    WGPUTextureFormat format;
+    WGPUTextureUsage usage;
 };
 
 #endif

@@ -1,13 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommand>C:\Program Files\nodejs\node.exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>--experimental-modules C:\Users\User\Documents\GitHub\n-wgpu\examples\hello-triangle-buffers.mjs</LocalDebuggerCommandArguments>
-    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>--experimental-modules C:\Users\User\Documents\GitHub\n-wgpu\examples\hello-triangle-buffers.mjs</LocalDebuggerCommandArguments>
-    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommand>C:\Program Files\nodejs\node.exe</LocalDebuggerCommand>
-  </PropertyGroup>
+  <PropertyGroup />
 </Project>

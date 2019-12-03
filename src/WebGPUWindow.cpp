@@ -59,7 +59,7 @@ void WebGPUWindow::onWindowResize(GLFWwindow* window, int width, int height) {
   if (width != self->width || height != self->height) {
     // reconfigurate swapchain
     GPUSwapChain* swapChain = self->swapChain;
-    dawnSwapChainConfigure(
+    wgpuSwapChainConfigure(
       swapChain->instance,
       swapChain->format,
       swapChain->usage,

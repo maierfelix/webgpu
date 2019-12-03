@@ -30,7 +30,7 @@ class GPUCommandEncoder : public Napi::ObjectWrap<GPUCommandEncoder> {
 
     Napi::ObjectReference device;
 
-    DawnCommandEncoder instance;
+    WGPUCommandEncoder instance;
   private:
 
 };

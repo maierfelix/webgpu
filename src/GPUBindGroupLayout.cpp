@@ -13,7 +13,7 @@ GPUBindGroupLayout::GPUBindGroupLayout(const Napi::CallbackInfo& info) : Napi::O
 
   auto descriptor = DescriptorDecoder::GPUBindGroupLayoutDescriptor(device, info[1].As<Napi::Value>());
 
-  this->instance = dawnDeviceCreateBindGroupLayout(device->instance, &descriptor);
+  this->instance = wgpuDeviceCreateBindGroupLayout(device->instance, &descriptor);
 }
 
 GPUBindGroupLayout::~GPUBindGroupLayout() {

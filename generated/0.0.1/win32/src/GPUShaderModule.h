@@ -15,7 +15,7 @@ class GPUShaderModule : public Napi::ObjectWrap<GPUShaderModule> {
 
     Napi::ObjectReference device;
 
-    DawnShaderModule instance;
+    WGPUShaderModule instance;
   private:
 
 };

@@ -30,7 +30,7 @@ class GPUComputePassEncoder : public Napi::ObjectWrap<GPUComputePassEncoder> {
     Napi::ObjectReference device;
     Napi::ObjectReference commandEncoder;
 
-    DawnComputePassEncoder instance;
+    WGPUComputePassEncoder instance;
   private:
 
 };

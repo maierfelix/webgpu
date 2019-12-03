@@ -13,7 +13,7 @@ GPUSampler::GPUSampler(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUSam
 
   auto descriptor = DescriptorDecoder::GPUSamplerDescriptor(device, info[1].As<Napi::Value>());
 
-  this->instance = dawnDeviceCreateSampler(device->instance, &descriptor);
+  this->instance = wgpuDeviceCreateSampler(device->instance, &descriptor);
 }
 
 GPUSampler::~GPUSampler() {

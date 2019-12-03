@@ -12,9 +12,9 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* uwDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
-  DawnDevice backendDevice = uwDevice->instance;
+  WGPUDevice backendDevice = uwDevice->instance;
 
-  DawnShaderModuleDescriptor descriptor;
+  WGPUShaderModuleDescriptor descriptor;
   descriptor.nextInChain = nullptr;
 
   {
@@ -46,7 +46,7 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
 
       descriptor.code = result.cbegin();
       descriptor.codeSize = static_cast<uint32_t>(resultSize);
-      this->instance = dawnDeviceCreateShaderModule(backendDevice, &descriptor);
+      this->instance = wgpuDeviceCreateShaderModule(backendDevice, &descriptor);
       delete source;
     }
     // code is 'Uint32Array'
@@ -54,7 +54,7 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
       size_t size;
       descriptor.code = getTypedArrayData<uint32_t>(code, &size);
       descriptor.codeSize = static_cast<uint32_t>(size);
-      this->instance = dawnDeviceCreateShaderModule(backendDevice, &descriptor);
+      this->instance = wgpuDeviceCreateShaderModule(backendDevice, &descriptor);
     }
     // code is invalid type
     else {

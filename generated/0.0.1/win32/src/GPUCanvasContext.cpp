@@ -35,12 +35,12 @@ Napi::Value GPUCanvasContext::getSwapChainPreferredFormat(const Napi::CallbackIn
   GPUAdapter* adapter = Napi::ObjectWrap<GPUAdapter>::Unwrap(device->adapter.Value());
   WebGPUWindow* window = Napi::ObjectWrap<WebGPUWindow>::Unwrap(adapter->window.Value());
 
-  if (window->preferredSwapChainFormat == DAWN_TEXTURE_FORMAT_UNDEFINED) {
-    DawnSwapChainDescriptor descriptor;
+  if (window->preferredSwapChainFormat == WGPUTextureFormat_Undefined) {
+    WGPUSwapChainDescriptor descriptor;
     descriptor.nextInChain = nullptr;
     // returns always the same address, so we dont have to release this temp swapchain?
     descriptor.implementation = device->binding->GetSwapChainImplementation();
-    DawnSwapChain instance = dawnDeviceCreateSwapChain(device->instance, &descriptor);
+    WGPUSwapChain instance = wgpuDeviceCreateSwapChain(device->instance, &descriptor);
     glfwPollEvents();
     window->preferredSwapChainFormat = device->binding->GetPreferredSwapChainTextureFormat();
   }

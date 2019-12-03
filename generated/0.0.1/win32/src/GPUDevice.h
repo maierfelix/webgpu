@@ -50,12 +50,10 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     dawn_native::Adapter _adapter;
     BackendBinding* binding;
 
-    dawn::Device device;
-    DawnDevice instance;
+    WGPUDevice instance;
   private:
-    DawnDevice GPUDevice::createDevice();
     Napi::Object GPUDevice::createQueue(const Napi::CallbackInfo& info);
-    BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, DawnDevice device);
+    BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, WGPUDevice device);
 
 };
 

@@ -40,7 +40,7 @@ class WebGPUWindow : public Napi::ObjectWrap<WebGPUWindow> {
     GLFWwindow* instance;
 
     GPUSwapChain* swapChain;
-    DawnTextureFormat preferredSwapChainFormat = DAWN_TEXTURE_FORMAT_UNDEFINED;
+    WGPUTextureFormat preferredSwapChainFormat = WGPUTextureFormat_Undefined;
 
     Napi::Value getContext(const Napi::CallbackInfo &info);
     Napi::Value pollEvents(const Napi::CallbackInfo &info);

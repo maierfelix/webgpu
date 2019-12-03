@@ -13,7 +13,7 @@ GPUQueue::GPUQueue(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUQueue>(
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  this->instance = dawnDeviceCreateQueue(device->instance);
+  this->instance = wgpuDeviceCreateQueue(device->instance);
 }
 
 GPUQueue::~GPUQueue() {
@@ -26,14 +26,14 @@ Napi::Value GPUQueue::submit(const Napi::CallbackInfo &info) {
   Napi::Array array = info[0].As<Napi::Array>();
 
   uint32_t length = array.Length();
-  std::vector<DawnCommandBuffer> commands;
+  std::vector<WGPUCommandBuffer> commands;
   for (unsigned int ii = 0; ii < length; ++ii) {
     Napi::Object item = array.Get(ii).As<Napi::Object>();
-    DawnCommandBuffer value = Napi::ObjectWrap<GPUCommandBuffer>::Unwrap(item)->instance;
+    WGPUCommandBuffer value = Napi::ObjectWrap<GPUCommandBuffer>::Unwrap(item)->instance;
     commands.push_back(value);
   };
 
-  dawnQueueSubmit(this->instance, length, commands.data());
+  wgpuQueueSubmit(this->instance, length, commands.data());
 
   return env.Undefined();
 }
@@ -53,10 +53,10 @@ Napi::Value GPUQueue::createFence(const Napi::CallbackInfo &info) {
 Napi::Value GPUQueue::signal(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  DawnFence fence = Napi::ObjectWrap<GPUFence>::Unwrap(info[0].ToObject())->instance;
+  WGPUFence fence = Napi::ObjectWrap<GPUFence>::Unwrap(info[0].ToObject())->instance;
   bool lossless;
   uint64_t signalValue = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
-  dawnQueueSignal(this->instance, fence, signalValue);
+  wgpuQueueSignal(this->instance, fence, signalValue);
 
   return env.Undefined();
 }

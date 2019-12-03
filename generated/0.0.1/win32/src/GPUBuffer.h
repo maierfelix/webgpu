@@ -23,7 +23,7 @@ class GPUBuffer : public Napi::ObjectWrap<GPUBuffer> {
 
     Napi::ObjectReference device;
 
-    DawnBuffer instance;
+    WGPUBuffer instance;
 
   private:
 

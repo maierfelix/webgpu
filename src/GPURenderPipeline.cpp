@@ -14,7 +14,7 @@ GPURenderPipeline::GPURenderPipeline(const Napi::CallbackInfo& info) : Napi::Obj
 
   auto descriptor = DescriptorDecoder::GPURenderPipelineDescriptor(device, info[1].As<Napi::Value>());
 
-  this->instance = dawnDeviceCreateRenderPipeline(device->instance, &descriptor);
+  this->instance = wgpuDeviceCreateRenderPipeline(device->instance, &descriptor);
 }
 
 GPURenderPipeline::~GPURenderPipeline() {

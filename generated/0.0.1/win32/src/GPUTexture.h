@@ -18,7 +18,7 @@ class GPUTexture : public Napi::ObjectWrap<GPUTexture> {
 
     Napi::ObjectReference device;
 
-    DawnTexture instance;
+    WGPUTexture instance;
   private:
 
 };

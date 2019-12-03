@@ -15,7 +15,7 @@ class GPUTextureView : public Napi::ObjectWrap<GPUTextureView> {
 
     Napi::ObjectReference texture;
 
-    DawnTextureView instance;
+    WGPUTextureView instance;
   private:
 
 };

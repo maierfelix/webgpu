@@ -21,84 +21,84 @@
 #endif  // defined(DAWN_ENABLE_BACKEND_OPENGL)
 
 #if defined(DAWN_ENABLE_BACKEND_D3D12)
-BackendBinding* CreateD3D12Binding(GLFWwindow* window, DawnDevice device);
+    BackendBinding* CreateD3D12Binding(GLFWwindow* window, WGPUDevice device);
 #endif
 #if defined(DAWN_ENABLE_BACKEND_METAL)
-BackendBinding* CreateMetalBinding(GLFWwindow* window, DawnDevice device);
+    BackendBinding* CreateMetalBinding(GLFWwindow* window, WGPUDevice device);
 #endif
 #if defined(DAWN_ENABLE_BACKEND_NULL)
-BackendBinding* CreateNullBinding(GLFWwindow* window, DawnDevice device);
+    BackendBinding* CreateNullBinding(GLFWwindow* window, WGPUDevice device);
 #endif
 #if defined(DAWN_ENABLE_BACKEND_OPENGL)
-BackendBinding* CreateOpenGLBinding(GLFWwindow* window, DawnDevice device);
+    BackendBinding* CreateOpenGLBinding(GLFWwindow* window, WGPUDevice device);
 #endif
 #if defined(DAWN_ENABLE_BACKEND_VULKAN)
-BackendBinding* CreateVulkanBinding(GLFWwindow* window, DawnDevice device);
+    BackendBinding* CreateVulkanBinding(GLFWwindow* window, WGPUDevice device);
 #endif
 
-BackendBinding::BackendBinding(GLFWwindow* window, DawnDevice device)
-    : mWindow(window), mDevice(device) {
-}
-
-void SetupGLFWWindowHintsForBackend(dawn_native::BackendType type) {
-    if (type == dawn_native::BackendType::OpenGL) {
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    } else {
-        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    BackendBinding::BackendBinding(GLFWwindow* window, WGPUDevice device)
+        : mWindow(window), mDevice(device) {
     }
-}
 
-void DiscoverAdapter(dawn_native::Instance* instance,
-                     GLFWwindow* window,
-                     dawn_native::BackendType type) {
-    //DAWN_UNUSED(type);
-    //DAWN_UNUSED(window);
+    void SetupGLFWWindowHintsForBackend(dawn_native::BackendType type) {
+        if (type == dawn_native::BackendType::OpenGL) {
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        } else {
+            glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+        }
+    }
 
-    if (type == dawn_native::BackendType::OpenGL) {
+    void DiscoverAdapter(dawn_native::Instance* instance,
+                         GLFWwindow* window,
+                         dawn_native::BackendType type) {
+        //DAWN_UNUSED(type);
+        //DAWN_UNUSED(window);
+
+        if (type == dawn_native::BackendType::OpenGL) {
 #if defined(DAWN_ENABLE_BACKEND_OPENGL)
-        glfwMakeContextCurrent(window);
-        dawn_native::opengl::AdapterDiscoveryOptions adapterOptions;
-        adapterOptions.getProc = reinterpret_cast<void* (*)(const char*)>(glfwGetProcAddress);
-        instance->DiscoverAdapters(&adapterOptions);
+            glfwMakeContextCurrent(window);
+            dawn_native::opengl::AdapterDiscoveryOptions adapterOptions;
+            adapterOptions.getProc = reinterpret_cast<void* (*)(const char*)>(glfwGetProcAddress);
+            instance->DiscoverAdapters(&adapterOptions);
 #endif  // defined(DAWN_ENABLE_BACKEND_OPENGL)
-    } else {
-        instance->DiscoverDefaultAdapters();
+        } else {
+            instance->DiscoverDefaultAdapters();
+        }
     }
-}
 
-BackendBinding* CreateBinding(dawn_native::BackendType type,
-                              GLFWwindow* window,
-                              DawnDevice device) {
-    switch (type) {
+    BackendBinding* CreateBinding(dawn_native::BackendType type,
+                                  GLFWwindow* window,
+                                  WGPUDevice device) {
+        switch (type) {
 #if defined(DAWN_ENABLE_BACKEND_D3D12)
-        case dawn_native::BackendType::D3D12:
-            return CreateD3D12Binding(window, device);
+            case dawn_native::BackendType::D3D12:
+                return CreateD3D12Binding(window, device);
 #endif
 
 #if defined(DAWN_ENABLE_BACKEND_METAL)
-        case dawn_native::BackendType::Metal:
-            return CreateMetalBinding(window, device);
+            case dawn_native::BackendType::Metal:
+                return CreateMetalBinding(window, device);
 #endif
 
 #if defined(DAWN_ENABLE_BACKEND_NULL)
-        case dawn_native::BackendType::Null:
-            return CreateNullBinding(window, device);
+            case dawn_native::BackendType::Null:
+                return CreateNullBinding(window, device);
 #endif
 
 #if defined(DAWN_ENABLE_BACKEND_OPENGL)
-        case dawn_native::BackendType::OpenGL:
-            return CreateOpenGLBinding(window, device);
+            case dawn_native::BackendType::OpenGL:
+                return CreateOpenGLBinding(window, device);
 #endif
 
 #if defined(DAWN_ENABLE_BACKEND_VULKAN)
-        case dawn_native::BackendType::Vulkan:
-            return CreateVulkanBinding(window, device);
+            case dawn_native::BackendType::Vulkan:
+                return CreateVulkanBinding(window, device);
 #endif
 
-        default:
-            return nullptr;
+            default:
+                return nullptr;
+        }
     }
-}

@@ -15,7 +15,7 @@ class GPUPipelineLayout : public Napi::ObjectWrap<GPUPipelineLayout> {
 
     Napi::ObjectReference device;
 
-    DawnPipelineLayout instance;
+    WGPUPipelineLayout instance;
   private:
 
 };

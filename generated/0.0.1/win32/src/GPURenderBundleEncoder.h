@@ -16,7 +16,7 @@ class GPURenderBundleEncoder : public Napi::ObjectWrap<GPURenderBundleEncoder> {
     // GPURenderEncoderBase BEGIN
     Napi::Value setPipeline(const Napi::CallbackInfo &info);
     Napi::Value setIndexBuffer(const Napi::CallbackInfo &info);
-    Napi::Value setVertexBuffers(const Napi::CallbackInfo &info);
+    Napi::Value setVertexBuffer(const Napi::CallbackInfo &info);
     Napi::Value draw(const Napi::CallbackInfo &info);
     Napi::Value drawIndexed(const Napi::CallbackInfo &info);
     Napi::Value drawIndirect(const Napi::CallbackInfo &info);
@@ -37,7 +37,7 @@ class GPURenderBundleEncoder : public Napi::ObjectWrap<GPURenderBundleEncoder> {
     Napi::ObjectReference device;
     Napi::ObjectReference commandEncoder;
 
-    DawnRenderBundleEncoder instance;
+    WGPURenderBundleEncoder instance;
   private:
 
 };

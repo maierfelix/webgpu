@@ -22,23 +22,23 @@ GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
   // create
-  DawnSwapChainDescriptor descriptor;
+  WGPUSwapChainDescriptor descriptor;
   descriptor.nextInChain = nullptr;
   descriptor.implementation = device->binding->GetSwapChainImplementation();
 
-  this->instance = dawnDeviceCreateSwapChain(device->instance, &descriptor);
+  this->instance = wgpuDeviceCreateSwapChain(device->instance, &descriptor);
 
   // configurate
-  DawnTextureFormat format = static_cast<DawnTextureFormat>(
+  WGPUTextureFormat format = static_cast<WGPUTextureFormat>(
     DescriptorDecoder::GPUTextureFormat(args.Get("format").As<Napi::String>().Utf8Value())
   );
 
-  DawnTextureUsage usage = DAWN_TEXTURE_USAGE_OUTPUT_ATTACHMENT;
+  WGPUTextureUsage usage = WGPUTextureUsage_OutputAttachment;
   if (args.Has("usage")) {
-    usage = static_cast<DawnTextureUsage>(args.Get("usage").As<Napi::Number>().Uint32Value());
+    usage = static_cast<WGPUTextureUsage>(args.Get("usage").As<Napi::Number>().Uint32Value());
   }
 
-  dawnSwapChainConfigure(this->instance, format, usage, window->width, window->height);
+  wgpuSwapChainConfigure(this->instance, format, usage, window->width, window->height);
 
   this->format = format;
   this->usage = usage;
@@ -50,30 +50,28 @@ GPUSwapChain::~GPUSwapChain() {
   // destructor
 }
 
-Napi::Value GPUSwapChain::getCurrentTexture(const Napi::CallbackInfo &info) {
+Napi::Value GPUSwapChain::getCurrentTextureView(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  DawnTexture nextTexture = dawnSwapChainGetNextTexture(this->instance);
+  WGPUTextureView nextTextureView = wgpuSwapChainGetCurrentTextureView(this->instance);
 
-  std::vector<napi_value> args = {
+  /*std::vector<napi_value> args = {
     info.This().As<Napi::Value>(),
-    info[0].As<Napi::Value>(),
-    Napi::Boolean::New(env, true)
+    info[0].As<Napi::Value>()
   };
-  Napi::Object texture = GPUTexture::constructor.New(args);
+  Napi::Object textureView = GPUTextureView::constructor.New(args);
 
-  GPUTexture* uwTexture = Napi::ObjectWrap<GPUTexture>::Unwrap(texture);
+  GPUTextureView* uwTexture = Napi::ObjectWrap<GPUTextureView>::Unwrap(textureView);
   uwTexture->instance = nextTexture;
 
-  return texture;
+  return textureView;*/
+  return env.Undefined();
 }
 
 Napi::Value GPUSwapChain::present(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  GPUTexture* texture = Napi::ObjectWrap<GPUTexture>::Unwrap(info[0].As<Napi::Object>());
-
-  dawnSwapChainPresent(this->instance, texture->instance);
+  wgpuSwapChainPresent(this->instance);
 
   return env.Undefined();
 }
@@ -82,8 +80,8 @@ Napi::Object GPUSwapChain::Initialize(Napi::Env env, Napi::Object exports) {
   Napi::HandleScope scope(env);
   Napi::Function func = DefineClass(env, "GPUSwapChain", {
     InstanceMethod(
-      "getCurrentTexture",
-      &GPUSwapChain::getCurrentTexture,
+      "getCurrentTextureView",
+      &GPUSwapChain::getCurrentTextureView,
       napi_enumerable
     ),
     InstanceMethod(

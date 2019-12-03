@@ -72,6 +72,7 @@ function copyFiles() {
         //files.push([`${dawnOutputDir}/libc++.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libdawn.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libdawn_native.dll`, targetDir]);
+        files.push([`${dawnOutputDir}/libdawn_proc.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libdawn_wire.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libshaderc.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libshaderc_spvc.dll`, targetDir]);
@@ -81,6 +82,7 @@ function copyFiles() {
         //files.push([`${dawnOutputDir}/libc++.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libdawn.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libdawn_native.dll.lib`, targetDir + "/../"]);
+        files.push([`${dawnOutputDir}/libdawn_proc.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libdawn_wire.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libshaderc.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libshaderc_spvc.dll.lib`, targetDir + "/../"]);

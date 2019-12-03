@@ -4,7 +4,7 @@
  */
 #include <dawn/dawn.h>
 #include <dawn/dawn_wsi.h>
-#include <dawn/dawncpp.h>
+#include <dawn/webgpu_cpp.h>
 #include <dawn_native/DawnNative.h>
 
 Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
@@ -14,945 +14,1062 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
   Napi::String strByteOffset = Napi::String::New(env, "byteOffset");
   Napi::String strByteLength = Napi::String::New(env, "byteLength");
 
-  Napi::Object sDawnBindGroupBinding = Napi::Object::New(env);
+  Napi::Object sWGPUBindGroupBinding = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupBinding, binding)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupBinding::binding)));
-    sDawnBindGroupBinding.Set(Napi::String::New(env, "binding"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupBinding, binding)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupBinding::binding)));
+    sWGPUBindGroupBinding.Set(Napi::String::New(env, "binding"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupBinding, buffer)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupBinding::buffer)));
-    sDawnBindGroupBinding.Set(Napi::String::New(env, "buffer"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupBinding, buffer)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupBinding::buffer)));
+    sWGPUBindGroupBinding.Set(Napi::String::New(env, "buffer"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupBinding, offset)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupBinding::offset)));
-    sDawnBindGroupBinding.Set(Napi::String::New(env, "offset"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupBinding, offset)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupBinding::offset)));
+    sWGPUBindGroupBinding.Set(Napi::String::New(env, "offset"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupBinding, size)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupBinding::size)));
-    sDawnBindGroupBinding.Set(Napi::String::New(env, "size"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupBinding, size)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupBinding::size)));
+    sWGPUBindGroupBinding.Set(Napi::String::New(env, "size"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupBinding, sampler)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupBinding::sampler)));
-    sDawnBindGroupBinding.Set(Napi::String::New(env, "sampler"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupBinding, sampler)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupBinding::sampler)));
+    sWGPUBindGroupBinding.Set(Napi::String::New(env, "sampler"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupBinding, textureView)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupBinding::textureView)));
-    sDawnBindGroupBinding.Set(Napi::String::New(env, "textureView"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupBinding, textureView)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupBinding::textureView)));
+    sWGPUBindGroupBinding.Set(Napi::String::New(env, "textureView"), obj);
   }
-  sDawnBindGroupBinding.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupBinding)));
-  out.Set(Napi::String::New(env, "DawnBindGroupBinding"), sDawnBindGroupBinding);
-  Napi::Object sDawnBindGroupDescriptor = Napi::Object::New(env);
+  sWGPUBindGroupBinding.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupBinding)));
+  out.Set(Napi::String::New(env, "WGPUBindGroupBinding"), sWGPUBindGroupBinding);
+  Napi::Object sWGPUBindGroupDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupDescriptor, layout)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupDescriptor::layout)));
-    sDawnBindGroupDescriptor.Set(Napi::String::New(env, "layout"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupDescriptor::label)));
+    sWGPUBindGroupDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupDescriptor, bindingCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupDescriptor::bindingCount)));
-    sDawnBindGroupDescriptor.Set(Napi::String::New(env, "bindingCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupDescriptor, layout)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupDescriptor::layout)));
+    sWGPUBindGroupDescriptor.Set(Napi::String::New(env, "layout"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupDescriptor, bindings)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupDescriptor::bindings)));
-    sDawnBindGroupDescriptor.Set(Napi::String::New(env, "bindings"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupDescriptor, bindingCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupDescriptor::bindingCount)));
+    sWGPUBindGroupDescriptor.Set(Napi::String::New(env, "bindingCount"), obj);
   }
-  sDawnBindGroupDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupDescriptor)));
-  out.Set(Napi::String::New(env, "DawnBindGroupDescriptor"), sDawnBindGroupDescriptor);
-  Napi::Object sDawnBindGroupLayoutBinding = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupLayoutBinding, binding)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutBinding::binding)));
-    sDawnBindGroupLayoutBinding.Set(Napi::String::New(env, "binding"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupDescriptor, bindings)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupDescriptor::bindings)));
+    sWGPUBindGroupDescriptor.Set(Napi::String::New(env, "bindings"), obj);
   }
+  sWGPUBindGroupDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUBindGroupDescriptor"), sWGPUBindGroupDescriptor);
+  Napi::Object sWGPUBindGroupLayoutBinding = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupLayoutBinding, visibility)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutBinding::visibility)));
-    sDawnBindGroupLayoutBinding.Set(Napi::String::New(env, "visibility"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupLayoutBinding, binding)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutBinding::binding)));
+    sWGPUBindGroupLayoutBinding.Set(Napi::String::New(env, "binding"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupLayoutBinding, type)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutBinding::type)));
-    sDawnBindGroupLayoutBinding.Set(Napi::String::New(env, "type"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupLayoutBinding, visibility)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutBinding::visibility)));
+    sWGPUBindGroupLayoutBinding.Set(Napi::String::New(env, "visibility"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupLayoutBinding, dynamic)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutBinding::dynamic)));
-    sDawnBindGroupLayoutBinding.Set(Napi::String::New(env, "dynamic"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupLayoutBinding, type)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutBinding::type)));
+    sWGPUBindGroupLayoutBinding.Set(Napi::String::New(env, "type"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupLayoutBinding, multisampled)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutBinding::multisampled)));
-    sDawnBindGroupLayoutBinding.Set(Napi::String::New(env, "multisampled"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupLayoutBinding, hasDynamicOffset)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutBinding::hasDynamicOffset)));
+    sWGPUBindGroupLayoutBinding.Set(Napi::String::New(env, "hasDynamicOffset"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupLayoutBinding, textureDimension)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutBinding::textureDimension)));
-    sDawnBindGroupLayoutBinding.Set(Napi::String::New(env, "textureDimension"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupLayoutBinding, multisampled)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutBinding::multisampled)));
+    sWGPUBindGroupLayoutBinding.Set(Napi::String::New(env, "multisampled"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupLayoutBinding, textureComponentType)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutBinding::textureComponentType)));
-    sDawnBindGroupLayoutBinding.Set(Napi::String::New(env, "textureComponentType"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupLayoutBinding, textureDimension)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutBinding::textureDimension)));
+    sWGPUBindGroupLayoutBinding.Set(Napi::String::New(env, "textureDimension"), obj);
   }
-  sDawnBindGroupLayoutBinding.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutBinding)));
-  out.Set(Napi::String::New(env, "DawnBindGroupLayoutBinding"), sDawnBindGroupLayoutBinding);
-  Napi::Object sDawnBindGroupLayoutDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupLayoutDescriptor, bindingCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutDescriptor::bindingCount)));
-    sDawnBindGroupLayoutDescriptor.Set(Napi::String::New(env, "bindingCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupLayoutBinding, textureComponentType)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutBinding::textureComponentType)));
+    sWGPUBindGroupLayoutBinding.Set(Napi::String::New(env, "textureComponentType"), obj);
   }
+  sWGPUBindGroupLayoutBinding.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutBinding)));
+  out.Set(Napi::String::New(env, "WGPUBindGroupLayoutBinding"), sWGPUBindGroupLayoutBinding);
+  Napi::Object sWGPUBindGroupLayoutDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBindGroupLayoutDescriptor, bindings)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutDescriptor::bindings)));
-    sDawnBindGroupLayoutDescriptor.Set(Napi::String::New(env, "bindings"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupLayoutDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutDescriptor::label)));
+    sWGPUBindGroupLayoutDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
-  sDawnBindGroupLayoutDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBindGroupLayoutDescriptor)));
-  out.Set(Napi::String::New(env, "DawnBindGroupLayoutDescriptor"), sDawnBindGroupLayoutDescriptor);
-  Napi::Object sDawnBlendDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBlendDescriptor, operation)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBlendDescriptor::operation)));
-    sDawnBlendDescriptor.Set(Napi::String::New(env, "operation"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupLayoutDescriptor, bindingCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutDescriptor::bindingCount)));
+    sWGPUBindGroupLayoutDescriptor.Set(Napi::String::New(env, "bindingCount"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBlendDescriptor, srcFactor)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBlendDescriptor::srcFactor)));
-    sDawnBlendDescriptor.Set(Napi::String::New(env, "srcFactor"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBindGroupLayoutDescriptor, bindings)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutDescriptor::bindings)));
+    sWGPUBindGroupLayoutDescriptor.Set(Napi::String::New(env, "bindings"), obj);
   }
+  sWGPUBindGroupLayoutDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupLayoutDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUBindGroupLayoutDescriptor"), sWGPUBindGroupLayoutDescriptor);
+  Napi::Object sWGPUBlendDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBlendDescriptor, dstFactor)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBlendDescriptor::dstFactor)));
-    sDawnBlendDescriptor.Set(Napi::String::New(env, "dstFactor"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBlendDescriptor, operation)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBlendDescriptor::operation)));
+    sWGPUBlendDescriptor.Set(Napi::String::New(env, "operation"), obj);
   }
-  sDawnBlendDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBlendDescriptor)));
-  out.Set(Napi::String::New(env, "DawnBlendDescriptor"), sDawnBlendDescriptor);
-  Napi::Object sDawnColorStateDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnColorStateDescriptor, format)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnColorStateDescriptor::format)));
-    sDawnColorStateDescriptor.Set(Napi::String::New(env, "format"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBlendDescriptor, srcFactor)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBlendDescriptor::srcFactor)));
+    sWGPUBlendDescriptor.Set(Napi::String::New(env, "srcFactor"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnColorStateDescriptor, alphaBlend)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnColorStateDescriptor::alphaBlend)));
-    sDawnColorStateDescriptor.Set(Napi::String::New(env, "alphaBlend"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBlendDescriptor, dstFactor)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBlendDescriptor::dstFactor)));
+    sWGPUBlendDescriptor.Set(Napi::String::New(env, "dstFactor"), obj);
   }
+  sWGPUBlendDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBlendDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUBlendDescriptor"), sWGPUBlendDescriptor);
+  Napi::Object sWGPUColorStateDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnColorStateDescriptor, colorBlend)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnColorStateDescriptor::colorBlend)));
-    sDawnColorStateDescriptor.Set(Napi::String::New(env, "colorBlend"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUColorStateDescriptor, format)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUColorStateDescriptor::format)));
+    sWGPUColorStateDescriptor.Set(Napi::String::New(env, "format"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnColorStateDescriptor, writeMask)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnColorStateDescriptor::writeMask)));
-    sDawnColorStateDescriptor.Set(Napi::String::New(env, "writeMask"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUColorStateDescriptor, alphaBlend)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUColorStateDescriptor::alphaBlend)));
+    sWGPUColorStateDescriptor.Set(Napi::String::New(env, "alphaBlend"), obj);
   }
-  sDawnColorStateDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnColorStateDescriptor)));
-  out.Set(Napi::String::New(env, "DawnColorStateDescriptor"), sDawnColorStateDescriptor);
-  Napi::Object sDawnBufferCopyView = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBufferCopyView, buffer)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBufferCopyView::buffer)));
-    sDawnBufferCopyView.Set(Napi::String::New(env, "buffer"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUColorStateDescriptor, colorBlend)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUColorStateDescriptor::colorBlend)));
+    sWGPUColorStateDescriptor.Set(Napi::String::New(env, "colorBlend"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBufferCopyView, offset)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBufferCopyView::offset)));
-    sDawnBufferCopyView.Set(Napi::String::New(env, "offset"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUColorStateDescriptor, writeMask)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUColorStateDescriptor::writeMask)));
+    sWGPUColorStateDescriptor.Set(Napi::String::New(env, "writeMask"), obj);
   }
+  sWGPUColorStateDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUColorStateDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUColorStateDescriptor"), sWGPUColorStateDescriptor);
+  Napi::Object sWGPUBufferCopyView = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBufferCopyView, rowPitch)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBufferCopyView::rowPitch)));
-    sDawnBufferCopyView.Set(Napi::String::New(env, "rowPitch"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBufferCopyView, buffer)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBufferCopyView::buffer)));
+    sWGPUBufferCopyView.Set(Napi::String::New(env, "buffer"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBufferCopyView, imageHeight)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBufferCopyView::imageHeight)));
-    sDawnBufferCopyView.Set(Napi::String::New(env, "imageHeight"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBufferCopyView, offset)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBufferCopyView::offset)));
+    sWGPUBufferCopyView.Set(Napi::String::New(env, "offset"), obj);
   }
-  sDawnBufferCopyView.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBufferCopyView)));
-  out.Set(Napi::String::New(env, "DawnBufferCopyView"), sDawnBufferCopyView);
-  Napi::Object sDawnBufferDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBufferDescriptor, usage)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBufferDescriptor::usage)));
-    sDawnBufferDescriptor.Set(Napi::String::New(env, "usage"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBufferCopyView, rowPitch)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBufferCopyView::rowPitch)));
+    sWGPUBufferCopyView.Set(Napi::String::New(env, "rowPitch"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnBufferDescriptor, size)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBufferDescriptor::size)));
-    sDawnBufferDescriptor.Set(Napi::String::New(env, "size"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBufferCopyView, imageHeight)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBufferCopyView::imageHeight)));
+    sWGPUBufferCopyView.Set(Napi::String::New(env, "imageHeight"), obj);
   }
-  sDawnBufferDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnBufferDescriptor)));
-  out.Set(Napi::String::New(env, "DawnBufferDescriptor"), sDawnBufferDescriptor);
-  Napi::Object sDawnCreateBufferMappedResult = Napi::Object::New(env);
+  sWGPUBufferCopyView.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBufferCopyView)));
+  out.Set(Napi::String::New(env, "WGPUBufferCopyView"), sWGPUBufferCopyView);
+  Napi::Object sWGPUBufferDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnCreateBufferMappedResult, buffer)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnCreateBufferMappedResult::buffer)));
-    sDawnCreateBufferMappedResult.Set(Napi::String::New(env, "buffer"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBufferDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBufferDescriptor::label)));
+    sWGPUBufferDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnCreateBufferMappedResult, dataLength)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnCreateBufferMappedResult::dataLength)));
-    sDawnCreateBufferMappedResult.Set(Napi::String::New(env, "dataLength"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBufferDescriptor, usage)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBufferDescriptor::usage)));
+    sWGPUBufferDescriptor.Set(Napi::String::New(env, "usage"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnCreateBufferMappedResult, data)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnCreateBufferMappedResult::data)));
-    sDawnCreateBufferMappedResult.Set(Napi::String::New(env, "data"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUBufferDescriptor, size)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBufferDescriptor::size)));
+    sWGPUBufferDescriptor.Set(Napi::String::New(env, "size"), obj);
   }
-  sDawnCreateBufferMappedResult.Set(strByteLength, Napi::Number::New(env, sizeof(DawnCreateBufferMappedResult)));
-  out.Set(Napi::String::New(env, "DawnCreateBufferMappedResult"), sDawnCreateBufferMappedResult);
-  Napi::Object sDawnColor = Napi::Object::New(env);
+  sWGPUBufferDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBufferDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUBufferDescriptor"), sWGPUBufferDescriptor);
+  Napi::Object sWGPUCreateBufferMappedResult = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnColor, r)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnColor::r)));
-    sDawnColor.Set(Napi::String::New(env, "r"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUCreateBufferMappedResult, buffer)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUCreateBufferMappedResult::buffer)));
+    sWGPUCreateBufferMappedResult.Set(Napi::String::New(env, "buffer"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnColor, g)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnColor::g)));
-    sDawnColor.Set(Napi::String::New(env, "g"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUCreateBufferMappedResult, dataLength)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUCreateBufferMappedResult::dataLength)));
+    sWGPUCreateBufferMappedResult.Set(Napi::String::New(env, "dataLength"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnColor, b)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnColor::b)));
-    sDawnColor.Set(Napi::String::New(env, "b"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUCreateBufferMappedResult, data)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUCreateBufferMappedResult::data)));
+    sWGPUCreateBufferMappedResult.Set(Napi::String::New(env, "data"), obj);
   }
+  sWGPUCreateBufferMappedResult.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUCreateBufferMappedResult)));
+  out.Set(Napi::String::New(env, "WGPUCreateBufferMappedResult"), sWGPUCreateBufferMappedResult);
+  Napi::Object sWGPUColor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnColor, a)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnColor::a)));
-    sDawnColor.Set(Napi::String::New(env, "a"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUColor, r)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUColor::r)));
+    sWGPUColor.Set(Napi::String::New(env, "r"), obj);
   }
-  sDawnColor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnColor)));
-  out.Set(Napi::String::New(env, "DawnColor"), sDawnColor);
-  Napi::Object sDawnCommandBufferDescriptor = Napi::Object::New(env);
-  sDawnCommandBufferDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnCommandBufferDescriptor)));
-  out.Set(Napi::String::New(env, "DawnCommandBufferDescriptor"), sDawnCommandBufferDescriptor);
-  Napi::Object sDawnCommandEncoderDescriptor = Napi::Object::New(env);
-  sDawnCommandEncoderDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnCommandEncoderDescriptor)));
-  out.Set(Napi::String::New(env, "DawnCommandEncoderDescriptor"), sDawnCommandEncoderDescriptor);
-  Napi::Object sDawnComputePassDescriptor = Napi::Object::New(env);
-  sDawnComputePassDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnComputePassDescriptor)));
-  out.Set(Napi::String::New(env, "DawnComputePassDescriptor"), sDawnComputePassDescriptor);
-  Napi::Object sDawnComputePipelineDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnComputePipelineDescriptor, layout)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnComputePipelineDescriptor::layout)));
-    sDawnComputePipelineDescriptor.Set(Napi::String::New(env, "layout"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUColor, g)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUColor::g)));
+    sWGPUColor.Set(Napi::String::New(env, "g"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnComputePipelineDescriptor, computeStage)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnComputePipelineDescriptor::computeStage)));
-    sDawnComputePipelineDescriptor.Set(Napi::String::New(env, "computeStage"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUColor, b)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUColor::b)));
+    sWGPUColor.Set(Napi::String::New(env, "b"), obj);
   }
-  sDawnComputePipelineDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnComputePipelineDescriptor)));
-  out.Set(Napi::String::New(env, "DawnComputePipelineDescriptor"), sDawnComputePipelineDescriptor);
-  Napi::Object sDawnDepthStencilStateDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnDepthStencilStateDescriptor, format)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnDepthStencilStateDescriptor::format)));
-    sDawnDepthStencilStateDescriptor.Set(Napi::String::New(env, "format"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUColor, a)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUColor::a)));
+    sWGPUColor.Set(Napi::String::New(env, "a"), obj);
   }
+  sWGPUColor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUColor)));
+  out.Set(Napi::String::New(env, "WGPUColor"), sWGPUColor);
+  Napi::Object sWGPUCommandBufferDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnDepthStencilStateDescriptor, depthWriteEnabled)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnDepthStencilStateDescriptor::depthWriteEnabled)));
-    sDawnDepthStencilStateDescriptor.Set(Napi::String::New(env, "depthWriteEnabled"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUCommandBufferDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUCommandBufferDescriptor::label)));
+    sWGPUCommandBufferDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
+  sWGPUCommandBufferDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUCommandBufferDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUCommandBufferDescriptor"), sWGPUCommandBufferDescriptor);
+  Napi::Object sWGPUCommandEncoderDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnDepthStencilStateDescriptor, depthCompare)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnDepthStencilStateDescriptor::depthCompare)));
-    sDawnDepthStencilStateDescriptor.Set(Napi::String::New(env, "depthCompare"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUCommandEncoderDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUCommandEncoderDescriptor::label)));
+    sWGPUCommandEncoderDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
+  sWGPUCommandEncoderDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUCommandEncoderDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUCommandEncoderDescriptor"), sWGPUCommandEncoderDescriptor);
+  Napi::Object sWGPUComputePassDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnDepthStencilStateDescriptor, stencilFront)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnDepthStencilStateDescriptor::stencilFront)));
-    sDawnDepthStencilStateDescriptor.Set(Napi::String::New(env, "stencilFront"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUComputePassDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUComputePassDescriptor::label)));
+    sWGPUComputePassDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
+  sWGPUComputePassDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUComputePassDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUComputePassDescriptor"), sWGPUComputePassDescriptor);
+  Napi::Object sWGPUComputePipelineDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnDepthStencilStateDescriptor, stencilBack)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnDepthStencilStateDescriptor::stencilBack)));
-    sDawnDepthStencilStateDescriptor.Set(Napi::String::New(env, "stencilBack"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUComputePipelineDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUComputePipelineDescriptor::label)));
+    sWGPUComputePipelineDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnDepthStencilStateDescriptor, stencilReadMask)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnDepthStencilStateDescriptor::stencilReadMask)));
-    sDawnDepthStencilStateDescriptor.Set(Napi::String::New(env, "stencilReadMask"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUComputePipelineDescriptor, layout)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUComputePipelineDescriptor::layout)));
+    sWGPUComputePipelineDescriptor.Set(Napi::String::New(env, "layout"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnDepthStencilStateDescriptor, stencilWriteMask)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnDepthStencilStateDescriptor::stencilWriteMask)));
-    sDawnDepthStencilStateDescriptor.Set(Napi::String::New(env, "stencilWriteMask"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUComputePipelineDescriptor, computeStage)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUComputePipelineDescriptor::computeStage)));
+    sWGPUComputePipelineDescriptor.Set(Napi::String::New(env, "computeStage"), obj);
   }
-  sDawnDepthStencilStateDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnDepthStencilStateDescriptor)));
-  out.Set(Napi::String::New(env, "DawnDepthStencilStateDescriptor"), sDawnDepthStencilStateDescriptor);
-  Napi::Object sDawnExtent3D = Napi::Object::New(env);
+  sWGPUComputePipelineDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUComputePipelineDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUComputePipelineDescriptor"), sWGPUComputePipelineDescriptor);
+  Napi::Object sWGPUDeviceProperties = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnExtent3D, width)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnExtent3D::width)));
-    sDawnExtent3D.Set(Napi::String::New(env, "width"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUDeviceProperties, textureCompressionBC)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUDeviceProperties::textureCompressionBC)));
+    sWGPUDeviceProperties.Set(Napi::String::New(env, "textureCompressionBC"), obj);
   }
+  sWGPUDeviceProperties.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUDeviceProperties)));
+  out.Set(Napi::String::New(env, "WGPUDeviceProperties"), sWGPUDeviceProperties);
+  Napi::Object sWGPUDepthStencilStateDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnExtent3D, height)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnExtent3D::height)));
-    sDawnExtent3D.Set(Napi::String::New(env, "height"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUDepthStencilStateDescriptor, format)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUDepthStencilStateDescriptor::format)));
+    sWGPUDepthStencilStateDescriptor.Set(Napi::String::New(env, "format"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnExtent3D, depth)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnExtent3D::depth)));
-    sDawnExtent3D.Set(Napi::String::New(env, "depth"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUDepthStencilStateDescriptor, depthWriteEnabled)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUDepthStencilStateDescriptor::depthWriteEnabled)));
+    sWGPUDepthStencilStateDescriptor.Set(Napi::String::New(env, "depthWriteEnabled"), obj);
   }
-  sDawnExtent3D.Set(strByteLength, Napi::Number::New(env, sizeof(DawnExtent3D)));
-  out.Set(Napi::String::New(env, "DawnExtent3D"), sDawnExtent3D);
-  Napi::Object sDawnFenceDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnFenceDescriptor, initialValue)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnFenceDescriptor::initialValue)));
-    sDawnFenceDescriptor.Set(Napi::String::New(env, "initialValue"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUDepthStencilStateDescriptor, depthCompare)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUDepthStencilStateDescriptor::depthCompare)));
+    sWGPUDepthStencilStateDescriptor.Set(Napi::String::New(env, "depthCompare"), obj);
   }
-  sDawnFenceDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnFenceDescriptor)));
-  out.Set(Napi::String::New(env, "DawnFenceDescriptor"), sDawnFenceDescriptor);
-  Napi::Object sDawnVertexAttributeDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnVertexAttributeDescriptor, shaderLocation)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexAttributeDescriptor::shaderLocation)));
-    sDawnVertexAttributeDescriptor.Set(Napi::String::New(env, "shaderLocation"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUDepthStencilStateDescriptor, stencilFront)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUDepthStencilStateDescriptor::stencilFront)));
+    sWGPUDepthStencilStateDescriptor.Set(Napi::String::New(env, "stencilFront"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnVertexAttributeDescriptor, offset)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexAttributeDescriptor::offset)));
-    sDawnVertexAttributeDescriptor.Set(Napi::String::New(env, "offset"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUDepthStencilStateDescriptor, stencilBack)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUDepthStencilStateDescriptor::stencilBack)));
+    sWGPUDepthStencilStateDescriptor.Set(Napi::String::New(env, "stencilBack"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnVertexAttributeDescriptor, format)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexAttributeDescriptor::format)));
-    sDawnVertexAttributeDescriptor.Set(Napi::String::New(env, "format"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUDepthStencilStateDescriptor, stencilReadMask)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUDepthStencilStateDescriptor::stencilReadMask)));
+    sWGPUDepthStencilStateDescriptor.Set(Napi::String::New(env, "stencilReadMask"), obj);
   }
-  sDawnVertexAttributeDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexAttributeDescriptor)));
-  out.Set(Napi::String::New(env, "DawnVertexAttributeDescriptor"), sDawnVertexAttributeDescriptor);
-  Napi::Object sDawnVertexBufferDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnVertexBufferDescriptor, stride)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexBufferDescriptor::stride)));
-    sDawnVertexBufferDescriptor.Set(Napi::String::New(env, "stride"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUDepthStencilStateDescriptor, stencilWriteMask)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUDepthStencilStateDescriptor::stencilWriteMask)));
+    sWGPUDepthStencilStateDescriptor.Set(Napi::String::New(env, "stencilWriteMask"), obj);
   }
+  sWGPUDepthStencilStateDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUDepthStencilStateDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUDepthStencilStateDescriptor"), sWGPUDepthStencilStateDescriptor);
+  Napi::Object sWGPUExtent3D = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnVertexBufferDescriptor, stepMode)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexBufferDescriptor::stepMode)));
-    sDawnVertexBufferDescriptor.Set(Napi::String::New(env, "stepMode"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUExtent3D, width)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUExtent3D::width)));
+    sWGPUExtent3D.Set(Napi::String::New(env, "width"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnVertexBufferDescriptor, attributeCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexBufferDescriptor::attributeCount)));
-    sDawnVertexBufferDescriptor.Set(Napi::String::New(env, "attributeCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUExtent3D, height)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUExtent3D::height)));
+    sWGPUExtent3D.Set(Napi::String::New(env, "height"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnVertexBufferDescriptor, attributes)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexBufferDescriptor::attributes)));
-    sDawnVertexBufferDescriptor.Set(Napi::String::New(env, "attributes"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUExtent3D, depth)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUExtent3D::depth)));
+    sWGPUExtent3D.Set(Napi::String::New(env, "depth"), obj);
   }
-  sDawnVertexBufferDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexBufferDescriptor)));
-  out.Set(Napi::String::New(env, "DawnVertexBufferDescriptor"), sDawnVertexBufferDescriptor);
-  Napi::Object sDawnVertexInputDescriptor = Napi::Object::New(env);
+  sWGPUExtent3D.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUExtent3D)));
+  out.Set(Napi::String::New(env, "WGPUExtent3D"), sWGPUExtent3D);
+  Napi::Object sWGPUFenceDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnVertexInputDescriptor, indexFormat)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexInputDescriptor::indexFormat)));
-    sDawnVertexInputDescriptor.Set(Napi::String::New(env, "indexFormat"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUFenceDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUFenceDescriptor::label)));
+    sWGPUFenceDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnVertexInputDescriptor, bufferCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexInputDescriptor::bufferCount)));
-    sDawnVertexInputDescriptor.Set(Napi::String::New(env, "bufferCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUFenceDescriptor, initialValue)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUFenceDescriptor::initialValue)));
+    sWGPUFenceDescriptor.Set(Napi::String::New(env, "initialValue"), obj);
   }
+  sWGPUFenceDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUFenceDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUFenceDescriptor"), sWGPUFenceDescriptor);
+  Napi::Object sWGPUVertexAttributeDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnVertexInputDescriptor, buffers)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexInputDescriptor::buffers)));
-    sDawnVertexInputDescriptor.Set(Napi::String::New(env, "buffers"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUVertexAttributeDescriptor, format)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexAttributeDescriptor::format)));
+    sWGPUVertexAttributeDescriptor.Set(Napi::String::New(env, "format"), obj);
   }
-  sDawnVertexInputDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnVertexInputDescriptor)));
-  out.Set(Napi::String::New(env, "DawnVertexInputDescriptor"), sDawnVertexInputDescriptor);
-  Napi::Object sDawnOrigin3D = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnOrigin3D, x)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnOrigin3D::x)));
-    sDawnOrigin3D.Set(Napi::String::New(env, "x"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUVertexAttributeDescriptor, offset)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexAttributeDescriptor::offset)));
+    sWGPUVertexAttributeDescriptor.Set(Napi::String::New(env, "offset"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnOrigin3D, y)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnOrigin3D::y)));
-    sDawnOrigin3D.Set(Napi::String::New(env, "y"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUVertexAttributeDescriptor, shaderLocation)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexAttributeDescriptor::shaderLocation)));
+    sWGPUVertexAttributeDescriptor.Set(Napi::String::New(env, "shaderLocation"), obj);
   }
+  sWGPUVertexAttributeDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexAttributeDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUVertexAttributeDescriptor"), sWGPUVertexAttributeDescriptor);
+  Napi::Object sWGPUVertexBufferLayoutDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnOrigin3D, z)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnOrigin3D::z)));
-    sDawnOrigin3D.Set(Napi::String::New(env, "z"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUVertexBufferLayoutDescriptor, arrayStride)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexBufferLayoutDescriptor::arrayStride)));
+    sWGPUVertexBufferLayoutDescriptor.Set(Napi::String::New(env, "arrayStride"), obj);
   }
-  sDawnOrigin3D.Set(strByteLength, Napi::Number::New(env, sizeof(DawnOrigin3D)));
-  out.Set(Napi::String::New(env, "DawnOrigin3D"), sDawnOrigin3D);
-  Napi::Object sDawnPipelineLayoutDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnPipelineLayoutDescriptor, bindGroupLayoutCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnPipelineLayoutDescriptor::bindGroupLayoutCount)));
-    sDawnPipelineLayoutDescriptor.Set(Napi::String::New(env, "bindGroupLayoutCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUVertexBufferLayoutDescriptor, stepMode)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexBufferLayoutDescriptor::stepMode)));
+    sWGPUVertexBufferLayoutDescriptor.Set(Napi::String::New(env, "stepMode"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnPipelineLayoutDescriptor, bindGroupLayouts)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnPipelineLayoutDescriptor::bindGroupLayouts)));
-    sDawnPipelineLayoutDescriptor.Set(Napi::String::New(env, "bindGroupLayouts"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUVertexBufferLayoutDescriptor, attributeCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexBufferLayoutDescriptor::attributeCount)));
+    sWGPUVertexBufferLayoutDescriptor.Set(Napi::String::New(env, "attributeCount"), obj);
   }
-  sDawnPipelineLayoutDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnPipelineLayoutDescriptor)));
-  out.Set(Napi::String::New(env, "DawnPipelineLayoutDescriptor"), sDawnPipelineLayoutDescriptor);
-  Napi::Object sDawnPipelineStageDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnPipelineStageDescriptor, module)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnPipelineStageDescriptor::module)));
-    sDawnPipelineStageDescriptor.Set(Napi::String::New(env, "module"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUVertexBufferLayoutDescriptor, attributes)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexBufferLayoutDescriptor::attributes)));
+    sWGPUVertexBufferLayoutDescriptor.Set(Napi::String::New(env, "attributes"), obj);
   }
+  sWGPUVertexBufferLayoutDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexBufferLayoutDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUVertexBufferLayoutDescriptor"), sWGPUVertexBufferLayoutDescriptor);
+  Napi::Object sWGPUVertexStateDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnPipelineStageDescriptor, entryPoint)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnPipelineStageDescriptor::entryPoint)));
-    sDawnPipelineStageDescriptor.Set(Napi::String::New(env, "entryPoint"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUVertexStateDescriptor, indexFormat)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexStateDescriptor::indexFormat)));
+    sWGPUVertexStateDescriptor.Set(Napi::String::New(env, "indexFormat"), obj);
   }
-  sDawnPipelineStageDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnPipelineStageDescriptor)));
-  out.Set(Napi::String::New(env, "DawnPipelineStageDescriptor"), sDawnPipelineStageDescriptor);
-  Napi::Object sDawnRasterizationStateDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRasterizationStateDescriptor, frontFace)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRasterizationStateDescriptor::frontFace)));
-    sDawnRasterizationStateDescriptor.Set(Napi::String::New(env, "frontFace"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUVertexStateDescriptor, vertexBufferCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexStateDescriptor::vertexBufferCount)));
+    sWGPUVertexStateDescriptor.Set(Napi::String::New(env, "vertexBufferCount"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRasterizationStateDescriptor, cullMode)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRasterizationStateDescriptor::cullMode)));
-    sDawnRasterizationStateDescriptor.Set(Napi::String::New(env, "cullMode"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUVertexStateDescriptor, vertexBuffers)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexStateDescriptor::vertexBuffers)));
+    sWGPUVertexStateDescriptor.Set(Napi::String::New(env, "vertexBuffers"), obj);
   }
+  sWGPUVertexStateDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUVertexStateDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUVertexStateDescriptor"), sWGPUVertexStateDescriptor);
+  Napi::Object sWGPUOrigin3D = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRasterizationStateDescriptor, depthBias)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRasterizationStateDescriptor::depthBias)));
-    sDawnRasterizationStateDescriptor.Set(Napi::String::New(env, "depthBias"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUOrigin3D, x)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUOrigin3D::x)));
+    sWGPUOrigin3D.Set(Napi::String::New(env, "x"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRasterizationStateDescriptor, depthBiasSlopeScale)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRasterizationStateDescriptor::depthBiasSlopeScale)));
-    sDawnRasterizationStateDescriptor.Set(Napi::String::New(env, "depthBiasSlopeScale"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUOrigin3D, y)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUOrigin3D::y)));
+    sWGPUOrigin3D.Set(Napi::String::New(env, "y"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRasterizationStateDescriptor, depthBiasClamp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRasterizationStateDescriptor::depthBiasClamp)));
-    sDawnRasterizationStateDescriptor.Set(Napi::String::New(env, "depthBiasClamp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUOrigin3D, z)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUOrigin3D::z)));
+    sWGPUOrigin3D.Set(Napi::String::New(env, "z"), obj);
   }
-  sDawnRasterizationStateDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRasterizationStateDescriptor)));
-  out.Set(Napi::String::New(env, "DawnRasterizationStateDescriptor"), sDawnRasterizationStateDescriptor);
-  Napi::Object sDawnRenderBundleDescriptor = Napi::Object::New(env);
-  sDawnRenderBundleDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderBundleDescriptor)));
-  out.Set(Napi::String::New(env, "DawnRenderBundleDescriptor"), sDawnRenderBundleDescriptor);
-  Napi::Object sDawnRenderBundleEncoderDescriptor = Napi::Object::New(env);
+  sWGPUOrigin3D.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUOrigin3D)));
+  out.Set(Napi::String::New(env, "WGPUOrigin3D"), sWGPUOrigin3D);
+  Napi::Object sWGPUPipelineLayoutDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderBundleEncoderDescriptor, colorFormatsCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderBundleEncoderDescriptor::colorFormatsCount)));
-    sDawnRenderBundleEncoderDescriptor.Set(Napi::String::New(env, "colorFormatsCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUPipelineLayoutDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUPipelineLayoutDescriptor::label)));
+    sWGPUPipelineLayoutDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderBundleEncoderDescriptor, colorFormats)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderBundleEncoderDescriptor::colorFormats)));
-    sDawnRenderBundleEncoderDescriptor.Set(Napi::String::New(env, "colorFormats"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUPipelineLayoutDescriptor, bindGroupLayoutCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUPipelineLayoutDescriptor::bindGroupLayoutCount)));
+    sWGPUPipelineLayoutDescriptor.Set(Napi::String::New(env, "bindGroupLayoutCount"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderBundleEncoderDescriptor, depthStencilFormat)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderBundleEncoderDescriptor::depthStencilFormat)));
-    sDawnRenderBundleEncoderDescriptor.Set(Napi::String::New(env, "depthStencilFormat"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUPipelineLayoutDescriptor, bindGroupLayouts)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUPipelineLayoutDescriptor::bindGroupLayouts)));
+    sWGPUPipelineLayoutDescriptor.Set(Napi::String::New(env, "bindGroupLayouts"), obj);
   }
+  sWGPUPipelineLayoutDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUPipelineLayoutDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUPipelineLayoutDescriptor"), sWGPUPipelineLayoutDescriptor);
+  Napi::Object sWGPUProgrammableStageDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderBundleEncoderDescriptor, sampleCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderBundleEncoderDescriptor::sampleCount)));
-    sDawnRenderBundleEncoderDescriptor.Set(Napi::String::New(env, "sampleCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUProgrammableStageDescriptor, module)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUProgrammableStageDescriptor::module)));
+    sWGPUProgrammableStageDescriptor.Set(Napi::String::New(env, "module"), obj);
   }
-  sDawnRenderBundleEncoderDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderBundleEncoderDescriptor)));
-  out.Set(Napi::String::New(env, "DawnRenderBundleEncoderDescriptor"), sDawnRenderBundleEncoderDescriptor);
-  Napi::Object sDawnRenderPassColorAttachmentDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassColorAttachmentDescriptor, attachment)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassColorAttachmentDescriptor::attachment)));
-    sDawnRenderPassColorAttachmentDescriptor.Set(Napi::String::New(env, "attachment"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUProgrammableStageDescriptor, entryPoint)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUProgrammableStageDescriptor::entryPoint)));
+    sWGPUProgrammableStageDescriptor.Set(Napi::String::New(env, "entryPoint"), obj);
   }
+  sWGPUProgrammableStageDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUProgrammableStageDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUProgrammableStageDescriptor"), sWGPUProgrammableStageDescriptor);
+  Napi::Object sWGPURasterizationStateDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassColorAttachmentDescriptor, resolveTarget)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassColorAttachmentDescriptor::resolveTarget)));
-    sDawnRenderPassColorAttachmentDescriptor.Set(Napi::String::New(env, "resolveTarget"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURasterizationStateDescriptor, frontFace)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURasterizationStateDescriptor::frontFace)));
+    sWGPURasterizationStateDescriptor.Set(Napi::String::New(env, "frontFace"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassColorAttachmentDescriptor, loadOp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassColorAttachmentDescriptor::loadOp)));
-    sDawnRenderPassColorAttachmentDescriptor.Set(Napi::String::New(env, "loadOp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURasterizationStateDescriptor, cullMode)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURasterizationStateDescriptor::cullMode)));
+    sWGPURasterizationStateDescriptor.Set(Napi::String::New(env, "cullMode"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassColorAttachmentDescriptor, storeOp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassColorAttachmentDescriptor::storeOp)));
-    sDawnRenderPassColorAttachmentDescriptor.Set(Napi::String::New(env, "storeOp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURasterizationStateDescriptor, depthBias)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURasterizationStateDescriptor::depthBias)));
+    sWGPURasterizationStateDescriptor.Set(Napi::String::New(env, "depthBias"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassColorAttachmentDescriptor, clearColor)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassColorAttachmentDescriptor::clearColor)));
-    sDawnRenderPassColorAttachmentDescriptor.Set(Napi::String::New(env, "clearColor"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURasterizationStateDescriptor, depthBiasSlopeScale)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURasterizationStateDescriptor::depthBiasSlopeScale)));
+    sWGPURasterizationStateDescriptor.Set(Napi::String::New(env, "depthBiasSlopeScale"), obj);
   }
-  sDawnRenderPassColorAttachmentDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassColorAttachmentDescriptor)));
-  out.Set(Napi::String::New(env, "DawnRenderPassColorAttachmentDescriptor"), sDawnRenderPassColorAttachmentDescriptor);
-  Napi::Object sDawnRenderPassDepthStencilAttachmentDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassDepthStencilAttachmentDescriptor, attachment)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDepthStencilAttachmentDescriptor::attachment)));
-    sDawnRenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "attachment"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURasterizationStateDescriptor, depthBiasClamp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURasterizationStateDescriptor::depthBiasClamp)));
+    sWGPURasterizationStateDescriptor.Set(Napi::String::New(env, "depthBiasClamp"), obj);
   }
+  sWGPURasterizationStateDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURasterizationStateDescriptor)));
+  out.Set(Napi::String::New(env, "WGPURasterizationStateDescriptor"), sWGPURasterizationStateDescriptor);
+  Napi::Object sWGPURenderBundleDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassDepthStencilAttachmentDescriptor, depthLoadOp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDepthStencilAttachmentDescriptor::depthLoadOp)));
-    sDawnRenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "depthLoadOp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderBundleDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderBundleDescriptor::label)));
+    sWGPURenderBundleDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
+  sWGPURenderBundleDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderBundleDescriptor)));
+  out.Set(Napi::String::New(env, "WGPURenderBundleDescriptor"), sWGPURenderBundleDescriptor);
+  Napi::Object sWGPURenderBundleEncoderDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassDepthStencilAttachmentDescriptor, depthStoreOp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDepthStencilAttachmentDescriptor::depthStoreOp)));
-    sDawnRenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "depthStoreOp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderBundleEncoderDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderBundleEncoderDescriptor::label)));
+    sWGPURenderBundleEncoderDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassDepthStencilAttachmentDescriptor, clearDepth)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDepthStencilAttachmentDescriptor::clearDepth)));
-    sDawnRenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "clearDepth"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderBundleEncoderDescriptor, colorFormatsCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderBundleEncoderDescriptor::colorFormatsCount)));
+    sWGPURenderBundleEncoderDescriptor.Set(Napi::String::New(env, "colorFormatsCount"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassDepthStencilAttachmentDescriptor, stencilLoadOp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDepthStencilAttachmentDescriptor::stencilLoadOp)));
-    sDawnRenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "stencilLoadOp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderBundleEncoderDescriptor, colorFormats)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderBundleEncoderDescriptor::colorFormats)));
+    sWGPURenderBundleEncoderDescriptor.Set(Napi::String::New(env, "colorFormats"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassDepthStencilAttachmentDescriptor, stencilStoreOp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDepthStencilAttachmentDescriptor::stencilStoreOp)));
-    sDawnRenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "stencilStoreOp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderBundleEncoderDescriptor, depthStencilFormat)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderBundleEncoderDescriptor::depthStencilFormat)));
+    sWGPURenderBundleEncoderDescriptor.Set(Napi::String::New(env, "depthStencilFormat"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassDepthStencilAttachmentDescriptor, clearStencil)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDepthStencilAttachmentDescriptor::clearStencil)));
-    sDawnRenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "clearStencil"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderBundleEncoderDescriptor, sampleCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderBundleEncoderDescriptor::sampleCount)));
+    sWGPURenderBundleEncoderDescriptor.Set(Napi::String::New(env, "sampleCount"), obj);
   }
-  sDawnRenderPassDepthStencilAttachmentDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDepthStencilAttachmentDescriptor)));
-  out.Set(Napi::String::New(env, "DawnRenderPassDepthStencilAttachmentDescriptor"), sDawnRenderPassDepthStencilAttachmentDescriptor);
-  Napi::Object sDawnRenderPassDescriptor = Napi::Object::New(env);
+  sWGPURenderBundleEncoderDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderBundleEncoderDescriptor)));
+  out.Set(Napi::String::New(env, "WGPURenderBundleEncoderDescriptor"), sWGPURenderBundleEncoderDescriptor);
+  Napi::Object sWGPURenderPassColorAttachmentDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassDescriptor, colorAttachmentCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDescriptor::colorAttachmentCount)));
-    sDawnRenderPassDescriptor.Set(Napi::String::New(env, "colorAttachmentCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassColorAttachmentDescriptor, attachment)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassColorAttachmentDescriptor::attachment)));
+    sWGPURenderPassColorAttachmentDescriptor.Set(Napi::String::New(env, "attachment"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassDescriptor, colorAttachments)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDescriptor::colorAttachments)));
-    sDawnRenderPassDescriptor.Set(Napi::String::New(env, "colorAttachments"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassColorAttachmentDescriptor, resolveTarget)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassColorAttachmentDescriptor::resolveTarget)));
+    sWGPURenderPassColorAttachmentDescriptor.Set(Napi::String::New(env, "resolveTarget"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPassDescriptor, depthStencilAttachment)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDescriptor::depthStencilAttachment)));
-    sDawnRenderPassDescriptor.Set(Napi::String::New(env, "depthStencilAttachment"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassColorAttachmentDescriptor, loadOp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassColorAttachmentDescriptor::loadOp)));
+    sWGPURenderPassColorAttachmentDescriptor.Set(Napi::String::New(env, "loadOp"), obj);
   }
-  sDawnRenderPassDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPassDescriptor)));
-  out.Set(Napi::String::New(env, "DawnRenderPassDescriptor"), sDawnRenderPassDescriptor);
-  Napi::Object sDawnRenderPipelineDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, layout)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::layout)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "layout"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassColorAttachmentDescriptor, storeOp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassColorAttachmentDescriptor::storeOp)));
+    sWGPURenderPassColorAttachmentDescriptor.Set(Napi::String::New(env, "storeOp"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, vertexStage)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::vertexStage)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "vertexStage"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassColorAttachmentDescriptor, clearColor)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassColorAttachmentDescriptor::clearColor)));
+    sWGPURenderPassColorAttachmentDescriptor.Set(Napi::String::New(env, "clearColor"), obj);
   }
+  sWGPURenderPassColorAttachmentDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassColorAttachmentDescriptor)));
+  out.Set(Napi::String::New(env, "WGPURenderPassColorAttachmentDescriptor"), sWGPURenderPassColorAttachmentDescriptor);
+  Napi::Object sWGPURenderPassDepthStencilAttachmentDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, fragmentStage)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::fragmentStage)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "fragmentStage"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDepthStencilAttachmentDescriptor, attachment)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDepthStencilAttachmentDescriptor::attachment)));
+    sWGPURenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "attachment"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, vertexInput)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::vertexInput)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "vertexInput"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDepthStencilAttachmentDescriptor, depthLoadOp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDepthStencilAttachmentDescriptor::depthLoadOp)));
+    sWGPURenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "depthLoadOp"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, primitiveTopology)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::primitiveTopology)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "primitiveTopology"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDepthStencilAttachmentDescriptor, depthStoreOp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDepthStencilAttachmentDescriptor::depthStoreOp)));
+    sWGPURenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "depthStoreOp"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, rasterizationState)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::rasterizationState)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "rasterizationState"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDepthStencilAttachmentDescriptor, clearDepth)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDepthStencilAttachmentDescriptor::clearDepth)));
+    sWGPURenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "clearDepth"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, sampleCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::sampleCount)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "sampleCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDepthStencilAttachmentDescriptor, stencilLoadOp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDepthStencilAttachmentDescriptor::stencilLoadOp)));
+    sWGPURenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "stencilLoadOp"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, depthStencilState)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::depthStencilState)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "depthStencilState"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDepthStencilAttachmentDescriptor, stencilStoreOp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDepthStencilAttachmentDescriptor::stencilStoreOp)));
+    sWGPURenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "stencilStoreOp"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, colorStateCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::colorStateCount)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "colorStateCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDepthStencilAttachmentDescriptor, clearStencil)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDepthStencilAttachmentDescriptor::clearStencil)));
+    sWGPURenderPassDepthStencilAttachmentDescriptor.Set(Napi::String::New(env, "clearStencil"), obj);
   }
+  sWGPURenderPassDepthStencilAttachmentDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDepthStencilAttachmentDescriptor)));
+  out.Set(Napi::String::New(env, "WGPURenderPassDepthStencilAttachmentDescriptor"), sWGPURenderPassDepthStencilAttachmentDescriptor);
+  Napi::Object sWGPURenderPassDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, colorStates)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::colorStates)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "colorStates"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDescriptor::label)));
+    sWGPURenderPassDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, sampleMask)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::sampleMask)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "sampleMask"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDescriptor, colorAttachmentCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDescriptor::colorAttachmentCount)));
+    sWGPURenderPassDescriptor.Set(Napi::String::New(env, "colorAttachmentCount"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnRenderPipelineDescriptor, alphaToCoverageEnabled)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor::alphaToCoverageEnabled)));
-    sDawnRenderPipelineDescriptor.Set(Napi::String::New(env, "alphaToCoverageEnabled"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDescriptor, colorAttachments)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDescriptor::colorAttachments)));
+    sWGPURenderPassDescriptor.Set(Napi::String::New(env, "colorAttachments"), obj);
   }
-  sDawnRenderPipelineDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnRenderPipelineDescriptor)));
-  out.Set(Napi::String::New(env, "DawnRenderPipelineDescriptor"), sDawnRenderPipelineDescriptor);
-  Napi::Object sDawnSamplerDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnSamplerDescriptor, addressModeU)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSamplerDescriptor::addressModeU)));
-    sDawnSamplerDescriptor.Set(Napi::String::New(env, "addressModeU"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPassDescriptor, depthStencilAttachment)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDescriptor::depthStencilAttachment)));
+    sWGPURenderPassDescriptor.Set(Napi::String::New(env, "depthStencilAttachment"), obj);
   }
+  sWGPURenderPassDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPassDescriptor)));
+  out.Set(Napi::String::New(env, "WGPURenderPassDescriptor"), sWGPURenderPassDescriptor);
+  Napi::Object sWGPURenderPipelineDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnSamplerDescriptor, addressModeV)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSamplerDescriptor::addressModeV)));
-    sDawnSamplerDescriptor.Set(Napi::String::New(env, "addressModeV"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::label)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnSamplerDescriptor, addressModeW)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSamplerDescriptor::addressModeW)));
-    sDawnSamplerDescriptor.Set(Napi::String::New(env, "addressModeW"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, layout)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::layout)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "layout"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnSamplerDescriptor, magFilter)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSamplerDescriptor::magFilter)));
-    sDawnSamplerDescriptor.Set(Napi::String::New(env, "magFilter"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, vertexStage)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::vertexStage)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "vertexStage"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnSamplerDescriptor, minFilter)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSamplerDescriptor::minFilter)));
-    sDawnSamplerDescriptor.Set(Napi::String::New(env, "minFilter"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, fragmentStage)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::fragmentStage)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "fragmentStage"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnSamplerDescriptor, mipmapFilter)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSamplerDescriptor::mipmapFilter)));
-    sDawnSamplerDescriptor.Set(Napi::String::New(env, "mipmapFilter"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, vertexState)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::vertexState)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "vertexState"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnSamplerDescriptor, lodMinClamp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSamplerDescriptor::lodMinClamp)));
-    sDawnSamplerDescriptor.Set(Napi::String::New(env, "lodMinClamp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, primitiveTopology)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::primitiveTopology)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "primitiveTopology"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnSamplerDescriptor, lodMaxClamp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSamplerDescriptor::lodMaxClamp)));
-    sDawnSamplerDescriptor.Set(Napi::String::New(env, "lodMaxClamp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, rasterizationState)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::rasterizationState)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "rasterizationState"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnSamplerDescriptor, compare)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSamplerDescriptor::compare)));
-    sDawnSamplerDescriptor.Set(Napi::String::New(env, "compare"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, sampleCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::sampleCount)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "sampleCount"), obj);
   }
-  sDawnSamplerDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSamplerDescriptor)));
-  out.Set(Napi::String::New(env, "DawnSamplerDescriptor"), sDawnSamplerDescriptor);
-  Napi::Object sDawnShaderModuleDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnShaderModuleDescriptor, codeSize)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnShaderModuleDescriptor::codeSize)));
-    sDawnShaderModuleDescriptor.Set(Napi::String::New(env, "codeSize"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, depthStencilState)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::depthStencilState)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "depthStencilState"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnShaderModuleDescriptor, code)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnShaderModuleDescriptor::code)));
-    sDawnShaderModuleDescriptor.Set(Napi::String::New(env, "code"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, colorStateCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::colorStateCount)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "colorStateCount"), obj);
   }
-  sDawnShaderModuleDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnShaderModuleDescriptor)));
-  out.Set(Napi::String::New(env, "DawnShaderModuleDescriptor"), sDawnShaderModuleDescriptor);
-  Napi::Object sDawnStencilStateFaceDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnStencilStateFaceDescriptor, compare)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnStencilStateFaceDescriptor::compare)));
-    sDawnStencilStateFaceDescriptor.Set(Napi::String::New(env, "compare"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, colorStates)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::colorStates)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "colorStates"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnStencilStateFaceDescriptor, failOp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnStencilStateFaceDescriptor::failOp)));
-    sDawnStencilStateFaceDescriptor.Set(Napi::String::New(env, "failOp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, sampleMask)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::sampleMask)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "sampleMask"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnStencilStateFaceDescriptor, depthFailOp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnStencilStateFaceDescriptor::depthFailOp)));
-    sDawnStencilStateFaceDescriptor.Set(Napi::String::New(env, "depthFailOp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURenderPipelineDescriptor, alphaToCoverageEnabled)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor::alphaToCoverageEnabled)));
+    sWGPURenderPipelineDescriptor.Set(Napi::String::New(env, "alphaToCoverageEnabled"), obj);
   }
+  sWGPURenderPipelineDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURenderPipelineDescriptor)));
+  out.Set(Napi::String::New(env, "WGPURenderPipelineDescriptor"), sWGPURenderPipelineDescriptor);
+  Napi::Object sWGPUSamplerDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnStencilStateFaceDescriptor, passOp)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnStencilStateFaceDescriptor::passOp)));
-    sDawnStencilStateFaceDescriptor.Set(Napi::String::New(env, "passOp"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSamplerDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor::label)));
+    sWGPUSamplerDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
-  sDawnStencilStateFaceDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnStencilStateFaceDescriptor)));
-  out.Set(Napi::String::New(env, "DawnStencilStateFaceDescriptor"), sDawnStencilStateFaceDescriptor);
-  Napi::Object sDawnSwapChainDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnSwapChainDescriptor, implementation)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSwapChainDescriptor::implementation)));
-    sDawnSwapChainDescriptor.Set(Napi::String::New(env, "implementation"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSamplerDescriptor, addressModeU)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor::addressModeU)));
+    sWGPUSamplerDescriptor.Set(Napi::String::New(env, "addressModeU"), obj);
   }
-  sDawnSwapChainDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnSwapChainDescriptor)));
-  out.Set(Napi::String::New(env, "DawnSwapChainDescriptor"), sDawnSwapChainDescriptor);
-  Napi::Object sDawnTextureCopyView = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureCopyView, texture)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureCopyView::texture)));
-    sDawnTextureCopyView.Set(Napi::String::New(env, "texture"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSamplerDescriptor, addressModeV)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor::addressModeV)));
+    sWGPUSamplerDescriptor.Set(Napi::String::New(env, "addressModeV"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureCopyView, mipLevel)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureCopyView::mipLevel)));
-    sDawnTextureCopyView.Set(Napi::String::New(env, "mipLevel"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSamplerDescriptor, addressModeW)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor::addressModeW)));
+    sWGPUSamplerDescriptor.Set(Napi::String::New(env, "addressModeW"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureCopyView, arrayLayer)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureCopyView::arrayLayer)));
-    sDawnTextureCopyView.Set(Napi::String::New(env, "arrayLayer"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSamplerDescriptor, magFilter)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor::magFilter)));
+    sWGPUSamplerDescriptor.Set(Napi::String::New(env, "magFilter"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureCopyView, origin)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureCopyView::origin)));
-    sDawnTextureCopyView.Set(Napi::String::New(env, "origin"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSamplerDescriptor, minFilter)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor::minFilter)));
+    sWGPUSamplerDescriptor.Set(Napi::String::New(env, "minFilter"), obj);
   }
-  sDawnTextureCopyView.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureCopyView)));
-  out.Set(Napi::String::New(env, "DawnTextureCopyView"), sDawnTextureCopyView);
-  Napi::Object sDawnTextureDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureDescriptor, usage)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureDescriptor::usage)));
-    sDawnTextureDescriptor.Set(Napi::String::New(env, "usage"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSamplerDescriptor, mipmapFilter)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor::mipmapFilter)));
+    sWGPUSamplerDescriptor.Set(Napi::String::New(env, "mipmapFilter"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureDescriptor, dimension)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureDescriptor::dimension)));
-    sDawnTextureDescriptor.Set(Napi::String::New(env, "dimension"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSamplerDescriptor, lodMinClamp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor::lodMinClamp)));
+    sWGPUSamplerDescriptor.Set(Napi::String::New(env, "lodMinClamp"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureDescriptor, size)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureDescriptor::size)));
-    sDawnTextureDescriptor.Set(Napi::String::New(env, "size"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSamplerDescriptor, lodMaxClamp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor::lodMaxClamp)));
+    sWGPUSamplerDescriptor.Set(Napi::String::New(env, "lodMaxClamp"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureDescriptor, arrayLayerCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureDescriptor::arrayLayerCount)));
-    sDawnTextureDescriptor.Set(Napi::String::New(env, "arrayLayerCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSamplerDescriptor, compare)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor::compare)));
+    sWGPUSamplerDescriptor.Set(Napi::String::New(env, "compare"), obj);
   }
+  sWGPUSamplerDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSamplerDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUSamplerDescriptor"), sWGPUSamplerDescriptor);
+  Napi::Object sWGPUShaderModuleDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureDescriptor, format)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureDescriptor::format)));
-    sDawnTextureDescriptor.Set(Napi::String::New(env, "format"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUShaderModuleDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUShaderModuleDescriptor::label)));
+    sWGPUShaderModuleDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureDescriptor, mipLevelCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureDescriptor::mipLevelCount)));
-    sDawnTextureDescriptor.Set(Napi::String::New(env, "mipLevelCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUShaderModuleDescriptor, codeSize)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUShaderModuleDescriptor::codeSize)));
+    sWGPUShaderModuleDescriptor.Set(Napi::String::New(env, "codeSize"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureDescriptor, sampleCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureDescriptor::sampleCount)));
-    sDawnTextureDescriptor.Set(Napi::String::New(env, "sampleCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUShaderModuleDescriptor, code)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUShaderModuleDescriptor::code)));
+    sWGPUShaderModuleDescriptor.Set(Napi::String::New(env, "code"), obj);
   }
-  sDawnTextureDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureDescriptor)));
-  out.Set(Napi::String::New(env, "DawnTextureDescriptor"), sDawnTextureDescriptor);
-  Napi::Object sDawnTextureViewDescriptor = Napi::Object::New(env);
+  sWGPUShaderModuleDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUShaderModuleDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUShaderModuleDescriptor"), sWGPUShaderModuleDescriptor);
+  Napi::Object sWGPUStencilStateFaceDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureViewDescriptor, format)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureViewDescriptor::format)));
-    sDawnTextureViewDescriptor.Set(Napi::String::New(env, "format"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUStencilStateFaceDescriptor, compare)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUStencilStateFaceDescriptor::compare)));
+    sWGPUStencilStateFaceDescriptor.Set(Napi::String::New(env, "compare"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureViewDescriptor, dimension)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureViewDescriptor::dimension)));
-    sDawnTextureViewDescriptor.Set(Napi::String::New(env, "dimension"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUStencilStateFaceDescriptor, failOp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUStencilStateFaceDescriptor::failOp)));
+    sWGPUStencilStateFaceDescriptor.Set(Napi::String::New(env, "failOp"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureViewDescriptor, baseMipLevel)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureViewDescriptor::baseMipLevel)));
-    sDawnTextureViewDescriptor.Set(Napi::String::New(env, "baseMipLevel"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUStencilStateFaceDescriptor, depthFailOp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUStencilStateFaceDescriptor::depthFailOp)));
+    sWGPUStencilStateFaceDescriptor.Set(Napi::String::New(env, "depthFailOp"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureViewDescriptor, mipLevelCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureViewDescriptor::mipLevelCount)));
-    sDawnTextureViewDescriptor.Set(Napi::String::New(env, "mipLevelCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUStencilStateFaceDescriptor, passOp)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUStencilStateFaceDescriptor::passOp)));
+    sWGPUStencilStateFaceDescriptor.Set(Napi::String::New(env, "passOp"), obj);
   }
+  sWGPUStencilStateFaceDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUStencilStateFaceDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUStencilStateFaceDescriptor"), sWGPUStencilStateFaceDescriptor);
+  Napi::Object sWGPUSwapChainDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureViewDescriptor, baseArrayLayer)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureViewDescriptor::baseArrayLayer)));
-    sDawnTextureViewDescriptor.Set(Napi::String::New(env, "baseArrayLayer"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSwapChainDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSwapChainDescriptor::label)));
+    sWGPUSwapChainDescriptor.Set(Napi::String::New(env, "label"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureViewDescriptor, arrayLayerCount)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureViewDescriptor::arrayLayerCount)));
-    sDawnTextureViewDescriptor.Set(Napi::String::New(env, "arrayLayerCount"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSwapChainDescriptor, implementation)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSwapChainDescriptor::implementation)));
+    sWGPUSwapChainDescriptor.Set(Napi::String::New(env, "implementation"), obj);
   }
+  sWGPUSwapChainDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSwapChainDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUSwapChainDescriptor"), sWGPUSwapChainDescriptor);
+  Napi::Object sWGPUTextureCopyView = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(DawnTextureViewDescriptor, aspect)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureViewDescriptor::aspect)));
-    sDawnTextureViewDescriptor.Set(Napi::String::New(env, "aspect"), obj);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureCopyView, texture)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureCopyView::texture)));
+    sWGPUTextureCopyView.Set(Napi::String::New(env, "texture"), obj);
   }
-  sDawnTextureViewDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(DawnTextureViewDescriptor)));
-  out.Set(Napi::String::New(env, "DawnTextureViewDescriptor"), sDawnTextureViewDescriptor);
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureCopyView, mipLevel)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureCopyView::mipLevel)));
+    sWGPUTextureCopyView.Set(Napi::String::New(env, "mipLevel"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureCopyView, arrayLayer)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureCopyView::arrayLayer)));
+    sWGPUTextureCopyView.Set(Napi::String::New(env, "arrayLayer"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureCopyView, origin)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureCopyView::origin)));
+    sWGPUTextureCopyView.Set(Napi::String::New(env, "origin"), obj);
+  }
+  sWGPUTextureCopyView.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureCopyView)));
+  out.Set(Napi::String::New(env, "WGPUTextureCopyView"), sWGPUTextureCopyView);
+  Napi::Object sWGPUTextureDescriptor = Napi::Object::New(env);
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureDescriptor::label)));
+    sWGPUTextureDescriptor.Set(Napi::String::New(env, "label"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureDescriptor, usage)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureDescriptor::usage)));
+    sWGPUTextureDescriptor.Set(Napi::String::New(env, "usage"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureDescriptor, dimension)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureDescriptor::dimension)));
+    sWGPUTextureDescriptor.Set(Napi::String::New(env, "dimension"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureDescriptor, size)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureDescriptor::size)));
+    sWGPUTextureDescriptor.Set(Napi::String::New(env, "size"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureDescriptor, arrayLayerCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureDescriptor::arrayLayerCount)));
+    sWGPUTextureDescriptor.Set(Napi::String::New(env, "arrayLayerCount"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureDescriptor, format)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureDescriptor::format)));
+    sWGPUTextureDescriptor.Set(Napi::String::New(env, "format"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureDescriptor, mipLevelCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureDescriptor::mipLevelCount)));
+    sWGPUTextureDescriptor.Set(Napi::String::New(env, "mipLevelCount"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureDescriptor, sampleCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureDescriptor::sampleCount)));
+    sWGPUTextureDescriptor.Set(Napi::String::New(env, "sampleCount"), obj);
+  }
+  sWGPUTextureDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUTextureDescriptor"), sWGPUTextureDescriptor);
+  Napi::Object sWGPUTextureViewDescriptor = Napi::Object::New(env);
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureViewDescriptor, label)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureViewDescriptor::label)));
+    sWGPUTextureViewDescriptor.Set(Napi::String::New(env, "label"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureViewDescriptor, format)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureViewDescriptor::format)));
+    sWGPUTextureViewDescriptor.Set(Napi::String::New(env, "format"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureViewDescriptor, dimension)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureViewDescriptor::dimension)));
+    sWGPUTextureViewDescriptor.Set(Napi::String::New(env, "dimension"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureViewDescriptor, baseMipLevel)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureViewDescriptor::baseMipLevel)));
+    sWGPUTextureViewDescriptor.Set(Napi::String::New(env, "baseMipLevel"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureViewDescriptor, mipLevelCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureViewDescriptor::mipLevelCount)));
+    sWGPUTextureViewDescriptor.Set(Napi::String::New(env, "mipLevelCount"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureViewDescriptor, baseArrayLayer)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureViewDescriptor::baseArrayLayer)));
+    sWGPUTextureViewDescriptor.Set(Napi::String::New(env, "baseArrayLayer"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureViewDescriptor, arrayLayerCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureViewDescriptor::arrayLayerCount)));
+    sWGPUTextureViewDescriptor.Set(Napi::String::New(env, "arrayLayerCount"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTextureViewDescriptor, aspect)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureViewDescriptor::aspect)));
+    sWGPUTextureViewDescriptor.Set(Napi::String::New(env, "aspect"), obj);
+  }
+  sWGPUTextureViewDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTextureViewDescriptor)));
+  out.Set(Napi::String::New(env, "WGPUTextureViewDescriptor"), sWGPUTextureViewDescriptor);
   
 
   return out;

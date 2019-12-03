@@ -18,7 +18,7 @@ GPURenderBundleEncoder::GPURenderBundleEncoder(const Napi::CallbackInfo& info) :
 
   auto descriptor = DescriptorDecoder::GPURenderBundleEncoderDescriptor(device, info[1].As<Napi::Value>());
 
-  this->instance = dawnDeviceCreateRenderBundleEncoder(device->instance, &descriptor);
+  this->instance = wgpuDeviceCreateRenderBundleEncoder(device->instance, &descriptor);
 }
 
 GPURenderBundleEncoder::~GPURenderBundleEncoder() {
@@ -30,7 +30,7 @@ Napi::Value GPURenderBundleEncoder::setPipeline(const Napi::CallbackInfo &info) 
 
   GPURenderPipeline* renderPipeline = Napi::ObjectWrap<GPURenderPipeline>::Unwrap(info[0].As<Napi::Object>());
 
-  dawnRenderBundleEncoderSetPipeline(this->instance, renderPipeline->instance);
+  wgpuRenderBundleEncoderSetPipeline(this->instance, renderPipeline->instance);
 
   return env.Undefined();
 }
@@ -45,39 +45,22 @@ Napi::Value GPURenderBundleEncoder::setIndexBuffer(const Napi::CallbackInfo &inf
     offset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
   }
 
-  dawnRenderBundleEncoderSetIndexBuffer(this->instance, buffer->instance, offset);
+  wgpuRenderBundleEncoderSetIndexBuffer(this->instance, buffer->instance, offset);
 
   return env.Undefined();
 }
 
-Napi::Value GPURenderBundleEncoder::setVertexBuffers(const Napi::CallbackInfo &info) {
+Napi::Value GPURenderBundleEncoder::setVertexBuffer(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
   uint32_t startSlot = info[0].As<Napi::Number>().Uint32Value();
-
-  uint32_t count;
-  std::vector<DawnBuffer> buffers;
-  {
-    Napi::Array array = info[1].As<Napi::Array>();
-    count = array.Length();
-    for (unsigned int ii = 0; ii < count; ++ii) {
-      Napi::Object item = array.Get(ii).As<Napi::Object>();
-      DawnBuffer buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(item)->instance;
-      buffers.push_back(buffer);
-    };
+  WGPUBuffer buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[1].As<Napi::Object>())->instance;
+  uint32_t offset = 0;
+  if (info[2].IsNumber()) {
+    offset = info[1].As<Napi::Number>().Uint32Value();
   }
 
-  std::vector<uint64_t> offsets;
-  {
-    Napi::Array array = info[2].As<Napi::Array>();
-    for (unsigned int ii = 0; ii < count; ++ii) {
-      bool lossless;
-      uint64_t offset = array.Get(ii).As<Napi::BigInt>().Uint64Value(&lossless);
-      offsets.push_back(offset);
-    };
-  }
-
-  dawnRenderBundleEncoderSetVertexBuffers(this->instance, startSlot, count, buffers.data(), offsets.data());
+  wgpuRenderBundleEncoderSetVertexBuffer(this->instance, startSlot, buffer, offset);
 
   return env.Undefined();
 }
@@ -90,7 +73,7 @@ Napi::Value GPURenderBundleEncoder::draw(const Napi::CallbackInfo &info) {
   uint32_t firstVertex = info[2].As<Napi::Number>().Uint32Value();
   uint32_t firstInstance = info[3].As<Napi::Number>().Uint32Value();
 
-  dawnRenderBundleEncoderDraw(this->instance, vertexCount, instanceCount, firstVertex, firstInstance);
+  wgpuRenderBundleEncoderDraw(this->instance, vertexCount, instanceCount, firstVertex, firstInstance);
 
   return env.Undefined();
 }
@@ -104,7 +87,7 @@ Napi::Value GPURenderBundleEncoder::drawIndexed(const Napi::CallbackInfo &info) 
   int32_t baseVertex = info[3].As<Napi::Number>().Int32Value();
   uint32_t firstInstance = info[4].As<Napi::Number>().Uint32Value();
 
-  dawnRenderBundleEncoderDrawIndexed(this->instance, indexCount, instanceCount, firstIndex, baseVertex, firstInstance);
+  wgpuRenderBundleEncoderDrawIndexed(this->instance, indexCount, instanceCount, firstIndex, baseVertex, firstInstance);
 
   return env.Undefined();
 }
@@ -117,7 +100,7 @@ Napi::Value GPURenderBundleEncoder::drawIndirect(const Napi::CallbackInfo &info)
   GPUBuffer* indirectBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>());
   uint64_t indirectOffset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
 
-  dawnRenderBundleEncoderDrawIndirect(this->instance, indirectBuffer->instance, indirectOffset);
+  wgpuRenderBundleEncoderDrawIndirect(this->instance, indirectBuffer->instance, indirectOffset);
 
   return env.Undefined();
 }
@@ -130,7 +113,7 @@ Napi::Value GPURenderBundleEncoder::drawIndexedIndirect(const Napi::CallbackInfo
   GPUBuffer* indirectBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>());
   uint64_t indirectOffset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
 
-  dawnRenderBundleEncoderDrawIndexedIndirect(this->instance, indirectBuffer->instance, indirectOffset);
+  wgpuRenderBundleEncoderDrawIndexedIndirect(this->instance, indirectBuffer->instance, indirectOffset);
 
   return env.Undefined();
 }
@@ -143,7 +126,7 @@ Napi::Value GPURenderBundleEncoder::finish(const Napi::CallbackInfo &info) {
 
   auto descriptor = DescriptorDecoder::GPURenderBundleDescriptor(device, info[1].As<Napi::Value>());
 
-  dawnRenderBundleEncoderFinish(this->instance, &descriptor);
+  wgpuRenderBundleEncoderFinish(this->instance, &descriptor);
 
   return env.Undefined();
 }
@@ -153,21 +136,20 @@ Napi::Value GPURenderBundleEncoder::setBindGroup(const Napi::CallbackInfo &info)
 
   uint32_t groupIndex = info[0].As<Napi::Number>().Uint32Value();
 
-  DawnBindGroup group = Napi::ObjectWrap<GPUBindGroup>::Unwrap(info[1].As<Napi::Object>())->instance;
+  WGPUBindGroup group = Napi::ObjectWrap<GPUBindGroup>::Unwrap(info[1].As<Napi::Object>())->instance;
 
   uint32_t dynamicOffsetCount;
-  std::vector<uint64_t> dynamicOffsets;
+  std::vector<uint32_t> dynamicOffsets;
   if (info[2].IsArray()) {
     Napi::Array array = info[2].As<Napi::Array>();
     for (unsigned int ii = 0; ii < array.Length(); ++ii) {
-      bool lossless;
-      uint64_t offset = array.Get(ii).As<Napi::BigInt>().Uint64Value(&lossless);
+      uint32_t offset = array.Get(ii).As<Napi::Number>().Uint32Value();
       dynamicOffsets.push_back(offset);
     };
     dynamicOffsetCount = array.Length();
   }
 
-  dawnRenderBundleEncoderSetBindGroup(this->instance, groupIndex, group, dynamicOffsetCount, dynamicOffsets.data());
+  wgpuRenderBundleEncoderSetBindGroup(this->instance, groupIndex, group, dynamicOffsetCount, dynamicOffsets.data());
 
   return env.Undefined();
 }
@@ -176,7 +158,7 @@ Napi::Value GPURenderBundleEncoder::pushDebugGroup(const Napi::CallbackInfo &inf
   Napi::Env env = info.Env();
 
   const char* groupLabel = info[0].As<Napi::String>().Utf8Value().c_str();
-  dawnRenderBundleEncoderPushDebugGroup(this->instance, groupLabel);
+  wgpuRenderBundleEncoderPushDebugGroup(this->instance, groupLabel);
 
   return env.Undefined();
 }
@@ -184,7 +166,7 @@ Napi::Value GPURenderBundleEncoder::pushDebugGroup(const Napi::CallbackInfo &inf
 Napi::Value GPURenderBundleEncoder::popDebugGroup(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  dawnRenderBundleEncoderPopDebugGroup(this->instance);
+  wgpuRenderBundleEncoderPopDebugGroup(this->instance);
 
   return env.Undefined();
 }
@@ -193,7 +175,7 @@ Napi::Value GPURenderBundleEncoder::insertDebugMarker(const Napi::CallbackInfo &
   Napi::Env env = info.Env();
 
   const char* groupLabel = info[0].As<Napi::String>().Utf8Value().c_str();
-  dawnRenderBundleEncoderInsertDebugMarker(this->instance, groupLabel);
+  wgpuRenderBundleEncoderInsertDebugMarker(this->instance, groupLabel);
 
   return env.Undefined();
 }
@@ -212,8 +194,8 @@ Napi::Object GPURenderBundleEncoder::Initialize(Napi::Env env, Napi::Object expo
       napi_enumerable
     ),
     InstanceMethod(
-      "setVertexBuffers",
-      &GPURenderBundleEncoder::setVertexBuffers,
+      "setVertexBuffer",
+      &GPURenderBundleEncoder::setVertexBuffer,
       napi_enumerable
     ),
     InstanceMethod(

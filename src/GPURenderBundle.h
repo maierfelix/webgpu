@@ -13,7 +13,7 @@ class GPURenderBundle : public Napi::ObjectWrap<GPURenderBundle> {
     GPURenderBundle(const Napi::CallbackInfo &info);
     ~GPURenderBundle();
 
-    DawnRenderBundle instance;
+    WGPURenderBundle instance;
   private:
 
 };

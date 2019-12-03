@@ -20,7 +20,7 @@ class GPUQueue : public Napi::ObjectWrap<GPUQueue> {
     Napi::Value createFence(const Napi::CallbackInfo &info);
     Napi::Value signal(const Napi::CallbackInfo &info);
 
-    DawnQueue instance;
+    WGPUQueue instance;
   private:
 
 };

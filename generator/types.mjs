@@ -7,12 +7,12 @@ import {
 
 export function getDawnDeclarationName(name) {
   let camelized = getCamelizedName(name);
-  let structName = "Dawn" + (camelized[0].toUpperCase()) + camelized.substr(1);
+  let structName = "WGPU" + (camelized[0].toUpperCase()) + camelized.substr(1);
   return structName;
 };
 
 export function getExplortDeclarationName(name) {
-  if (name.substr(0, 4) !== "Dawn") warn(`Expected name [0-4] to be 'Dawn'`);
+  if (name.substr(0, 4) !== "WGPU") warn(`Expected name [0-4] to be 'WGPU'`);
   return "GPU" + name.substr(4);
 };
 

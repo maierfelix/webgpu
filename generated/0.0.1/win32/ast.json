@@ -1,7 +1,7 @@
 {
   "enums": [
     {
-      "name": "DawnAddressMode",
+      "name": "WGPUAddressMode",
       "externalName": "GPUAddressMode",
       "type": "enum",
       "textName": "address mode",
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "name": "DawnBindingType",
+      "name": "WGPUBindingType",
       "externalName": "GPUBindingType",
       "type": "enum",
       "textName": "binding type",
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "name": "DawnBlendFactor",
+      "name": "WGPUBlendFactor",
       "externalName": "GPUBlendFactor",
       "type": "enum",
       "textName": "blend factor",
@@ -289,7 +289,7 @@
       ]
     },
     {
-      "name": "DawnBlendOperation",
+      "name": "WGPUBlendOperation",
       "externalName": "GPUBlendOperation",
       "type": "enum",
       "textName": "blend operation",
@@ -357,7 +357,7 @@
       ]
     },
     {
-      "name": "DawnBufferMapAsyncStatus",
+      "name": "WGPUBufferMapAsyncStatus",
       "externalName": "GPUBufferMapAsyncStatus",
       "type": "enum",
       "textName": "buffer map async status",
@@ -413,7 +413,7 @@
       ]
     },
     {
-      "name": "DawnCompareFunction",
+      "name": "WGPUCompareFunction",
       "externalName": "GPUCompareFunction",
       "type": "enum",
       "textName": "compare function",
@@ -517,7 +517,7 @@
       ]
     },
     {
-      "name": "DawnCullMode",
+      "name": "WGPUCullMode",
       "externalName": "GPUCullMode",
       "type": "enum",
       "textName": "cull mode",
@@ -561,7 +561,7 @@
       ]
     },
     {
-      "name": "DawnErrorFilter",
+      "name": "WGPUErrorFilter",
       "externalName": "GPUErrorFilter",
       "type": "enum",
       "textName": "error filter",
@@ -605,7 +605,7 @@
       ]
     },
     {
-      "name": "DawnErrorType",
+      "name": "WGPUErrorType",
       "externalName": "GPUErrorType",
       "type": "enum",
       "textName": "error type",
@@ -673,7 +673,7 @@
       ]
     },
     {
-      "name": "DawnFenceCompletionStatus",
+      "name": "WGPUFenceCompletionStatus",
       "externalName": "GPUFenceCompletionStatus",
       "type": "enum",
       "textName": "fence completion status",
@@ -729,7 +729,7 @@
       ]
     },
     {
-      "name": "DawnFilterMode",
+      "name": "WGPUFilterMode",
       "externalName": "GPUFilterMode",
       "type": "enum",
       "textName": "filter mode",
@@ -761,7 +761,7 @@
       ]
     },
     {
-      "name": "DawnFrontFace",
+      "name": "WGPUFrontFace",
       "externalName": "GPUFrontFace",
       "type": "enum",
       "textName": "front face",
@@ -793,7 +793,7 @@
       ]
     },
     {
-      "name": "DawnIndexFormat",
+      "name": "WGPUIndexFormat",
       "externalName": "GPUIndexFormat",
       "type": "enum",
       "textName": "index format",
@@ -825,7 +825,7 @@
       ]
     },
     {
-      "name": "DawnInputStepMode",
+      "name": "WGPUInputStepMode",
       "externalName": "GPUInputStepMode",
       "type": "enum",
       "textName": "input step mode",
@@ -857,7 +857,7 @@
       ]
     },
     {
-      "name": "DawnLoadOp",
+      "name": "WGPULoadOp",
       "externalName": "GPULoadOp",
       "type": "enum",
       "textName": "load op",
@@ -889,7 +889,7 @@
       ]
     },
     {
-      "name": "DawnStoreOp",
+      "name": "WGPUStoreOp",
       "externalName": "GPUStoreOp",
       "type": "enum",
       "textName": "store op",
@@ -905,11 +905,23 @@
             }
           },
           "value": 0
+        },
+        {
+          "name": "clear",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
         }
       ]
     },
     {
-      "name": "DawnPrimitiveTopology",
+      "name": "WGPUPrimitiveTopology",
       "externalName": "GPUPrimitiveTopology",
       "type": "enum",
       "textName": "primitive topology",
@@ -977,7 +989,7 @@
       ]
     },
     {
-      "name": "DawnStencilOperation",
+      "name": "WGPUStencilOperation",
       "externalName": "GPUStencilOperation",
       "type": "enum",
       "textName": "stencil operation",
@@ -1081,7 +1093,7 @@
       ]
     },
     {
-      "name": "DawnTextureAspect",
+      "name": "WGPUTextureAspect",
       "externalName": "GPUTextureAspect",
       "type": "enum",
       "textName": "texture aspect",
@@ -1125,7 +1137,7 @@
       ]
     },
     {
-      "name": "DawnTextureComponentType",
+      "name": "WGPUTextureComponentType",
       "externalName": "GPUTextureComponentType",
       "type": "enum",
       "textName": "texture component type",
@@ -1169,7 +1181,7 @@
       ]
     },
     {
-      "name": "DawnTextureDimension",
+      "name": "WGPUTextureDimension",
       "externalName": "GPUTextureDimension",
       "type": "enum",
       "textName": "texture dimension",
@@ -1213,7 +1225,7 @@
       ]
     },
     {
-      "name": "DawnTextureFormat",
+      "name": "WGPUTextureFormat",
       "externalName": "GPUTextureFormat",
       "type": "enum",
       "textName": "texture format",
@@ -1857,7 +1869,7 @@
       ]
     },
     {
-      "name": "DawnTextureViewDimension",
+      "name": "WGPUTextureViewDimension",
       "externalName": "GPUTextureViewDimension",
       "type": "enum",
       "textName": "texture view dimension",
@@ -1949,7 +1961,7 @@
       ]
     },
     {
-      "name": "DawnVertexFormat",
+      "name": "WGPUVertexFormat",
       "externalName": "GPUVertexFormat",
       "type": "enum",
       "textName": "vertex format",
@@ -2319,7 +2331,7 @@
   ],
   "bitmasks": [
     {
-      "name": "DawnBufferUsage",
+      "name": "WGPUBufferUsage",
       "externalName": "GPUBufferUsage",
       "type": "bitmask",
       "textName": "buffer usage",
@@ -2447,7 +2459,7 @@
       ]
     },
     {
-      "name": "DawnColorWriteMask",
+      "name": "WGPUColorWriteMask",
       "externalName": "GPUColorWriteMask",
       "type": "bitmask",
       "textName": "color write mask",
@@ -2527,7 +2539,7 @@
       ]
     },
     {
-      "name": "DawnShaderStage",
+      "name": "WGPUShaderStage",
       "externalName": "GPUShaderStage",
       "type": "bitmask",
       "textName": "shader stage",
@@ -2583,7 +2595,7 @@
       ]
     },
     {
-      "name": "DawnTextureUsage",
+      "name": "WGPUTextureUsage",
       "externalName": "GPUTextureUsage",
       "type": "bitmask",
       "textName": "texture usage",
@@ -2677,21 +2689,21 @@
   ],
   "objects": [
     {
-      "name": "DawnBindGroup",
+      "name": "WGPUBindGroup",
       "externalName": "GPUBindGroup",
       "type": "object",
       "textName": "bind group",
       "children": []
     },
     {
-      "name": "DawnBindGroupLayout",
+      "name": "WGPUBindGroupLayout",
       "externalName": "GPUBindGroupLayout",
       "type": "object",
       "textName": "bind group layout",
       "children": []
     },
     {
-      "name": "DawnBuffer",
+      "name": "WGPUBuffer",
       "externalName": "GPUBuffer",
       "type": "object",
       "textName": "buffer",
@@ -2852,14 +2864,14 @@
       ]
     },
     {
-      "name": "DawnCommandBuffer",
+      "name": "WGPUCommandBuffer",
       "externalName": "GPUCommandBuffer",
       "type": "object",
       "textName": "command buffer",
       "children": []
     },
     {
-      "name": "DawnCommandEncoder",
+      "name": "WGPUCommandEncoder",
       "externalName": "GPUCommandEncoder",
       "type": "object",
       "textName": "command encoder",
@@ -2871,9 +2883,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnCommandBufferDescriptor",
+                "nativeType": "WGPUCommandBufferDescriptor",
                 "isReference": true,
-                "rawType": "const DawnCommandBufferDescriptor*",
+                "rawType": "const WGPUCommandBufferDescriptor*",
                 "isOptional": true,
                 "jsType": {
                   "type": "Object",
@@ -2885,11 +2897,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnCommandBuffer",
-            "rawType": "DawnCommandBuffer",
+            "nativeType": "WGPUCommandBuffer",
+            "rawType": "WGPUCommandBuffer",
             "isRequired": true,
             "jsType": {
-              "type": "DawnCommandBuffer",
+              "type": "WGPUCommandBuffer",
               "isObject": true
             }
           }
@@ -2901,9 +2913,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnComputePassDescriptor",
+                "nativeType": "WGPUComputePassDescriptor",
                 "isReference": true,
-                "rawType": "const DawnComputePassDescriptor*",
+                "rawType": "const WGPUComputePassDescriptor*",
                 "isOptional": true,
                 "jsType": {
                   "type": "Object",
@@ -2915,11 +2927,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnComputePassEncoder",
-            "rawType": "DawnComputePassEncoder",
+            "nativeType": "WGPUComputePassEncoder",
+            "rawType": "WGPUComputePassEncoder",
             "isRequired": true,
             "jsType": {
-              "type": "DawnComputePassEncoder",
+              "type": "WGPUComputePassEncoder",
               "isObject": true
             }
           }
@@ -2931,9 +2943,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnRenderPassDescriptor",
+                "nativeType": "WGPURenderPassDescriptor",
                 "isReference": true,
-                "rawType": "const DawnRenderPassDescriptor*",
+                "rawType": "const WGPURenderPassDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -2944,11 +2956,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnRenderPassEncoder",
-            "rawType": "DawnRenderPassEncoder",
+            "nativeType": "WGPURenderPassEncoder",
+            "rawType": "WGPURenderPassEncoder",
             "isRequired": true,
             "jsType": {
-              "type": "DawnRenderPassEncoder",
+              "type": "WGPURenderPassEncoder",
               "isObject": true
             }
           }
@@ -2960,11 +2972,11 @@
               "name": "source",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "rawType": "DawnBuffer",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
@@ -2987,11 +2999,11 @@
               "name": "destination",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "rawType": "DawnBuffer",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
@@ -3041,9 +3053,9 @@
               "name": "source",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnBufferCopyView",
+                "nativeType": "WGPUBufferCopyView",
                 "isReference": true,
-                "rawType": "const DawnBufferCopyView*",
+                "rawType": "const WGPUBufferCopyView*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3055,9 +3067,9 @@
               "name": "destination",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnTextureCopyView",
+                "nativeType": "WGPUTextureCopyView",
                 "isReference": true,
-                "rawType": "const DawnTextureCopyView*",
+                "rawType": "const WGPUTextureCopyView*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3069,9 +3081,9 @@
               "name": "copySize",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnExtent3D",
+                "nativeType": "WGPUExtent3D",
                 "isReference": true,
-                "rawType": "const DawnExtent3D*",
+                "rawType": "const WGPUExtent3D*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3096,9 +3108,9 @@
               "name": "source",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnTextureCopyView",
+                "nativeType": "WGPUTextureCopyView",
                 "isReference": true,
-                "rawType": "const DawnTextureCopyView*",
+                "rawType": "const WGPUTextureCopyView*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3110,9 +3122,9 @@
               "name": "destination",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnBufferCopyView",
+                "nativeType": "WGPUBufferCopyView",
                 "isReference": true,
-                "rawType": "const DawnBufferCopyView*",
+                "rawType": "const WGPUBufferCopyView*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3124,9 +3136,9 @@
               "name": "copySize",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnExtent3D",
+                "nativeType": "WGPUExtent3D",
                 "isReference": true,
-                "rawType": "const DawnExtent3D*",
+                "rawType": "const WGPUExtent3D*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3151,9 +3163,9 @@
               "name": "source",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnTextureCopyView",
+                "nativeType": "WGPUTextureCopyView",
                 "isReference": true,
-                "rawType": "const DawnTextureCopyView*",
+                "rawType": "const WGPUTextureCopyView*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3165,9 +3177,9 @@
               "name": "destination",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnTextureCopyView",
+                "nativeType": "WGPUTextureCopyView",
                 "isReference": true,
-                "rawType": "const DawnTextureCopyView*",
+                "rawType": "const WGPUTextureCopyView*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3179,9 +3191,9 @@
               "name": "copySize",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnExtent3D",
+                "nativeType": "WGPUExtent3D",
                 "isReference": true,
-                "rawType": "const DawnExtent3D*",
+                "rawType": "const WGPUExtent3D*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3272,7 +3284,7 @@
       ]
     },
     {
-      "name": "DawnComputePassEncoder",
+      "name": "WGPUComputePassEncoder",
       "externalName": "GPUComputePassEncoder",
       "type": "object",
       "textName": "compute pass encoder",
@@ -3354,11 +3366,11 @@
               "name": "pipeline",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnComputePipeline",
-                "rawType": "DawnComputePipeline",
+                "nativeType": "WGPUComputePipeline",
+                "rawType": "WGPUComputePipeline",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnComputePipeline",
+                  "type": "WGPUComputePipeline",
                   "isObject": true
                 }
               }
@@ -3393,11 +3405,11 @@
               "name": "group",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBindGroup",
-                "rawType": "DawnBindGroup",
+                "nativeType": "WGPUBindGroup",
+                "rawType": "WGPUBindGroup",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBindGroup",
+                  "type": "WGPUBindGroup",
                   "isObject": true
                 }
               }
@@ -3408,7 +3420,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -3421,13 +3433,14 @@
                 "length": "dynamicOffsetCount",
                 "isReference": true,
                 "isArray": true,
-                "rawType": "const uint64_t*",
-                "isRequired": true,
+                "rawType": "const uint32_t*",
+                "isOptional": true,
                 "jsType": {
-                  "type": "BigUint64Array",
+                  "type": "Uint32Array",
                   "isTypedArray": true
                 }
-              }
+              },
+              "isOptional": true
             }
           ],
           "type": {
@@ -3498,11 +3511,11 @@
               "name": "indirectBuffer",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "rawType": "DawnBuffer",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
@@ -3546,14 +3559,43 @@
       ]
     },
     {
-      "name": "DawnComputePipeline",
+      "name": "WGPUComputePipeline",
       "externalName": "GPUComputePipeline",
       "type": "object",
       "textName": "compute pipeline",
-      "children": []
+      "children": [
+        {
+          "name": "getBindGroupLayout",
+          "children": [
+            {
+              "name": "group",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPUBindGroupLayout",
+            "rawType": "WGPUBindGroupLayout",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPUBindGroupLayout",
+              "isObject": true
+            }
+          }
+        }
+      ]
     },
     {
-      "name": "DawnDevice",
+      "name": "WGPUDevice",
       "externalName": "GPUDevice",
       "type": "object",
       "textName": "device",
@@ -3565,9 +3607,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnBindGroupDescriptor",
+                "nativeType": "WGPUBindGroupDescriptor",
                 "isReference": true,
-                "rawType": "const DawnBindGroupDescriptor*",
+                "rawType": "const WGPUBindGroupDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3578,11 +3620,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnBindGroup",
-            "rawType": "DawnBindGroup",
+            "nativeType": "WGPUBindGroup",
+            "rawType": "WGPUBindGroup",
             "isRequired": true,
             "jsType": {
-              "type": "DawnBindGroup",
+              "type": "WGPUBindGroup",
               "isObject": true
             }
           }
@@ -3594,9 +3636,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnBindGroupLayoutDescriptor",
+                "nativeType": "WGPUBindGroupLayoutDescriptor",
                 "isReference": true,
-                "rawType": "const DawnBindGroupLayoutDescriptor*",
+                "rawType": "const WGPUBindGroupLayoutDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3607,11 +3649,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnBindGroupLayout",
-            "rawType": "DawnBindGroupLayout",
+            "nativeType": "WGPUBindGroupLayout",
+            "rawType": "WGPUBindGroupLayout",
             "isRequired": true,
             "jsType": {
-              "type": "DawnBindGroupLayout",
+              "type": "WGPUBindGroupLayout",
               "isObject": true
             }
           }
@@ -3623,9 +3665,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnBufferDescriptor",
+                "nativeType": "WGPUBufferDescriptor",
                 "isReference": true,
-                "rawType": "const DawnBufferDescriptor*",
+                "rawType": "const WGPUBufferDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3636,11 +3678,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnBuffer",
-            "rawType": "DawnBuffer",
+            "nativeType": "WGPUBuffer",
+            "rawType": "WGPUBuffer",
             "isRequired": true,
             "jsType": {
-              "type": "DawnBuffer",
+              "type": "WGPUBuffer",
               "isObject": true
             }
           }
@@ -3652,9 +3694,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnBufferDescriptor",
+                "nativeType": "WGPUBufferDescriptor",
                 "isReference": true,
-                "rawType": "const DawnBufferDescriptor*",
+                "rawType": "const WGPUBufferDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3665,8 +3707,8 @@
           ],
           "type": {
             "isStructure": true,
-            "nativeType": "DawnCreateBufferMappedResult",
-            "rawType": "DawnCreateBufferMappedResult",
+            "nativeType": "WGPUCreateBufferMappedResult",
+            "rawType": "WGPUCreateBufferMappedResult",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -3681,9 +3723,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnBufferDescriptor",
+                "nativeType": "WGPUBufferDescriptor",
                 "isReference": true,
-                "rawType": "const DawnBufferDescriptor*",
+                "rawType": "const WGPUBufferDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3732,9 +3774,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnCommandEncoderDescriptor",
+                "nativeType": "WGPUCommandEncoderDescriptor",
                 "isReference": true,
-                "rawType": "const DawnCommandEncoderDescriptor*",
+                "rawType": "const WGPUCommandEncoderDescriptor*",
                 "isOptional": true,
                 "jsType": {
                   "type": "Object",
@@ -3746,11 +3788,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnCommandEncoder",
-            "rawType": "DawnCommandEncoder",
+            "nativeType": "WGPUCommandEncoder",
+            "rawType": "WGPUCommandEncoder",
             "isRequired": true,
             "jsType": {
-              "type": "DawnCommandEncoder",
+              "type": "WGPUCommandEncoder",
               "isObject": true
             }
           }
@@ -3762,9 +3804,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnComputePipelineDescriptor",
+                "nativeType": "WGPUComputePipelineDescriptor",
                 "isReference": true,
-                "rawType": "const DawnComputePipelineDescriptor*",
+                "rawType": "const WGPUComputePipelineDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3775,11 +3817,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnComputePipeline",
-            "rawType": "DawnComputePipeline",
+            "nativeType": "WGPUComputePipeline",
+            "rawType": "WGPUComputePipeline",
             "isRequired": true,
             "jsType": {
-              "type": "DawnComputePipeline",
+              "type": "WGPUComputePipeline",
               "isObject": true
             }
           }
@@ -3791,9 +3833,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnRenderPipelineDescriptor",
+                "nativeType": "WGPURenderPipelineDescriptor",
                 "isReference": true,
-                "rawType": "const DawnRenderPipelineDescriptor*",
+                "rawType": "const WGPURenderPipelineDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3804,11 +3846,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnRenderPipeline",
-            "rawType": "DawnRenderPipeline",
+            "nativeType": "WGPURenderPipeline",
+            "rawType": "WGPURenderPipeline",
             "isRequired": true,
             "jsType": {
-              "type": "DawnRenderPipeline",
+              "type": "WGPURenderPipeline",
               "isObject": true
             }
           }
@@ -3820,9 +3862,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnPipelineLayoutDescriptor",
+                "nativeType": "WGPUPipelineLayoutDescriptor",
                 "isReference": true,
-                "rawType": "const DawnPipelineLayoutDescriptor*",
+                "rawType": "const WGPUPipelineLayoutDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3833,11 +3875,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnPipelineLayout",
-            "rawType": "DawnPipelineLayout",
+            "nativeType": "WGPUPipelineLayout",
+            "rawType": "WGPUPipelineLayout",
             "isRequired": true,
             "jsType": {
-              "type": "DawnPipelineLayout",
+              "type": "WGPUPipelineLayout",
               "isObject": true
             }
           }
@@ -3847,11 +3889,11 @@
           "children": [],
           "type": {
             "isObject": true,
-            "nativeType": "DawnQueue",
-            "rawType": "DawnQueue",
+            "nativeType": "WGPUQueue",
+            "rawType": "WGPUQueue",
             "isRequired": true,
             "jsType": {
-              "type": "DawnQueue",
+              "type": "WGPUQueue",
               "isObject": true
             }
           }
@@ -3863,9 +3905,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnRenderBundleEncoderDescriptor",
+                "nativeType": "WGPURenderBundleEncoderDescriptor",
                 "isReference": true,
-                "rawType": "const DawnRenderBundleEncoderDescriptor*",
+                "rawType": "const WGPURenderBundleEncoderDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3876,11 +3918,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnRenderBundleEncoder",
-            "rawType": "DawnRenderBundleEncoder",
+            "nativeType": "WGPURenderBundleEncoder",
+            "rawType": "WGPURenderBundleEncoder",
             "isRequired": true,
             "jsType": {
-              "type": "DawnRenderBundleEncoder",
+              "type": "WGPURenderBundleEncoder",
               "isObject": true
             }
           }
@@ -3892,9 +3934,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnSamplerDescriptor",
+                "nativeType": "WGPUSamplerDescriptor",
                 "isReference": true,
-                "rawType": "const DawnSamplerDescriptor*",
+                "rawType": "const WGPUSamplerDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3905,11 +3947,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnSampler",
-            "rawType": "DawnSampler",
+            "nativeType": "WGPUSampler",
+            "rawType": "WGPUSampler",
             "isRequired": true,
             "jsType": {
-              "type": "DawnSampler",
+              "type": "WGPUSampler",
               "isObject": true
             }
           }
@@ -3921,9 +3963,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnShaderModuleDescriptor",
+                "nativeType": "WGPUShaderModuleDescriptor",
                 "isReference": true,
-                "rawType": "const DawnShaderModuleDescriptor*",
+                "rawType": "const WGPUShaderModuleDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3934,11 +3976,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnShaderModule",
-            "rawType": "DawnShaderModule",
+            "nativeType": "WGPUShaderModule",
+            "rawType": "WGPUShaderModule",
             "isRequired": true,
             "jsType": {
-              "type": "DawnShaderModule",
+              "type": "WGPUShaderModule",
               "isObject": true
             }
           }
@@ -3950,9 +3992,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnSwapChainDescriptor",
+                "nativeType": "WGPUSwapChainDescriptor",
                 "isReference": true,
-                "rawType": "const DawnSwapChainDescriptor*",
+                "rawType": "const WGPUSwapChainDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3963,11 +4005,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnSwapChain",
-            "rawType": "DawnSwapChain",
+            "nativeType": "WGPUSwapChain",
+            "rawType": "WGPUSwapChain",
             "isRequired": true,
             "jsType": {
-              "type": "DawnSwapChain",
+              "type": "WGPUSwapChain",
               "isObject": true
             }
           }
@@ -3979,9 +4021,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnTextureDescriptor",
+                "nativeType": "WGPUTextureDescriptor",
                 "isReference": true,
-                "rawType": "const DawnTextureDescriptor*",
+                "rawType": "const WGPUTextureDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -3992,12 +4034,54 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnTexture",
-            "rawType": "DawnTexture",
+            "nativeType": "WGPUTexture",
+            "rawType": "WGPUTexture",
             "isRequired": true,
             "jsType": {
-              "type": "DawnTexture",
+              "type": "WGPUTexture",
               "isObject": true
+            }
+          }
+        },
+        {
+          "name": "injectError",
+          "children": [
+            {
+              "name": "type",
+              "type": {
+                "isEnum": true,
+                "nativeType": "WGPUErrorType",
+                "rawType": "WGPUErrorType",
+                "isRequired": true,
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            },
+            {
+              "name": "message",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "isArray": true,
+                "rawType": "const char*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
             }
           }
         },
@@ -4057,8 +4141,8 @@
               "name": "filter",
               "type": {
                 "isEnum": true,
-                "nativeType": "DawnErrorFilter",
-                "rawType": "DawnErrorFilter",
+                "nativeType": "WGPUErrorFilter",
+                "rawType": "WGPUErrorFilter",
                 "isRequired": true,
                 "jsType": {
                   "type": "String",
@@ -4118,7 +4202,7 @@
       ]
     },
     {
-      "name": "DawnFence",
+      "name": "WGPUFence",
       "externalName": "GPUFence",
       "type": "object",
       "textName": "fence",
@@ -4192,14 +4276,14 @@
       ]
     },
     {
-      "name": "DawnPipelineLayout",
+      "name": "WGPUPipelineLayout",
       "externalName": "GPUPipelineLayout",
       "type": "object",
       "textName": "pipeline layout",
       "children": []
     },
     {
-      "name": "DawnQueue",
+      "name": "WGPUQueue",
       "externalName": "GPUQueue",
       "type": "object",
       "textName": "queue",
@@ -4224,14 +4308,14 @@
               "name": "commands",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnCommandBuffer",
+                "nativeType": "WGPUCommandBuffer",
                 "length": "commandCount",
                 "isReference": true,
                 "isArray": true,
-                "rawType": "const DawnCommandBuffer*",
+                "rawType": "const WGPUCommandBuffer*",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnCommandBuffer",
+                  "type": "WGPUCommandBuffer",
                   "isObject": true
                 }
               }
@@ -4253,11 +4337,11 @@
               "name": "fence",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnFence",
-                "rawType": "DawnFence",
+                "nativeType": "WGPUFence",
+                "rawType": "WGPUFence",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnFence",
+                  "type": "WGPUFence",
                   "isObject": true
                 }
               }
@@ -4293,9 +4377,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnFenceDescriptor",
+                "nativeType": "WGPUFenceDescriptor",
                 "isReference": true,
-                "rawType": "const DawnFenceDescriptor*",
+                "rawType": "const WGPUFenceDescriptor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -4306,11 +4390,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnFence",
-            "rawType": "DawnFence",
+            "nativeType": "WGPUFence",
+            "rawType": "WGPUFence",
             "isRequired": true,
             "jsType": {
-              "type": "DawnFence",
+              "type": "WGPUFence",
               "isObject": true
             }
           }
@@ -4318,14 +4402,14 @@
       ]
     },
     {
-      "name": "DawnRenderBundle",
+      "name": "WGPURenderBundle",
       "externalName": "GPURenderBundle",
       "type": "object",
       "textName": "render bundle",
       "children": []
     },
     {
-      "name": "DawnRenderBundleEncoder",
+      "name": "WGPURenderBundleEncoder",
       "externalName": "GPURenderBundleEncoder",
       "type": "object",
       "textName": "render bundle encoder",
@@ -4337,11 +4421,11 @@
               "name": "pipeline",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnRenderPipeline",
-                "rawType": "DawnRenderPipeline",
+                "nativeType": "WGPURenderPipeline",
+                "rawType": "WGPURenderPipeline",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnRenderPipeline",
+                  "type": "WGPURenderPipeline",
                   "isObject": true
                 }
               }
@@ -4376,11 +4460,11 @@
               "name": "group",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBindGroup",
-                "rawType": "DawnBindGroup",
+                "nativeType": "WGPUBindGroup",
+                "rawType": "WGPUBindGroup",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBindGroup",
+                  "type": "WGPUBindGroup",
                   "isObject": true
                 }
               }
@@ -4391,7 +4475,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4404,13 +4488,14 @@
                 "length": "dynamicOffsetCount",
                 "isReference": true,
                 "isArray": true,
-                "rawType": "const uint64_t*",
-                "isRequired": true,
+                "rawType": "const uint32_t*",
+                "isOptional": true,
                 "jsType": {
-                  "type": "BigUint64Array",
+                  "type": "Uint32Array",
                   "isTypedArray": true
                 }
-              }
+              },
+              "isOptional": true
             }
           ],
           "type": {
@@ -4572,11 +4657,11 @@
               "name": "indirectBuffer",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "rawType": "DawnBuffer",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
@@ -4612,11 +4697,11 @@
               "name": "indirectBuffer",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "rawType": "DawnBuffer",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
@@ -4716,10 +4801,10 @@
           }
         },
         {
-          "name": "setVertexBuffers",
+          "name": "setVertexBuffer",
           "children": [
             {
-              "name": "startSlot",
+              "name": "slot",
               "type": {
                 "isNumber": true,
                 "initialValue": "0",
@@ -4732,45 +4817,29 @@
               }
             },
             {
-              "name": "count",
-              "type": {
-                "isNumber": true,
-                "initialValue": "0",
-                "rawType": "uint32_t",
-                "isRequired": true,
-                "jsType": {
-                  "type": "Number",
-                  "isNumber": true
-                }
-              }
-            },
-            {
-              "name": "buffers",
+              "name": "buffer",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "length": "count",
-                "isReference": true,
-                "isArray": true,
-                "rawType": "const DawnBuffer*",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
             },
             {
-              "name": "offsets",
+              "name": "offset",
               "type": {
-                "length": "count",
-                "isReference": true,
-                "isArray": true,
-                "rawType": "const uint64_t*",
-                "isRequired": true,
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "isOptional": true,
                 "jsType": {
-                  "type": "BigUint64Array",
-                  "isTypedArray": true
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
                 }
               }
             }
@@ -4791,11 +4860,11 @@
               "name": "buffer",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "rawType": "DawnBuffer",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
@@ -4806,7 +4875,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -4831,9 +4900,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnRenderBundleDescriptor",
+                "nativeType": "WGPURenderBundleDescriptor",
                 "isReference": true,
-                "rawType": "const DawnRenderBundleDescriptor*",
+                "rawType": "const WGPURenderBundleDescriptor*",
                 "isOptional": true,
                 "jsType": {
                   "type": "Object",
@@ -4845,11 +4914,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnRenderBundle",
-            "rawType": "DawnRenderBundle",
+            "nativeType": "WGPURenderBundle",
+            "rawType": "WGPURenderBundle",
             "isRequired": true,
             "jsType": {
-              "type": "DawnRenderBundle",
+              "type": "WGPURenderBundle",
               "isObject": true
             }
           }
@@ -4857,7 +4926,7 @@
       ]
     },
     {
-      "name": "DawnRenderPassEncoder",
+      "name": "WGPURenderPassEncoder",
       "externalName": "GPURenderPassEncoder",
       "type": "object",
       "textName": "render pass encoder",
@@ -4869,11 +4938,11 @@
               "name": "pipeline",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnRenderPipeline",
-                "rawType": "DawnRenderPipeline",
+                "nativeType": "WGPURenderPipeline",
+                "rawType": "WGPURenderPipeline",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnRenderPipeline",
+                  "type": "WGPURenderPipeline",
                   "isObject": true
                 }
               }
@@ -4908,11 +4977,11 @@
               "name": "group",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBindGroup",
-                "rawType": "DawnBindGroup",
+                "nativeType": "WGPUBindGroup",
+                "rawType": "WGPUBindGroup",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBindGroup",
+                  "type": "WGPUBindGroup",
                   "isObject": true
                 }
               }
@@ -4923,7 +4992,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -4936,13 +5005,14 @@
                 "length": "dynamicOffsetCount",
                 "isReference": true,
                 "isArray": true,
-                "rawType": "const uint64_t*",
-                "isRequired": true,
+                "rawType": "const uint32_t*",
+                "isOptional": true,
                 "jsType": {
-                  "type": "BigUint64Array",
+                  "type": "Uint32Array",
                   "isTypedArray": true
                 }
-              }
+              },
+              "isOptional": true
             }
           ],
           "type": {
@@ -5104,11 +5174,11 @@
               "name": "indirectBuffer",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "rawType": "DawnBuffer",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
@@ -5144,11 +5214,11 @@
               "name": "indirectBuffer",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "rawType": "DawnBuffer",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
@@ -5197,14 +5267,14 @@
               "name": "bundles",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnRenderBundle",
+                "nativeType": "WGPURenderBundle",
                 "length": "bundlesCount",
                 "isReference": true,
                 "isArray": true,
-                "rawType": "const DawnRenderBundle*",
+                "rawType": "const WGPURenderBundle*",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnRenderBundle",
+                  "type": "WGPURenderBundle",
                   "isObject": true
                 }
               }
@@ -5322,9 +5392,9 @@
               "name": "color",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnColor",
+                "nativeType": "WGPUColor",
                 "isReference": true,
-                "rawType": "const DawnColor*",
+                "rawType": "const WGPUColor*",
                 "isRequired": true,
                 "jsType": {
                   "type": "Object",
@@ -5499,10 +5569,10 @@
           }
         },
         {
-          "name": "setVertexBuffers",
+          "name": "setVertexBuffer",
           "children": [
             {
-              "name": "startSlot",
+              "name": "slot",
               "type": {
                 "isNumber": true,
                 "initialValue": "0",
@@ -5515,45 +5585,29 @@
               }
             },
             {
-              "name": "count",
-              "type": {
-                "isNumber": true,
-                "initialValue": "0",
-                "rawType": "uint32_t",
-                "isRequired": true,
-                "jsType": {
-                  "type": "Number",
-                  "isNumber": true
-                }
-              }
-            },
-            {
-              "name": "buffers",
+              "name": "buffer",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "length": "count",
-                "isReference": true,
-                "isArray": true,
-                "rawType": "const DawnBuffer*",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
             },
             {
-              "name": "offsets",
+              "name": "offset",
               "type": {
-                "length": "count",
-                "isReference": true,
-                "isArray": true,
-                "rawType": "const uint64_t*",
-                "isRequired": true,
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint64_t",
+                "isOptional": true,
                 "jsType": {
-                  "type": "BigUint64Array",
-                  "isTypedArray": true
+                  "type": "BigInt",
+                  "isNumber": true,
+                  "isBigInt": true
                 }
               }
             }
@@ -5574,11 +5628,11 @@
               "name": "buffer",
               "type": {
                 "isObject": true,
-                "nativeType": "DawnBuffer",
-                "rawType": "DawnBuffer",
+                "nativeType": "WGPUBuffer",
+                "rawType": "WGPUBuffer",
                 "isRequired": true,
                 "jsType": {
-                  "type": "DawnBuffer",
+                  "type": "WGPUBuffer",
                   "isObject": true
                 }
               }
@@ -5589,7 +5643,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint64_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "BigInt",
                   "isNumber": true,
@@ -5622,28 +5676,57 @@
       ]
     },
     {
-      "name": "DawnRenderPipeline",
+      "name": "WGPURenderPipeline",
       "externalName": "GPURenderPipeline",
       "type": "object",
       "textName": "render pipeline",
-      "children": []
+      "children": [
+        {
+          "name": "getBindGroupLayout",
+          "children": [
+            {
+              "name": "group",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPUBindGroupLayout",
+            "rawType": "WGPUBindGroupLayout",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPUBindGroupLayout",
+              "isObject": true
+            }
+          }
+        }
+      ]
     },
     {
-      "name": "DawnSampler",
+      "name": "WGPUSampler",
       "externalName": "GPUSampler",
       "type": "object",
       "textName": "sampler",
       "children": []
     },
     {
-      "name": "DawnShaderModule",
+      "name": "WGPUShaderModule",
       "externalName": "GPUShaderModule",
       "type": "object",
       "textName": "shader module",
       "children": []
     },
     {
-      "name": "DawnSwapChain",
+      "name": "WGPUSwapChain",
       "externalName": "GPUSwapChain",
       "type": "object",
       "textName": "swap chain",
@@ -5655,8 +5738,8 @@
               "name": "format",
               "type": {
                 "isEnum": true,
-                "nativeType": "DawnTextureFormat",
-                "rawType": "DawnTextureFormat",
+                "nativeType": "WGPUTextureFormat",
+                "rawType": "WGPUTextureFormat",
                 "isRequired": true,
                 "jsType": {
                   "type": "String",
@@ -5668,8 +5751,8 @@
               "name": "allowedUsage",
               "type": {
                 "isBitmask": true,
-                "nativeType": "DawnTextureUsage",
-                "rawType": "DawnTextureUsage",
+                "nativeType": "WGPUTextureUsage",
+                "rawType": "WGPUTextureUsage",
                 "isRequired": true,
                 "jsType": {
                   "type": "Number",
@@ -5714,36 +5797,22 @@
           }
         },
         {
-          "name": "getNextTexture",
+          "name": "getCurrentTextureView",
           "children": [],
           "type": {
             "isObject": true,
-            "nativeType": "DawnTexture",
-            "rawType": "DawnTexture",
+            "nativeType": "WGPUTextureView",
+            "rawType": "WGPUTextureView",
             "isRequired": true,
             "jsType": {
-              "type": "DawnTexture",
+              "type": "WGPUTextureView",
               "isObject": true
             }
           }
         },
         {
           "name": "present",
-          "children": [
-            {
-              "name": "texture",
-              "type": {
-                "isObject": true,
-                "nativeType": "DawnTexture",
-                "rawType": "DawnTexture",
-                "isRequired": true,
-                "jsType": {
-                  "type": "DawnTexture",
-                  "isObject": true
-                }
-              }
-            }
-          ],
+          "children": [],
           "type": {
             "rawType": "void",
             "isRequired": true,
@@ -5756,7 +5825,7 @@
       ]
     },
     {
-      "name": "DawnTexture",
+      "name": "WGPUTexture",
       "externalName": "GPUTexture",
       "type": "object",
       "textName": "texture",
@@ -5768,9 +5837,9 @@
               "name": "descriptor",
               "type": {
                 "isStructure": true,
-                "nativeType": "DawnTextureViewDescriptor",
+                "nativeType": "WGPUTextureViewDescriptor",
                 "isReference": true,
-                "rawType": "const DawnTextureViewDescriptor*",
+                "rawType": "const WGPUTextureViewDescriptor*",
                 "isOptional": true,
                 "jsType": {
                   "type": "Object",
@@ -5782,11 +5851,11 @@
           ],
           "type": {
             "isObject": true,
-            "nativeType": "DawnTextureView",
-            "rawType": "DawnTextureView",
+            "nativeType": "WGPUTextureView",
+            "rawType": "WGPUTextureView",
             "isRequired": true,
             "jsType": {
-              "type": "DawnTextureView",
+              "type": "WGPUTextureView",
               "isObject": true
             }
           }
@@ -5806,7 +5875,7 @@
       ]
     },
     {
-      "name": "DawnTextureView",
+      "name": "WGPUTextureView",
       "externalName": "GPUTextureView",
       "type": "object",
       "textName": "texture view",
@@ -5815,7 +5884,7 @@
   ],
   "structures": [
     {
-      "name": "DawnBindGroupBinding",
+      "name": "WGPUBindGroupBinding",
       "externalName": "GPUBindGroupBinding",
       "type": "structure",
       "textName": "bind group binding",
@@ -5837,11 +5906,11 @@
           "name": "buffer",
           "type": {
             "isObject": true,
-            "nativeType": "DawnBuffer",
-            "rawType": "DawnBuffer",
+            "nativeType": "WGPUBuffer",
+            "rawType": "WGPUBuffer",
             "isOptional": true,
             "jsType": {
-              "type": "DawnBuffer",
+              "type": "WGPUBuffer",
               "isObject": true
             }
           },
@@ -5881,11 +5950,11 @@
           "name": "sampler",
           "type": {
             "isObject": true,
-            "nativeType": "DawnSampler",
-            "rawType": "DawnSampler",
+            "nativeType": "WGPUSampler",
+            "rawType": "WGPUSampler",
             "isOptional": true,
             "jsType": {
-              "type": "DawnSampler",
+              "type": "WGPUSampler",
               "isObject": true
             }
           },
@@ -5895,11 +5964,11 @@
           "name": "textureView",
           "type": {
             "isObject": true,
-            "nativeType": "DawnTextureView",
-            "rawType": "DawnTextureView",
+            "nativeType": "WGPUTextureView",
+            "rawType": "WGPUTextureView",
             "isOptional": true,
             "jsType": {
-              "type": "DawnTextureView",
+              "type": "WGPUTextureView",
               "isObject": true
             }
           },
@@ -5908,21 +5977,38 @@
       ]
     },
     {
-      "name": "DawnBindGroupDescriptor",
+      "name": "WGPUBindGroupDescriptor",
       "externalName": "GPUBindGroupDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "bind group descriptor",
       "children": [
         {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
+        {
           "name": "layout",
           "type": {
             "isObject": true,
-            "nativeType": "DawnBindGroupLayout",
-            "rawType": "DawnBindGroupLayout",
+            "nativeType": "WGPUBindGroupLayout",
+            "rawType": "WGPUBindGroupLayout",
             "isRequired": true,
             "jsType": {
-              "type": "DawnBindGroupLayout",
+              "type": "WGPUBindGroupLayout",
               "isObject": true
             }
           }
@@ -5945,11 +6031,11 @@
           "name": "bindings",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnBindGroupBinding",
+            "nativeType": "WGPUBindGroupBinding",
             "length": "bindingCount",
             "isReference": true,
             "isArray": true,
-            "rawType": "const DawnBindGroupBinding*",
+            "rawType": "const WGPUBindGroupBinding*",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -5960,7 +6046,7 @@
       ]
     },
     {
-      "name": "DawnBindGroupLayoutBinding",
+      "name": "WGPUBindGroupLayoutBinding",
       "externalName": "GPUBindGroupLayoutBinding",
       "type": "structure",
       "textName": "bind group layout binding",
@@ -5982,8 +6068,8 @@
           "name": "visibility",
           "type": {
             "isBitmask": true,
-            "nativeType": "DawnShaderStage",
-            "rawType": "DawnShaderStage",
+            "nativeType": "WGPUShaderStage",
+            "rawType": "WGPUShaderStage",
             "isRequired": true,
             "jsType": {
               "type": "Number",
@@ -5995,8 +6081,8 @@
           "name": "type",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnBindingType",
-            "rawType": "DawnBindingType",
+            "nativeType": "WGPUBindingType",
+            "rawType": "WGPUBindingType",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -6005,7 +6091,7 @@
           }
         },
         {
-          "name": "dynamic",
+          "name": "hasDynamicOffset",
           "type": {
             "isBoolean": true,
             "initialValue": "false",
@@ -6038,23 +6124,21 @@
           "name": "textureDimension",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureViewDimension",
-            "rawType": "DawnTextureViewDimension",
+            "nativeType": "WGPUTextureViewDimension",
+            "rawType": "WGPUTextureViewDimension",
             "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
             }
-          },
-          "defaultValue": "\"2D\"",
-          "defaultValueNative": 2
+          }
         },
         {
           "name": "textureComponentType",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureComponentType",
-            "rawType": "DawnTextureComponentType",
+            "nativeType": "WGPUTextureComponentType",
+            "rawType": "WGPUTextureComponentType",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -6067,12 +6151,29 @@
       ]
     },
     {
-      "name": "DawnBindGroupLayoutDescriptor",
+      "name": "WGPUBindGroupLayoutDescriptor",
       "externalName": "GPUBindGroupLayoutDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "bind group layout descriptor",
       "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
         {
           "name": "bindingCount",
           "type": {
@@ -6091,11 +6192,11 @@
           "name": "bindings",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnBindGroupLayoutBinding",
+            "nativeType": "WGPUBindGroupLayoutBinding",
             "length": "bindingCount",
             "isReference": true,
             "isArray": true,
-            "rawType": "const DawnBindGroupLayoutBinding*",
+            "rawType": "const WGPUBindGroupLayoutBinding*",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -6106,7 +6207,7 @@
       ]
     },
     {
-      "name": "DawnBlendDescriptor",
+      "name": "WGPUBlendDescriptor",
       "externalName": "GPUBlendDescriptor",
       "type": "structure",
       "textName": "blend descriptor",
@@ -6115,8 +6216,8 @@
           "name": "operation",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnBlendOperation",
-            "rawType": "DawnBlendOperation",
+            "nativeType": "WGPUBlendOperation",
+            "rawType": "WGPUBlendOperation",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -6130,8 +6231,8 @@
           "name": "srcFactor",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnBlendFactor",
-            "rawType": "DawnBlendFactor",
+            "nativeType": "WGPUBlendFactor",
+            "rawType": "WGPUBlendFactor",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -6145,8 +6246,8 @@
           "name": "dstFactor",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnBlendFactor",
-            "rawType": "DawnBlendFactor",
+            "nativeType": "WGPUBlendFactor",
+            "rawType": "WGPUBlendFactor",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -6159,7 +6260,7 @@
       ]
     },
     {
-      "name": "DawnColorStateDescriptor",
+      "name": "WGPUColorStateDescriptor",
       "externalName": "GPUColorStateDescriptor",
       "type": "structure",
       "isExtensible": true,
@@ -6169,8 +6270,8 @@
           "name": "format",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureFormat",
-            "rawType": "DawnTextureFormat",
+            "nativeType": "WGPUTextureFormat",
+            "rawType": "WGPUTextureFormat",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -6182,8 +6283,8 @@
           "name": "alphaBlend",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnBlendDescriptor",
-            "rawType": "DawnBlendDescriptor",
+            "nativeType": "WGPUBlendDescriptor",
+            "rawType": "WGPUBlendDescriptor",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -6195,8 +6296,8 @@
           "name": "colorBlend",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnBlendDescriptor",
-            "rawType": "DawnBlendDescriptor",
+            "nativeType": "WGPUBlendDescriptor",
+            "rawType": "WGPUBlendDescriptor",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -6208,8 +6309,8 @@
           "name": "writeMask",
           "type": {
             "isBitmask": true,
-            "nativeType": "DawnColorWriteMask",
-            "rawType": "DawnColorWriteMask",
+            "nativeType": "WGPUColorWriteMask",
+            "rawType": "WGPUColorWriteMask",
             "isOptional": true,
             "jsType": {
               "type": "Number",
@@ -6222,7 +6323,7 @@
       ]
     },
     {
-      "name": "DawnBufferCopyView",
+      "name": "WGPUBufferCopyView",
       "externalName": "GPUBufferCopyView",
       "type": "structure",
       "isExtensible": true,
@@ -6232,11 +6333,11 @@
           "name": "buffer",
           "type": {
             "isObject": true,
-            "nativeType": "DawnBuffer",
-            "rawType": "DawnBuffer",
+            "nativeType": "WGPUBuffer",
+            "rawType": "WGPUBuffer",
             "isRequired": true,
             "jsType": {
-              "type": "DawnBuffer",
+              "type": "WGPUBuffer",
               "isObject": true
             }
           }
@@ -6286,18 +6387,35 @@
       ]
     },
     {
-      "name": "DawnBufferDescriptor",
+      "name": "WGPUBufferDescriptor",
       "externalName": "GPUBufferDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "buffer descriptor",
       "children": [
         {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
+        {
           "name": "usage",
           "type": {
             "isBitmask": true,
-            "nativeType": "DawnBufferUsage",
-            "rawType": "DawnBufferUsage",
+            "nativeType": "WGPUBufferUsage",
+            "rawType": "WGPUBufferUsage",
             "isRequired": true,
             "jsType": {
               "type": "Number",
@@ -6322,7 +6440,7 @@
       ]
     },
     {
-      "name": "DawnCreateBufferMappedResult",
+      "name": "WGPUCreateBufferMappedResult",
       "externalName": "GPUCreateBufferMappedResult",
       "type": "structure",
       "textName": "create buffer mapped result",
@@ -6331,11 +6449,11 @@
           "name": "buffer",
           "type": {
             "isObject": true,
-            "nativeType": "DawnBuffer",
-            "rawType": "DawnBuffer",
+            "nativeType": "WGPUBuffer",
+            "rawType": "WGPUBuffer",
             "isRequired": true,
             "jsType": {
-              "type": "DawnBuffer",
+              "type": "WGPUBuffer",
               "isObject": true
             }
           }
@@ -6372,7 +6490,7 @@
       ]
     },
     {
-      "name": "DawnColor",
+      "name": "WGPUColor",
       "externalName": "GPUColor",
       "type": "structure",
       "textName": "color",
@@ -6432,55 +6550,127 @@
       ]
     },
     {
-      "name": "DawnCommandBufferDescriptor",
+      "name": "WGPUCommandBufferDescriptor",
       "externalName": "GPUCommandBufferDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "command buffer descriptor",
-      "children": []
+      "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        }
+      ]
     },
     {
-      "name": "DawnCommandEncoderDescriptor",
+      "name": "WGPUCommandEncoderDescriptor",
       "externalName": "GPUCommandEncoderDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "command encoder descriptor",
-      "children": []
+      "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        }
+      ]
     },
     {
-      "name": "DawnComputePassDescriptor",
+      "name": "WGPUComputePassDescriptor",
       "externalName": "GPUComputePassDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "compute pass descriptor",
-      "children": []
+      "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        }
+      ]
     },
     {
-      "name": "DawnComputePipelineDescriptor",
+      "name": "WGPUComputePipelineDescriptor",
       "externalName": "GPUComputePipelineDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "compute pipeline descriptor",
       "children": [
         {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
+        {
           "name": "layout",
           "type": {
             "isObject": true,
-            "nativeType": "DawnPipelineLayout",
-            "rawType": "DawnPipelineLayout",
-            "isRequired": true,
+            "nativeType": "WGPUPipelineLayout",
+            "rawType": "WGPUPipelineLayout",
+            "isOptional": true,
             "jsType": {
-              "type": "DawnPipelineLayout",
+              "type": "WGPUPipelineLayout",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         },
         {
           "name": "computeStage",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnPipelineStageDescriptor",
-            "rawType": "DawnPipelineStageDescriptor",
+            "nativeType": "WGPUProgrammableStageDescriptor",
+            "rawType": "WGPUProgrammableStageDescriptor",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -6491,7 +6681,30 @@
       ]
     },
     {
-      "name": "DawnDepthStencilStateDescriptor",
+      "name": "WGPUDeviceProperties",
+      "externalName": "GPUDeviceProperties",
+      "type": "structure",
+      "textName": "device properties",
+      "children": [
+        {
+          "name": "textureCompressionBC",
+          "type": {
+            "isBoolean": true,
+            "initialValue": "false",
+            "rawType": "bool",
+            "isOptional": true,
+            "jsType": {
+              "type": "Boolean",
+              "isBoolean": true
+            }
+          },
+          "defaultValue": false,
+          "defaultValueNative": "false"
+        }
+      ]
+    },
+    {
+      "name": "WGPUDepthStencilStateDescriptor",
       "externalName": "GPUDepthStencilStateDescriptor",
       "type": "structure",
       "isExtensible": true,
@@ -6501,8 +6714,8 @@
           "name": "format",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureFormat",
-            "rawType": "DawnTextureFormat",
+            "nativeType": "WGPUTextureFormat",
+            "rawType": "WGPUTextureFormat",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -6529,8 +6742,8 @@
           "name": "depthCompare",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnCompareFunction",
-            "rawType": "DawnCompareFunction",
+            "nativeType": "WGPUCompareFunction",
+            "rawType": "WGPUCompareFunction",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -6544,8 +6757,8 @@
           "name": "stencilFront",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnStencilStateFaceDescriptor",
-            "rawType": "DawnStencilStateFaceDescriptor",
+            "nativeType": "WGPUStencilStateFaceDescriptor",
+            "rawType": "WGPUStencilStateFaceDescriptor",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -6557,8 +6770,8 @@
           "name": "stencilBack",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnStencilStateFaceDescriptor",
-            "rawType": "DawnStencilStateFaceDescriptor",
+            "nativeType": "WGPUStencilStateFaceDescriptor",
+            "rawType": "WGPUStencilStateFaceDescriptor",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -6599,7 +6812,7 @@
       ]
     },
     {
-      "name": "DawnExtent3D",
+      "name": "WGPUExtent3D",
       "externalName": "GPUExtent3D",
       "type": "structure",
       "textName": "extent 3D",
@@ -6646,12 +6859,29 @@
       ]
     },
     {
-      "name": "DawnFenceDescriptor",
+      "name": "WGPUFenceDescriptor",
       "externalName": "GPUFenceDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "fence descriptor",
       "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
         {
           "name": "initialValue",
           "type": {
@@ -6671,11 +6901,38 @@
       ]
     },
     {
-      "name": "DawnVertexAttributeDescriptor",
+      "name": "WGPUVertexAttributeDescriptor",
       "externalName": "GPUVertexAttributeDescriptor",
       "type": "structure",
       "textName": "vertex attribute descriptor",
       "children": [
+        {
+          "name": "format",
+          "type": {
+            "isEnum": true,
+            "nativeType": "WGPUVertexFormat",
+            "rawType": "WGPUVertexFormat",
+            "isRequired": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          }
+        },
+        {
+          "name": "offset",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "BigInt",
+              "isNumber": true,
+              "isBigInt": true
+            }
+          }
+        },
         {
           "name": "shaderLocation",
           "type": {
@@ -6688,46 +6945,17 @@
               "isNumber": true
             }
           }
-        },
-        {
-          "name": "offset",
-          "type": {
-            "isNumber": true,
-            "initialValue": "0",
-            "rawType": "uint64_t",
-            "isOptional": true,
-            "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
-            }
-          },
-          "defaultValue": "0",
-          "defaultValueNative": "0"
-        },
-        {
-          "name": "format",
-          "type": {
-            "isEnum": true,
-            "nativeType": "DawnVertexFormat",
-            "rawType": "DawnVertexFormat",
-            "isRequired": true,
-            "jsType": {
-              "type": "String",
-              "isString": true
-            }
-          }
         }
       ]
     },
     {
-      "name": "DawnVertexBufferDescriptor",
-      "externalName": "GPUVertexBufferDescriptor",
+      "name": "WGPUVertexBufferLayoutDescriptor",
+      "externalName": "GPUVertexBufferLayoutDescriptor",
       "type": "structure",
-      "textName": "vertex buffer descriptor",
+      "textName": "vertex buffer layout descriptor",
       "children": [
         {
-          "name": "stride",
+          "name": "arrayStride",
           "type": {
             "isNumber": true,
             "initialValue": "0",
@@ -6744,8 +6972,8 @@
           "name": "stepMode",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnInputStepMode",
-            "rawType": "DawnInputStepMode",
+            "nativeType": "WGPUInputStepMode",
+            "rawType": "WGPUInputStepMode",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -6773,11 +7001,11 @@
           "name": "attributes",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnVertexAttributeDescriptor",
+            "nativeType": "WGPUVertexAttributeDescriptor",
             "length": "attributeCount",
             "isReference": true,
             "isArray": true,
-            "rawType": "const DawnVertexAttributeDescriptor*",
+            "rawType": "const WGPUVertexAttributeDescriptor*",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -6788,18 +7016,18 @@
       ]
     },
     {
-      "name": "DawnVertexInputDescriptor",
-      "externalName": "GPUVertexInputDescriptor",
+      "name": "WGPUVertexStateDescriptor",
+      "externalName": "GPUVertexStateDescriptor",
       "type": "structure",
       "isExtensible": true,
-      "textName": "vertex input descriptor",
+      "textName": "vertex state descriptor",
       "children": [
         {
           "name": "indexFormat",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnIndexFormat",
-            "rawType": "DawnIndexFormat",
+            "nativeType": "WGPUIndexFormat",
+            "rawType": "WGPUIndexFormat",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -6810,7 +7038,7 @@
           "defaultValueNative": 1
         },
         {
-          "name": "bufferCount",
+          "name": "vertexBufferCount",
           "type": {
             "isNumber": true,
             "initialValue": "0",
@@ -6826,14 +7054,14 @@
           "isInternalProperty": true
         },
         {
-          "name": "buffers",
+          "name": "vertexBuffers",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnVertexBufferDescriptor",
-            "length": "bufferCount",
+            "nativeType": "WGPUVertexBufferLayoutDescriptor",
+            "length": "vertexBufferCount",
             "isReference": true,
             "isArray": true,
-            "rawType": "const DawnVertexBufferDescriptor*",
+            "rawType": "const WGPUVertexBufferLayoutDescriptor*",
             "isRequired": false,
             "jsType": {
               "type": "Object",
@@ -6845,7 +7073,7 @@
       ]
     },
     {
-      "name": "DawnOrigin3D",
+      "name": "WGPUOrigin3D",
       "externalName": "GPUOrigin3D",
       "type": "structure",
       "textName": "origin 3D",
@@ -6898,12 +7126,29 @@
       ]
     },
     {
-      "name": "DawnPipelineLayoutDescriptor",
+      "name": "WGPUPipelineLayoutDescriptor",
       "externalName": "GPUPipelineLayoutDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "pipeline layout descriptor",
       "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
         {
           "name": "bindGroupLayoutCount",
           "type": {
@@ -6922,14 +7167,14 @@
           "name": "bindGroupLayouts",
           "type": {
             "isObject": true,
-            "nativeType": "DawnBindGroupLayout",
+            "nativeType": "WGPUBindGroupLayout",
             "length": "bindGroupLayoutCount",
             "isReference": true,
             "isArray": true,
-            "rawType": "const DawnBindGroupLayout*",
+            "rawType": "const WGPUBindGroupLayout*",
             "isRequired": true,
             "jsType": {
-              "type": "DawnBindGroupLayout",
+              "type": "WGPUBindGroupLayout",
               "isObject": true
             }
           }
@@ -6937,21 +7182,21 @@
       ]
     },
     {
-      "name": "DawnPipelineStageDescriptor",
-      "externalName": "GPUPipelineStageDescriptor",
+      "name": "WGPUProgrammableStageDescriptor",
+      "externalName": "GPUProgrammableStageDescriptor",
       "type": "structure",
       "isExtensible": true,
-      "textName": "pipeline stage descriptor",
+      "textName": "programmable stage descriptor",
       "children": [
         {
           "name": "module",
           "type": {
             "isObject": true,
-            "nativeType": "DawnShaderModule",
-            "rawType": "DawnShaderModule",
+            "nativeType": "WGPUShaderModule",
+            "rawType": "WGPUShaderModule",
             "isRequired": true,
             "jsType": {
-              "type": "DawnShaderModule",
+              "type": "WGPUShaderModule",
               "isObject": true
             }
           }
@@ -6975,7 +7220,7 @@
       ]
     },
     {
-      "name": "DawnRasterizationStateDescriptor",
+      "name": "WGPURasterizationStateDescriptor",
       "externalName": "GPURasterizationStateDescriptor",
       "type": "structure",
       "isExtensible": true,
@@ -6985,8 +7230,8 @@
           "name": "frontFace",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnFrontFace",
-            "rawType": "DawnFrontFace",
+            "nativeType": "WGPUFrontFace",
+            "rawType": "WGPUFrontFace",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7000,8 +7245,8 @@
           "name": "cullMode",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnCullMode",
-            "rawType": "DawnCullMode",
+            "nativeType": "WGPUCullMode",
+            "rawType": "WGPUCullMode",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7059,20 +7304,55 @@
       ]
     },
     {
-      "name": "DawnRenderBundleDescriptor",
+      "name": "WGPURenderBundleDescriptor",
       "externalName": "GPURenderBundleDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "render bundle descriptor",
-      "children": []
+      "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        }
+      ]
     },
     {
-      "name": "DawnRenderBundleEncoderDescriptor",
+      "name": "WGPURenderBundleEncoderDescriptor",
       "externalName": "GPURenderBundleEncoderDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "render bundle encoder descriptor",
       "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
         {
           "name": "colorFormatsCount",
           "type": {
@@ -7091,11 +7371,11 @@
           "name": "colorFormats",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureFormat",
+            "nativeType": "WGPUTextureFormat",
             "length": "colorFormatsCount",
             "isReference": true,
             "isArray": true,
-            "rawType": "const DawnTextureFormat*",
+            "rawType": "const WGPUTextureFormat*",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -7107,8 +7387,8 @@
           "name": "depthStencilFormat",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureFormat",
-            "rawType": "DawnTextureFormat",
+            "nativeType": "WGPUTextureFormat",
+            "rawType": "WGPUTextureFormat",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7134,7 +7414,7 @@
       ]
     },
     {
-      "name": "DawnRenderPassColorAttachmentDescriptor",
+      "name": "WGPURenderPassColorAttachmentDescriptor",
       "externalName": "GPURenderPassColorAttachmentDescriptor",
       "type": "structure",
       "textName": "render pass color attachment descriptor",
@@ -7143,11 +7423,11 @@
           "name": "attachment",
           "type": {
             "isObject": true,
-            "nativeType": "DawnTextureView",
-            "rawType": "DawnTextureView",
+            "nativeType": "WGPUTextureView",
+            "rawType": "WGPUTextureView",
             "isRequired": true,
             "jsType": {
-              "type": "DawnTextureView",
+              "type": "WGPUTextureView",
               "isObject": true
             }
           }
@@ -7156,11 +7436,11 @@
           "name": "resolveTarget",
           "type": {
             "isObject": true,
-            "nativeType": "DawnTextureView",
-            "rawType": "DawnTextureView",
+            "nativeType": "WGPUTextureView",
+            "rawType": "WGPUTextureView",
             "isOptional": true,
             "jsType": {
-              "type": "DawnTextureView",
+              "type": "WGPUTextureView",
               "isObject": true
             }
           },
@@ -7170,8 +7450,8 @@
           "name": "loadOp",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnLoadOp",
-            "rawType": "DawnLoadOp",
+            "nativeType": "WGPULoadOp",
+            "rawType": "WGPULoadOp",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -7183,8 +7463,8 @@
           "name": "storeOp",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnStoreOp",
-            "rawType": "DawnStoreOp",
+            "nativeType": "WGPUStoreOp",
+            "rawType": "WGPUStoreOp",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -7196,8 +7476,8 @@
           "name": "clearColor",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnColor",
-            "rawType": "DawnColor",
+            "nativeType": "WGPUColor",
+            "rawType": "WGPUColor",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -7208,7 +7488,7 @@
       ]
     },
     {
-      "name": "DawnRenderPassDepthStencilAttachmentDescriptor",
+      "name": "WGPURenderPassDepthStencilAttachmentDescriptor",
       "externalName": "GPURenderPassDepthStencilAttachmentDescriptor",
       "type": "structure",
       "textName": "render pass depth stencil attachment descriptor",
@@ -7217,11 +7497,11 @@
           "name": "attachment",
           "type": {
             "isObject": true,
-            "nativeType": "DawnTextureView",
-            "rawType": "DawnTextureView",
+            "nativeType": "WGPUTextureView",
+            "rawType": "WGPUTextureView",
             "isRequired": true,
             "jsType": {
-              "type": "DawnTextureView",
+              "type": "WGPUTextureView",
               "isObject": true
             }
           }
@@ -7230,8 +7510,8 @@
           "name": "depthLoadOp",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnLoadOp",
-            "rawType": "DawnLoadOp",
+            "nativeType": "WGPULoadOp",
+            "rawType": "WGPULoadOp",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -7243,8 +7523,8 @@
           "name": "depthStoreOp",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnStoreOp",
-            "rawType": "DawnStoreOp",
+            "nativeType": "WGPUStoreOp",
+            "rawType": "WGPUStoreOp",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -7269,8 +7549,8 @@
           "name": "stencilLoadOp",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnLoadOp",
-            "rawType": "DawnLoadOp",
+            "nativeType": "WGPULoadOp",
+            "rawType": "WGPULoadOp",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -7282,8 +7562,8 @@
           "name": "stencilStoreOp",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnStoreOp",
-            "rawType": "DawnStoreOp",
+            "nativeType": "WGPUStoreOp",
+            "rawType": "WGPUStoreOp",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -7309,11 +7589,29 @@
       ]
     },
     {
-      "name": "DawnRenderPassDescriptor",
+      "name": "WGPURenderPassDescriptor",
       "externalName": "GPURenderPassDescriptor",
       "type": "structure",
+      "isExtensible": true,
       "textName": "render pass descriptor",
       "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
         {
           "name": "colorAttachmentCount",
           "type": {
@@ -7332,12 +7630,11 @@
           "name": "colorAttachments",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnRenderPassColorAttachmentDescriptor",
+            "nativeType": "WGPURenderPassColorAttachmentDescriptor",
             "length": "colorAttachmentCount",
-            "isArray": true,
-            "isArrayOfPointers": true,
             "isReference": true,
-            "rawType": "const DawnRenderPassColorAttachmentDescriptor* const *",
+            "isArray": true,
+            "rawType": "const WGPURenderPassColorAttachmentDescriptor*",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -7349,9 +7646,9 @@
           "name": "depthStencilAttachment",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnRenderPassDepthStencilAttachmentDescriptor",
+            "nativeType": "WGPURenderPassDepthStencilAttachmentDescriptor",
             "isReference": true,
-            "rawType": "const DawnRenderPassDepthStencilAttachmentDescriptor*",
+            "rawType": "const WGPURenderPassDepthStencilAttachmentDescriptor*",
             "isOptional": true,
             "jsType": {
               "type": "Object",
@@ -7363,31 +7660,49 @@
       ]
     },
     {
-      "name": "DawnRenderPipelineDescriptor",
+      "name": "WGPURenderPipelineDescriptor",
       "externalName": "GPURenderPipelineDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "render pipeline descriptor",
       "children": [
         {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
+        {
           "name": "layout",
           "type": {
             "isObject": true,
-            "nativeType": "DawnPipelineLayout",
-            "rawType": "DawnPipelineLayout",
-            "isRequired": true,
+            "nativeType": "WGPUPipelineLayout",
+            "rawType": "WGPUPipelineLayout",
+            "isOptional": true,
             "jsType": {
-              "type": "DawnPipelineLayout",
+              "type": "WGPUPipelineLayout",
               "isObject": true
             }
-          }
+          },
+          "isOptional": true
         },
         {
           "name": "vertexStage",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnPipelineStageDescriptor",
-            "rawType": "DawnPipelineStageDescriptor",
+            "nativeType": "WGPUProgrammableStageDescriptor",
+            "rawType": "WGPUProgrammableStageDescriptor",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -7399,9 +7714,9 @@
           "name": "fragmentStage",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnPipelineStageDescriptor",
+            "nativeType": "WGPUProgrammableStageDescriptor",
             "isReference": true,
-            "rawType": "const DawnPipelineStageDescriptor*",
+            "rawType": "const WGPUProgrammableStageDescriptor*",
             "isOptional": true,
             "jsType": {
               "type": "Object",
@@ -7411,12 +7726,12 @@
           "isOptional": true
         },
         {
-          "name": "vertexInput",
+          "name": "vertexState",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnVertexInputDescriptor",
+            "nativeType": "WGPUVertexStateDescriptor",
             "isReference": true,
-            "rawType": "const DawnVertexInputDescriptor*",
+            "rawType": "const WGPUVertexStateDescriptor*",
             "isOptional": true,
             "jsType": {
               "type": "Object",
@@ -7429,8 +7744,8 @@
           "name": "primitiveTopology",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnPrimitiveTopology",
-            "rawType": "DawnPrimitiveTopology",
+            "nativeType": "WGPUPrimitiveTopology",
+            "rawType": "WGPUPrimitiveTopology",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -7442,9 +7757,9 @@
           "name": "rasterizationState",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnRasterizationStateDescriptor",
+            "nativeType": "WGPURasterizationStateDescriptor",
             "isReference": true,
-            "rawType": "const DawnRasterizationStateDescriptor*",
+            "rawType": "const WGPURasterizationStateDescriptor*",
             "isOptional": true,
             "jsType": {
               "type": "Object",
@@ -7472,9 +7787,9 @@
           "name": "depthStencilState",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnDepthStencilStateDescriptor",
+            "nativeType": "WGPUDepthStencilStateDescriptor",
             "isReference": true,
-            "rawType": "const DawnDepthStencilStateDescriptor*",
+            "rawType": "const WGPUDepthStencilStateDescriptor*",
             "isOptional": true,
             "jsType": {
               "type": "Object",
@@ -7501,12 +7816,11 @@
           "name": "colorStates",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnColorStateDescriptor",
+            "nativeType": "WGPUColorStateDescriptor",
             "length": "colorStateCount",
-            "isArray": true,
-            "isArrayOfPointers": true,
             "isReference": true,
-            "rawType": "const DawnColorStateDescriptor* const *",
+            "isArray": true,
+            "rawType": "const WGPUColorStateDescriptor*",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -7547,18 +7861,35 @@
       ]
     },
     {
-      "name": "DawnSamplerDescriptor",
+      "name": "WGPUSamplerDescriptor",
       "externalName": "GPUSamplerDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "sampler descriptor",
       "children": [
         {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
+        {
           "name": "addressModeU",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnAddressMode",
-            "rawType": "DawnAddressMode",
+            "nativeType": "WGPUAddressMode",
+            "rawType": "WGPUAddressMode",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7572,8 +7903,8 @@
           "name": "addressModeV",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnAddressMode",
-            "rawType": "DawnAddressMode",
+            "nativeType": "WGPUAddressMode",
+            "rawType": "WGPUAddressMode",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7587,8 +7918,8 @@
           "name": "addressModeW",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnAddressMode",
-            "rawType": "DawnAddressMode",
+            "nativeType": "WGPUAddressMode",
+            "rawType": "WGPUAddressMode",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7602,8 +7933,8 @@
           "name": "magFilter",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnFilterMode",
-            "rawType": "DawnFilterMode",
+            "nativeType": "WGPUFilterMode",
+            "rawType": "WGPUFilterMode",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7617,8 +7948,8 @@
           "name": "minFilter",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnFilterMode",
-            "rawType": "DawnFilterMode",
+            "nativeType": "WGPUFilterMode",
+            "rawType": "WGPUFilterMode",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7632,8 +7963,8 @@
           "name": "mipmapFilter",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnFilterMode",
-            "rawType": "DawnFilterMode",
+            "nativeType": "WGPUFilterMode",
+            "rawType": "WGPUFilterMode",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7677,8 +8008,8 @@
           "name": "compare",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnCompareFunction",
-            "rawType": "DawnCompareFunction",
+            "nativeType": "WGPUCompareFunction",
+            "rawType": "WGPUCompareFunction",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7691,12 +8022,29 @@
       ]
     },
     {
-      "name": "DawnShaderModuleDescriptor",
+      "name": "WGPUShaderModuleDescriptor",
       "externalName": "GPUShaderModuleDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "shader module descriptor",
       "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
         {
           "name": "codeSize",
           "type": {
@@ -7728,7 +8076,7 @@
       ]
     },
     {
-      "name": "DawnStencilStateFaceDescriptor",
+      "name": "WGPUStencilStateFaceDescriptor",
       "externalName": "GPUStencilStateFaceDescriptor",
       "type": "structure",
       "textName": "stencil state face descriptor",
@@ -7737,8 +8085,8 @@
           "name": "compare",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnCompareFunction",
-            "rawType": "DawnCompareFunction",
+            "nativeType": "WGPUCompareFunction",
+            "rawType": "WGPUCompareFunction",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7752,8 +8100,8 @@
           "name": "failOp",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnStencilOperation",
-            "rawType": "DawnStencilOperation",
+            "nativeType": "WGPUStencilOperation",
+            "rawType": "WGPUStencilOperation",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7767,8 +8115,8 @@
           "name": "depthFailOp",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnStencilOperation",
-            "rawType": "DawnStencilOperation",
+            "nativeType": "WGPUStencilOperation",
+            "rawType": "WGPUStencilOperation",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7782,8 +8130,8 @@
           "name": "passOp",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnStencilOperation",
-            "rawType": "DawnStencilOperation",
+            "nativeType": "WGPUStencilOperation",
+            "rawType": "WGPUStencilOperation",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7796,12 +8144,29 @@
       ]
     },
     {
-      "name": "DawnSwapChainDescriptor",
+      "name": "WGPUSwapChainDescriptor",
       "externalName": "GPUSwapChainDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "swap chain descriptor",
       "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
         {
           "name": "implementation",
           "type": {
@@ -7819,7 +8184,7 @@
       ]
     },
     {
-      "name": "DawnTextureCopyView",
+      "name": "WGPUTextureCopyView",
       "externalName": "GPUTextureCopyView",
       "type": "structure",
       "isExtensible": true,
@@ -7829,11 +8194,11 @@
           "name": "texture",
           "type": {
             "isObject": true,
-            "nativeType": "DawnTexture",
-            "rawType": "DawnTexture",
+            "nativeType": "WGPUTexture",
+            "rawType": "WGPUTexture",
             "isRequired": true,
             "jsType": {
-              "type": "DawnTexture",
+              "type": "WGPUTexture",
               "isObject": true
             }
           }
@@ -7872,8 +8237,8 @@
           "name": "origin",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnOrigin3D",
-            "rawType": "DawnOrigin3D",
+            "nativeType": "WGPUOrigin3D",
+            "rawType": "WGPUOrigin3D",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -7884,18 +8249,35 @@
       ]
     },
     {
-      "name": "DawnTextureDescriptor",
+      "name": "WGPUTextureDescriptor",
       "externalName": "GPUTextureDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "texture descriptor",
       "children": [
         {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
+        {
           "name": "usage",
           "type": {
             "isBitmask": true,
-            "nativeType": "DawnTextureUsage",
-            "rawType": "DawnTextureUsage",
+            "nativeType": "WGPUTextureUsage",
+            "rawType": "WGPUTextureUsage",
             "isRequired": true,
             "jsType": {
               "type": "Number",
@@ -7907,8 +8289,8 @@
           "name": "dimension",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureDimension",
-            "rawType": "DawnTextureDimension",
+            "nativeType": "WGPUTextureDimension",
+            "rawType": "WGPUTextureDimension",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -7922,8 +8304,8 @@
           "name": "size",
           "type": {
             "isStructure": true,
-            "nativeType": "DawnExtent3D",
-            "rawType": "DawnExtent3D",
+            "nativeType": "WGPUExtent3D",
+            "rawType": "WGPUExtent3D",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -7950,8 +8332,8 @@
           "name": "format",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureFormat",
-            "rawType": "DawnTextureFormat",
+            "nativeType": "WGPUTextureFormat",
+            "rawType": "WGPUTextureFormat",
             "isRequired": true,
             "jsType": {
               "type": "String",
@@ -7992,18 +8374,35 @@
       ]
     },
     {
-      "name": "DawnTextureViewDescriptor",
+      "name": "WGPUTextureViewDescriptor",
       "externalName": "GPUTextureViewDescriptor",
       "type": "structure",
       "isExtensible": true,
       "textName": "texture view descriptor",
       "children": [
         {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
+        {
           "name": "format",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureFormat",
-            "rawType": "DawnTextureFormat",
+            "nativeType": "WGPUTextureFormat",
+            "rawType": "WGPUTextureFormat",
             "isOptional": true,
             "jsType": {
               "type": "String",
@@ -8015,16 +8414,14 @@
           "name": "dimension",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureViewDimension",
-            "rawType": "DawnTextureViewDimension",
+            "nativeType": "WGPUTextureViewDimension",
+            "rawType": "WGPUTextureViewDimension",
             "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
             }
-          },
-          "defaultValue": "\"2D\"",
-          "defaultValueNative": 2
+          }
         },
         {
           "name": "baseMipLevel",
@@ -8090,8 +8487,8 @@
           "name": "aspect",
           "type": {
             "isEnum": true,
-            "nativeType": "DawnTextureAspect",
-            "rawType": "DawnTextureAspect",
+            "nativeType": "WGPUTextureAspect",
+            "rawType": "WGPUTextureAspect",
             "isOptional": true,
             "jsType": {
               "type": "String",

@@ -14,7 +14,7 @@ GPUTextureView::GPUTextureView(const Napi::CallbackInfo& info) : Napi::ObjectWra
 
   auto descriptor = DescriptorDecoder::GPUTextureViewDescriptor(device, info[1].As<Napi::Value>());
 
-  this->instance = dawnTextureCreateView(texture->instance, &descriptor);
+  this->instance = wgpuTextureCreateView(texture->instance, &descriptor);
 }
 
 GPUTextureView::~GPUTextureView() {

@@ -17,7 +17,7 @@ GPUCommandEncoder::GPUCommandEncoder(const Napi::CallbackInfo& info) : Napi::Obj
 
   auto descriptor = DescriptorDecoder::GPUCommandEncoderDescriptor(device, info[1].As<Napi::Value>());
 
-  this->instance = dawnDeviceCreateCommandEncoder(device->instance, &descriptor);
+  this->instance = wgpuDeviceCreateCommandEncoder(device->instance, &descriptor);
 }
 
 GPUCommandEncoder::~GPUCommandEncoder() {
@@ -45,18 +45,18 @@ Napi::Value GPUCommandEncoder::beginComputePass(const Napi::CallbackInfo &info) 
 Napi::Value GPUCommandEncoder::copyBufferToBuffer(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  DawnCommandEncoder commandEncoder = this->instance;
-  DawnBuffer source = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>())->instance;
+  WGPUCommandEncoder commandEncoder = this->instance;
+  WGPUBuffer source = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>())->instance;
 
   bool lossless;
 
   uint64_t sourceOffset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
 
-  DawnBuffer destination = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[2].As<Napi::Object>())->instance;
+  WGPUBuffer destination = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[2].As<Napi::Object>())->instance;
   uint64_t destinationOffset = info[3].As<Napi::BigInt>().Uint64Value(&lossless);
   uint64_t size = info[4].As<Napi::BigInt>().Uint64Value(&lossless);
 
-  dawnCommandEncoderCopyBufferToBuffer(commandEncoder, source, sourceOffset, destination, destinationOffset, size);
+  wgpuCommandEncoderCopyBufferToBuffer(commandEncoder, source, sourceOffset, destination, destinationOffset, size);
 
   return env.Undefined();
 }
@@ -70,7 +70,7 @@ Napi::Value GPUCommandEncoder::copyBufferToTexture(const Napi::CallbackInfo &inf
   auto destination = DescriptorDecoder::GPUTextureCopyView(device, info[1].As<Napi::Value>());
   auto copySize = DescriptorDecoder::GPUExtent3D(device, info[2].As<Napi::Value>());
 
-  dawnCommandEncoderCopyBufferToTexture(this->instance, &source, &destination, &copySize);
+  wgpuCommandEncoderCopyBufferToTexture(this->instance, &source, &destination, &copySize);
 
   return env.Undefined();
 }
@@ -84,7 +84,7 @@ Napi::Value GPUCommandEncoder::copyTextureToBuffer(const Napi::CallbackInfo &inf
   auto destination = DescriptorDecoder::GPUBufferCopyView(device, info[1].As<Napi::Value>());
   auto copySize = DescriptorDecoder::GPUExtent3D(device, info[2].As<Napi::Value>());
 
-  dawnCommandEncoderCopyTextureToBuffer(this->instance, &source, &destination, &copySize);
+  wgpuCommandEncoderCopyTextureToBuffer(this->instance, &source, &destination, &copySize);
 
   return env.Undefined();
 }
@@ -98,7 +98,7 @@ Napi::Value GPUCommandEncoder::copyTextureToTexture(const Napi::CallbackInfo &in
   auto destination = DescriptorDecoder::GPUTextureCopyView(device, info[1].As<Napi::Value>());
   auto copySize = DescriptorDecoder::GPUExtent3D(device, info[2].As<Napi::Value>());
 
-  dawnCommandEncoderCopyTextureToTexture(this->instance, &source, &destination, &copySize);
+  wgpuCommandEncoderCopyTextureToTexture(this->instance, &source, &destination, &copySize);
 
   return env.Undefined();
 }
@@ -113,7 +113,7 @@ Napi::Value GPUCommandEncoder::pushDebugGroup(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
   const char* groupLabel = info[0].As<Napi::String>().Utf8Value().c_str();
-  dawnCommandEncoderPushDebugGroup(this->instance, groupLabel);
+  wgpuCommandEncoderPushDebugGroup(this->instance, groupLabel);
 
   return env.Undefined();
 }
@@ -121,7 +121,7 @@ Napi::Value GPUCommandEncoder::pushDebugGroup(const Napi::CallbackInfo &info) {
 Napi::Value GPUCommandEncoder::popDebugGroup(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  dawnCommandEncoderPopDebugGroup(this->instance);
+  wgpuCommandEncoderPopDebugGroup(this->instance);
 
   return env.Undefined();
 }
@@ -130,7 +130,7 @@ Napi::Value GPUCommandEncoder::insertDebugMarker(const Napi::CallbackInfo &info)
   Napi::Env env = info.Env();
 
   const char* groupLabel = info[0].As<Napi::String>().Utf8Value().c_str();
-  dawnCommandEncoderInsertDebugMarker(this->instance, groupLabel);
+  wgpuCommandEncoderInsertDebugMarker(this->instance, groupLabel);
 
   return env.Undefined();
 }
@@ -138,10 +138,7 @@ Napi::Value GPUCommandEncoder::insertDebugMarker(const Napi::CallbackInfo &info)
 Napi::Value GPUCommandEncoder::finish(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  //GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
-  //DawnCommandBufferDescriptor descriptor = DescriptorDecoder::GPUCommandBufferDescriptor(device, info[0].As<Napi::Value>());
-
-  DawnCommandBuffer buffer = dawnCommandEncoderFinish(this->instance, nullptr);
+  WGPUCommandBuffer buffer = wgpuCommandEncoderFinish(this->instance, nullptr);
 
   Napi::Object commandBuffer = GPUCommandBuffer::constructor.New({});
   GPUCommandBuffer* uwCommandBuffer = Napi::ObjectWrap<GPUCommandBuffer>::Unwrap(commandBuffer);

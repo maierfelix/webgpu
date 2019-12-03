@@ -11,7 +11,9 @@ GPUTexture::GPUTexture(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUTex
 
   this->device.Reset(info[0].As<Napi::Object>(), 1);
 
-  // constructor called internally to create this->instance manually
+  // constructor called internally:
+  // prevents this constructor to create a new texture,
+  // since the texture is expected to be created externally
   if (info[2].IsBoolean() && info[2].As<Napi::Boolean>().Value() == true) {
     return;
   }
@@ -19,7 +21,7 @@ GPUTexture::GPUTexture(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUTex
 
   auto descriptor = DescriptorDecoder::GPUTextureDescriptor(device, info[1].As<Napi::Value>());
 
-  this->instance = dawnDeviceCreateTexture(device->instance, &descriptor);
+  this->instance = wgpuDeviceCreateTexture(device->instance, &descriptor);
 }
 
 GPUTexture::~GPUTexture() {

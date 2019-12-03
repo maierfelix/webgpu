@@ -43,6 +43,7 @@
               "<(root)/lib/include",
               "<(dawn)/src/include",
               "<(dawn)/out/Shared/gen",
+              "<(dawn)/out/Shared/gen/src/include",
               "<(dawn)/third_party/shaderc/libshaderc/include",
               "<(dawn)/third_party/shaderc/libshaderc/src/shaderc.cc",
               "<(dawn)/third_party/shaderc/libshaderc/src/shaderc_private.h"
@@ -58,6 +59,7 @@
                 "-lglfw3dll.lib",
                 "-llibdawn.dll.lib",
                 "-llibdawn_native.dll.lib",
+                "-llibdawn_proc.dll.lib",
                 "-llibdawn_wire.dll.lib",
                 "-llibshaderc.dll.lib",
                 "-llibshaderc_spvc.dll.lib"
@@ -68,12 +70,14 @@
               "NOMINMAX",
               "_UNICODE",
               "UNICODE",
+              "DAWN_ENABLE_BACKEND_D3D12",
+              "DAWN_ENABLE_BACKEND_NULL",
               "DAWN_ENABLE_BACKEND_VULKAN",
-              "_GLFW_WIN32",
               "DAWN_NATIVE_SHARED_LIBRARY",
               "DAWN_WIRE_SHARED_LIBRARY",
+              "WGPU_SHARED_LIBRARY",
+              "_GLFW_WIN32",
               "VK_USE_PLATFORM_WIN32_KHR",
-              "DAWN_SHARED_LIBRARY",
               "NAPI_CPP_EXCEPTIONS"
             ],
             "msvs_settings": {

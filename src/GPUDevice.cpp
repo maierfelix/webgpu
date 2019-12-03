@@ -33,27 +33,31 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
     }
   }
 
-  this->instance = this->createDevice();
+  this->instance = this->_adapter.CreateDevice();
   this->binding = this->createBinding(info, this->instance);
+  if (this->binding == nullptr) {
+    Napi::Error::New(env, "Failed to create binding backend").ThrowAsJavaScriptException();
+    return;
+  }
 
   DawnProcTable procs = dawn_native::GetProcs();
 
-  dawnSetProcs(&procs);
+  dawnProcSetProcs(&procs);
   procs.deviceSetUncapturedErrorCallback(
     this->instance,
-    [](DawnErrorType errorType, const char* message, void* devicePtr) {
+    [](WGPUErrorType errorType, const char* message, void* devicePtr) {
       std::string type;
       switch (errorType) {
-        case DAWN_ERROR_TYPE_VALIDATION:
+        case WGPUErrorType_Validation:
           type = "Validation";
         break;
-        case DAWN_ERROR_TYPE_OUT_OF_MEMORY:
+        case WGPUErrorType_OutOfMemory:
           type = "Out of memory";
         break;
-        case DAWN_ERROR_TYPE_UNKNOWN:
+        case WGPUErrorType_Unknown:
           type = "Unknown";
         break;
-        case DAWN_ERROR_TYPE_DEVICE_LOST:
+        case WGPUErrorType_DeviceLost:
           type = "Device lost";
         break;
         default:
@@ -69,7 +73,7 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
     },
     reinterpret_cast<void*>(this)
   );
-  this->device = dawn::Device::Acquire(this->instance);
+  //this->device = wgpu::Device::Acquire(this->instance);
   this->mainQueue.Reset(this->createQueue(info), 1);
 }
 
@@ -77,12 +81,7 @@ GPUDevice::~GPUDevice() {
   // destructor
 }
 
-DawnDevice GPUDevice::createDevice() {
-  DawnDevice device = this->_adapter.CreateDevice();
-  return device;
-}
-
-BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, DawnDevice device) {
+BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, WGPUDevice device) {
   Napi::Env env = info.Env();
 
   GPUAdapter* adapter = Napi::ObjectWrap<GPUAdapter>::Unwrap(this->adapter.Value());
@@ -90,9 +89,6 @@ BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, DawnDev
 
   dawn_native::BackendType backendType = adapter->instance.GetBackendType();
   BackendBinding* binding = CreateBinding(backendType, window->instance, device);
-  if (binding == nullptr) {
-    Napi::Error::New(env, "Failed to create binding backend").ThrowAsJavaScriptException();
-  }
 
   return binding;
 }
@@ -133,7 +129,7 @@ void GPUDevice::throwCallbackError(const Napi::Value& type, const Napi::Value& m
 
 Napi::Value GPUDevice::tick(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  this->device.Tick();
+  wgpuDeviceTick(this->instance);
   glfwPollEvents();
   return env.Undefined();
 }

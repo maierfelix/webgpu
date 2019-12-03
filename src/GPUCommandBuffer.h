@@ -13,7 +13,7 @@ class GPUCommandBuffer : public Napi::ObjectWrap<GPUCommandBuffer> {
     GPUCommandBuffer(const Napi::CallbackInfo &info);
     ~GPUCommandBuffer();
 
-    DawnCommandBuffer instance;
+    WGPUCommandBuffer instance;
   private:
 
 };

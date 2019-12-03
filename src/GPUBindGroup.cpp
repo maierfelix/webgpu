@@ -19,7 +19,7 @@ GPUBindGroup::GPUBindGroup(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
 
   auto descriptor = DescriptorDecoder::GPUBindGroupDescriptor(device, info[1].As<Napi::Value>());
 
-  this->instance = dawnDeviceCreateBindGroup(device->instance, &descriptor);
+  this->instance = wgpuDeviceCreateBindGroup(device->instance, &descriptor);
 }
 
 GPUBindGroup::~GPUBindGroup() {

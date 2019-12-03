@@ -15,7 +15,7 @@ class GPUComputePipeline : public Napi::ObjectWrap<GPUComputePipeline> {
 
     Napi::ObjectReference device;
 
-    DawnComputePipeline instance;
+    WGPUComputePipeline instance;
   private:
 
 };

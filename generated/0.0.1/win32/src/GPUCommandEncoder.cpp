@@ -22,6 +22,7 @@ GPUCommandEncoder::GPUCommandEncoder(const Napi::CallbackInfo& info) : Napi::Obj
 
 GPUCommandEncoder::~GPUCommandEncoder() {
   // destructor
+
 }
 
 Napi::Value GPUCommandEncoder::beginRenderPass(const Napi::CallbackInfo &info) {

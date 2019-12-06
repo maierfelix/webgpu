@@ -122,7 +122,7 @@ const fsSrc = `
         binding: 0,
         visibility: GPUShaderStage.VERTEX,
         type: "uniform-buffer",
-        dynamic: true,
+        hasDynamicOffset: true,
         textureDimension: "2D"
       },
     ]
@@ -301,7 +301,7 @@ const fsSrc = `
       }
       uniformTime[0] = (timestamp - startTime) / 1000;
       uniformBuffer.setSubData(timeOffset, uniformTime);
-      if (/*settings.reuseCommandBuffers*/true) {
+      /*if (true) {
         const { commandBuffer, texture } = reusableFrames[(i + 1) % reusableFrames.length];
         i++;
         const commandEncoder = device.createCommandEncoder({});
@@ -328,7 +328,7 @@ const fsSrc = `
           commandBuffer,
           commandEncoder.finish(),
         ]);
-      } else {
+      } else */{
         const textureView = swapChain.getCurrentTextureView();
         device.getQueue().submit([ createCommandBuffer(textureView) ]);
       }

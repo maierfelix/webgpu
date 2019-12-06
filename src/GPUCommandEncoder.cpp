@@ -21,7 +21,8 @@ GPUCommandEncoder::GPUCommandEncoder(const Napi::CallbackInfo& info) : Napi::Obj
 }
 
 GPUCommandEncoder::~GPUCommandEncoder() {
-  // destructor
+  this->device.Reset();
+  wgpuCommandEncoderRelease(this->instance);
 }
 
 Napi::Value GPUCommandEncoder::beginRenderPass(const Napi::CallbackInfo &info) {

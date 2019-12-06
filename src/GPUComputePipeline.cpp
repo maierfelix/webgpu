@@ -18,7 +18,8 @@ GPUComputePipeline::GPUComputePipeline(const Napi::CallbackInfo& info) : Napi::O
 }
 
 GPUComputePipeline::~GPUComputePipeline() {
-  // destructor
+  this->device.Reset();
+  wgpuComputePipelineRelease(this->instance);
 }
 
 Napi::Object GPUComputePipeline::Initialize(Napi::Env env, Napi::Object exports) {

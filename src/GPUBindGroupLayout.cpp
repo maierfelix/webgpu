@@ -17,7 +17,8 @@ GPUBindGroupLayout::GPUBindGroupLayout(const Napi::CallbackInfo& info) : Napi::O
 }
 
 GPUBindGroupLayout::~GPUBindGroupLayout() {
-  // destructor
+  this->device.Reset();
+  wgpuBindGroupLayoutRelease(this->instance);
 }
 
 Napi::Object GPUBindGroupLayout::Initialize(Napi::Env env, Napi::Object exports) {

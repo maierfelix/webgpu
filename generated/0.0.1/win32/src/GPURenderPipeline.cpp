@@ -18,7 +18,8 @@ GPURenderPipeline::GPURenderPipeline(const Napi::CallbackInfo& info) : Napi::Obj
 }
 
 GPURenderPipeline::~GPURenderPipeline() {
-  // destructor
+  this->device.Reset();
+  wgpuRenderPipelineRelease(this->instance);
 }
 
 Napi::Object GPURenderPipeline::Initialize(Napi::Env env, Napi::Object exports) {

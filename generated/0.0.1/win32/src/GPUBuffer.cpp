@@ -26,7 +26,8 @@ GPUBuffer::GPUBuffer(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUBuffe
 }
 
 GPUBuffer::~GPUBuffer() {
-  // destructor
+  this->device.Reset();
+  wgpuBufferRelease(this->instance);
 }
 
 Napi::Value GPUBuffer::setSubData(const Napi::CallbackInfo &info) {

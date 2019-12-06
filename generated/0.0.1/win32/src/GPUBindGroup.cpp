@@ -23,7 +23,8 @@ GPUBindGroup::GPUBindGroup(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
 }
 
 GPUBindGroup::~GPUBindGroup() {
-  // destructor
+  this->device.Reset();
+  wgpuBindGroupRelease(this->instance);
 }
 
 Napi::Object GPUBindGroup::Initialize(Napi::Env env, Napi::Object exports) {

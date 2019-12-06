@@ -68,7 +68,8 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
 }
 
 GPUShaderModule::~GPUShaderModule() {
-  // destructor
+  this->device.Reset();
+  wgpuShaderModuleRelease(this->instance);
 }
 
 Napi::Object GPUShaderModule::Initialize(Napi::Env env, Napi::Object exports) {

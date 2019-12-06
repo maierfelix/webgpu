@@ -25,7 +25,8 @@ GPUTexture::GPUTexture(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUTex
 }
 
 GPUTexture::~GPUTexture() {
-  // destructor
+  this->device.Reset();
+  wgpuTextureRelease(this->instance);
 }
 
 Napi::Value GPUTexture::createView(const Napi::CallbackInfo &info) {

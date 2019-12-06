@@ -7,7 +7,7 @@ GPURenderBundle::GPURenderBundle(const Napi::CallbackInfo& info) : Napi::ObjectW
 }
 
 GPURenderBundle::~GPURenderBundle() {
-  // destructor
+  wgpuRenderBundleRelease(this->instance);
 }
 
 Napi::Object GPURenderBundle::Initialize(Napi::Env env, Napi::Object exports) {

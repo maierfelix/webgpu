@@ -7,7 +7,7 @@ GPUCommandBuffer::GPUCommandBuffer(const Napi::CallbackInfo& info) : Napi::Objec
 }
 
 GPUCommandBuffer::~GPUCommandBuffer() {
-  // destructor
+  wgpuCommandBufferRelease(this->instance);
 }
 
 Napi::Object GPUCommandBuffer::Initialize(Napi::Env env, Napi::Object exports) {

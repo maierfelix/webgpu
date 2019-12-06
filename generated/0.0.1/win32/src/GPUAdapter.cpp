@@ -33,7 +33,10 @@ GPUAdapter::GPUAdapter(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUAda
 }
 
 GPUAdapter::~GPUAdapter() {
-  // destructor
+  this->window.Reset();
+  this->nativeInstance.reset();
+  this->instance = nullptr;
+  this->nativeInstance = nullptr;
 }
 
 Napi::Value GPUAdapter::requestDevice(const Napi::CallbackInfo &info) {

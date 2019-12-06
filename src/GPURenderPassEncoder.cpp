@@ -22,7 +22,9 @@ GPURenderPassEncoder::GPURenderPassEncoder(const Napi::CallbackInfo& info) : Nap
 }
 
 GPURenderPassEncoder::~GPURenderPassEncoder() {
-  // destructor
+  this->device.Reset();
+  this->commandEncoder.Reset();
+  wgpuRenderPassEncoderRelease(this->instance);
 }
 
 Napi::Value GPURenderPassEncoder::setPipeline(const Napi::CallbackInfo &info) {

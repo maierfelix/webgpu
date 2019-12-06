@@ -14,7 +14,7 @@ GPUCanvasContext::GPUCanvasContext(const Napi::CallbackInfo& info) : Napi::Objec
 }
 
 GPUCanvasContext::~GPUCanvasContext() {
-  // destructor
+  this->window.Reset();
 }
 
 Napi::Value GPUCanvasContext::configureSwapChain(const Napi::CallbackInfo &info) {

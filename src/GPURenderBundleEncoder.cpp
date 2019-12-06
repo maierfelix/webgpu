@@ -22,7 +22,9 @@ GPURenderBundleEncoder::GPURenderBundleEncoder(const Napi::CallbackInfo& info) :
 }
 
 GPURenderBundleEncoder::~GPURenderBundleEncoder() {
-  // destructor
+  this->device.Reset();
+  this->commandEncoder.Reset();
+  wgpuRenderBundleEncoderRelease(this->instance);
 }
 
 Napi::Value GPURenderBundleEncoder::setPipeline(const Napi::CallbackInfo &info) {

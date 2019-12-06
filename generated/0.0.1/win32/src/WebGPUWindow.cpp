@@ -50,7 +50,16 @@ WebGPUWindow::WebGPUWindow(const Napi::CallbackInfo& info) : Napi::ObjectWrap<We
 }
 
 WebGPUWindow::~WebGPUWindow() {
-  // destructor
+  this->onresize.Reset();
+  this->onfocus.Reset();
+  this->onclose.Reset();
+  this->onkeydown.Reset();
+  this->onkeyup.Reset();
+  this->onmousemove.Reset();
+  this->onmousewheel.Reset();
+  this->onmousedown.Reset();
+  this->onmouseup.Reset();
+  this->ondrop.Reset();
 }
 
 void WebGPUWindow::onWindowResize(GLFWwindow* window, int width, int height) {

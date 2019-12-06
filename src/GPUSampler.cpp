@@ -17,7 +17,8 @@ GPUSampler::GPUSampler(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUSam
 }
 
 GPUSampler::~GPUSampler() {
-  // destructor
+  this->device.Reset();
+  wgpuSamplerRelease(this->instance);
 }
 
 Napi::Object GPUSampler::Initialize(Napi::Env env, Napi::Object exports) {

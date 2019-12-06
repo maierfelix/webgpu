@@ -22,7 +22,9 @@ GPUComputePassEncoder::GPUComputePassEncoder(const Napi::CallbackInfo& info) : N
 }
 
 GPUComputePassEncoder::~GPUComputePassEncoder() {
-  // destructor
+  this->device.Reset();
+  this->commandEncoder.Reset();
+  wgpuComputePassEncoderRelease(this->instance);
 }
 
 Napi::Value GPUComputePassEncoder::setPipeline(const Napi::CallbackInfo &info) {

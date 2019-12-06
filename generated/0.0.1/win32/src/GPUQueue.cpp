@@ -17,7 +17,8 @@ GPUQueue::GPUQueue(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUQueue>(
 }
 
 GPUQueue::~GPUQueue() {
-  // destructor
+  this->device.Reset();
+  wgpuQueueRelease(this->instance);
 }
 
 Napi::Value GPUQueue::submit(const Napi::CallbackInfo &info) {

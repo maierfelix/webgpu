@@ -22,7 +22,9 @@ GPUFence::GPUFence(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUFence>(
 }
 
 GPUFence::~GPUFence() {
-  // destructor
+  this->device.Reset();
+  this->queue.Reset();
+  wgpuFenceRelease(this->instance);
 }
 
 Napi::Value GPUFence::getCompletedValue(const Napi::CallbackInfo &info) {

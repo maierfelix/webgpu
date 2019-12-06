@@ -13,12 +13,11 @@ class GPUQueue : public Napi::ObjectWrap<GPUQueue> {
     GPUQueue(const Napi::CallbackInfo &info);
     ~GPUQueue();
 
-    Napi::ObjectReference device;
-
     Napi::Value submit(const Napi::CallbackInfo &info);
-
     Napi::Value createFence(const Napi::CallbackInfo &info);
     Napi::Value signal(const Napi::CallbackInfo &info);
+
+    Napi::ObjectReference device;
 
     WGPUQueue instance;
   private:

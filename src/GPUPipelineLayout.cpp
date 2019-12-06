@@ -20,7 +20,8 @@ GPUPipelineLayout::GPUPipelineLayout(const Napi::CallbackInfo& info) : Napi::Obj
 }
 
 GPUPipelineLayout::~GPUPipelineLayout() {
-  // destructor
+  this->device.Reset();
+  wgpuPipelineLayoutRelease(this->instance);
 }
 
 Napi::Object GPUPipelineLayout::Initialize(Napi::Env env, Napi::Object exports) {

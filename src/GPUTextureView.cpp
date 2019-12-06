@@ -25,7 +25,8 @@ GPUTextureView::GPUTextureView(const Napi::CallbackInfo& info) : Napi::ObjectWra
 }
 
 GPUTextureView::~GPUTextureView() {
-  // destructor
+  this->texture.Reset();
+  wgpuTextureViewRelease(this->instance);
 }
 
 Napi::Object GPUTextureView::Initialize(Napi::Env env, Napi::Object exports) {

@@ -47,7 +47,9 @@ GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
 }
 
 GPUSwapChain::~GPUSwapChain() {
-  // destructor
+  this->device.Reset();
+  this->context.Reset();
+  wgpuSwapChainRelease(this->instance);
 }
 
 Napi::Value GPUSwapChain::getCurrentTextureView(const Napi::CallbackInfo &info) {

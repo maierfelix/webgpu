@@ -78,7 +78,14 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
 }
 
 GPUDevice::~GPUDevice() {
-  // destructor
+  this->extensions.Reset();
+  this->limits.Reset();
+  this->adapter.Reset();
+  this->mainQueue.Reset();
+  this->onErrorCallback.Reset();
+
+  delete this->binding;
+  wgpuDeviceRelease(this->instance);
 }
 
 BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, WGPUDevice device) {

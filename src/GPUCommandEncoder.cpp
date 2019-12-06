@@ -48,13 +48,11 @@ Napi::Value GPUCommandEncoder::copyBufferToBuffer(const Napi::CallbackInfo &info
   WGPUCommandEncoder commandEncoder = this->instance;
   WGPUBuffer source = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>())->instance;
 
-  bool lossless;
-
-  uint64_t sourceOffset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+  uint64_t sourceOffset = static_cast<uint64_t>(info[1].As<Napi::Number>().Uint32Value());
 
   WGPUBuffer destination = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[2].As<Napi::Object>())->instance;
-  uint64_t destinationOffset = info[3].As<Napi::BigInt>().Uint64Value(&lossless);
-  uint64_t size = info[4].As<Napi::BigInt>().Uint64Value(&lossless);
+  uint64_t destinationOffset = static_cast<uint64_t>(info[3].As<Napi::Number>().Uint32Value());
+  uint64_t size = static_cast<uint64_t>(info[4].As<Napi::Number>().Uint32Value());
 
   wgpuCommandEncoderCopyBufferToBuffer(commandEncoder, source, sourceOffset, destination, destinationOffset, size);
 
@@ -105,7 +103,12 @@ Napi::Value GPUCommandEncoder::copyTextureToTexture(const Napi::CallbackInfo &in
 
 Napi::Value GPUCommandEncoder::copyImageBitmapToTexture(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
-  // TODO
+
+  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
+  Napi::String type = Napi::String::New(env, "Type");
+  Napi::String message = Napi::String::New(env, "Unimplemented method 'GPUCommandEncoder::copyImageBitmapToTexture'");
+  device->throwCallbackError(type, message);
+
   return env.Undefined();
 }
 

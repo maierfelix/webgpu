@@ -50,10 +50,8 @@ Napi::Value GPUComputePassEncoder::dispatch(const Napi::CallbackInfo &info) {
 Napi::Value GPUComputePassEncoder::dispatchIndirect(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  bool lossless;
-
   GPUBuffer* indirectBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>());
-  uint64_t indirectOffset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+  uint64_t indirectOffset = static_cast<uint64_t>(info[1].As<Napi::Number>().Uint32Value());
 
   wgpuComputePassEncoderDispatchIndirect(this->instance, indirectBuffer->instance, indirectOffset);
 

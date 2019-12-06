@@ -56,7 +56,7 @@ const fsSrc = `
   // !! FOR SOME REASON THIS CRASHES !!
   // demonstrate verbose staging process
   /*const stagingVertexBuffer = device.createBuffer({
-    size: BigInt(triangleVertices.byteLength),
+    size: triangleVertices.byteLength,
     usage: GPUBufferUsage.MAP_WRITE | GPUBufferUsage.COPY_SRC
   });
   const stagingVertexBufferView = await stagingVertexBuffer.mapWriteAsync();
@@ -64,7 +64,7 @@ const fsSrc = `
   stagingVertexBuffer.unmap();
 
   const stagedVertexBuffer = device.createBuffer({
-    size: BigInt(triangleVertices.byteLength),
+    size: triangleVertices.byteLength,
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
   });
 
@@ -72,26 +72,26 @@ const fsSrc = `
   const bufferCopyEncoder = device.createCommandEncoder({});
   bufferCopyEncoder.copyBufferToBuffer(
     stagingVertexBuffer,
-    0n,
+    0,
     stagedVertexBuffer,
-    0n,
-    BigInt(triangleVertices.byteLength)
+    0,
+    triangleVertices.byteLength
   );
   queue.submit([ bufferCopyEncoder.finish() ]);*/
 
   // staging shortcut using buffer.setSubData
   const stagedVertexBuffer = device.createBuffer({
-    size: BigInt(triangleVertices.byteLength),
+    size: triangleVertices.byteLength,
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
   });
-  stagedVertexBuffer.setSubData(0n, triangleVertices);
+  stagedVertexBuffer.setSubData(0, triangleVertices);
 
   // staging shortcut using buffer.setSubData
   const stagedIndexBuffer = device.createBuffer({
-    size: BigInt(triangleIndices.byteLength),
+    size: triangleIndices.byteLength,
     usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST
   });
-  stagedIndexBuffer.setSubData(0n, triangleIndices);
+  stagedIndexBuffer.setSubData(0, triangleIndices);
 
   const layout = device.createPipelineLayout({
     bindGroupLayouts: []
@@ -115,11 +115,11 @@ const fsSrc = `
     vertexState: {
       indexFormat: "uint32",
       vertexBuffers: [{
-          arrayStride: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: 2 * Float32Array.BYTES_PER_ELEMENT,
           stepMode: "vertex",
           attributes: [{
             shaderLocation: 0,
-            offset: 0n,
+            offset: 0,
             format: "float2"
           }]
       }]

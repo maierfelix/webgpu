@@ -86,10 +86,10 @@ const fsSrc = `
   });
 
   const stagedVertexBuffer = device.createBuffer({
-    size: BigInt(triangleVertices.byteLength),
+    size: triangleVertices.byteLength,
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
   });
-  stagedVertexBuffer.setSubData(0n, triangleVertices);
+  stagedVertexBuffer.setSubData(0, triangleVertices);
 
   const vertexShaderModule = device.createShaderModule({ code: vsSrc });
   const fragmentShaderModule = device.createShaderModule({ code: fsSrc });
@@ -151,17 +151,17 @@ const fsSrc = `
       indexFormat: "uint32",
       vertexBuffers: [
         {
-          arrayStride: BigInt(5 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: 5 * Float32Array.BYTES_PER_ELEMENT,
           stepMode: "vertex",
           attributes: [
             {
               shaderLocation: 0,
-              offset: BigInt(0 * Float32Array.BYTES_PER_ELEMENT),
+              offset: 0 * Float32Array.BYTES_PER_ELEMENT,
               format: "float2"
             },
             {
               shaderLocation: 1,
-              offset: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
+              offset: 2 * Float32Array.BYTES_PER_ELEMENT,
               format: "float3"
             }
           ]
@@ -193,7 +193,7 @@ const fsSrc = `
     const alignedUniformBytes = Math.ceil(uniformBytes / 256) * 256;
     const alignedUniformFloats = alignedUniformBytes / Float32Array.BYTES_PER_ELEMENT;
     const uniformBuffer = device.createBuffer({
-      size: BigInt(numTriangles * alignedUniformBytes + Float32Array.BYTES_PER_ELEMENT),
+      size: numTriangles * alignedUniformBytes + Float32Array.BYTES_PER_ELEMENT,
       usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.UNIFORM
     });
     const uniformBufferData = new Float32Array(numTriangles * alignedUniformFloats);
@@ -209,8 +209,8 @@ const fsSrc = `
         bindings: [{
           binding: 0,
           buffer: uniformBuffer,
-          offset: BigInt(i * alignedUniformBytes),
-          size: BigInt(6 * Float32Array.BYTES_PER_ELEMENT)
+          offset: i * alignedUniformBytes,
+          size: 6 * Float32Array.BYTES_PER_ELEMENT
         }]
       });
     }
@@ -219,8 +219,8 @@ const fsSrc = `
       bindings: [{
         binding: 0,
         buffer: uniformBuffer,
-        offset: BigInt(0),
-        size: BigInt(6 * Float32Array.BYTES_PER_ELEMENT)
+        offset: 0,
+        size: 6 * Float32Array.BYTES_PER_ELEMENT
       }],
     });
     const timeOffset = numTriangles * alignedUniformBytes;
@@ -229,15 +229,15 @@ const fsSrc = `
       bindings: [{
         binding: 0,
         buffer: uniformBuffer,
-        offset: BigInt(timeOffset),
-        size: BigInt(Float32Array.BYTES_PER_ELEMENT)
+        offset: timeOffset,
+        size: Float32Array.BYTES_PER_ELEMENT
       }]
     });
     // Chrome currently crashes with |setSubData| too large.
     const maxSetSubDataLength = 14 * 1024 * 1024 / Float32Array.BYTES_PER_ELEMENT;
     for (let offset = 0; offset < uniformBufferData.length; offset += maxSetSubDataLength) {
       uniformBuffer.setSubData(
-        BigInt(offset),
+        offset,
         new Float32Array(
           uniformBufferData.buffer,
           offset * Float32Array.BYTES_PER_ELEMENT,
@@ -300,7 +300,7 @@ const fsSrc = `
         startTime = timestamp;
       }
       uniformTime[0] = (timestamp - startTime) / 1000;
-      uniformBuffer.setSubData(BigInt(timeOffset), uniformTime);
+      uniformBuffer.setSubData(timeOffset, uniformTime);
       if (/*settings.reuseCommandBuffers*/true) {
         const { commandBuffer, texture } = reusableFrames[(i + 1) % reusableFrames.length];
         i++;

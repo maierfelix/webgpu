@@ -174,8 +174,7 @@ ${padding}${output.name}.${member.name} = data;`;
       } break;
       case "uint64_t": {
         out += `\n${padding}{`;
-        out += `\n${padding}  bool lossless;`;
-        out += `\n${padding}  ${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::BigInt>().Uint64Value(&lossless);`;
+        out += `\n${padding}  ${output.name}.${member.name} = static_cast<uint64_t>(${input.name}.Get("${member.name}").As<Napi::Number>().Uint32Value());`;
         out += `\n${padding}}`;
       } break;
       case "const uint32_t*": {

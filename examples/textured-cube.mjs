@@ -223,36 +223,36 @@ const fsSrc = `
   });
 
   const stagedVertexBuffer = device.createBuffer({
-    size: BigInt(modelVertices.byteLength),
+    size: modelVertices.byteLength,
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
   });
-  stagedVertexBuffer.setSubData(0n, modelVertices);
+  stagedVertexBuffer.setSubData(0, modelVertices);
 
   const stagedNormalBuffer = device.createBuffer({
-    size: BigInt(modelNormals.byteLength),
+    size: modelNormals.byteLength,
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
   });
-  stagedNormalBuffer.setSubData(0n, modelNormals);
+  stagedNormalBuffer.setSubData(0, modelNormals);
 
   const stagedUVBuffer = device.createBuffer({
-    size: BigInt(modelUVs.byteLength),
+    size: modelUVs.byteLength,
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
   });
-  stagedUVBuffer.setSubData(0n, modelUVs);
+  stagedUVBuffer.setSubData(0, modelUVs);
 
   const stagedIndexBuffer = device.createBuffer({
-    size: BigInt(modelIndices.byteLength),
+    size: modelIndices.byteLength,
     usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST
   });
-  stagedIndexBuffer.setSubData(0n, modelIndices);
+  stagedIndexBuffer.setSubData(0, modelIndices);
 
   const stagedUniformBuffer = device.createBuffer({
-    size: BigInt(48 * Float32Array.BYTES_PER_ELEMENT),
+    size: 48 * Float32Array.BYTES_PER_ELEMENT,
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
   });
-  stagedUniformBuffer.setSubData(BigInt(0), mModel);
-  stagedUniformBuffer.setSubData(BigInt(16 * Float32Array.BYTES_PER_ELEMENT), mView);
-  stagedUniformBuffer.setSubData(BigInt(32 * Float32Array.BYTES_PER_ELEMENT), mProjection);
+  stagedUniformBuffer.setSubData(0, mModel);
+  stagedUniformBuffer.setSubData(16 * Float32Array.BYTES_PER_ELEMENT, mView);
+  stagedUniformBuffer.setSubData(32 * Float32Array.BYTES_PER_ELEMENT, mProjection);
 
   const texture = device.createTexture({
     size: {
@@ -290,10 +290,10 @@ const fsSrc = `
     }
 
     const textureDataBuffer = device.createBuffer({
-      size: BigInt(data.byteLength),
+      size: data.byteLength,
       usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST,
     });
-    textureDataBuffer.setSubData(0n, data);
+    textureDataBuffer.setSubData(0, data);
 
     const commandEncoder = device.createCommandEncoder({});
     commandEncoder.copyBufferToTexture({
@@ -374,34 +374,34 @@ const fsSrc = `
       indexFormat: "uint32",
       vertexBuffers: [
         {
-          arrayStride: BigInt(3 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: 3 * Float32Array.BYTES_PER_ELEMENT,
           stepMode: "vertex",
           attributes: [
             {
               shaderLocation: 0,
-              offset: BigInt(0 * Float32Array.BYTES_PER_ELEMENT),
+              offset: 0 * Float32Array.BYTES_PER_ELEMENT,
               format: "float3"
             }
           ]
         },
         {
-          arrayStride: BigInt(3 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: 3 * Float32Array.BYTES_PER_ELEMENT,
           stepMode: "vertex",
           attributes: [
             {
               shaderLocation: 1,
-              offset: BigInt(0 * Float32Array.BYTES_PER_ELEMENT),
+              offset: 0 * Float32Array.BYTES_PER_ELEMENT,
               format: "float3"
             }
           ]
         },
         {
-          arrayStride: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: 2 * Float32Array.BYTES_PER_ELEMENT,
           stepMode: "vertex",
           attributes: [
             {
               shaderLocation: 2,
-              offset: BigInt(0 * Float32Array.BYTES_PER_ELEMENT),
+              offset: 0 * Float32Array.BYTES_PER_ELEMENT,
               format: "float2"
             }
           ]
@@ -425,17 +425,17 @@ const fsSrc = `
       {
         binding: 0,
         buffer: stagedUniformBuffer,
-        offset: 0n,
-        size: BigInt(48 * Float32Array.BYTES_PER_ELEMENT)
+        offset: 0,
+        size: 48 * Float32Array.BYTES_PER_ELEMENT
       },
       {
         binding: 1,
         sampler: sampler,
-        size: 0n
+        size: 0
       }, {
         binding: 2,
         textureView: texture.createView({ format: "rgba8unorm" }),
-        size: 0n
+        size: 0
       }
     ]
   });
@@ -475,7 +475,7 @@ const fsSrc = `
       now * (90 * Math.PI / 180),
       vec3.fromValues(0.0, 0.0, 1.0)
     );
-    stagedUniformBuffer.setSubData(0n, mModel);
+    stagedUniformBuffer.setSubData(0, mModel);
 
     const backBufferView = swapChain.getCurrentTextureView();
     const commandEncoder = device.createCommandEncoder({});

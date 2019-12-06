@@ -40,9 +40,8 @@ Napi::Value GPURenderPassEncoder::setIndexBuffer(const Napi::CallbackInfo &info)
 
   GPUBuffer* buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>());
   uint64_t offset = 0;
-  if (info[1].IsBigInt()) {
-    bool lossless;
-    offset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+  if (info[1].IsNumber()) {
+    offset = static_cast<uint64_t>(info[1].As<Napi::Number>().Uint32Value());
   }
 
   wgpuRenderPassEncoderSetIndexBuffer(this->instance, buffer->instance, offset);
@@ -95,10 +94,8 @@ Napi::Value GPURenderPassEncoder::drawIndexed(const Napi::CallbackInfo &info) {
 Napi::Value GPURenderPassEncoder::drawIndirect(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  bool lossless;
-
   GPUBuffer* indirectBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>());
-  uint64_t indirectOffset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+  uint64_t indirectOffset = static_cast<uint64_t>(info[1].As<Napi::Number>().Uint32Value());
 
   wgpuRenderPassEncoderDrawIndirect(this->instance, indirectBuffer->instance, indirectOffset);
 
@@ -108,10 +105,8 @@ Napi::Value GPURenderPassEncoder::drawIndirect(const Napi::CallbackInfo &info) {
 Napi::Value GPURenderPassEncoder::drawIndexedIndirect(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  bool lossless;
-
   GPUBuffer* indirectBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>());
-  uint64_t indirectOffset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+  uint64_t indirectOffset = static_cast<uint64_t>(info[1].As<Napi::Number>().Uint32Value());
 
   wgpuRenderPassEncoderDrawIndexedIndirect(this->instance, indirectBuffer->instance, indirectOffset);
 

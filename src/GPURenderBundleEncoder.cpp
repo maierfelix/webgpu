@@ -40,9 +40,8 @@ Napi::Value GPURenderBundleEncoder::setIndexBuffer(const Napi::CallbackInfo &inf
 
   GPUBuffer* buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>());
   uint64_t offset = 0;
-  if (info[1].IsBigInt()) {
-    bool lossless;
-    offset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+  if (info[1].IsNumber()) {
+    offset = info[1].As<Napi::Number>().Uint32Value();
   }
 
   wgpuRenderBundleEncoderSetIndexBuffer(this->instance, buffer->instance, offset);
@@ -95,10 +94,8 @@ Napi::Value GPURenderBundleEncoder::drawIndexed(const Napi::CallbackInfo &info) 
 Napi::Value GPURenderBundleEncoder::drawIndirect(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  bool lossless;
-
   GPUBuffer* indirectBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>());
-  uint64_t indirectOffset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+  uint64_t indirectOffset = static_cast<uint64_t>(info[1].As<Napi::Number>().Uint32Value());
 
   wgpuRenderBundleEncoderDrawIndirect(this->instance, indirectBuffer->instance, indirectOffset);
 
@@ -108,10 +105,8 @@ Napi::Value GPURenderBundleEncoder::drawIndirect(const Napi::CallbackInfo &info)
 Napi::Value GPURenderBundleEncoder::drawIndexedIndirect(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  bool lossless;
-
   GPUBuffer* indirectBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(info[0].As<Napi::Object>());
-  uint64_t indirectOffset = info[1].As<Napi::BigInt>().Uint64Value(&lossless);
+  uint64_t indirectOffset = static_cast<uint64_t>(info[1].As<Napi::Number>().Uint32Value());
 
   wgpuRenderBundleEncoderDrawIndexedIndirect(this->instance, indirectBuffer->instance, indirectOffset);
 

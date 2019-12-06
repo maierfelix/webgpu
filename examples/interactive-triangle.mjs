@@ -80,22 +80,22 @@ const fsSrc = `
   });
 
   const stagedVertexBuffer = device.createBuffer({
-    size: BigInt(triangleVertices.byteLength),
+    size: triangleVertices.byteLength,
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
   });
-  stagedVertexBuffer.setSubData(0n, triangleVertices);
+  stagedVertexBuffer.setSubData(0, triangleVertices);
 
   const stagedIndexBuffer = device.createBuffer({
-    size: BigInt(triangleIndices.byteLength),
+    size: triangleIndices.byteLength,
     usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST
   });
-  stagedIndexBuffer.setSubData(0n, triangleIndices);
+  stagedIndexBuffer.setSubData(0, triangleIndices);
 
   const stagedUniformBuffer = device.createBuffer({
-    size: BigInt(mModelViewProjection.byteLength),
+    size: mModelViewProjection.byteLength,
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
   });
-  stagedUniformBuffer.setSubData(0n, mModelViewProjection);
+  stagedUniformBuffer.setSubData(0, mModelViewProjection);
 
   const uniformBindGroupLayout = device.createBindGroupLayout({
     bindings: [{
@@ -128,17 +128,17 @@ const fsSrc = `
     vertexState: {
       indexFormat: "uint32",
       vertexBuffers: [{
-        arrayStride: BigInt(5 * Float32Array.BYTES_PER_ELEMENT),
+        arrayStride: 5 * Float32Array.BYTES_PER_ELEMENT,
         stepMode: "vertex",
         attributes: [
           {
             shaderLocation: 0,
-            offset: BigInt(0 * Float32Array.BYTES_PER_ELEMENT),
+            offset: 0 * Float32Array.BYTES_PER_ELEMENT,
             format: "float2"
           },
           {
             shaderLocation: 1,
-            offset: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
+            offset: 2 * Float32Array.BYTES_PER_ELEMENT,
             format: "float3"
           }
         ]
@@ -160,8 +160,8 @@ const fsSrc = `
     bindings: [{
       binding: 0,
       buffer: stagedUniformBuffer,
-      offset: 0n,
-      size: BigInt(mModelViewProjection.byteLength)
+      offset: 0,
+      size: mModelViewProjection.byteLength
     }]
   });
 
@@ -193,7 +193,7 @@ const fsSrc = `
     mat4.scale(mModel, mModel, vec3.fromValues(3, 3, 3));
     mat4.multiply(mModelViewProjection, mView, mModel);
     mat4.multiply(mModelViewProjection, mProjection, mModelViewProjection);
-    stagedUniformBuffer.setSubData(0n, mModelViewProjection);
+    stagedUniformBuffer.setSubData(0, mModelViewProjection);
 
     {
       const backBufferView = swapChain.getCurrentTextureView();

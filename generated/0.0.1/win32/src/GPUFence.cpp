@@ -28,14 +28,13 @@ GPUFence::~GPUFence() {
 Napi::Value GPUFence::getCompletedValue(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
   uint64_t completedValue = wgpuFenceGetCompletedValue(this->instance);
-  return Napi::BigInt::New(env, completedValue);
+  return Napi::Number::New(env, static_cast<uint32_t>(completedValue));
 }
 
 Napi::Value GPUFence::onCompletion(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  bool lossless;
-  uint64_t completionValue = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+  uint64_t completionValue = static_cast<uint64_t>(info[0].As<Napi::Number>().Uint32Value());
 
   Napi::Function callback = info[1].As<Napi::Function>();
 

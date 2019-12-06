@@ -160,28 +160,28 @@ const csSrc = `
       indexFormat: "uint32",
       vertexBuffers: [
         {
-          arrayStride: BigInt(4 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: 4 * Float32Array.BYTES_PER_ELEMENT,
           stepMode: "instance",
           attributes: [
             {
               shaderLocation: 0,
-              offset: BigInt(0 * Float32Array.BYTES_PER_ELEMENT),
+              offset: 0 * Float32Array.BYTES_PER_ELEMENT,
               format: "float2"
             },
             {
               shaderLocation: 1,
-              offset: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
+              offset: 2 * Float32Array.BYTES_PER_ELEMENT,
               format: "float2"
             }
           ]
         },
         {
-          arrayStride: BigInt(2 * Float32Array.BYTES_PER_ELEMENT),
+          arrayStride: 2 * Float32Array.BYTES_PER_ELEMENT,
           stepMode: "vertex",
           attributes: [
             {
               shaderLocation: 2,
-              offset: BigInt(0 * Float32Array.BYTES_PER_ELEMENT),
+              offset: 0 * Float32Array.BYTES_PER_ELEMENT,
               format: "float2"
             }
           ]
@@ -217,16 +217,16 @@ const csSrc = `
 
   const vertexBufferData = new Float32Array([-0.01, -0.02, 0.01, -0.02, 0.00, 0.02]);
   const verticesBuffer = device.createBuffer({
-    size: BigInt(vertexBufferData.byteLength),
+    size: vertexBufferData.byteLength,
     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
   });
-  verticesBuffer.setSubData(0n, vertexBufferData);
+  verticesBuffer.setSubData(0, vertexBufferData);
   const simParamData = new Float32Array([0.04, 0.1, 0.025, 0.025, 0.02, 0.05, 0.005]);
   const simParamBuffer = device.createBuffer({
-    size: BigInt(simParamData.byteLength),
+    size: simParamData.byteLength,
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
   });
-  simParamBuffer.setSubData(0n, simParamData);
+  simParamBuffer.setSubData(0, simParamData);
   const initialParticleData = new Float32Array(numParticles * 4);
   for (let ii = 0; ii < numParticles; ++ii) {
     initialParticleData[4 * ii + 0] = 2 * (Math.random() - 0.5);
@@ -238,10 +238,10 @@ const csSrc = `
   const particleBindGroups = new Array(2);
   for (let ii = 0; ii < 2; ++ii) {
     particleBuffers[ii] = device.createBuffer({
-      size: BigInt(initialParticleData.byteLength),
+      size: initialParticleData.byteLength,
       usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.VERTEX | GPUBufferUsage.STORAGE
     });
-    particleBuffers[ii].setSubData(0n, initialParticleData);
+    particleBuffers[ii].setSubData(0, initialParticleData);
   };
   for (let ii = 0; ii < 2; ++ii) {
     particleBindGroups[ii] = device.createBindGroup({
@@ -249,18 +249,18 @@ const csSrc = `
       bindings: [{
         binding: 0,
         buffer: simParamBuffer,
-        offset: 0n,
-        size: BigInt(simParamData.byteLength)
+        offset: 0,
+        size: simParamData.byteLength
       }, {
         binding: 1,
         buffer: particleBuffers[ii],
-        offset: 0n,
-        size: BigInt(initialParticleData.byteLength)
+        offset: 0,
+        size: initialParticleData.byteLength
       }, {
         binding: 2,
         buffer: particleBuffers[(ii + 1) % 2],
-        offset: 0n,
-        size: BigInt(initialParticleData.byteLength)
+        offset: 0,
+        size: initialParticleData.byteLength
       }],
     });
   };

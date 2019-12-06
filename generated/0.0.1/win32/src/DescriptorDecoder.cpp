@@ -943,13 +943,11 @@ namespace DescriptorDecoder {
     }
     if (obj.Has("offset")) {
       {
-        bool lossless;
-        descriptor.offset = obj.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+        descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
       }
     }
     {
-      bool lossless;
-      descriptor.size = obj.Get("size").As<Napi::BigInt>().Uint64Value(&lossless);
+      descriptor.size = static_cast<uint64_t>(obj.Get("size").As<Napi::Number>().Uint32Value());
     }
     if (obj.Has("sampler")) {
       if (!(obj.Get("sampler").As<Napi::Object>().InstanceOf(GPUSampler::constructor.Value()))) {
@@ -1143,8 +1141,7 @@ namespace DescriptorDecoder {
     descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
     if (obj.Has("offset")) {
       {
-        bool lossless;
-        descriptor.offset = obj.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+        descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
       }
     }
     descriptor.rowPitch = obj.Get("rowPitch").As<Napi::Number>().Uint32Value();
@@ -1164,8 +1161,7 @@ namespace DescriptorDecoder {
     }
     descriptor.usage = static_cast<WGPUBufferUsage>(obj.Get("usage").As<Napi::Number>().Uint32Value());
     {
-      bool lossless;
-      descriptor.size = obj.Get("size").As<Napi::BigInt>().Uint64Value(&lossless);
+      descriptor.size = static_cast<uint64_t>(obj.Get("size").As<Napi::Number>().Uint32Value());
     }
     return descriptor;
   };
@@ -1373,8 +1369,7 @@ namespace DescriptorDecoder {
     }
     if (obj.Has("initialValue")) {
       {
-        bool lossless;
-        descriptor.initialValue = obj.Get("initialValue").As<Napi::BigInt>().Uint64Value(&lossless);
+        descriptor.initialValue = static_cast<uint64_t>(obj.Get("initialValue").As<Napi::Number>().Uint32Value());
       }
     }
     return descriptor;
@@ -1387,8 +1382,7 @@ namespace DescriptorDecoder {
     Napi::Object obj = value.As<Napi::Object>();
     descriptor.format = static_cast<WGPUVertexFormat>(GPUVertexFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
     {
-      bool lossless;
-      descriptor.offset = obj.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+      descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
     }
     descriptor.shaderLocation = obj.Get("shaderLocation").As<Napi::Number>().Uint32Value();
     return descriptor;
@@ -1402,8 +1396,7 @@ namespace DescriptorDecoder {
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     {
-      bool lossless;
-      descriptor.arrayStride = obj.Get("arrayStride").As<Napi::BigInt>().Uint64Value(&lossless);
+      descriptor.arrayStride = static_cast<uint64_t>(obj.Get("arrayStride").As<Napi::Number>().Uint32Value());
     }
     if (obj.Has("stepMode")) {
       descriptor.stepMode = static_cast<WGPUInputStepMode>(GPUInputStepMode(obj.Get("stepMode").As<Napi::String>().Utf8Value()));
@@ -2027,8 +2020,7 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     {
-      bool lossless;
-      descriptor.implementation = obj.Get("implementation").As<Napi::BigInt>().Uint64Value(&lossless);
+      descriptor.implementation = static_cast<uint64_t>(obj.Get("implementation").As<Napi::Number>().Uint32Value());
     }
     return descriptor;
   };
@@ -2167,13 +2159,11 @@ namespace DescriptorDecoder {
     }
     if (obj.Has("offset")) {
       {
-        bool lossless;
-        descriptor.offset = obj.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+        descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
       }
     }
     {
-      bool lossless;
-      descriptor.size = obj.Get("size").As<Napi::BigInt>().Uint64Value(&lossless);
+      descriptor.size = static_cast<uint64_t>(obj.Get("size").As<Napi::Number>().Uint32Value());
     }
     if (obj.Has("sampler")) {
       if (!(obj.Get("sampler").As<Napi::Object>().InstanceOf(GPUSampler::constructor.Value()))) {
@@ -2373,8 +2363,7 @@ namespace DescriptorDecoder {
     descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
     if (obj.Has("offset")) {
       {
-        bool lossless;
-        descriptor.offset = obj.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+        descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
       }
     }
     descriptor.rowPitch = obj.Get("rowPitch").As<Napi::Number>().Uint32Value();
@@ -2395,8 +2384,7 @@ namespace DescriptorDecoder {
     }
     descriptor.usage = static_cast<WGPUBufferUsage>(obj.Get("usage").As<Napi::Number>().Uint32Value());
     {
-      bool lossless;
-      descriptor.size = obj.Get("size").As<Napi::BigInt>().Uint64Value(&lossless);
+      descriptor.size = static_cast<uint64_t>(obj.Get("size").As<Napi::Number>().Uint32Value());
     }
   };
   GPUBufferDescriptor::~GPUBufferDescriptor() {
@@ -2614,8 +2602,7 @@ namespace DescriptorDecoder {
     }
     if (obj.Has("initialValue")) {
       {
-        bool lossless;
-        descriptor.initialValue = obj.Get("initialValue").As<Napi::BigInt>().Uint64Value(&lossless);
+        descriptor.initialValue = static_cast<uint64_t>(obj.Get("initialValue").As<Napi::Number>().Uint32Value());
       }
     }
   };
@@ -2629,8 +2616,7 @@ namespace DescriptorDecoder {
     Napi::Object obj = value.As<Napi::Object>();
     descriptor.format = static_cast<WGPUVertexFormat>(GPUVertexFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
     {
-      bool lossless;
-      descriptor.offset = obj.Get("offset").As<Napi::BigInt>().Uint64Value(&lossless);
+      descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
     }
     descriptor.shaderLocation = obj.Get("shaderLocation").As<Napi::Number>().Uint32Value();
   };
@@ -2645,8 +2631,7 @@ namespace DescriptorDecoder {
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     {
-      bool lossless;
-      descriptor.arrayStride = obj.Get("arrayStride").As<Napi::BigInt>().Uint64Value(&lossless);
+      descriptor.arrayStride = static_cast<uint64_t>(obj.Get("arrayStride").As<Napi::Number>().Uint32Value());
     }
     if (obj.Has("stepMode")) {
       descriptor.stepMode = static_cast<WGPUInputStepMode>(GPUInputStepMode(obj.Get("stepMode").As<Napi::String>().Utf8Value()));
@@ -3285,8 +3270,7 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     {
-      bool lossless;
-      descriptor.implementation = obj.Get("implementation").As<Napi::BigInt>().Uint64Value(&lossless);
+      descriptor.implementation = static_cast<uint64_t>(obj.Get("implementation").As<Napi::Number>().Uint32Value());
     }
   };
   GPUSwapChainDescriptor::~GPUSwapChainDescriptor() {

@@ -2719,9 +2719,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             },
@@ -2733,9 +2732,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             },
@@ -2989,9 +2987,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             },
@@ -3016,9 +3013,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             },
@@ -3030,9 +3026,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -3528,9 +3523,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -4216,9 +4210,8 @@
             "rawType": "uint64_t",
             "isRequired": true,
             "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
+              "type": "Number",
+              "isNumber": true
             }
           }
         },
@@ -4233,9 +4226,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             },
@@ -4354,9 +4346,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -4674,9 +4665,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -4714,9 +4704,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -4837,9 +4826,8 @@
                 "rawType": "uint64_t",
                 "isOptional": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -4877,9 +4865,8 @@
                 "rawType": "uint64_t",
                 "isOptional": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -5191,9 +5178,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -5231,9 +5217,8 @@
                 "rawType": "uint64_t",
                 "isRequired": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -5605,9 +5590,8 @@
                 "rawType": "uint64_t",
                 "isOptional": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -5645,9 +5629,8 @@
                 "rawType": "uint64_t",
                 "isOptional": true,
                 "jsType": {
-                  "type": "BigInt",
-                  "isNumber": true,
-                  "isBigInt": true
+                  "type": "Number",
+                  "isNumber": true
                 }
               }
             }
@@ -5924,9 +5907,8 @@
             "rawType": "uint64_t",
             "isOptional": true,
             "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
+              "type": "Number",
+              "isNumber": true
             }
           },
           "defaultValue": "0",
@@ -5940,9 +5922,8 @@
             "rawType": "uint64_t",
             "isRequired": true,
             "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
+              "type": "Number",
+              "isNumber": true
             }
           }
         },
@@ -6350,9 +6331,8 @@
             "rawType": "uint64_t",
             "isOptional": true,
             "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
+              "type": "Number",
+              "isNumber": true
             }
           },
           "defaultValue": "0",
@@ -6431,9 +6411,8 @@
             "rawType": "uint64_t",
             "isRequired": true,
             "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
+              "type": "Number",
+              "isNumber": true
             }
           }
         }
@@ -6466,9 +6445,8 @@
             "rawType": "uint64_t",
             "isRequired": true,
             "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
+              "type": "Number",
+              "isNumber": true
             }
           },
           "isInternalProperty": true
@@ -6890,9 +6868,8 @@
             "rawType": "uint64_t",
             "isOptional": true,
             "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
+              "type": "Number",
+              "isNumber": true
             }
           },
           "defaultValue": "0",
@@ -6927,9 +6904,8 @@
             "rawType": "uint64_t",
             "isRequired": true,
             "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
+              "type": "Number",
+              "isNumber": true
             }
           }
         },
@@ -6962,9 +6938,8 @@
             "rawType": "uint64_t",
             "isRequired": true,
             "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
+              "type": "Number",
+              "isNumber": true
             }
           }
         },
@@ -8175,9 +8150,8 @@
             "rawType": "uint64_t",
             "isRequired": true,
             "jsType": {
-              "type": "BigInt",
-              "isNumber": true,
-              "isBigInt": true
+              "type": "Number",
+              "isNumber": true
             }
           }
         }

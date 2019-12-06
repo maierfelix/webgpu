@@ -56,9 +56,8 @@ export function getASTJavaScriptType(type, member, ast) {
         out.type = "Big" + arrayName + "Array";
         out.isTypedArray = true;
       } else {
-        out.type = "BigInt";
+        out.type = "Number";
         out.isNumber = true;
-        out.isBigInt = true;
       }
     } break;
     case "bool": {

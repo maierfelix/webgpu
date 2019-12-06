@@ -32,8 +32,7 @@ GPUBuffer::~GPUBuffer() {
 Napi::Value GPUBuffer::setSubData(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  bool lossless;
-  uint64_t start = info[0].As<Napi::BigInt>().Uint64Value(&lossless);
+  uint64_t start = static_cast<uint64_t>(info[0].As<Napi::Number>().Uint32Value());
   size_t count = 0;
 
   uint8_t* data = getTypedArrayData<uint8_t>(info[1].As<Napi::Value>(), &count);

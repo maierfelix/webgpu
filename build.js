@@ -70,7 +70,7 @@ function copyFiles() {
       // dawn dlls
       {
         //files.push([`${dawnOutputDir}/libc++.dll`, targetDir]);
-        files.push([`${dawnOutputDir}/libdawn.dll`, targetDir]);
+        //files.push([`${dawnOutputDir}/libdawn.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libdawn_native.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libdawn_proc.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libdawn_wire.dll`, targetDir]);
@@ -80,7 +80,7 @@ function copyFiles() {
       // dawn libs
       {
         //files.push([`${dawnOutputDir}/libc++.dll.lib`, targetDir + "/../"]);
-        files.push([`${dawnOutputDir}/libdawn.dll.lib`, targetDir + "/../"]);
+        //files.push([`${dawnOutputDir}/libdawn.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libdawn_native.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libdawn_proc.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libdawn_wire.dll.lib`, targetDir + "/../"]);

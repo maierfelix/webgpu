@@ -11,6 +11,11 @@ static std::unordered_map<std::string, uint32_t> GPUAddressModeMap = {
   { "clamp-to-edge", 2 },
 };
 
+static std::unordered_map<std::string, uint32_t> GPURayTracingAccelerationGeometryTypeMap = {
+  { "triangles", 0 },
+  { "aabbs", 1 },
+};
+
 static std::unordered_map<std::string, uint32_t> GPUBindingTypeMap = {
   { "uniform-buffer", 0 },
   { "storage-buffer", 1 },
@@ -102,6 +107,7 @@ static std::unordered_map<std::string, uint32_t> GPUFrontFaceMap = {
 static std::unordered_map<std::string, uint32_t> GPUIndexFormatMap = {
   { "uint16", 0 },
   { "uint32", 1 },
+  { "none", 2 },
 };
 
 static std::unordered_map<std::string, uint32_t> GPUInputStepModeMap = {
@@ -272,6 +278,23 @@ namespace DescriptorDecoder {
     );
 
     if (it == std::end(GPUAddressModeMap)) return "";
+
+    return it->first;
+  };
+  
+  uint32_t GPURayTracingAccelerationGeometryType(std::string name) {
+    return GPURayTracingAccelerationGeometryTypeMap[name];
+  };
+  std::string GPURayTracingAccelerationGeometryType(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPURayTracingAccelerationGeometryTypeMap),
+      std::end(GPURayTracingAccelerationGeometryTypeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPURayTracingAccelerationGeometryTypeMap)) return "";
 
     return it->first;
   };
@@ -672,6 +695,9 @@ namespace DescriptorDecoder {
   void DestroyGPUBindGroupBinding(WGPUBindGroupBinding descriptor) {
   };
   
+  void DestroyGPURayTracingAccelerationGeometryDescriptor(WGPURayTracingAccelerationGeometryDescriptor descriptor) {
+  };
+  
   void DestroyGPUBindGroupDescriptor(WGPUBindGroupDescriptor descriptor) {
     if (descriptor.label) {
       delete[] descriptor.label;
@@ -966,6 +992,54 @@ namespace DescriptorDecoder {
         return descriptor;
       }
       descriptor.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("textureView").As<Napi::Object>())->instance;
+    }
+    return descriptor;
+  };
+  
+  WGPURayTracingAccelerationGeometryDescriptor DecodeGPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, Napi::Value& value) {
+    WGPURayTracingAccelerationGeometryDescriptor descriptor;
+    // reset descriptor
+  descriptor.vertexBuffer = nullptr;
+  descriptor.vertexStride = 0;
+  descriptor.vertexOffset = 0;
+  descriptor.indexBuffer = nullptr;
+  descriptor.indexFormat = static_cast<WGPUIndexFormat>(2);
+  descriptor.indexOffset = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(GPURayTracingAccelerationGeometryType(obj.Get("type").As<Napi::String>().Utf8Value()));
+    if (!(obj.Get("vertexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexBuffer'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.vertexBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("vertexBuffer").As<Napi::Object>())->instance;
+    descriptor.vertexFormat = static_cast<WGPUVertexFormat>(GPUVertexFormat(obj.Get("vertexFormat").As<Napi::String>().Utf8Value()));
+    if (obj.Has("vertexStride")) {
+      descriptor.vertexStride = obj.Get("vertexStride").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("vertexOffset")) {
+      {
+        descriptor.vertexOffset = static_cast<uint64_t>(obj.Get("vertexOffset").As<Napi::Number>().Uint32Value());
+      }
+    }
+    if (obj.Has("indexBuffer")) {
+      if (!(obj.Get("indexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexBuffer'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.indexBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("indexBuffer").As<Napi::Object>())->instance;
+    }
+    if (obj.Has("indexFormat")) {
+      descriptor.indexFormat = static_cast<WGPUIndexFormat>(GPUIndexFormat(obj.Get("indexFormat").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("indexOffset")) {
+      {
+        descriptor.indexOffset = static_cast<uint64_t>(obj.Get("indexOffset").As<Napi::Number>().Uint32Value());
+      }
     }
     return descriptor;
   };
@@ -2186,6 +2260,55 @@ namespace DescriptorDecoder {
   };
   GPUBindGroupBinding::~GPUBindGroupBinding() {
     DestroyGPUBindGroupBinding(descriptor);
+  };
+  
+  GPURayTracingAccelerationGeometryDescriptor::GPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, Napi::Value& value) {
+    // reset descriptor
+  descriptor.vertexBuffer = nullptr;
+  descriptor.vertexStride = 0;
+  descriptor.vertexOffset = 0;
+  descriptor.indexBuffer = nullptr;
+  descriptor.indexFormat = static_cast<WGPUIndexFormat>(2);
+  descriptor.indexOffset = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(GPURayTracingAccelerationGeometryType(obj.Get("type").As<Napi::String>().Utf8Value()));
+    if (!(obj.Get("vertexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexBuffer'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.vertexBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("vertexBuffer").As<Napi::Object>())->instance;
+    descriptor.vertexFormat = static_cast<WGPUVertexFormat>(GPUVertexFormat(obj.Get("vertexFormat").As<Napi::String>().Utf8Value()));
+    if (obj.Has("vertexStride")) {
+      descriptor.vertexStride = obj.Get("vertexStride").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("vertexOffset")) {
+      {
+        descriptor.vertexOffset = static_cast<uint64_t>(obj.Get("vertexOffset").As<Napi::Number>().Uint32Value());
+      }
+    }
+    if (obj.Has("indexBuffer")) {
+      if (!(obj.Get("indexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexBuffer'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.indexBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("indexBuffer").As<Napi::Object>())->instance;
+    }
+    if (obj.Has("indexFormat")) {
+      descriptor.indexFormat = static_cast<WGPUIndexFormat>(GPUIndexFormat(obj.Get("indexFormat").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("indexOffset")) {
+      {
+        descriptor.indexOffset = static_cast<uint64_t>(obj.Get("indexOffset").As<Napi::Number>().Uint32Value());
+      }
+    }
+  };
+  GPURayTracingAccelerationGeometryDescriptor::~GPURayTracingAccelerationGeometryDescriptor() {
+    DestroyGPURayTracingAccelerationGeometryDescriptor(descriptor);
   };
   
   GPUBindGroupDescriptor::GPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {

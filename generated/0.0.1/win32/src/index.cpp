@@ -28,6 +28,8 @@
 #include "GPUComputePassEncoder.h"
 #include "GPURenderBundle.h"
 #include "GPURenderBundleEncoder.h"
+#include "GPURayTracingAccelerationGeometry.h"
+
 #include "WebGPUWindow.h"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
@@ -55,6 +57,8 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPUComputePassEncoder::Initialize(env, exports);
   GPURenderBundle::Initialize(env, exports);
   GPURenderBundleEncoder::Initialize(env, exports);
+  GPURayTracingAccelerationGeometry::Initialize(env, exports);
+
   WebGPUWindow::Initialize(env, exports);
 
   
@@ -146,6 +150,22 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     GPUShaderStage.Set(
       Napi::String::New(env, "COMPUTE"),
       Napi::Number::New(env, 4)
+    );
+    GPUShaderStage.Set(
+      Napi::String::New(env, "RAY_GENERATION"),
+      Napi::Number::New(env, 8)
+    );
+    GPUShaderStage.Set(
+      Napi::String::New(env, "RAY_ANY_HIT"),
+      Napi::Number::New(env, 16)
+    );
+    GPUShaderStage.Set(
+      Napi::String::New(env, "RAY_CLOSEST_HIT"),
+      Napi::Number::New(env, 32)
+    );
+    GPUShaderStage.Set(
+      Napi::String::New(env, "RAY_MISS"),
+      Napi::Number::New(env, 64)
     );
   exports["GPUShaderStage"] = GPUShaderStage;
   

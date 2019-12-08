@@ -4,7 +4,7 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "C:/Users/User/Documents/GitHub/dawn",
+    "dawn": "C:/Users/User/Documents/GitHub/dawn-ray-tracing",
     "vkSDK": "C:/VulkanSDK/1.1.126.0"
   },
   "conditions": [
@@ -57,7 +57,6 @@
               "libraries": [
                 "-lvulkan-1.lib",
                 "-lglfw3dll.lib",
-                "-llibdawn.dll.lib",
                 "-llibdawn_native.dll.lib",
                 "-llibdawn_proc.dll.lib",
                 "-llibdawn_wire.dll.lib",

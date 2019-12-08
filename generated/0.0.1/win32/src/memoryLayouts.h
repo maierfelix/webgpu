@@ -53,6 +53,57 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
   }
   sWGPUBindGroupBinding.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUBindGroupBinding)));
   out.Set(Napi::String::New(env, "WGPUBindGroupBinding"), sWGPUBindGroupBinding);
+  Napi::Object sWGPURayTracingAccelerationGeometryDescriptor = Napi::Object::New(env);
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, type)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::type)));
+    sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "type"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, vertexBuffer)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::vertexBuffer)));
+    sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "vertexBuffer"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, vertexFormat)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::vertexFormat)));
+    sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "vertexFormat"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, vertexStride)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::vertexStride)));
+    sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "vertexStride"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, vertexOffset)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::vertexOffset)));
+    sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "vertexOffset"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, indexBuffer)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::indexBuffer)));
+    sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "indexBuffer"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, indexFormat)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::indexFormat)));
+    sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "indexFormat"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, indexOffset)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::indexOffset)));
+    sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "indexOffset"), obj);
+  }
+  sWGPURayTracingAccelerationGeometryDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor)));
+  out.Set(Napi::String::New(env, "WGPURayTracingAccelerationGeometryDescriptor"), sWGPURayTracingAccelerationGeometryDescriptor);
   Napi::Object sWGPUBindGroupDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);

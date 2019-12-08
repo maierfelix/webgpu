@@ -25,6 +25,9 @@
     "bind group": {
         "category": "object"
     },
+    "ray tracing acceleration geometry": {
+        "category": "object"
+    },
     "bind group binding": {
         "category": "structure",
         "extensible": false,
@@ -35,6 +38,27 @@
             {"name": "size", "type": "uint64_t"},
             {"name": "sampler", "type": "sampler", "optional": true},
             {"name": "texture view", "type": "texture view", "optional": true}
+        ]
+    },
+    "ray tracing acceleration geometry type": {
+        "category": "enum",
+        "values": [
+            {"value": 0, "name": "triangles"},
+            {"value": 1, "name": "aabbs"}
+        ]
+    },
+    "ray tracing acceleration geometry descriptor": {
+        "category": "structure",
+        "extensible": false,
+        "members": [
+            {"name": "type", "type": "ray tracing acceleration geometry type"},
+            {"name": "vertex buffer", "type": "buffer"},
+            {"name": "vertex format", "type": "vertex format"},
+            {"name": "vertex stride", "type": "uint32_t", "default": "0"},
+            {"name": "vertex offset", "type": "uint64_t", "default": "0"},
+            {"name": "index buffer", "type": "buffer", "optional": true},
+            {"name": "index format", "type": "index format", "default": "none"},
+            {"name": "index offset", "type": "uint64_t", "default": "0"}
         ]
     },
     "bind group descriptor": {
@@ -469,6 +493,13 @@
         "category": "object",
         "methods": [
             {
+                "name": "create ray tracing acceleration geometry",
+                "returns": "ray tracing acceleration geometry",
+                "args": [
+                    {"name": "descriptor", "type": "ray tracing acceleration geometry descriptor", "annotation": "const*"}
+                ]
+            },
+            {
                 "name": "create bind group",
                 "returns": "bind group",
                 "args": [
@@ -721,7 +752,8 @@
         "category": "enum",
         "values": [
             {"value": 0, "name": "uint16"},
-            {"value": 1, "name": "uint32"}
+            {"value": 1, "name": "uint32"},
+            {"value": 2, "name": "none"}
         ]
     },
     "vertex attribute descriptor": {
@@ -1194,7 +1226,11 @@
             {"value": 0, "name": "none"},
             {"value": 1, "name": "vertex"},
             {"value": 2, "name": "fragment"},
-            {"value": 4, "name": "compute"}
+            {"value": 4, "name": "compute"},
+            {"value": 8, "name": "ray generation"},
+            {"value": 16, "name": "ray any hit"},
+            {"value": 32, "name": "ray closest hit"},
+            {"value": 64, "name": "ray miss"}
         ]
     },
     "stencil operation": {

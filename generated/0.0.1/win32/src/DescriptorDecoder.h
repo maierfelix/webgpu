@@ -104,6 +104,8 @@ namespace DescriptorDecoder {
   
   WGPURayTracingAccelerationGeometryDescriptor DecodeGPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, Napi::Value& value);
   
+  WGPURayTracingAccelerationInstanceDescriptor DecodeGPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, Napi::Value& value);
+  
   WGPUBindGroupDescriptor DecodeGPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
   WGPUBindGroupLayoutBinding DecodeGPUBindGroupLayoutBinding(GPUDevice* device, Napi::Value& value);
@@ -196,6 +198,15 @@ namespace DescriptorDecoder {
       WGPURayTracingAccelerationGeometryDescriptor* operator &() { return &descriptor; };
     private:
       WGPURayTracingAccelerationGeometryDescriptor descriptor;
+  };
+  
+  class GPURayTracingAccelerationInstanceDescriptor {
+    public:
+      GPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, Napi::Value& value);
+      ~GPURayTracingAccelerationInstanceDescriptor();
+      WGPURayTracingAccelerationInstanceDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingAccelerationInstanceDescriptor descriptor;
   };
   
   class GPUBindGroupDescriptor {
@@ -536,6 +547,8 @@ namespace DescriptorDecoder {
   void DestroyGPUBindGroupBinding(WGPUBindGroupBinding descriptor);
   
   void DestroyGPURayTracingAccelerationGeometryDescriptor(WGPURayTracingAccelerationGeometryDescriptor descriptor);
+  
+  void DestroyGPURayTracingAccelerationInstanceDescriptor(WGPURayTracingAccelerationInstanceDescriptor descriptor);
   
   void DestroyGPUBindGroupDescriptor(WGPUBindGroupDescriptor descriptor);
   

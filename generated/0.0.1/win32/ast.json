@@ -2375,6 +2375,86 @@
   ],
   "bitmasks": [
     {
+      "name": "WGPURayTracingAccelerationInstanceFlag",
+      "externalName": "GPURayTracingAccelerationInstanceFlag",
+      "type": "bitmask",
+      "textName": "ray tracing acceleration instance flag",
+      "children": [
+        {
+          "name": "NONE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "TRIANGLE_CULL_DISABLE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "TRIANGLE_FRONT_COUNTERCLOCKWISE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "FORCE_OPAQUE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "NO_OPAQUE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 8
+        },
+        {
+          "name": "COPY_DST",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 16
+        }
+      ]
+    },
+    {
       "name": "WGPUBufferUsage",
       "externalName": "GPUBufferUsage",
       "type": "bitmask",
@@ -2792,6 +2872,13 @@
       "externalName": "GPURayTracingAccelerationGeometry",
       "type": "object",
       "textName": "ray tracing acceleration geometry",
+      "children": []
+    },
+    {
+      "name": "WGPURayTracingAccelerationInstance",
+      "externalName": "GPURayTracingAccelerationInstance",
+      "type": "object",
+      "textName": "ray tracing acceleration instance",
       "children": []
     },
     {
@@ -3718,6 +3805,35 @@
             "isRequired": true,
             "jsType": {
               "type": "WGPURayTracingAccelerationGeometry",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createRayTracingAccelerationInstance",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "WGPURayTracingAccelerationInstanceDescriptor",
+                "isReference": true,
+                "rawType": "const WGPURayTracingAccelerationInstanceDescriptor*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPURayTracingAccelerationInstance",
+            "rawType": "WGPURayTracingAccelerationInstance",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPURayTracingAccelerationInstance",
               "isObject": true
             }
           }
@@ -6203,6 +6319,102 @@
           },
           "defaultValue": "0",
           "defaultValueNative": "0"
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingAccelerationInstanceDescriptor",
+      "externalName": "GPURayTracingAccelerationInstanceDescriptor",
+      "type": "structure",
+      "textName": "ray tracing acceleration instance descriptor",
+      "children": [
+        {
+          "name": "flags",
+          "type": {
+            "isBitmask": true,
+            "nativeType": "WGPURayTracingAccelerationInstanceFlag",
+            "rawType": "WGPURayTracingAccelerationInstanceFlag",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "\"none\"",
+          "defaultValueNative": 0
+        },
+        {
+          "name": "mask",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0xFF",
+            "rawType": "uint32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "0xFF",
+          "defaultValueNative": "0xFF"
+        },
+        {
+          "name": "instanceId",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
+        },
+        {
+          "name": "instanceOffset",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
+        },
+        {
+          "name": "transformLength",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "isInternalProperty": true
+        },
+        {
+          "name": "transform",
+          "type": {
+            "length": "transformLength",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const float*",
+            "isRequired": true,
+            "jsType": {
+              "type": "FloatArray",
+              "isTypedArray": true
+            }
+          }
         }
       ]
     },

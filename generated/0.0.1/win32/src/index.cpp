@@ -29,6 +29,7 @@
 #include "GPURenderBundle.h"
 #include "GPURenderBundleEncoder.h"
 #include "GPURayTracingAccelerationGeometry.h"
+#include "GPURayTracingAccelerationInstance.h"
 
 #include "WebGPUWindow.h"
 
@@ -58,11 +59,39 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPURenderBundle::Initialize(env, exports);
   GPURenderBundleEncoder::Initialize(env, exports);
   GPURayTracingAccelerationGeometry::Initialize(env, exports);
+  GPURayTracingAccelerationInstance::Initialize(env, exports);
 
   WebGPUWindow::Initialize(env, exports);
 
   
 
+  
+  Napi::Object GPURayTracingAccelerationInstanceFlag = Napi::Object::New(env);
+    GPURayTracingAccelerationInstanceFlag.Set(
+      Napi::String::New(env, "NONE"),
+      Napi::Number::New(env, 0)
+    );
+    GPURayTracingAccelerationInstanceFlag.Set(
+      Napi::String::New(env, "TRIANGLE_CULL_DISABLE"),
+      Napi::Number::New(env, 1)
+    );
+    GPURayTracingAccelerationInstanceFlag.Set(
+      Napi::String::New(env, "TRIANGLE_FRONT_COUNTERCLOCKWISE"),
+      Napi::Number::New(env, 2)
+    );
+    GPURayTracingAccelerationInstanceFlag.Set(
+      Napi::String::New(env, "FORCE_OPAQUE"),
+      Napi::Number::New(env, 4)
+    );
+    GPURayTracingAccelerationInstanceFlag.Set(
+      Napi::String::New(env, "NO_OPAQUE"),
+      Napi::Number::New(env, 8)
+    );
+    GPURayTracingAccelerationInstanceFlag.Set(
+      Napi::String::New(env, "COPY_DST"),
+      Napi::Number::New(env, 16)
+    );
+  exports["GPURayTracingAccelerationInstanceFlag"] = GPURayTracingAccelerationInstanceFlag;
   
   Napi::Object GPUBufferUsage = Napi::Object::New(env);
     GPUBufferUsage.Set(

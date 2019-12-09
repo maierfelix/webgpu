@@ -698,6 +698,9 @@ namespace DescriptorDecoder {
   void DestroyGPURayTracingAccelerationGeometryDescriptor(WGPURayTracingAccelerationGeometryDescriptor descriptor) {
   };
   
+  void DestroyGPURayTracingAccelerationInstanceDescriptor(WGPURayTracingAccelerationInstanceDescriptor descriptor) {
+  };
+  
   void DestroyGPUBindGroupDescriptor(WGPUBindGroupDescriptor descriptor) {
     if (descriptor.label) {
       delete[] descriptor.label;
@@ -1040,6 +1043,36 @@ namespace DescriptorDecoder {
       {
         descriptor.indexOffset = static_cast<uint64_t>(obj.Get("indexOffset").As<Napi::Number>().Uint32Value());
       }
+    }
+    return descriptor;
+  };
+  
+  WGPURayTracingAccelerationInstanceDescriptor DecodeGPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, Napi::Value& value) {
+    WGPURayTracingAccelerationInstanceDescriptor descriptor;
+    // reset descriptor
+  descriptor.flags = static_cast<WGPURayTracingAccelerationInstanceFlag>(0);
+  descriptor.mask = 0xFF;
+  descriptor.instanceId = 0;
+  descriptor.instanceOffset = 0;
+  descriptor.transform = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("flags")) {
+      descriptor.flags = static_cast<WGPURayTracingAccelerationInstanceFlag>(obj.Get("flags").As<Napi::Number>().Uint32Value());
+    }
+    if (obj.Has("mask")) {
+      descriptor.mask = obj.Get("mask").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("instanceId")) {
+      descriptor.instanceId = obj.Get("instanceId").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("instanceOffset")) {
+      descriptor.instanceOffset = obj.Get("instanceOffset").As<Napi::Number>().Uint32Value();
+    }
+    {
+      Napi::TypedArray array = obj.Get("transform").As<Napi::TypedArray>();
+      Napi::ArrayBuffer buffer = array.ArrayBuffer();
+      descriptor.transform = reinterpret_cast<const float*>(buffer.Data());
     }
     return descriptor;
   };
@@ -2055,6 +2088,9 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     {
+      Napi::TypedArray array = obj.Get("code").As<Napi::TypedArray>();
+      Napi::ArrayBuffer buffer = array.ArrayBuffer();
+      descriptor.code = reinterpret_cast<const uint32_t*>(buffer.Data());
     }
     return descriptor;
   };
@@ -2309,6 +2345,37 @@ namespace DescriptorDecoder {
   };
   GPURayTracingAccelerationGeometryDescriptor::~GPURayTracingAccelerationGeometryDescriptor() {
     DestroyGPURayTracingAccelerationGeometryDescriptor(descriptor);
+  };
+  
+  GPURayTracingAccelerationInstanceDescriptor::GPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, Napi::Value& value) {
+    // reset descriptor
+  descriptor.flags = static_cast<WGPURayTracingAccelerationInstanceFlag>(0);
+  descriptor.mask = 0xFF;
+  descriptor.instanceId = 0;
+  descriptor.instanceOffset = 0;
+  descriptor.transform = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("flags")) {
+      descriptor.flags = static_cast<WGPURayTracingAccelerationInstanceFlag>(obj.Get("flags").As<Napi::Number>().Uint32Value());
+    }
+    if (obj.Has("mask")) {
+      descriptor.mask = obj.Get("mask").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("instanceId")) {
+      descriptor.instanceId = obj.Get("instanceId").As<Napi::Number>().Uint32Value();
+    }
+    if (obj.Has("instanceOffset")) {
+      descriptor.instanceOffset = obj.Get("instanceOffset").As<Napi::Number>().Uint32Value();
+    }
+    {
+      Napi::TypedArray array = obj.Get("transform").As<Napi::TypedArray>();
+      Napi::ArrayBuffer buffer = array.ArrayBuffer();
+      descriptor.transform = reinterpret_cast<const float*>(buffer.Data());
+    }
+  };
+  GPURayTracingAccelerationInstanceDescriptor::~GPURayTracingAccelerationInstanceDescriptor() {
+    DestroyGPURayTracingAccelerationInstanceDescriptor(descriptor);
   };
   
   GPUBindGroupDescriptor::GPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
@@ -3352,6 +3419,9 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     {
+      Napi::TypedArray array = obj.Get("code").As<Napi::TypedArray>();
+      Napi::ArrayBuffer buffer = array.ArrayBuffer();
+      descriptor.code = reinterpret_cast<const uint32_t*>(buffer.Data());
     }
   };
   GPUShaderModuleDescriptor::~GPUShaderModuleDescriptor() {

@@ -228,6 +228,12 @@ ${padding}${output.name}.${member.name} = data;`;
     } else {
       warn(`Cannot handle fixed String length in '${structure.externalName}'.'${member.name}'`);
     }
+  // typed array
+  } else if (type.isArray && jsType.isTypedArray) {
+out += `
+${padding}Napi::TypedArray array = ${input.name}.Get("${member.name}").As<Napi::TypedArray>();
+${padding}Napi::ArrayBuffer buffer = array.ArrayBuffer();
+${padding}${output.name}.${member.name} = reinterpret_cast<${rawType}>(buffer.Data());`;
   } else {
     warn(`Unexpected member type '${rawType}' in '${structure.externalName}'.'${member.name}'`);
   }

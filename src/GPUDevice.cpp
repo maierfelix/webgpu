@@ -14,6 +14,7 @@
 #include "GPURenderBundleEncoder.h"
 #include "GPURayTracingAccelerationGeometry.h"
 #include "GPURayTracingAccelerationInstance.h"
+#include "GPURayTracingAccelerationContainer.h"
 
 #include "WebGPUWindow.h"
 
@@ -162,6 +163,15 @@ Napi::Value GPUDevice::createRayTracingAccelerationInstance(const Napi::Callback
     info[0].As<Napi::Value>()
   });
   return accelerationInstance;
+}
+
+Napi::Value GPUDevice::createRayTracingAccelerationContainer(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::Object accelerationContainer = GPURayTracingAccelerationContainer::constructor.New({
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  });
+  return accelerationContainer;
 }
 
 Napi::Value GPUDevice::createBuffer(const Napi::CallbackInfo& info) {
@@ -352,6 +362,11 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "createRayTracingAccelerationInstance",
       &GPUDevice::createRayTracingAccelerationInstance,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createRayTracingAccelerationContainer",
+      &GPUDevice::createRayTracingAccelerationContainer,
       napi_enumerable
     ),
     InstanceMethod(

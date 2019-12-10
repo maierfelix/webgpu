@@ -30,6 +30,7 @@
 #include "GPURenderBundleEncoder.h"
 #include "GPURayTracingAccelerationGeometry.h"
 #include "GPURayTracingAccelerationInstance.h"
+#include "GPURayTracingAccelerationContainer.h"
 
 #include "WebGPUWindow.h"
 
@@ -60,6 +61,7 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPURenderBundleEncoder::Initialize(env, exports);
   GPURayTracingAccelerationGeometry::Initialize(env, exports);
   GPURayTracingAccelerationInstance::Initialize(env, exports);
+  GPURayTracingAccelerationContainer::Initialize(env, exports);
 
   WebGPUWindow::Initialize(env, exports);
 
@@ -92,6 +94,29 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
       Napi::Number::New(env, 16)
     );
   exports["GPURayTracingAccelerationInstanceFlag"] = GPURayTracingAccelerationInstanceFlag;
+  
+  Napi::Object GPURayTracingAccelerationContainerFlag = Napi::Object::New(env);
+    GPURayTracingAccelerationContainerFlag.Set(
+      Napi::String::New(env, "NONE"),
+      Napi::Number::New(env, 0)
+    );
+    GPURayTracingAccelerationContainerFlag.Set(
+      Napi::String::New(env, "ALLOW_UPDATE"),
+      Napi::Number::New(env, 1)
+    );
+    GPURayTracingAccelerationContainerFlag.Set(
+      Napi::String::New(env, "PREFER_FAST_TRACE"),
+      Napi::Number::New(env, 2)
+    );
+    GPURayTracingAccelerationContainerFlag.Set(
+      Napi::String::New(env, "PREFER_FAST_BUILD"),
+      Napi::Number::New(env, 4)
+    );
+    GPURayTracingAccelerationContainerFlag.Set(
+      Napi::String::New(env, "LOW_MEMORY"),
+      Napi::Number::New(env, 8)
+    );
+  exports["GPURayTracingAccelerationContainerFlag"] = GPURayTracingAccelerationContainerFlag;
   
   Napi::Object GPUBufferUsage = Napi::Object::New(env);
     GPUBufferUsage.Set(

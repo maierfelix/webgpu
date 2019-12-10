@@ -18,6 +18,8 @@
 #include "GPUBindGroup.h"
 #include "GPUShaderModule.h"
 #include "GPURenderPipeline.h"
+#include "GPURayTracingAccelerationGeometry.h"
+#include "GPURayTracingAccelerationInstance.h"
 
 #include <unordered_map>
 
@@ -28,6 +30,9 @@ namespace DescriptorDecoder {
   
   uint32_t GPURayTracingAccelerationGeometryType(std::string name);
   std::string GPURayTracingAccelerationGeometryType(uint32_t value);
+  
+  uint32_t GPURayTracingAccelerationContainerLevel(std::string name);
+  std::string GPURayTracingAccelerationContainerLevel(uint32_t value);
   
   uint32_t GPUBindingType(std::string name);
   std::string GPUBindingType(uint32_t value);
@@ -105,6 +110,8 @@ namespace DescriptorDecoder {
   WGPURayTracingAccelerationGeometryDescriptor DecodeGPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, Napi::Value& value);
   
   WGPURayTracingAccelerationInstanceDescriptor DecodeGPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, Napi::Value& value);
+  
+  WGPURayTracingAccelerationContainerDescriptor DecodeGPURayTracingAccelerationContainerDescriptor(GPUDevice* device, Napi::Value& value);
   
   WGPUBindGroupDescriptor DecodeGPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
@@ -207,6 +214,15 @@ namespace DescriptorDecoder {
       WGPURayTracingAccelerationInstanceDescriptor* operator &() { return &descriptor; };
     private:
       WGPURayTracingAccelerationInstanceDescriptor descriptor;
+  };
+  
+  class GPURayTracingAccelerationContainerDescriptor {
+    public:
+      GPURayTracingAccelerationContainerDescriptor(GPUDevice* device, Napi::Value& value);
+      ~GPURayTracingAccelerationContainerDescriptor();
+      WGPURayTracingAccelerationContainerDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingAccelerationContainerDescriptor descriptor;
   };
   
   class GPUBindGroupDescriptor {
@@ -549,6 +565,8 @@ namespace DescriptorDecoder {
   void DestroyGPURayTracingAccelerationGeometryDescriptor(WGPURayTracingAccelerationGeometryDescriptor descriptor);
   
   void DestroyGPURayTracingAccelerationInstanceDescriptor(WGPURayTracingAccelerationInstanceDescriptor descriptor);
+  
+  void DestroyGPURayTracingAccelerationContainerDescriptor(WGPURayTracingAccelerationContainerDescriptor descriptor);
   
   void DestroyGPUBindGroupDescriptor(WGPUBindGroupDescriptor descriptor);
   

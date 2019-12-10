@@ -129,7 +129,6 @@ const rayGenSrc = `
   });
   console.log(geometry0);
 
-  console.log(GPURayTracingAccelerationInstanceFlag);
   const instance0 = device.createRayTracingAccelerationInstance({
     flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
     mask: 0xFF,
@@ -139,54 +138,20 @@ const rayGenSrc = `
   });
   console.log(instance0);
 
+  const bottomLevelAS = device.createRayTracingAccelerationContainer({
+    level: "bottom",
+    flag: "prefer-fast-trace",
+    geometries: [ geometry0 ]
+  });
+  console.log(bottomLevelAS);
+
+  const topLevelAS = device.createRayTracingAccelerationContainer({
+    level: "top",
+    instances: [ instance0 ] 
+  });
+  console.log(topLevelAS);
+
 /*
-  const bottomLevelAS = device.createAccelerationStructure({
-    level: "bottom-level",
-    flag: "prefer-fast-trace",
-    geometries: [
-      {
-        type: "triangles",
-        vertexBuffer: stagedVertexBuffer,
-        vertexFormat: "float32",
-        vertexStride: 3 * Float32Array.BYTES_PER_ELEMENT,
-        indexBuffer: stagedIndexBuffer,
-        indexFormat: "uint32",
-      }
-    ]
-  });
-
-  const topLevelAS = device.createAccelerationStructure({
-    level: "top",
-    instances: [
-      {
-        flags: "disable-triangle-cull",
-        mask: 0xFF,
-        instanceId: 0x0,
-        instanceOffset: 0x0,
-        transform: new Float32Array(12)
-      }
-    ]
-  });
-
-  const instance0 = device.createAccelerationGeometryInstance({
-    flags: "disable-triangle-cull",
-    mask: 0xFF,
-    instanceId: 0x0,
-    instanceOffset: 0x0,
-    transform: new Float32Array(12)
-  });
-
-  const bottomLevelAS = device.createAccelerationStructure({
-    level: "bottom-level",
-    flag: "prefer-fast-trace",
-    geometries: [geometry0]
-  });
-
-  const topLevelAS = device.createAccelerationStructure({
-    level: "top",
-    instances: [instance0]
-  });
-
   const shaderBindingTable = device.createShaderBindingTable({
     hitShaders: [],
     anyHitShaders: [],

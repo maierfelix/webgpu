@@ -12,8 +12,6 @@
 #include "GPURenderPipeline.h"
 #include "GPUCommandEncoder.h"
 #include "GPURenderBundleEncoder.h"
-#include "GPURayTracingAccelerationGeometry.h"
-#include "GPURayTracingAccelerationInstance.h"
 #include "GPURayTracingAccelerationContainer.h"
 
 #include "WebGPUWindow.h"
@@ -145,24 +143,6 @@ Napi::Value GPUDevice::tick(const Napi::CallbackInfo& info) {
   wgpuDeviceTick(this->instance);
   glfwPollEvents();
   return env.Undefined();
-}
-
-Napi::Value GPUDevice::createRayTracingAccelerationGeometry(const Napi::CallbackInfo& info) {
-  Napi::Env env = info.Env();
-  Napi::Object accelerationGeometry = GPURayTracingAccelerationGeometry::constructor.New({
-    info.This().As<Napi::Value>(),
-    info[0].As<Napi::Value>()
-  });
-  return accelerationGeometry;
-}
-
-Napi::Value GPUDevice::createRayTracingAccelerationInstance(const Napi::CallbackInfo& info) {
-  Napi::Env env = info.Env();
-  Napi::Object accelerationInstance = GPURayTracingAccelerationInstance::constructor.New({
-    info.This().As<Napi::Value>(),
-    info[0].As<Napi::Value>()
-  });
-  return accelerationInstance;
 }
 
 Napi::Value GPUDevice::createRayTracingAccelerationContainer(const Napi::CallbackInfo& info) {
@@ -352,16 +332,6 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "tick",
       &GPUDevice::tick,
-      napi_enumerable
-    ),
-    InstanceMethod(
-      "createRayTracingAccelerationGeometry",
-      &GPUDevice::createRayTracingAccelerationGeometry,
-      napi_enumerable
-    ),
-    InstanceMethod(
-      "createRayTracingAccelerationInstance",
-      &GPUDevice::createRayTracingAccelerationInstance,
       napi_enumerable
     ),
     InstanceMethod(

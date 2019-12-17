@@ -724,6 +724,22 @@ namespace DescriptorDecoder {
   };
   
   void DestroyGPURayTracingAccelerationContainerDescriptor(WGPURayTracingAccelerationContainerDescriptor descriptor) {
+    if (descriptor.geometryCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.geometryCount; ++ii) {
+        DestroyGPURayTracingAccelerationGeometryDescriptor(descriptor.geometries[ii]);
+      };
+    }
+    if (descriptor.geometries) {
+      free((void*) const_cast<WGPURayTracingAccelerationGeometryDescriptor*>(descriptor.geometries));
+    }
+    if (descriptor.instanceCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.instanceCount; ++ii) {
+        DestroyGPURayTracingAccelerationInstanceDescriptor(descriptor.instances[ii]);
+      };
+    }
+    if (descriptor.instances) {
+      free((void*) const_cast<WGPURayTracingAccelerationInstanceDescriptor*>(descriptor.instances));
+    }
   };
   
   void DestroyGPUBindGroupDescriptor(WGPUBindGroupDescriptor descriptor) {
@@ -1080,6 +1096,7 @@ namespace DescriptorDecoder {
   descriptor.instanceId = 0;
   descriptor.instanceOffset = 0;
   descriptor.transform = nullptr;
+  descriptor.geometryContainer = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     if (obj.Has("flags")) {
@@ -1099,6 +1116,13 @@ namespace DescriptorDecoder {
       Napi::ArrayBuffer buffer = array.ArrayBuffer();
       descriptor.transform = reinterpret_cast<const float*>(buffer.Data());
     }
+    if (!(obj.Get("geometryContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPURayTracingAccelerationContainer' for 'GPURayTracingAccelerationInstanceDescriptor'.'geometryContainer'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.geometryContainer = Napi::ObjectWrap<GPURayTracingAccelerationContainer>::Unwrap(obj.Get("geometryContainer").As<Napi::Object>())->instance;
     return descriptor;
   };
   
@@ -1107,7 +1131,9 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.flags = static_cast<WGPURayTracingAccelerationContainerFlag>(0);
   descriptor.level = static_cast<WGPURayTracingAccelerationContainerLevel>(0);
+  descriptor.geometryCount = 0;
   descriptor.geometries = nullptr;
+  descriptor.instanceCount = 0;
   descriptor.instances = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -1120,11 +1146,15 @@ namespace DescriptorDecoder {
     if (obj.Has("geometries")) {
       Napi::Array array = obj.Get("geometries").As<Napi::Array>();
       uint32_t length = array.Length();
-      WGPURayTracingAccelerationGeometry* data = (WGPURayTracingAccelerationGeometry*) malloc(length * sizeof(WGPURayTracingAccelerationGeometry));
+      WGPURayTracingAccelerationGeometryDescriptor* data = (WGPURayTracingAccelerationGeometryDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationGeometryDescriptor));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        WGPURayTracingAccelerationGeometry value = Napi::ObjectWrap<GPURayTracingAccelerationGeometry>::Unwrap(item)->instance;
-        data[ii] = value;
+        WGPURayTracingAccelerationGeometryDescriptor $geometries = DecodeGPURayTracingAccelerationGeometryDescriptor(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$geometries),
+          sizeof(WGPURayTracingAccelerationGeometryDescriptor)
+        );
       };
       descriptor.geometryCount = length;
       descriptor.geometries = data;
@@ -1132,11 +1162,15 @@ namespace DescriptorDecoder {
     if (obj.Has("instances")) {
       Napi::Array array = obj.Get("instances").As<Napi::Array>();
       uint32_t length = array.Length();
-      WGPURayTracingAccelerationInstance* data = (WGPURayTracingAccelerationInstance*) malloc(length * sizeof(WGPURayTracingAccelerationInstance));
+      WGPURayTracingAccelerationInstanceDescriptor* data = (WGPURayTracingAccelerationInstanceDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationInstanceDescriptor));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        WGPURayTracingAccelerationInstance value = Napi::ObjectWrap<GPURayTracingAccelerationInstance>::Unwrap(item)->instance;
-        data[ii] = value;
+        WGPURayTracingAccelerationInstanceDescriptor $instances = DecodeGPURayTracingAccelerationInstanceDescriptor(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$instances),
+          sizeof(WGPURayTracingAccelerationInstanceDescriptor)
+        );
       };
       descriptor.instanceCount = length;
       descriptor.instances = data;
@@ -2421,6 +2455,7 @@ namespace DescriptorDecoder {
   descriptor.instanceId = 0;
   descriptor.instanceOffset = 0;
   descriptor.transform = nullptr;
+  descriptor.geometryContainer = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     if (obj.Has("flags")) {
@@ -2440,6 +2475,13 @@ namespace DescriptorDecoder {
       Napi::ArrayBuffer buffer = array.ArrayBuffer();
       descriptor.transform = reinterpret_cast<const float*>(buffer.Data());
     }
+    if (!(obj.Get("geometryContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPURayTracingAccelerationContainer' for 'GPURayTracingAccelerationInstanceDescriptor'.'geometryContainer'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.geometryContainer = Napi::ObjectWrap<GPURayTracingAccelerationContainer>::Unwrap(obj.Get("geometryContainer").As<Napi::Object>())->instance;
   };
   GPURayTracingAccelerationInstanceDescriptor::~GPURayTracingAccelerationInstanceDescriptor() {
     DestroyGPURayTracingAccelerationInstanceDescriptor(descriptor);
@@ -2449,7 +2491,9 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.flags = static_cast<WGPURayTracingAccelerationContainerFlag>(0);
   descriptor.level = static_cast<WGPURayTracingAccelerationContainerLevel>(0);
+  descriptor.geometryCount = 0;
   descriptor.geometries = nullptr;
+  descriptor.instanceCount = 0;
   descriptor.instances = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -2462,11 +2506,15 @@ namespace DescriptorDecoder {
     if (obj.Has("geometries")) {
       Napi::Array array = obj.Get("geometries").As<Napi::Array>();
       uint32_t length = array.Length();
-      WGPURayTracingAccelerationGeometry* data = (WGPURayTracingAccelerationGeometry*) malloc(length * sizeof(WGPURayTracingAccelerationGeometry));
+      WGPURayTracingAccelerationGeometryDescriptor* data = (WGPURayTracingAccelerationGeometryDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationGeometryDescriptor));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        WGPURayTracingAccelerationGeometry value = Napi::ObjectWrap<GPURayTracingAccelerationGeometry>::Unwrap(item)->instance;
-        data[ii] = value;
+        WGPURayTracingAccelerationGeometryDescriptor $geometries = DecodeGPURayTracingAccelerationGeometryDescriptor(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$geometries),
+          sizeof(WGPURayTracingAccelerationGeometryDescriptor)
+        );
       };
       descriptor.geometryCount = length;
       descriptor.geometries = data;
@@ -2474,11 +2522,15 @@ namespace DescriptorDecoder {
     if (obj.Has("instances")) {
       Napi::Array array = obj.Get("instances").As<Napi::Array>();
       uint32_t length = array.Length();
-      WGPURayTracingAccelerationInstance* data = (WGPURayTracingAccelerationInstance*) malloc(length * sizeof(WGPURayTracingAccelerationInstance));
+      WGPURayTracingAccelerationInstanceDescriptor* data = (WGPURayTracingAccelerationInstanceDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationInstanceDescriptor));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        WGPURayTracingAccelerationInstance value = Napi::ObjectWrap<GPURayTracingAccelerationInstance>::Unwrap(item)->instance;
-        data[ii] = value;
+        WGPURayTracingAccelerationInstanceDescriptor $instances = DecodeGPURayTracingAccelerationInstanceDescriptor(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$instances),
+          sizeof(WGPURayTracingAccelerationInstanceDescriptor)
+        );
       };
       descriptor.instanceCount = length;
       descriptor.instances = data;

@@ -18,8 +18,7 @@
 #include "GPUBindGroup.h"
 #include "GPUShaderModule.h"
 #include "GPURenderPipeline.h"
-#include "GPURayTracingAccelerationGeometry.h"
-#include "GPURayTracingAccelerationInstance.h"
+#include "GPURayTracingAccelerationContainer.h"
 
 #include <unordered_map>
 

@@ -141,6 +141,12 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
     obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceDescriptor::transform)));
     sWGPURayTracingAccelerationInstanceDescriptor.Set(Napi::String::New(env, "transform"), obj);
   }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationInstanceDescriptor, geometryContainer)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceDescriptor::geometryContainer)));
+    sWGPURayTracingAccelerationInstanceDescriptor.Set(Napi::String::New(env, "geometryContainer"), obj);
+  }
   sWGPURayTracingAccelerationInstanceDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceDescriptor)));
   out.Set(Napi::String::New(env, "WGPURayTracingAccelerationInstanceDescriptor"), sWGPURayTracingAccelerationInstanceDescriptor);
   Napi::Object sWGPURayTracingAccelerationContainerDescriptor = Napi::Object::New(env);

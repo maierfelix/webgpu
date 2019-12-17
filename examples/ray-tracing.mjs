@@ -119,37 +119,40 @@ const rayGenSrc = `
   });
   stagedIndexBuffer.setSubData(0, modelIndices);
 
-  const geometry0 = device.createRayTracingAccelerationGeometry({
+  const geometry0 = {
     type: "triangles",
     vertexBuffer: stagedVertexBuffer,
     vertexFormat: "float32",
     vertexStride: 3 * Float32Array.BYTES_PER_ELEMENT,
     indexBuffer: stagedIndexBuffer,
     indexFormat: "uint32",
-  });
-  console.log(geometry0);
+  };
 
-  const instance0 = device.createRayTracingAccelerationInstance({
-    flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
-    mask: 0xFF,
-    instanceId: 0x0,
-    instanceOffset: 0x0,
-    transform: new Float32Array(12)
-  });
-  console.log(instance0);
-
-  const bottomLevelAS = device.createRayTracingAccelerationContainer({
+  const geometryContainer0 = device.createRayTracingAccelerationContainer({
     level: "bottom",
     flag: "prefer-fast-trace",
     geometries: [ geometry0 ]
   });
-  console.log(bottomLevelAS);
 
-  const topLevelAS = device.createRayTracingAccelerationContainer({
+  const instance0 = {
+    flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
+    mask: 0xFF,
+    instanceId: 42,
+    instanceOffset: 0x0,
+    transform: new Float32Array(12),
+    geometryContainer: geometryContainer0
+  };
+
+  const instanceContainer0 = device.createRayTracingAccelerationContainer({
     level: "top",
-    instances: [ instance0 ] 
+    instances: [ instance0 ]
   });
-  console.log(topLevelAS);
+
+  const commandEncoder = device.createCommandEncoder({});
+  commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0);
+  commandEncoder.buildRayTracingAccelerationContainer(instanceContainer0);
+  const commandBuffer = commandEncoder.finish();
+  queue.submit([ commandBuffer ]);
 
 /*
   const shaderBindingTable = device.createShaderBindingTable({
@@ -209,4 +212,5 @@ const rayGenSrc = `
   };
   setTimeout(onFrame, 1e3 / 60);
 */
+
 })();

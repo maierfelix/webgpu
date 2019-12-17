@@ -4,6 +4,7 @@
 #include "GPUCommandBuffer.h"
 #include "GPURenderPassEncoder.h"
 #include "GPUComputePassEncoder.h"
+#include "GPURayTracingAccelerationContainer.h"
 
 #include "DescriptorDecoder.h"
 
@@ -41,6 +42,21 @@ Napi::Value GPUCommandEncoder::beginComputePass(const Napi::CallbackInfo &info) 
     info[0].As<Napi::Value>()
   });
   return computePass;
+}
+
+Napi::Value GPUCommandEncoder::buildRayTracingAccelerationContainer(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+
+  WGPUCommandEncoder commandEncoder = this->instance;
+
+  WGPURayTracingAccelerationContainer container = Napi::ObjectWrap<GPURayTracingAccelerationContainer>::Unwrap(
+    info[0].As<Napi::Object>()
+  )->instance;
+  bool update = info[1].IsBoolean() ? info[0].As<Napi::Boolean>().Value() : false;
+
+  wgpuCommandEncoderBuildRayTracingAccelerationContainer(commandEncoder, container, update);
+
+  return env.Undefined();
 }
 
 Napi::Value GPUCommandEncoder::copyBufferToBuffer(const Napi::CallbackInfo &info) {
@@ -162,6 +178,11 @@ Napi::Object GPUCommandEncoder::Initialize(Napi::Env env, Napi::Object exports) 
     InstanceMethod(
       "beginComputePass",
       &GPUCommandEncoder::beginComputePass,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "buildRayTracingAccelerationContainer",
+      &GPUCommandEncoder::buildRayTracingAccelerationContainer,
       napi_enumerable
     ),
     InstanceMethod(

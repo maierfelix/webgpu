@@ -19,6 +19,7 @@
 #include "GPUShaderModule.h"
 #include "GPURenderPipeline.h"
 #include "GPURayTracingAccelerationContainer.h"
+#include "GPURayTracingShaderBindingTable.h"
 
 #include <unordered_map>
 
@@ -111,6 +112,8 @@ namespace DescriptorDecoder {
   WGPURayTracingAccelerationInstanceDescriptor DecodeGPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, Napi::Value& value);
   
   WGPURayTracingAccelerationContainerDescriptor DecodeGPURayTracingAccelerationContainerDescriptor(GPUDevice* device, Napi::Value& value);
+  
+  WGPURayTracingShaderBindingTableDescriptor DecodeGPURayTracingShaderBindingTableDescriptor(GPUDevice* device, Napi::Value& value);
   
   WGPUBindGroupDescriptor DecodeGPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
@@ -222,6 +225,15 @@ namespace DescriptorDecoder {
       WGPURayTracingAccelerationContainerDescriptor* operator &() { return &descriptor; };
     private:
       WGPURayTracingAccelerationContainerDescriptor descriptor;
+  };
+  
+  class GPURayTracingShaderBindingTableDescriptor {
+    public:
+      GPURayTracingShaderBindingTableDescriptor(GPUDevice* device, Napi::Value& value);
+      ~GPURayTracingShaderBindingTableDescriptor();
+      WGPURayTracingShaderBindingTableDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingShaderBindingTableDescriptor descriptor;
   };
   
   class GPUBindGroupDescriptor {
@@ -566,6 +578,8 @@ namespace DescriptorDecoder {
   void DestroyGPURayTracingAccelerationInstanceDescriptor(WGPURayTracingAccelerationInstanceDescriptor descriptor);
   
   void DestroyGPURayTracingAccelerationContainerDescriptor(WGPURayTracingAccelerationContainerDescriptor descriptor);
+  
+  void DestroyGPURayTracingShaderBindingTableDescriptor(WGPURayTracingShaderBindingTableDescriptor descriptor);
   
   void DestroyGPUBindGroupDescriptor(WGPUBindGroupDescriptor descriptor);
   

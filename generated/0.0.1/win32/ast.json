@@ -2975,6 +2975,13 @@
       "children": []
     },
     {
+      "name": "WGPURayTracingShaderBindingTable",
+      "externalName": "GPURayTracingShaderBindingTable",
+      "type": "object",
+      "textName": "ray tracing shader binding table",
+      "children": []
+    },
+    {
       "name": "WGPUBindGroupLayout",
       "externalName": "GPUBindGroupLayout",
       "type": "object",
@@ -3942,6 +3949,35 @@
           }
         },
         {
+          "name": "createRayTracingShaderBindingTable",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "WGPURayTracingShaderBindingTableDescriptor",
+                "isReference": true,
+                "rawType": "const WGPURayTracingShaderBindingTableDescriptor*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPURayTracingShaderBindingTable",
+            "rawType": "WGPURayTracingShaderBindingTable",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPURayTracingShaderBindingTable",
+              "isObject": true
+            }
+          }
+        },
+        {
           "name": "createBindGroup",
           "children": [
             {
@@ -4451,6 +4487,41 @@
                   "type": "Function",
                   "isFunction": true
                 }
+              }
+            },
+            {
+              "name": "userdata",
+              "type": {
+                "isReference": true,
+                "rawType": "void*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "ArrayBuffer",
+                  "isArrayBuffer": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setDeviceLostCallback",
+          "children": [
+            {
+              "name": "callback",
+              "type": {
+                "isCallback": true,
+                "nativeType": "WGPUDeviceLostCallback",
+                "rawType": "WGPUDeviceLostCallback",
+                "isRequired": true,
+                "jsType": {}
               }
             },
             {
@@ -6637,6 +6708,29 @@
             "isRequired": false
           },
           "isOptional": true
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingShaderBindingTableDescriptor",
+      "externalName": "GPURayTracingShaderBindingTableDescriptor",
+      "type": "structure",
+      "textName": "ray tracing shader binding table descriptor",
+      "children": [
+        {
+          "name": "level",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         }
       ]
     },

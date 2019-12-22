@@ -85,27 +85,14 @@ const rayGenSrc = `
     device: device,
     format: swapChainFormat
   });
-/*
-  const offscreenBuffer = device.createTexture({
-    size: {
-      width: window.width,
-      height: window.height,
-      depth: 1,
-    },
-    arrayLayerCount: 1,
-    mipLevelCount: 1,
-    sampleCount: 1,
-    dimension: "2d",
-    format: "rgba8unorm",
-    usage: GPUTextureUsage.COPY_DST | GPUBufferUsage.STORAGE
-  });
-*/
+
   const rayGenShaderModule = device.createShaderModule({
     code: rayGenSrc
   });
   console.log(rayGenShaderModule);
 
   console.log(GPUShaderStage);
+  console.log(GPURayTracingAccelerationContainerFlag);
 
   const stagedVertexBuffer = device.createBuffer({
     size: modelVertices.byteLength,
@@ -130,14 +117,15 @@ const rayGenSrc = `
 
   const geometryContainer0 = device.createRayTracingAccelerationContainer({
     level: "bottom",
-    flag: "prefer-fast-trace",
+    flag: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
     geometries: [ geometry0 ]
   });
+  console.log(geometryContainer0);
 
   const instance0 = {
     flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
     mask: 0xFF,
-    instanceId: 42,
+    instanceId: 0,
     instanceOffset: 0x0,
     transform: new Float32Array(12),
     geometryContainer: geometryContainer0
@@ -147,15 +135,18 @@ const rayGenSrc = `
     level: "top",
     instances: [ instance0 ]
   });
+  console.log(instanceContainer0);
 
   const commandEncoder = device.createCommandEncoder({});
+  console.log(0);
   commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0);
   commandEncoder.buildRayTracingAccelerationContainer(instanceContainer0);
   const commandBuffer = commandEncoder.finish();
+  console.log(1);
   queue.submit([ commandBuffer ]);
+  console.log(2);
 
-/*
-  const shaderBindingTable = device.createShaderBindingTable({
+  const shaderBindingTable = device.createRayTracingShaderBindingTable({
     hitShaders: [],
     anyHitShaders: [],
     closestHitShaders: [],
@@ -163,7 +154,9 @@ const rayGenSrc = `
     intersectionShaders: [],
     generationShaders: []
   });
+  console.log(shaderBindingTable);
 
+/*
   const bindGroupLayout = device.createBindGroupLayout({
     bindings: [
       {

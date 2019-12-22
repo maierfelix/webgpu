@@ -188,6 +188,15 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
   }
   sWGPURayTracingAccelerationContainerDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationContainerDescriptor)));
   out.Set(Napi::String::New(env, "WGPURayTracingAccelerationContainerDescriptor"), sWGPURayTracingAccelerationContainerDescriptor);
+  Napi::Object sWGPURayTracingShaderBindingTableDescriptor = Napi::Object::New(env);
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingShaderBindingTableDescriptor, level)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingShaderBindingTableDescriptor::level)));
+    sWGPURayTracingShaderBindingTableDescriptor.Set(Napi::String::New(env, "level"), obj);
+  }
+  sWGPURayTracingShaderBindingTableDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingShaderBindingTableDescriptor)));
+  out.Set(Napi::String::New(env, "WGPURayTracingShaderBindingTableDescriptor"), sWGPURayTracingShaderBindingTableDescriptor);
   Napi::Object sWGPUBindGroupDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);

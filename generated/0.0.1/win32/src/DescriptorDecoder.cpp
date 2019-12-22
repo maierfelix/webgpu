@@ -742,6 +742,9 @@ namespace DescriptorDecoder {
     }
   };
   
+  void DestroyGPURayTracingShaderBindingTableDescriptor(WGPURayTracingShaderBindingTableDescriptor descriptor) {
+  };
+  
   void DestroyGPUBindGroupDescriptor(WGPUBindGroupDescriptor descriptor) {
     if (descriptor.label) {
       delete[] descriptor.label;
@@ -1174,6 +1177,18 @@ namespace DescriptorDecoder {
       };
       descriptor.instanceCount = length;
       descriptor.instances = data;
+    }
+    return descriptor;
+  };
+  
+  WGPURayTracingShaderBindingTableDescriptor DecodeGPURayTracingShaderBindingTableDescriptor(GPUDevice* device, Napi::Value& value) {
+    WGPURayTracingShaderBindingTableDescriptor descriptor;
+    // reset descriptor
+  descriptor.level = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("level")) {
+      descriptor.level = obj.Get("level").As<Napi::Number>().Uint32Value();
     }
     return descriptor;
   };
@@ -2538,6 +2553,19 @@ namespace DescriptorDecoder {
   };
   GPURayTracingAccelerationContainerDescriptor::~GPURayTracingAccelerationContainerDescriptor() {
     DestroyGPURayTracingAccelerationContainerDescriptor(descriptor);
+  };
+  
+  GPURayTracingShaderBindingTableDescriptor::GPURayTracingShaderBindingTableDescriptor(GPUDevice* device, Napi::Value& value) {
+    // reset descriptor
+  descriptor.level = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("level")) {
+      descriptor.level = obj.Get("level").As<Napi::Number>().Uint32Value();
+    }
+  };
+  GPURayTracingShaderBindingTableDescriptor::~GPURayTracingShaderBindingTableDescriptor() {
+    DestroyGPURayTracingShaderBindingTableDescriptor(descriptor);
   };
   
   GPUBindGroupDescriptor::GPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {

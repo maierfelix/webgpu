@@ -23,7 +23,6 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
 
     Napi::Value tick(const Napi::CallbackInfo &info);
     Napi::Value getQueue(const Napi::CallbackInfo &info);
-    Napi::Value createRayTracingAccelerationContainer(const Napi::CallbackInfo &info);
     Napi::Value createBuffer(const Napi::CallbackInfo &info);
     Napi::Value createBufferMapped(const Napi::CallbackInfo &info);
     Napi::Value createBufferMappedAsync(const Napi::CallbackInfo &info);
@@ -37,6 +36,8 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     Napi::Value createRenderPipeline(const Napi::CallbackInfo &info);
     Napi::Value createCommandEncoder(const Napi::CallbackInfo &info);
     Napi::Value createRenderBundleEncoder(const Napi::CallbackInfo &info);
+    Napi::Value createRayTracingAccelerationContainer(const Napi::CallbackInfo &info);
+    Napi::Value createRayTracingShaderBindingTable(const Napi::CallbackInfo &info);
 
     void throwCallbackError(const Napi::Value& type, const Napi::Value& msg);
 

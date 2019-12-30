@@ -28,6 +28,7 @@ static std::unordered_map<std::string, uint32_t> GPUBindingTypeMap = {
   { "sampler", 3 },
   { "sampled-texture", 4 },
   { "storage-texture", 5 },
+  { "acceleration-container", 6 },
 };
 
 static std::unordered_map<std::string, uint32_t> GPUBlendFactorMap = {
@@ -742,7 +743,18 @@ namespace DescriptorDecoder {
     }
   };
   
+  void DestroyGPURayTracingShaderBindingTableShadersDescriptor(WGPURayTracingShaderBindingTableShadersDescriptor descriptor) {
+  };
+  
   void DestroyGPURayTracingShaderBindingTableDescriptor(WGPURayTracingShaderBindingTableDescriptor descriptor) {
+    if (descriptor.shaderCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.shaderCount; ++ii) {
+        DestroyGPURayTracingShaderBindingTableShadersDescriptor(descriptor.shaders[ii]);
+      };
+    }
+    if (descriptor.shaders) {
+      free((void*) const_cast<WGPURayTracingShaderBindingTableShadersDescriptor*>(descriptor.shaders));
+    }
   };
   
   void DestroyGPUBindGroupDescriptor(WGPUBindGroupDescriptor descriptor) {
@@ -822,6 +834,25 @@ namespace DescriptorDecoder {
       delete[] descriptor.label;
     }
     DestroyGPUProgrammableStageDescriptor(descriptor.computeStage);
+  };
+  
+  void DestroyGPURayTracingPassDescriptor(WGPURayTracingPassDescriptor descriptor) {
+    if (descriptor.label) {
+      delete[] descriptor.label;
+    }
+  };
+  
+  void DestroyGPURayTracingStateDescriptor(WGPURayTracingStateDescriptor descriptor) {
+  };
+  
+  void DestroyGPURayTracingPipelineDescriptor(WGPURayTracingPipelineDescriptor descriptor) {
+    if (descriptor.label) {
+      delete[] descriptor.label;
+    }
+    if (descriptor.rayTracingState != nullptr) {
+      DestroyGPURayTracingStateDescriptor(*descriptor.rayTracingState);
+      free((void*) const_cast<WGPURayTracingStateDescriptor*>(descriptor.rayTracingState));
+    };
   };
   
   void DestroyGPUDeviceProperties(WGPUDeviceProperties descriptor) {
@@ -1002,6 +1033,7 @@ namespace DescriptorDecoder {
   descriptor.offset = 0;
   descriptor.sampler = nullptr;
   descriptor.textureView = nullptr;
+  descriptor.accelerationContainer = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     descriptor.binding = obj.Get("binding").As<Napi::Number>().Uint32Value();
@@ -1039,6 +1071,15 @@ namespace DescriptorDecoder {
         return descriptor;
       }
       descriptor.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("textureView").As<Napi::Object>())->instance;
+    }
+    if (obj.Has("accelerationContainer")) {
+      if (!(obj.Get("accelerationContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPURayTracingAccelerationContainer' for 'GPUBindGroupBinding'.'accelerationContainer'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.accelerationContainer = Napi::ObjectWrap<GPURayTracingAccelerationContainer>::Unwrap(obj.Get("accelerationContainer").As<Napi::Object>())->instance;
     }
     return descriptor;
   };
@@ -1181,14 +1222,45 @@ namespace DescriptorDecoder {
     return descriptor;
   };
   
+  WGPURayTracingShaderBindingTableShadersDescriptor DecodeGPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, Napi::Value& value) {
+    WGPURayTracingShaderBindingTableShadersDescriptor descriptor;
+    // reset descriptor
+  descriptor.module = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    descriptor.stage = static_cast<WGPUShaderStage>(obj.Get("stage").As<Napi::Number>().Uint32Value());
+    if (!(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUShaderModule' for 'GPURayTracingShaderBindingTableShadersDescriptor'.'module'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap(obj.Get("module").As<Napi::Object>())->instance;
+    return descriptor;
+  };
+  
   WGPURayTracingShaderBindingTableDescriptor DecodeGPURayTracingShaderBindingTableDescriptor(GPUDevice* device, Napi::Value& value) {
     WGPURayTracingShaderBindingTableDescriptor descriptor;
     // reset descriptor
-  descriptor.level = 0;
+  descriptor.shaderCount = 0;
+  descriptor.shaders = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (obj.Has("level")) {
-      descriptor.level = obj.Get("level").As<Napi::Number>().Uint32Value();
+    if (obj.Has("shaders")) {
+      Napi::Array array = obj.Get("shaders").As<Napi::Array>();
+      uint32_t length = array.Length();
+      WGPURayTracingShaderBindingTableShadersDescriptor* data = (WGPURayTracingShaderBindingTableShadersDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableShadersDescriptor));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        WGPURayTracingShaderBindingTableShadersDescriptor $shaders = DecodeGPURayTracingShaderBindingTableShadersDescriptor(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$shaders),
+          sizeof(WGPURayTracingShaderBindingTableShadersDescriptor)
+        );
+      };
+      descriptor.shaderCount = length;
+      descriptor.shaders = data;
     }
     return descriptor;
   };
@@ -1493,6 +1565,80 @@ namespace DescriptorDecoder {
       {
         descriptor.computeStage.entryPoint = getNAPIStringCopy($computeStage.Get("entryPoint"));
       }
+    return descriptor;
+  };
+  
+  WGPURayTracingPassDescriptor DecodeGPURayTracingPassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    WGPURayTracingPassDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.label = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("label")) {
+      descriptor.label = getNAPIStringCopy(obj.Get("label"));
+    }
+    return descriptor;
+  };
+  
+  WGPURayTracingStateDescriptor DecodeGPURayTracingStateDescriptor(GPUDevice* device, Napi::Value& value) {
+    WGPURayTracingStateDescriptor descriptor;
+    // reset descriptor
+  descriptor.shaderBindingTable = nullptr;
+  descriptor.maxRecursionDepth = 1;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPURayTracingShaderBindingTable' for 'GPURayTracingStateDescriptor'.'shaderBindingTable'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.shaderBindingTable = Napi::ObjectWrap<GPURayTracingShaderBindingTable>::Unwrap(obj.Get("shaderBindingTable").As<Napi::Object>())->instance;
+    if (obj.Has("maxRecursionDepth")) {
+      descriptor.maxRecursionDepth = obj.Get("maxRecursionDepth").As<Napi::Number>().Uint32Value();
+    }
+    return descriptor;
+  };
+  
+  WGPURayTracingPipelineDescriptor DecodeGPURayTracingPipelineDescriptor(GPUDevice* device, Napi::Value& value) {
+    WGPURayTracingPipelineDescriptor descriptor;
+    // reset descriptor
+  descriptor.label = nullptr;
+  descriptor.layout = nullptr;
+  descriptor.rayTracingState = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("label")) {
+      descriptor.label = getNAPIStringCopy(obj.Get("label"));
+    }
+    if (obj.Has("layout")) {
+      if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUPipelineLayout' for 'GPURayTracingPipelineDescriptor'.'layout'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.layout = Napi::ObjectWrap<GPUPipelineLayout>::Unwrap(obj.Get("layout").As<Napi::Object>())->instance;
+    }
+      WGPURayTracingStateDescriptor rayTracingState;
+      rayTracingState.shaderBindingTable = nullptr;
+      rayTracingState.maxRecursionDepth = 1;
+      Napi::Object $rayTracingState = obj.Get("rayTracingState").As<Napi::Object>();
+      if (!($rayTracingState.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPURayTracingShaderBindingTable' for 'GPURayTracingStateDescriptor'.'shaderBindingTable'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      rayTracingState.shaderBindingTable = Napi::ObjectWrap<GPURayTracingShaderBindingTable>::Unwrap($rayTracingState.Get("shaderBindingTable").As<Napi::Object>())->instance;
+      if ($rayTracingState.Has("maxRecursionDepth")) {
+        rayTracingState.maxRecursionDepth = $rayTracingState.Get("maxRecursionDepth").As<Napi::Number>().Uint32Value();
+      }
+    {
+      descriptor.rayTracingState = (WGPURayTracingStateDescriptor*) malloc(sizeof(WGPURayTracingStateDescriptor));
+      memcpy(const_cast<WGPURayTracingStateDescriptor*>(descriptor.rayTracingState), &rayTracingState, sizeof(WGPURayTracingStateDescriptor));
+    }
     return descriptor;
   };
   
@@ -2371,6 +2517,7 @@ namespace DescriptorDecoder {
   descriptor.offset = 0;
   descriptor.sampler = nullptr;
   descriptor.textureView = nullptr;
+  descriptor.accelerationContainer = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     descriptor.binding = obj.Get("binding").As<Napi::Number>().Uint32Value();
@@ -2408,6 +2555,15 @@ namespace DescriptorDecoder {
         return ;
       }
       descriptor.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("textureView").As<Napi::Object>())->instance;
+    }
+    if (obj.Has("accelerationContainer")) {
+      if (!(obj.Get("accelerationContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPURayTracingAccelerationContainer' for 'GPUBindGroupBinding'.'accelerationContainer'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.accelerationContainer = Napi::ObjectWrap<GPURayTracingAccelerationContainer>::Unwrap(obj.Get("accelerationContainer").As<Napi::Object>())->instance;
     }
   };
   GPUBindGroupBinding::~GPUBindGroupBinding() {
@@ -2555,13 +2711,45 @@ namespace DescriptorDecoder {
     DestroyGPURayTracingAccelerationContainerDescriptor(descriptor);
   };
   
-  GPURayTracingShaderBindingTableDescriptor::GPURayTracingShaderBindingTableDescriptor(GPUDevice* device, Napi::Value& value) {
+  GPURayTracingShaderBindingTableShadersDescriptor::GPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, Napi::Value& value) {
     // reset descriptor
-  descriptor.level = 0;
+  descriptor.module = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (obj.Has("level")) {
-      descriptor.level = obj.Get("level").As<Napi::Number>().Uint32Value();
+    descriptor.stage = static_cast<WGPUShaderStage>(obj.Get("stage").As<Napi::Number>().Uint32Value());
+    if (!(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUShaderModule' for 'GPURayTracingShaderBindingTableShadersDescriptor'.'module'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap(obj.Get("module").As<Napi::Object>())->instance;
+  };
+  GPURayTracingShaderBindingTableShadersDescriptor::~GPURayTracingShaderBindingTableShadersDescriptor() {
+    DestroyGPURayTracingShaderBindingTableShadersDescriptor(descriptor);
+  };
+  
+  GPURayTracingShaderBindingTableDescriptor::GPURayTracingShaderBindingTableDescriptor(GPUDevice* device, Napi::Value& value) {
+    // reset descriptor
+  descriptor.shaderCount = 0;
+  descriptor.shaders = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("shaders")) {
+      Napi::Array array = obj.Get("shaders").As<Napi::Array>();
+      uint32_t length = array.Length();
+      WGPURayTracingShaderBindingTableShadersDescriptor* data = (WGPURayTracingShaderBindingTableShadersDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableShadersDescriptor));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        WGPURayTracingShaderBindingTableShadersDescriptor $shaders = DecodeGPURayTracingShaderBindingTableShadersDescriptor(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$shaders),
+          sizeof(WGPURayTracingShaderBindingTableShadersDescriptor)
+        );
+      };
+      descriptor.shaderCount = length;
+      descriptor.shaders = data;
     }
   };
   GPURayTracingShaderBindingTableDescriptor::~GPURayTracingShaderBindingTableDescriptor() {
@@ -2882,6 +3070,83 @@ namespace DescriptorDecoder {
   };
   GPUComputePipelineDescriptor::~GPUComputePipelineDescriptor() {
     DestroyGPUComputePipelineDescriptor(descriptor);
+  };
+  
+  GPURayTracingPassDescriptor::GPURayTracingPassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain) {
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.label = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("label")) {
+      descriptor.label = getNAPIStringCopy(obj.Get("label"));
+    }
+  };
+  GPURayTracingPassDescriptor::~GPURayTracingPassDescriptor() {
+    DestroyGPURayTracingPassDescriptor(descriptor);
+  };
+  
+  GPURayTracingStateDescriptor::GPURayTracingStateDescriptor(GPUDevice* device, Napi::Value& value) {
+    // reset descriptor
+  descriptor.shaderBindingTable = nullptr;
+  descriptor.maxRecursionDepth = 1;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPURayTracingShaderBindingTable' for 'GPURayTracingStateDescriptor'.'shaderBindingTable'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.shaderBindingTable = Napi::ObjectWrap<GPURayTracingShaderBindingTable>::Unwrap(obj.Get("shaderBindingTable").As<Napi::Object>())->instance;
+    if (obj.Has("maxRecursionDepth")) {
+      descriptor.maxRecursionDepth = obj.Get("maxRecursionDepth").As<Napi::Number>().Uint32Value();
+    }
+  };
+  GPURayTracingStateDescriptor::~GPURayTracingStateDescriptor() {
+    DestroyGPURayTracingStateDescriptor(descriptor);
+  };
+  
+  GPURayTracingPipelineDescriptor::GPURayTracingPipelineDescriptor(GPUDevice* device, Napi::Value& value) {
+    // reset descriptor
+  descriptor.label = nullptr;
+  descriptor.layout = nullptr;
+  descriptor.rayTracingState = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("label")) {
+      descriptor.label = getNAPIStringCopy(obj.Get("label"));
+    }
+    if (obj.Has("layout")) {
+      if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPUPipelineLayout' for 'GPURayTracingPipelineDescriptor'.'layout'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.layout = Napi::ObjectWrap<GPUPipelineLayout>::Unwrap(obj.Get("layout").As<Napi::Object>())->instance;
+    }
+      WGPURayTracingStateDescriptor rayTracingState;
+      rayTracingState.shaderBindingTable = nullptr;
+      rayTracingState.maxRecursionDepth = 1;
+      Napi::Object $rayTracingState = obj.Get("rayTracingState").As<Napi::Object>();
+      if (!($rayTracingState.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected type 'GPURayTracingShaderBindingTable' for 'GPURayTracingStateDescriptor'.'shaderBindingTable'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      rayTracingState.shaderBindingTable = Napi::ObjectWrap<GPURayTracingShaderBindingTable>::Unwrap($rayTracingState.Get("shaderBindingTable").As<Napi::Object>())->instance;
+      if ($rayTracingState.Has("maxRecursionDepth")) {
+        rayTracingState.maxRecursionDepth = $rayTracingState.Get("maxRecursionDepth").As<Napi::Number>().Uint32Value();
+      }
+    {
+      descriptor.rayTracingState = (WGPURayTracingStateDescriptor*) malloc(sizeof(WGPURayTracingStateDescriptor));
+      memcpy(const_cast<WGPURayTracingStateDescriptor*>(descriptor.rayTracingState), &rayTracingState, sizeof(WGPURayTracingStateDescriptor));
+    }
+  };
+  GPURayTracingPipelineDescriptor::~GPURayTracingPipelineDescriptor() {
+    DestroyGPURayTracingPipelineDescriptor(descriptor);
   };
   
   GPUDeviceProperties::GPUDeviceProperties(GPUDevice* device, Napi::Value& value) {

@@ -106,6 +106,16 @@ const fsSrc = `
     }]
   });
 
+  const uniformBindGroup = device.createBindGroup({
+    layout: uniformBindGroupLayout,
+    bindings: [{
+      binding: 0,
+      buffer: stagedUniformBuffer,
+      offset: 0,
+      size: mModelViewProjection.byteLength
+    }]
+  });
+
   const layout = device.createPipelineLayout({
     bindGroupLayouts: [ uniformBindGroupLayout ]
   });
@@ -152,16 +162,6 @@ const fsSrc = `
       format: swapChainFormat,
       alphaBlend: {},
       colorBlend: {}
-    }]
-  });
-
-  const uniformBindGroup = device.createBindGroup({
-    layout: uniformBindGroupLayout,
-    bindings: [{
-      binding: 0,
-      buffer: stagedUniformBuffer,
-      offset: 0,
-      size: mModelViewProjection.byteLength
     }]
   });
 

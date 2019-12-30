@@ -2,7 +2,7 @@ import WebGPU from "../index.js";
 
 Object.assign(global, WebGPU);
 
-const numParticles = 8000;
+const numParticles = 2000;
 
 const vsSrc = `
   #version 450

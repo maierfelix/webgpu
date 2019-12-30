@@ -7,8 +7,63 @@ const rayGenSrc = `
   #extension GL_NV_ray_tracing : require
   #pragma shader_stage(raygen)
 
+  layout(binding = 0, set = 0) uniform accelerationStructureNV TLAS;
+
+  layout(location = 0) rayPayloadNV vec3 hitValue;
+
+  mat4 mViewInverse = mat4(
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1
+  );
+
+  mat4 mProjectionInverse = mat4(
+    -8.540441513061523, -0, -0, -0,
+    -0, -6.405331134796143, -0, -0,
+    -0, -0, -12.497565269470215, -4.999025821685791,
+    0, -0, 11.502447128295898, 5.000978946685791
+  );
+
   void main() {
-    
+    const vec2 pixelCenter = vec2(gl_LaunchIDNV.xy) + vec2(0.5);
+    const vec2 uv = pixelCenter / vec2(gl_LaunchSizeNV.xy);
+    vec2 d = uv * 2.0 - 1.0;
+
+    vec4 origin = mViewInverse * vec4(0,0,0,1);
+    vec4 target = mProjectionInverse * vec4(d.x, d.y, 1, 1);
+    vec4 direction = mViewInverse * vec4(normalize(target.xyz), 0);
+
+    //traceNV(TLAS, gl_RayFlagsOpaqueNV, 0xff, 0, 0, 0, origin.xyz, 0.1, direction.xyz, 1024.0, 0);
+
+    //imageStore(image, ivec2(gl_LaunchIDNV.xy), vec4(hitValue, 0.0));
+  }
+`;
+
+const rayCHitSrc = `
+  #version 460
+  #extension GL_NV_ray_tracing : require
+  #extension GL_EXT_nonuniform_qualifier : enable
+  #pragma shader_stage(closest)
+
+  layout(location = 0) rayPayloadInNV vec3 hitValue;
+  hitAttributeNV vec3 attribs;
+
+  void main() {
+    const vec3 barycentricCoords = vec3(1.0f - attribs.x - attribs.y, attribs.x, attribs.y);
+    hitValue = barycentricCoords;
+  }
+`;
+
+const rayMissSrc = `
+  #version 460
+  #extension GL_NV_ray_tracing : require
+  #pragma shader_stage(miss)
+
+  layout(location = 0) rayPayloadInNV vec3 hitValue;
+
+  void main() {
+    hitValue = vec3(0.0, 0.0, 0.2);
   }
 `;
 
@@ -89,10 +144,14 @@ const rayGenSrc = `
   const rayGenShaderModule = device.createShaderModule({
     code: rayGenSrc
   });
-  console.log(rayGenShaderModule);
 
-  console.log(GPUShaderStage);
-  console.log(GPURayTracingAccelerationContainerFlag);
+  const rayCHitShaderModule = device.createShaderModule({
+    code: rayCHitSrc
+  });
+
+  const rayMissShaderModule = device.createShaderModule({
+    code: rayMissSrc
+  });
 
   const stagedVertexBuffer = device.createBuffer({
     size: modelVertices.byteLength,
@@ -120,7 +179,6 @@ const rayGenSrc = `
     flag: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
     geometries: [ geometry0 ]
   });
-  console.log(geometryContainer0);
 
   const instance0 = {
     flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
@@ -135,75 +193,81 @@ const rayGenSrc = `
     level: "top",
     instances: [ instance0 ]
   });
-  console.log(instanceContainer0);
 
   const commandEncoder = device.createCommandEncoder({});
-  console.log(0);
   commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0);
   commandEncoder.buildRayTracingAccelerationContainer(instanceContainer0);
   const commandBuffer = commandEncoder.finish();
-  console.log(1);
   queue.submit([ commandBuffer ]);
-  console.log(2);
 
   const shaderBindingTable = device.createRayTracingShaderBindingTable({
-    hitShaders: [],
-    anyHitShaders: [],
-    closestHitShaders: [],
-    missShaders: [],
-    intersectionShaders: [],
-    generationShaders: []
+    shaders: [
+      {
+        module: rayGenShaderModule,
+        stage: GPUShaderStage.RAY_GENERATION
+      },
+      {
+        module: rayCHitShaderModule,
+        stage: GPUShaderStage.RAY_CLOSEST_HIT
+      },
+      {
+        module: rayMissShaderModule,
+        stage: GPUShaderStage.RAY_MISS
+      }
+    ]
   });
-  console.log(shaderBindingTable);
 
-/*
   const bindGroupLayout = device.createBindGroupLayout({
     bindings: [
       {
         binding: 0,
-        visibility: GPUShaderStage.RAY_GENERATION | GPUShaderStage.RAY_CLOSEST_HIT,
-        type: "acceleration-structure"
-      },
-      {
-        binding: 1,
-        visibility: GPUShaderStage.RAY_GENERATION | GPUShaderStage.RAY_CLOSEST_HIT,
-        type: "storage-texture"
+        visibility: GPUShaderStage.RAY_GENERATION | GPUShaderStage.RAY_CLOSEST_HIT | GPUShaderStage.RAY_MISS,
+        type: "acceleration-container",
+        textureDimension: "2D"
       }
     ]
+  });
+
+  const bindGroup = device.createBindGroup({
+    layout: bindGroupLayout,
+    bindings: [{
+      binding: 0,
+      accelerationContainer: instanceContainer0,
+      size: 0
+    }]
   });
 
   const layout = device.createPipelineLayout({
     bindGroupLayouts: [bindGroupLayout]
   });
 
-  const rtPipeline = device.createRayTracingPipeline({
+  const pipeline = device.createRayTracingPipeline({
     layout,
-    shaderBindingTable,
-    accelerationStructures: [accelerationStructure],
+    rayTracingState: {
+      shaderBindingTable,
+      maxRecursionDepth: 1
+    }
   });
 
   function onFrame() {
     if (!window.shouldClose()) setTimeout(onFrame, 1e3 / 60);
 
-    const backBuffer = swapChain.getCurrentTexture();
-    const backBufferView = backBuffer.createView({
-      format: swapChainFormat
-    });
+    const backBufferView = swapChain.getCurrentTextureView();
 
+    const commandEncoder = device.createCommandEncoder({});
     {
-      const commandEncoder = device.createCommandEncoder({});
-      const rayTracingPass = commandEncoder.beginRenderPass({});
-      rayTracingPass.setPipeline(rtPipeline);
-      rayTracingPass.traceRays(window.width, window.height);
+      const rayTracingPass = commandEncoder.beginRayTracingPass({});
+      rayTracingPass.setPipeline(pipeline);
+      rayTracingPass.setBindGroup(0, bindGroup);
+      rayTracingPass.traceRays(window.width, window.height, 1);
       rayTracingPass.endPass();
     }
-
-    const commandBuffer = commandEncoder.finish();
+    let commandBuffer = commandEncoder.finish();
     queue.submit([ commandBuffer ]);
-    swapChain.present(backBuffer);
+
+    swapChain.present();
     window.pollEvents();
   };
   setTimeout(onFrame, 1e3 / 60);
-*/
 
 })();

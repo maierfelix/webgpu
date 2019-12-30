@@ -14,6 +14,7 @@
 #include "GPURenderBundleEncoder.h"
 #include "GPURayTracingAccelerationContainer.h"
 #include "GPURayTracingShaderBindingTable.h"
+#include "GPURayTracingPipeline.h"
 
 #include "WebGPUWindow.h"
 
@@ -162,6 +163,15 @@ Napi::Value GPUDevice::createRayTracingShaderBindingTable(const Napi::CallbackIn
     info[0].As<Napi::Value>()
   });
   return shaderBindingTable;
+}
+
+Napi::Value GPUDevice::createRayTracingPipeline(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::Object rayTracingPipeline = GPURayTracingPipeline::constructor.New({
+    info.This().As<Napi::Value>(),
+    info[0].As<Napi::Value>()
+  });
+  return rayTracingPipeline;
 }
 
 Napi::Value GPUDevice::createBuffer(const Napi::CallbackInfo& info) {
@@ -352,6 +362,11 @@ Napi::Object GPUDevice::Initialize(Napi::Env env, Napi::Object exports) {
     InstanceMethod(
       "createRayTracingShaderBindingTable",
       &GPUDevice::createRayTracingShaderBindingTable,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "createRayTracingPipeline",
+      &GPUDevice::createRayTracingPipeline,
       napi_enumerable
     ),
     InstanceMethod(

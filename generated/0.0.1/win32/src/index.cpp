@@ -30,6 +30,8 @@
 #include "GPURenderBundleEncoder.h"
 #include "GPURayTracingAccelerationContainer.h"
 #include "GPURayTracingShaderBindingTable.h"
+#include "GPURayTracingPipeline.h"
+#include "GPURayTracingPassEncoder.h"
 
 #include "WebGPUWindow.h"
 
@@ -60,6 +62,8 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPURenderBundleEncoder::Initialize(env, exports);
   GPURayTracingAccelerationContainer::Initialize(env, exports);
   GPURayTracingShaderBindingTable::Initialize(env, exports);
+  GPURayTracingPipeline::Initialize(env, exports);
+  GPURayTracingPassEncoder::Initialize(env, exports);
 
   WebGPUWindow::Initialize(env, exports);
 

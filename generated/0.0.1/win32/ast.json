@@ -185,6 +185,18 @@
             }
           },
           "value": 5
+        },
+        {
+          "name": "acceleration container",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 6
         }
       ]
     },
@@ -2979,7 +2991,36 @@
       "externalName": "GPURayTracingShaderBindingTable",
       "type": "object",
       "textName": "ray tracing shader binding table",
-      "children": []
+      "children": [
+        {
+          "name": "getOffset",
+          "children": [
+            {
+              "name": "shaderStage",
+              "type": {
+                "isBitmask": true,
+                "nativeType": "WGPUShaderStage",
+                "rawType": "WGPUShaderStage",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
     },
     {
       "name": "WGPUBindGroupLayout",
@@ -3216,6 +3257,35 @@
             "isRequired": true,
             "jsType": {
               "type": "WGPUComputePassEncoder",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "beginRayTracingPass",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "WGPURayTracingPassDescriptor",
+                "isReference": true,
+                "rawType": "const WGPURayTracingPassDescriptor*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPURayTracingPassEncoder",
+            "rawType": "WGPURayTracingPassEncoder",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPURayTracingPassEncoder",
               "isObject": true
             }
           }
@@ -3914,6 +3984,277 @@
       ]
     },
     {
+      "name": "WGPURayTracingPassEncoder",
+      "externalName": "GPURayTracingPassEncoder",
+      "type": "object",
+      "textName": "ray tracing pass encoder",
+      "children": [
+        {
+          "name": "insertDebugMarker",
+          "children": [
+            {
+              "name": "groupLabel",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "isArray": true,
+                "rawType": "const char*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "popDebugGroup",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "pushDebugGroup",
+          "children": [
+            {
+              "name": "groupLabel",
+              "type": {
+                "isString": true,
+                "isDynamicLength": true,
+                "length": "strlen",
+                "isReference": true,
+                "isArray": true,
+                "rawType": "const char*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "String",
+                  "isString": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setPipeline",
+          "children": [
+            {
+              "name": "pipeline",
+              "type": {
+                "isObject": true,
+                "nativeType": "WGPURayTracingPipeline",
+                "rawType": "WGPURayTracingPipeline",
+                "isRequired": true,
+                "jsType": {
+                  "type": "WGPURayTracingPipeline",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "setBindGroup",
+          "children": [
+            {
+              "name": "groupIndex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "group",
+              "type": {
+                "isObject": true,
+                "nativeType": "WGPUBindGroup",
+                "rawType": "WGPUBindGroup",
+                "isRequired": true,
+                "jsType": {
+                  "type": "WGPUBindGroup",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "dynamicOffsetCount",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isOptional": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "dynamicOffsets",
+              "type": {
+                "length": "dynamicOffsetCount",
+                "isReference": true,
+                "isArray": true,
+                "rawType": "const uint32_t*",
+                "isOptional": true,
+                "jsType": {
+                  "type": "Uint32Array",
+                  "isTypedArray": true
+                }
+              },
+              "isOptional": true
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "traceRays",
+          "children": [
+            {
+              "name": "width",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "height",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "depth",
+              "type": {
+                "isNumber": true,
+                "initialValue": "1",
+                "rawType": "uint32_t",
+                "isOptional": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "endPass",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingPipeline",
+      "externalName": "GPURayTracingPipeline",
+      "type": "object",
+      "textName": "ray tracing pipeline",
+      "children": [
+        {
+          "name": "getBindGroupLayout",
+          "children": [
+            {
+              "name": "group",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPUBindGroupLayout",
+            "rawType": "WGPUBindGroupLayout",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPUBindGroupLayout",
+              "isObject": true
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "WGPUDevice",
       "externalName": "GPUDevice",
       "type": "object",
@@ -3973,6 +4314,35 @@
             "isRequired": true,
             "jsType": {
               "type": "WGPURayTracingShaderBindingTable",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "createRayTracingPipeline",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "WGPURayTracingPipelineDescriptor",
+                "isReference": true,
+                "rawType": "const WGPURayTracingPipelineDescriptor*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPURayTracingPipeline",
+            "rawType": "WGPURayTracingPipeline",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPURayTracingPipeline",
               "isObject": true
             }
           }
@@ -6372,6 +6742,20 @@
             }
           },
           "isOptional": true
+        },
+        {
+          "name": "accelerationContainer",
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPURayTracingAccelerationContainer",
+            "rawType": "WGPURayTracingAccelerationContainer",
+            "isOptional": true,
+            "jsType": {
+              "type": "WGPURayTracingAccelerationContainer",
+              "isObject": true
+            }
+          },
+          "isOptional": true
         }
       ]
     },
@@ -6712,13 +7096,47 @@
       ]
     },
     {
+      "name": "WGPURayTracingShaderBindingTableShadersDescriptor",
+      "externalName": "GPURayTracingShaderBindingTableShadersDescriptor",
+      "type": "structure",
+      "textName": "ray tracing shader binding table shaders descriptor",
+      "children": [
+        {
+          "name": "stage",
+          "type": {
+            "isBitmask": true,
+            "nativeType": "WGPUShaderStage",
+            "rawType": "WGPUShaderStage",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "module",
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPUShaderModule",
+            "rawType": "WGPUShaderModule",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPUShaderModule",
+              "isObject": true
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "WGPURayTracingShaderBindingTableDescriptor",
       "externalName": "GPURayTracingShaderBindingTableDescriptor",
       "type": "structure",
       "textName": "ray tracing shader binding table descriptor",
       "children": [
         {
-          "name": "level",
+          "name": "shaderCount",
           "type": {
             "isNumber": true,
             "initialValue": "0",
@@ -6730,7 +7148,26 @@
             }
           },
           "defaultValue": "0",
-          "defaultValueNative": "0"
+          "defaultValueNative": "0",
+          "isInternalProperty": true
+        },
+        {
+          "name": "shaders",
+          "type": {
+            "isStructure": true,
+            "nativeType": "WGPURayTracingShaderBindingTableShadersDescriptor",
+            "length": "shaderCount",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const WGPURayTracingShaderBindingTableShadersDescriptor*",
+            "isOptional": true,
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            },
+            "isRequired": false
+          },
+          "isOptional": true
         }
       ]
     },
@@ -7426,6 +7863,121 @@
             "isStructure": true,
             "nativeType": "WGPUProgrammableStageDescriptor",
             "rawType": "WGPUProgrammableStageDescriptor",
+            "isRequired": true,
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingPassDescriptor",
+      "externalName": "GPURayTracingPassDescriptor",
+      "type": "structure",
+      "isExtensible": true,
+      "textName": "ray tracing pass descriptor",
+      "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingStateDescriptor",
+      "externalName": "GPURayTracingStateDescriptor",
+      "type": "structure",
+      "textName": "ray tracing state descriptor",
+      "children": [
+        {
+          "name": "shaderBindingTable",
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPURayTracingShaderBindingTable",
+            "rawType": "WGPURayTracingShaderBindingTable",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPURayTracingShaderBindingTable",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "maxRecursionDepth",
+          "type": {
+            "isNumber": true,
+            "initialValue": "1",
+            "rawType": "uint32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "1",
+          "defaultValueNative": "1"
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingPipelineDescriptor",
+      "externalName": "GPURayTracingPipelineDescriptor",
+      "type": "structure",
+      "textName": "ray tracing pipeline descriptor",
+      "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        },
+        {
+          "name": "layout",
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPUPipelineLayout",
+            "rawType": "WGPUPipelineLayout",
+            "isOptional": true,
+            "jsType": {
+              "type": "WGPUPipelineLayout",
+              "isObject": true
+            }
+          },
+          "isOptional": true
+        },
+        {
+          "name": "rayTracingState",
+          "type": {
+            "isStructure": true,
+            "nativeType": "WGPURayTracingStateDescriptor",
+            "isReference": true,
+            "rawType": "const WGPURayTracingStateDescriptor*",
             "isRequired": true,
             "jsType": {
               "type": "Object",

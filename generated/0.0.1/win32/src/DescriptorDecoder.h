@@ -20,6 +20,7 @@
 #include "GPURenderPipeline.h"
 #include "GPURayTracingAccelerationContainer.h"
 #include "GPURayTracingShaderBindingTable.h"
+#include "GPURayTracingPipeline.h"
 
 #include <unordered_map>
 
@@ -113,6 +114,8 @@ namespace DescriptorDecoder {
   
   WGPURayTracingAccelerationContainerDescriptor DecodeGPURayTracingAccelerationContainerDescriptor(GPUDevice* device, Napi::Value& value);
   
+  WGPURayTracingShaderBindingTableShadersDescriptor DecodeGPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, Napi::Value& value);
+  
   WGPURayTracingShaderBindingTableDescriptor DecodeGPURayTracingShaderBindingTableDescriptor(GPUDevice* device, Napi::Value& value);
   
   WGPUBindGroupDescriptor DecodeGPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
@@ -140,6 +143,12 @@ namespace DescriptorDecoder {
   WGPUComputePassDescriptor DecodeGPUComputePassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
   
   WGPUComputePipelineDescriptor DecodeGPUComputePipelineDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  
+  WGPURayTracingPassDescriptor DecodeGPURayTracingPassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  
+  WGPURayTracingStateDescriptor DecodeGPURayTracingStateDescriptor(GPUDevice* device, Napi::Value& value);
+  
+  WGPURayTracingPipelineDescriptor DecodeGPURayTracingPipelineDescriptor(GPUDevice* device, Napi::Value& value);
   
   WGPUDeviceProperties DecodeGPUDeviceProperties(GPUDevice* device, Napi::Value& value);
   
@@ -225,6 +234,15 @@ namespace DescriptorDecoder {
       WGPURayTracingAccelerationContainerDescriptor* operator &() { return &descriptor; };
     private:
       WGPURayTracingAccelerationContainerDescriptor descriptor;
+  };
+  
+  class GPURayTracingShaderBindingTableShadersDescriptor {
+    public:
+      GPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, Napi::Value& value);
+      ~GPURayTracingShaderBindingTableShadersDescriptor();
+      WGPURayTracingShaderBindingTableShadersDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingShaderBindingTableShadersDescriptor descriptor;
   };
   
   class GPURayTracingShaderBindingTableDescriptor {
@@ -351,6 +369,33 @@ namespace DescriptorDecoder {
       WGPUComputePipelineDescriptor* operator &() { return &descriptor; };
     private:
       WGPUComputePipelineDescriptor descriptor;
+  };
+  
+  class GPURayTracingPassDescriptor {
+    public:
+      GPURayTracingPassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      ~GPURayTracingPassDescriptor();
+      WGPURayTracingPassDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingPassDescriptor descriptor;
+  };
+  
+  class GPURayTracingStateDescriptor {
+    public:
+      GPURayTracingStateDescriptor(GPUDevice* device, Napi::Value& value);
+      ~GPURayTracingStateDescriptor();
+      WGPURayTracingStateDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingStateDescriptor descriptor;
+  };
+  
+  class GPURayTracingPipelineDescriptor {
+    public:
+      GPURayTracingPipelineDescriptor(GPUDevice* device, Napi::Value& value);
+      ~GPURayTracingPipelineDescriptor();
+      WGPURayTracingPipelineDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingPipelineDescriptor descriptor;
   };
   
   class GPUDeviceProperties {
@@ -579,6 +624,8 @@ namespace DescriptorDecoder {
   
   void DestroyGPURayTracingAccelerationContainerDescriptor(WGPURayTracingAccelerationContainerDescriptor descriptor);
   
+  void DestroyGPURayTracingShaderBindingTableShadersDescriptor(WGPURayTracingShaderBindingTableShadersDescriptor descriptor);
+  
   void DestroyGPURayTracingShaderBindingTableDescriptor(WGPURayTracingShaderBindingTableDescriptor descriptor);
   
   void DestroyGPUBindGroupDescriptor(WGPUBindGroupDescriptor descriptor);
@@ -606,6 +653,12 @@ namespace DescriptorDecoder {
   void DestroyGPUComputePassDescriptor(WGPUComputePassDescriptor descriptor);
   
   void DestroyGPUComputePipelineDescriptor(WGPUComputePipelineDescriptor descriptor);
+  
+  void DestroyGPURayTracingPassDescriptor(WGPURayTracingPassDescriptor descriptor);
+  
+  void DestroyGPURayTracingStateDescriptor(WGPURayTracingStateDescriptor descriptor);
+  
+  void DestroyGPURayTracingPipelineDescriptor(WGPURayTracingPipelineDescriptor descriptor);
   
   void DestroyGPUDeviceProperties(WGPUDeviceProperties descriptor);
   

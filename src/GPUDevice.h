@@ -38,6 +38,7 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
     Napi::Value createRenderBundleEncoder(const Napi::CallbackInfo &info);
     Napi::Value createRayTracingAccelerationContainer(const Napi::CallbackInfo &info);
     Napi::Value createRayTracingShaderBindingTable(const Napi::CallbackInfo &info);
+    Napi::Value createRayTracingPipeline(const Napi::CallbackInfo &info);
 
     void throwCallbackError(const Napi::Value& type, const Napi::Value& msg);
 

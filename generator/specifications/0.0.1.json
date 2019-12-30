@@ -29,7 +29,16 @@
         "category": "object"
     },
     "ray tracing shader binding table": {
-        "category": "object"
+        "category": "object",
+        "methods": [
+            {
+                "name": "get offset",
+                "returns": "uint32_t",
+                "args": [
+                    {"name": "shader stage", "type": "shader stage"}
+                ]
+            }
+        ]
     },
     "bind group binding": {
         "category": "structure",
@@ -40,7 +49,8 @@
             {"name": "offset", "type": "uint64_t", "default": "0"},
             {"name": "size", "type": "uint64_t"},
             {"name": "sampler", "type": "sampler", "optional": true},
-            {"name": "texture view", "type": "texture view", "optional": true}
+            {"name": "texture view", "type": "texture view", "optional": true},
+            {"name": "acceleration container", "type": "ray tracing acceleration container", "optional": true}
         ]
     },
     "ray tracing acceleration geometry type": {
@@ -117,11 +127,20 @@
             {"name": "instances", "type": "ray tracing acceleration instance descriptor", "annotation": "const*", "length": "instance count", "optional": true}
         ]
     },
+    "ray tracing shader binding table shaders descriptor": {
+        "category": "structure",
+        "extensible": false,
+        "members": [
+            {"name": "stage", "type": "shader stage"},
+            {"name": "module", "type": "shader module"}
+        ]
+    },
     "ray tracing shader binding table descriptor": {
         "category": "structure",
         "extensible": false,
         "members": [
-            {"name": "level", "type": "uint32_t", "default": "0"}
+            {"name": "shader count", "type": "uint32_t", "default": "0"},
+            {"name": "shaders", "type": "ray tracing shader binding table shaders descriptor", "annotation": "const*", "length": "shader count", "optional": true}
         ]
     },
     "bind group descriptor": {
@@ -167,7 +186,8 @@
             {"value": 2, "name": "readonly storage buffer"},
             {"value": 3, "name": "sampler"},
             {"value": 4, "name": "sampled texture"},
-            {"value": 5, "name": "storage texture"}
+            {"value": 5, "name": "storage texture"},
+            {"value": 6, "name": "acceleration container"}
         ]
     },
     "blend descriptor": {
@@ -381,6 +401,13 @@
                 ]
             },
             {
+                "name": "begin ray tracing pass",
+                "returns": "ray tracing pass encoder",
+                "args": [
+                    {"name": "descriptor", "type": "ray tracing pass descriptor", "annotation": "const*"}
+                ]
+            },
+            {
                 "name": "begin render pass",
                 "returns": "render pass encoder",
                 "args": [
@@ -551,6 +578,89 @@
             {"name": "compute stage", "type": "programmable stage descriptor"}
         ]
     },
+    "ray tracing pass descriptor": {
+        "category": "structure",
+        "extensible": true,
+        "members": [
+            {"name": "label", "type": "char", "annotation": "const*", "length": "strlen", "optional": true}
+        ]
+    },
+    "ray tracing pass encoder": {
+        "category": "object",
+        "methods": [
+            {
+                "name": "insert debug marker",
+                "args": [
+                    {"name": "group label", "type": "char", "annotation": "const*", "length": "strlen"}
+                ]
+            },
+            {
+                "name": "pop debug group",
+                "args": []
+            },
+            {
+                "name": "push debug group",
+                "args": [
+                    {"name": "group label", "type": "char", "annotation": "const*", "length": "strlen"}
+                ]
+            },
+            {
+                "name": "set pipeline",
+                "args": [
+                    {"name": "pipeline", "type": "ray tracing pipeline"}
+                ]
+            },
+            {
+                "name": "set bind group",
+                "args": [
+                    {"name": "group index", "type": "uint32_t"},
+                    {"name": "group", "type": "bind group"},
+                    {"name": "dynamic offset count", "type": "uint32_t", "default": "0"},
+                    {"name": "dynamic offsets", "type": "uint32_t", "annotation": "const*", "length": "dynamic offset count", "optional": true}
+                ]
+            },
+            {
+                "name": "trace rays",
+                "args": [
+                    {"name": "width", "type": "uint32_t"},
+                    {"name": "height", "type": "uint32_t"},
+                    {"name": "depth", "type": "uint32_t", "default": "1"}
+                ]
+            },
+            {
+                "name": "end pass"
+            }
+        ]
+    },
+    "ray tracing pipeline": {
+        "category": "object",
+        "methods": [
+            {
+                "name": "get bind group layout",
+                "returns": "bind group layout",
+                "args": [
+                    {"name": "group", "type": "uint32_t"}
+                ]
+            }
+        ]
+    },
+    "ray tracing state descriptor": {
+        "category": "structure",
+        "extensible": false,
+        "members": [
+            {"name": "shader binding table", "type": "ray tracing shader binding table"},
+            {"name": "max recursion depth", "type": "uint32_t", "default": "1"}
+        ]
+    },
+    "ray tracing pipeline descriptor": {
+        "category": "structure",
+        "extensible": false,
+        "members": [
+            {"name": "label", "type": "char", "annotation": "const*", "length": "strlen", "optional": true},
+            {"name": "layout", "type": "pipeline layout", "optional": true},
+            {"name": "ray tracing state", "type": "ray tracing state descriptor", "annotation": "const*"}
+        ]
+    },
     "cull mode": {
         "category": "enum",
         "values": [
@@ -574,6 +684,13 @@
                 "returns": "ray tracing shader binding table",
                 "args": [
                     {"name": "descriptor", "type": "ray tracing shader binding table descriptor", "annotation": "const*"}
+                ]
+            },
+            {
+                "name": "create ray tracing pipeline",
+                "returns": "ray tracing pipeline",
+                "args": [
+                    {"name": "descriptor", "type": "ray tracing pipeline descriptor", "annotation": "const*"}
                 ]
             },
             {

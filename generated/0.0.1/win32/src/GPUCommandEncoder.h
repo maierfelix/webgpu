@@ -15,6 +15,7 @@ class GPUCommandEncoder : public Napi::ObjectWrap<GPUCommandEncoder> {
 
     Napi::Value beginRenderPass(const Napi::CallbackInfo &info);
     Napi::Value beginComputePass(const Napi::CallbackInfo &info);
+    Napi::Value beginRayTracingPass(const Napi::CallbackInfo &info);
 
     Napi::Value buildRayTracingAccelerationContainer(const Napi::CallbackInfo &info);
 

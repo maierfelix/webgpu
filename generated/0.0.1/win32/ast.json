@@ -2691,6 +2691,18 @@
             }
           },
           "value": 256
+        },
+        {
+          "name": "RAY_TRACING",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 512
         }
       ]
     },

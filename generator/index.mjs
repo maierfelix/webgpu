@@ -31,6 +31,7 @@ const baseGeneratePath = pkg.config.GEN_OUT_DIR;
 const generateVersionPath = `${baseGeneratePath}/${dawnVersion}`;
 const generatePath = `${generateVersionPath}/${getPlatform()}`;
 const generateSrcPath = `${generatePath}/src`;
+const bypassBuild = !!process.env.npm_config_bypass_build;
 
 // enables js interface minifcation
 const enableMinification = false;
@@ -116,8 +117,12 @@ async function generateBindings(version, enableMinification, includeMemoryLayout
   console.log(`Successfully generated bindings!`);
 };
 
-generateBindings(
-  dawnVersion,
-  enableMinification,
-  includeMemoryLayouts
-);
+if (bypassBuild) {
+  process.stderr.write(`Skipping generation..\n`);
+} else {
+  generateBindings(
+    dawnVersion,
+    enableMinification,
+    includeMemoryLayouts
+  );
+}

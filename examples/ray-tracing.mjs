@@ -1,57 +1,94 @@
 import WebGPU from "../index.js";
+import glMatrix from "gl-matrix";
 
 Object.assign(global, WebGPU);
+Object.assign(global, glMatrix);
+
+const vsSrc = `
+  #version 450
+  #pragma shader_stage(vertex)
+
+  layout (location = 0) out vec2 uv;
+
+  void main() {
+    vec2 pos = vec2((gl_VertexIndex << 1) & 2, gl_VertexIndex & 2);
+    gl_Position = vec4(pos * 2.0 - 1.0, 0.0, 1.0);
+    uv = pos;
+  }
+`;
+
+const fsSrc = `
+  #version 450
+  #pragma shader_stage(fragment)
+
+  layout (location = 0) in vec2 uv;
+  layout (location = 0) out vec4 outColor;
+
+  layout(std140, set = 0, binding = 0) buffer PixelBuffer {
+    vec4 pixels[];
+  } pixelBuffer;
+
+  const vec2 resolution = vec2(640, 480);
+
+  void main() {
+    const ivec2 bufferCoord = ivec2(floor(uv * resolution));
+    const vec2 fragCoord = (uv * resolution);
+    const uint pixelIndex = bufferCoord.y * uint(resolution.x) + bufferCoord.x;
+
+    vec4 pixelColor = pixelBuffer.pixels[pixelIndex];
+    outColor = pixelColor;
+  }
+`;
 
 const rayGenSrc = `
   #version 460
   #extension GL_NV_ray_tracing : require
   #pragma shader_stage(raygen)
 
-  layout(binding = 0, set = 0) uniform accelerationStructureNV TLAS;
-
   layout(location = 0) rayPayloadNV vec3 hitValue;
 
-  mat4 mViewInverse = mat4(
-    1, 0, 0, 0,
-    0, 1, 0, 0,
-    0, 0, 1, 0,
-    0, 0, 0, 1
-  );
+  layout(binding = 0, set = 0) uniform accelerationStructureNV topLevelAS;
 
-  mat4 mProjectionInverse = mat4(
-    -8.540441513061523, -0, -0, -0,
-    -0, -6.405331134796143, -0, -0,
-    -0, -0, -12.497565269470215, -4.999025821685791,
-    0, -0, 11.502447128295898, 5.000978946685791
-  );
+  layout(std140, set = 0, binding = 1) buffer PixelBuffer {
+    vec4 pixels[];
+  } pixelBuffer;
+
+  layout(set = 0, binding = 2) uniform Camera {
+    mat4 mView;
+    mat4 mProjection;
+  } uCamera;
 
   void main() {
-    const vec2 pixelCenter = vec2(gl_LaunchIDNV.xy) + vec2(0.5);
-    const vec2 uv = pixelCenter / vec2(gl_LaunchSizeNV.xy);
-    vec2 d = uv * 2.0 - 1.0;
+    ivec2 ipos = ivec2(gl_LaunchIDNV.xy);
+    const ivec2 resolution = ivec2(gl_LaunchSizeNV.xy);
 
-    vec4 origin = mViewInverse * vec4(0,0,0,1);
-    vec4 target = mProjectionInverse * vec4(d.x, d.y, 1, 1);
-    vec4 direction = mViewInverse * vec4(normalize(target.xyz), 0);
+    const vec2 offset = vec2(0);
+    const vec2 pixel = vec2(ipos.x, ipos.y);
+    const vec2 uv = (pixel / gl_LaunchSizeNV.xy) * 2.0 - 1.0;
 
-    //traceNV(TLAS, gl_RayFlagsOpaqueNV, 0xff, 0, 0, 0, origin.xyz, 0.1, direction.xyz, 1024.0, 0);
+    vec4 origin = uCamera.mView * vec4(offset, 0, 1);
+    vec4 target = uCamera.mProjection * (vec4(uv.x, uv.y, 1, 1));
+    vec4 direction = uCamera.mView * vec4(normalize(target.xyz), 0);
 
-    //imageStore(image, ivec2(gl_LaunchIDNV.xy), vec4(hitValue, 0.0));
+    traceNV(topLevelAS, gl_RayFlagsOpaqueNV, 0xFF, 0, 0, 0, origin.xyz, 0.01, direction.xyz, 4096.0, 0);
+
+    const uint pixelIndex = ipos.y * resolution.x + ipos.x;
+    pixelBuffer.pixels[pixelIndex] = vec4(hitValue, 1);
   }
 `;
 
 const rayCHitSrc = `
   #version 460
   #extension GL_NV_ray_tracing : require
-  #extension GL_EXT_nonuniform_qualifier : enable
   #pragma shader_stage(closest)
 
   layout(location = 0) rayPayloadInNV vec3 hitValue;
+
   hitAttributeNV vec3 attribs;
 
   void main() {
-    const vec3 barycentricCoords = vec3(1.0f - attribs.x - attribs.y, attribs.x, attribs.y);
-    hitValue = barycentricCoords;
+    const vec3 bary = vec3(1.0f - attribs.x - attribs.y, attribs.x, attribs.y);
+    hitValue = bary;
   }
 `;
 
@@ -63,58 +100,20 @@ const rayMissSrc = `
   layout(location = 0) rayPayloadInNV vec3 hitValue;
 
   void main() {
-    hitValue = vec3(0.0, 0.0, 0.2);
+    hitValue = vec3(0.1);
   }
 `;
 
 (async function main() {
 
   const modelVertices = new Float32Array([
-    // Front face
-    -1.0, -1.0,  1.0,
-     1.0, -1.0,  1.0,
-     1.0,  1.0,  1.0,
-    -1.0,  1.0,  1.0,
-    // Back face
-    -1.0, -1.0, -1.0,
-    -1.0,  1.0, -1.0,
-     1.0,  1.0, -1.0,
-     1.0, -1.0, -1.0,
-    // Top face
-    -1.0,  1.0, -1.0,
-    -1.0,  1.0,  1.0,
-     1.0,  1.0,  1.0,
-     1.0,  1.0, -1.0,
-    // Bottom face
-    -1.0, -1.0, -1.0,
-     1.0, -1.0, -1.0,
-     1.0, -1.0,  1.0,
-    -1.0, -1.0,  1.0,
-    // Right face
-     1.0, -1.0, -1.0,
-     1.0,  1.0, -1.0,
-     1.0,  1.0,  1.0,
-     1.0, -1.0,  1.0,
-    // Left face
-    -1.0, -1.0, -1.0,
-    -1.0, -1.0,  1.0,
-    -1.0,  1.0,  1.0,
-    -1.0,  1.0, -1.0
+     1.0,  1.0, 0.0,
+    -1.0,  1.0, 0.0,
+     0.0, -1.0, 0.0,
   ]);
 
   const modelIndices = new Uint32Array([
-    0,  1,  2,
-    2,  3,  0,
-    4,  5,  6,
-    6,  7,  4,
-    8,  9,  10,
-    10, 11, 8,
-    12, 13, 14,
-    14, 15, 12,
-    16, 17, 18,
-    18, 19, 16,
-    20, 21, 22,
-    22, 23, 20
+    0, 1, 2
   ]);
 
   const window = new WebGPUWindow({
@@ -141,34 +140,61 @@ const rayMissSrc = `
     format: swapChainFormat
   });
 
-  const rayGenShaderModule = device.createShaderModule({
-    code: rayGenSrc
-  });
+  const aspect = Math.abs(window.width / window.height);
 
-  const rayCHitShaderModule = device.createShaderModule({
-    code: rayCHitSrc
-  });
+  const mView = mat4.create();
+  const mProjection = mat4.create();
 
-  const rayMissShaderModule = device.createShaderModule({
-    code: rayMissSrc
-  });
+  mat4.perspective(mProjection, (2 * Math.PI) / 5, -aspect, 0.1, 4096.0);
 
-  const stagedVertexBuffer = device.createBuffer({
-    size: modelVertices.byteLength,
-    usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
+  mat4.translate(mView, mView, vec3.fromValues(0, 0, -2));
+
+  // invert
+  mat4.invert(mView, mView);
+  mat4.invert(mProjection, mProjection);
+  mProjection[5] *= -1.0;
+
+  // rasterization shaders
+  const vertexShaderModule = device.createShaderModule({ code: vsSrc });
+  const fragmentShaderModule = device.createShaderModule({ code: fsSrc });
+
+  // ray-tracing shaders
+  const rayGenShaderModule = device.createShaderModule({ code: rayGenSrc });
+  const rayCHitShaderModule = device.createShaderModule({ code: rayCHitSrc });
+  const rayMissShaderModule = device.createShaderModule({ code: rayMissSrc });
+
+  const stagedUniformBuffer = device.createBuffer({
+    size: mView.byteLength + mProjection.byteLength,
+    usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.UNIFORM
   });
-  stagedVertexBuffer.setSubData(0, modelVertices);
+  stagedUniformBuffer.setSubData(0, mView);
+  stagedUniformBuffer.setSubData(mView.byteLength, mProjection);
 
   const stagedIndexBuffer = device.createBuffer({
     size: modelIndices.byteLength,
-    usage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST
+    usage: GPUBufferUsage.COPY_DST
   });
   stagedIndexBuffer.setSubData(0, modelIndices);
+
+  const stagedVertexBuffer = device.createBuffer({
+    size: modelVertices.byteLength,
+    usage: GPUBufferUsage.COPY_DST
+  });
+  stagedVertexBuffer.setSubData(0, modelVertices);
+
+  let pixelBufferSize = window.width * window.height * 4 * Float32Array.BYTES_PER_ELEMENT;
+  let pixelBuffer = device.createBuffer({
+    size: pixelBufferSize,
+    usage: GPUBufferUsage.STORAGE
+  });
+
+  let distance = 0;
+  let triangleRotation = 0;
 
   const geometry0 = {
     type: "triangles",
     vertexBuffer: stagedVertexBuffer,
-    vertexFormat: "float32",
+    vertexFormat: "float3",
     vertexStride: 3 * Float32Array.BYTES_PER_ELEMENT,
     indexBuffer: stagedIndexBuffer,
     indexFormat: "uint32",
@@ -176,7 +202,7 @@ const rayMissSrc = `
 
   const geometryContainer0 = device.createRayTracingAccelerationContainer({
     level: "bottom",
-    flag: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
+    flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
     geometries: [ geometry0 ]
   });
 
@@ -185,20 +211,19 @@ const rayMissSrc = `
     mask: 0xFF,
     instanceId: 0,
     instanceOffset: 0x0,
-    transform: new Float32Array(12),
+    transform: new Float32Array([
+      1.0, 0.0, 0.0, 0.0,
+      0.0, 1.0, 0.0, 0.0,
+      0.0, 0.0, 1.0, 0.0
+    ]),
     geometryContainer: geometryContainer0
   };
 
   const instanceContainer0 = device.createRayTracingAccelerationContainer({
     level: "top",
+    flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
     instances: [ instance0 ]
   });
-
-  const commandEncoder = device.createCommandEncoder({});
-  commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0);
-  commandEncoder.buildRayTracingAccelerationContainer(instanceContainer0);
-  const commandBuffer = commandEncoder.finish();
-  queue.submit([ commandBuffer ]);
 
   const shaderBindingTable = device.createRayTracingShaderBindingTable({
     shaders: [
@@ -217,36 +242,120 @@ const rayMissSrc = `
     ]
   });
 
-  const bindGroupLayout = device.createBindGroupLayout({
+  const rtBindGroupLayout = device.createBindGroupLayout({
     bindings: [
       {
         binding: 0,
-        visibility: GPUShaderStage.RAY_GENERATION | GPUShaderStage.RAY_CLOSEST_HIT | GPUShaderStage.RAY_MISS,
+        visibility: GPUShaderStage.RAY_GENERATION,
         type: "acceleration-container",
+        textureDimension: "2D"
+      },
+      {
+        binding: 1,
+        visibility: GPUShaderStage.RAY_GENERATION,
+        type: "storage-buffer",
+        textureDimension: "2D"
+      },
+      {
+        binding: 2,
+        visibility: GPUShaderStage.RAY_GENERATION,
+        type: "uniform-buffer",
         textureDimension: "2D"
       }
     ]
   });
 
-  const bindGroup = device.createBindGroup({
-    layout: bindGroupLayout,
-    bindings: [{
-      binding: 0,
-      accelerationContainer: instanceContainer0,
-      size: 0
-    }]
+  const rtBindGroup = device.createBindGroup({
+    layout: rtBindGroupLayout,
+    bindings: [
+      {
+        binding: 0,
+        accelerationContainer: instanceContainer0,
+        offset: 0,
+        size: 0
+      },
+      {
+        binding: 1,
+        buffer: pixelBuffer,
+        offset: 0,
+        size: pixelBufferSize
+      },
+      {
+        binding: 2,
+        buffer: stagedUniformBuffer,
+        offset: 0,
+        size: mView.byteLength + mProjection.byteLength
+      }
+    ]
   });
 
-  const layout = device.createPipelineLayout({
-    bindGroupLayouts: [bindGroupLayout]
-  });
-
-  const pipeline = device.createRayTracingPipeline({
-    layout,
+  const rtPipeline = device.createRayTracingPipeline({
+    layout: device.createPipelineLayout({
+      bindGroupLayouts: [rtBindGroupLayout]
+    }),
     rayTracingState: {
       shaderBindingTable,
       maxRecursionDepth: 1
     }
+  });
+
+  {
+    const commandEncoder = device.createCommandEncoder({});
+    commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0, false);
+    commandEncoder.buildRayTracingAccelerationContainer(instanceContainer0, false);
+    queue.submit([ commandEncoder.finish() ]);
+  }
+
+  const renderBindGroupLayout = device.createBindGroupLayout({
+    bindings: [
+      {
+        binding: 0,
+        visibility: GPUShaderStage.FRAGMENT,
+        type: "storage-buffer",
+        textureDimension: "2D"
+      }
+    ]
+  });
+
+  const renderBindGroup = device.createBindGroup({
+    layout: renderBindGroupLayout,
+    bindings: [
+      {
+        binding: 0,
+        buffer: pixelBuffer,
+        offset: 0,
+        size: pixelBufferSize
+      }
+    ]
+  });
+
+  const renderPipeline = device.createRenderPipeline({
+    layout: device.createPipelineLayout({
+      bindGroupLayouts: [renderBindGroupLayout]
+    }),
+    sampleCount: 1,
+    vertexStage: {
+      module: vertexShaderModule,
+      entryPoint: "main"
+    },
+    fragmentStage: {
+      module: fragmentShaderModule,
+      entryPoint: "main"
+    },
+    primitiveTopology: "triangle-list",
+    vertexState: {
+      indexFormat: "uint32",
+      vertexBuffers: []
+    },
+    rasterizationState: {
+      frontFace: "CCW",
+      cullMode: "none"
+    },
+    colorStates: [{
+      format: swapChainFormat,
+      alphaBlend: {},
+      colorBlend: {}
+    }]
   });
 
   function onFrame() {
@@ -254,16 +363,34 @@ const rayMissSrc = `
 
     const backBufferView = swapChain.getCurrentTextureView();
 
-    const commandEncoder = device.createCommandEncoder({});
+    // ray tracing pass
     {
-      const rayTracingPass = commandEncoder.beginRayTracingPass({});
-      rayTracingPass.setPipeline(pipeline);
-      rayTracingPass.setBindGroup(0, bindGroup);
-      rayTracingPass.traceRays(window.width, window.height, 1);
-      rayTracingPass.endPass();
+      const commandEncoder = device.createCommandEncoder({});
+      const passEncoder = commandEncoder.beginRayTracingPass({});
+      passEncoder.setPipeline(rtPipeline);
+      passEncoder.setBindGroup(0, rtBindGroup);
+      passEncoder.traceRays(window.width, window.height, 1);
+      passEncoder.endPass();
+      queue.submit([ commandEncoder.finish() ]);
+
     }
-    let commandBuffer = commandEncoder.finish();
-    queue.submit([ commandBuffer ]);
+    // rasterization pass
+    {
+      const commandEncoder = device.createCommandEncoder({});
+      const passEncoder = commandEncoder.beginRenderPass({
+        colorAttachments: [{
+          clearColor: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
+          loadOp: "clear",
+          storeOp: "store",
+          attachment: backBufferView
+        }]
+      });
+      passEncoder.setPipeline(renderPipeline);
+      passEncoder.setBindGroup(0, renderBindGroup);
+      passEncoder.draw(3, 1, 0, 0);
+      passEncoder.endPass();
+      queue.submit([ commandEncoder.finish() ]);
+    }
 
     swapChain.present();
     window.pollEvents();

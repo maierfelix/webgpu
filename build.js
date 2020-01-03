@@ -14,6 +14,8 @@ ncp.limit = 16;
 const dawnVersion = process.env.npm_config_dawnversion;
 if (!dawnVersion) throw `No Dawn version --dawnversion specified!`;
 
+const bypassBuild = !!process.env.npm_config_bypass_build;
+
 const msvsVersion = process.env.npm_config_msvsversion || "";
 
 const generatePath = `${pkg.config.GEN_OUT_DIR}/${dawnVersion}/${platform}`;
@@ -36,6 +38,10 @@ if (!fs.existsSync(generatePath)) {
   process.stderr.write(`Cannot find bindings for ${dawnVersion} in ${generatePath}\n`);
   process.stderr.write(`Exiting..\n`);
   return;
+}
+
+if (bypassBuild) {
+  process.stderr.write(`Skipping build..\n`);
 }
 
 // build
@@ -150,7 +156,9 @@ function actionsAfter() {
 
 (async function run() {
   await copyFiles();
-  let buildSuccess = await buildFiles();
+  if (!bypassBuild) {
+    let buildSuccess = await buildFiles();
+  }
   if (buildSuccess) {
     process.stdout.write(`\nSuccessfully compiled bindings for ${dawnVersion}!\n`);
   } else {

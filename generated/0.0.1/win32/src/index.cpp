@@ -161,6 +161,10 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
       Napi::String::New(env, "INDIRECT"),
       Napi::Number::New(env, 256)
     );
+    GPUBufferUsage.Set(
+      Napi::String::New(env, "RAY_TRACING"),
+      Napi::Number::New(env, 512)
+    );
   exports["GPUBufferUsage"] = GPUBufferUsage;
   
   Napi::Object GPUColorWriteMask = Napi::Object::New(env);

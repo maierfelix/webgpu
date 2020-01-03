@@ -62,7 +62,7 @@ Napi::Value GPUCommandEncoder::buildRayTracingAccelerationContainer(const Napi::
   WGPURayTracingAccelerationContainer container = Napi::ObjectWrap<GPURayTracingAccelerationContainer>::Unwrap(
     info[0].As<Napi::Object>()
   )->instance;
-  bool update = info[1].IsBoolean() ? info[0].As<Napi::Boolean>().Value() : false;
+  bool update = info[1].IsBoolean() ? info[1].As<Napi::Boolean>().Value() : false;
 
   wgpuCommandEncoderBuildRayTracingAccelerationContainer(commandEncoder, container, update);
 

@@ -50,11 +50,18 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
       delete source;
     }
     // code is 'Uint32Array'
-    else if (code.IsTypedArray() && code.As<Napi::TypedArray>().TypedArrayType() == napi_uint32_array) {
-      size_t size;
-      descriptor.code = getTypedArrayData<uint32_t>(code, &size);
-      descriptor.codeSize = static_cast<uint32_t>(size);
-      this->instance = wgpuDeviceCreateShaderModule(backendDevice, &descriptor);
+    else if (code.IsTypedArray()) {
+      if (code.As<Napi::TypedArray>().TypedArrayType() == napi_uint32_array) {
+        size_t size;
+        descriptor.code = getTypedArrayData<uint32_t>(code, &size);
+        descriptor.codeSize = static_cast<uint32_t>(size);
+        this->instance = wgpuDeviceCreateShaderModule(backendDevice, &descriptor);
+      } else {
+        uwDevice->throwCallbackError(
+          Napi::String::New(env, "TypeError"),
+          Napi::String::New(env, "Expected 'Uint32Array' for property 'code'")
+        );
+      }
     }
     // code is invalid type
     else {

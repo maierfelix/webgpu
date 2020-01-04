@@ -6822,14 +6822,12 @@
             "isNumber": true,
             "initialValue": "0",
             "rawType": "uint32_t",
-            "isOptional": true,
+            "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
             }
-          },
-          "defaultValue": "0",
-          "defaultValueNative": "0"
+          }
         },
         {
           "name": "vertexOffset",
@@ -6845,6 +6843,19 @@
           },
           "defaultValue": "0",
           "defaultValueNative": "0"
+        },
+        {
+          "name": "vertexCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
         },
         {
           "name": "indexBuffer",
@@ -6889,6 +6900,127 @@
           },
           "defaultValue": "0",
           "defaultValueNative": "0"
+        },
+        {
+          "name": "indexCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
+        }
+      ]
+    },
+    {
+      "name": "WGPUTransform3D",
+      "externalName": "GPUTransform3D",
+      "type": "structure",
+      "textName": "transform 3D",
+      "children": [
+        {
+          "name": "x",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0.0f",
+            "rawType": "float",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "0.0f",
+          "defaultValueNative": "0.0f"
+        },
+        {
+          "name": "y",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0.0f",
+            "rawType": "float",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "0.0f",
+          "defaultValueNative": "0.0f"
+        },
+        {
+          "name": "z",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0.0f",
+            "rawType": "float",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "0.0f",
+          "defaultValueNative": "0.0f"
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingAccelerationInstanceTransformDescriptor",
+      "externalName": "GPURayTracingAccelerationInstanceTransformDescriptor",
+      "type": "structure",
+      "textName": "ray tracing acceleration instance transform descriptor",
+      "children": [
+        {
+          "name": "translation",
+          "type": {
+            "isStructure": true,
+            "nativeType": "WGPUTransform3D",
+            "isReference": true,
+            "rawType": "const WGPUTransform3D*",
+            "isOptional": true,
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
+          },
+          "isOptional": true
+        },
+        {
+          "name": "rotation",
+          "type": {
+            "isStructure": true,
+            "nativeType": "WGPUTransform3D",
+            "isReference": true,
+            "rawType": "const WGPUTransform3D*",
+            "isOptional": true,
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
+          },
+          "isOptional": true
+        },
+        {
+          "name": "scale",
+          "type": {
+            "isStructure": true,
+            "nativeType": "WGPUTransform3D",
+            "isReference": true,
+            "rawType": "const WGPUTransform3D*",
+            "isOptional": true,
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
+          },
+          "isOptional": true
         }
       ]
     },
@@ -6959,32 +7091,19 @@
           "defaultValueNative": "0"
         },
         {
-          "name": "transformLength",
-          "type": {
-            "isNumber": true,
-            "initialValue": "0",
-            "rawType": "uint32_t",
-            "isRequired": true,
-            "jsType": {
-              "type": "Number",
-              "isNumber": true
-            }
-          },
-          "isInternalProperty": true
-        },
-        {
           "name": "transform",
           "type": {
-            "length": "transformLength",
+            "isStructure": true,
+            "nativeType": "WGPURayTracingAccelerationInstanceTransformDescriptor",
             "isReference": true,
-            "isArray": true,
-            "rawType": "const float*",
-            "isRequired": true,
+            "rawType": "const WGPURayTracingAccelerationInstanceTransformDescriptor*",
+            "isOptional": true,
             "jsType": {
-              "type": "FloatArray",
-              "isTypedArray": true
+              "type": "Object",
+              "isObject": true
             }
-          }
+          },
+          "isOptional": true
         },
         {
           "name": "geometryContainer",
@@ -7338,7 +7457,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"2D\"",
+          "defaultValueNative": 2
         },
         {
           "name": "textureComponentType",

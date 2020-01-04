@@ -721,7 +721,29 @@ namespace DescriptorDecoder {
   void DestroyGPURayTracingAccelerationGeometryDescriptor(WGPURayTracingAccelerationGeometryDescriptor descriptor) {
   };
   
+  void DestroyGPUTransform3D(WGPUTransform3D descriptor) {
+  };
+  
+  void DestroyGPURayTracingAccelerationInstanceTransformDescriptor(WGPURayTracingAccelerationInstanceTransformDescriptor descriptor) {
+    if (descriptor.translation != nullptr) {
+      DestroyGPUTransform3D(*descriptor.translation);
+      free((void*) const_cast<WGPUTransform3D*>(descriptor.translation));
+    };
+    if (descriptor.rotation != nullptr) {
+      DestroyGPUTransform3D(*descriptor.rotation);
+      free((void*) const_cast<WGPUTransform3D*>(descriptor.rotation));
+    };
+    if (descriptor.scale != nullptr) {
+      DestroyGPUTransform3D(*descriptor.scale);
+      free((void*) const_cast<WGPUTransform3D*>(descriptor.scale));
+    };
+  };
+  
   void DestroyGPURayTracingAccelerationInstanceDescriptor(WGPURayTracingAccelerationInstanceDescriptor descriptor) {
+    if (descriptor.transform != nullptr) {
+      DestroyGPURayTracingAccelerationInstanceTransformDescriptor(*descriptor.transform);
+      free((void*) const_cast<WGPURayTracingAccelerationInstanceTransformDescriptor*>(descriptor.transform));
+    };
   };
   
   void DestroyGPURayTracingAccelerationContainerDescriptor(WGPURayTracingAccelerationContainerDescriptor descriptor) {
@@ -1088,11 +1110,11 @@ namespace DescriptorDecoder {
     WGPURayTracingAccelerationGeometryDescriptor descriptor;
     // reset descriptor
   descriptor.vertexBuffer = nullptr;
-  descriptor.vertexStride = 0;
   descriptor.vertexOffset = 0;
   descriptor.indexBuffer = nullptr;
   descriptor.indexFormat = static_cast<WGPUIndexFormat>(2);
   descriptor.indexOffset = 0;
+  descriptor.indexCount = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(GPURayTracingAccelerationGeometryType(obj.Get("type").As<Napi::String>().Utf8Value()));
@@ -1104,14 +1126,13 @@ namespace DescriptorDecoder {
     }
     descriptor.vertexBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("vertexBuffer").As<Napi::Object>())->instance;
     descriptor.vertexFormat = static_cast<WGPUVertexFormat>(GPUVertexFormat(obj.Get("vertexFormat").As<Napi::String>().Utf8Value()));
-    if (obj.Has("vertexStride")) {
-      descriptor.vertexStride = obj.Get("vertexStride").As<Napi::Number>().Uint32Value();
-    }
+    descriptor.vertexStride = obj.Get("vertexStride").As<Napi::Number>().Uint32Value();
     if (obj.Has("vertexOffset")) {
       {
         descriptor.vertexOffset = static_cast<uint64_t>(obj.Get("vertexOffset").As<Napi::Number>().Uint32Value());
       }
     }
+    descriptor.vertexCount = obj.Get("vertexCount").As<Napi::Number>().Uint32Value();
     if (obj.Has("indexBuffer")) {
       if (!(obj.Get("indexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
@@ -1127,6 +1148,100 @@ namespace DescriptorDecoder {
     if (obj.Has("indexOffset")) {
       {
         descriptor.indexOffset = static_cast<uint64_t>(obj.Get("indexOffset").As<Napi::Number>().Uint32Value());
+      }
+    }
+    if (obj.Has("indexCount")) {
+      descriptor.indexCount = obj.Get("indexCount").As<Napi::Number>().Uint32Value();
+    }
+    return descriptor;
+  };
+  
+  WGPUTransform3D DecodeGPUTransform3D(GPUDevice* device, Napi::Value& value) {
+    WGPUTransform3D descriptor;
+    // reset descriptor
+  descriptor.x = 0.0f;
+  descriptor.y = 0.0f;
+  descriptor.z = 0.0f;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("x")) {
+      descriptor.x = obj.Get("x").As<Napi::Number>().FloatValue();
+    }
+    if (obj.Has("y")) {
+      descriptor.y = obj.Get("y").As<Napi::Number>().FloatValue();
+    }
+    if (obj.Has("z")) {
+      descriptor.z = obj.Get("z").As<Napi::Number>().FloatValue();
+    }
+    return descriptor;
+  };
+  
+  WGPURayTracingAccelerationInstanceTransformDescriptor DecodeGPURayTracingAccelerationInstanceTransformDescriptor(GPUDevice* device, Napi::Value& value) {
+    WGPURayTracingAccelerationInstanceTransformDescriptor descriptor;
+    // reset descriptor
+  descriptor.translation = nullptr;
+  descriptor.rotation = nullptr;
+  descriptor.scale = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("translation")) {
+        WGPUTransform3D translation;
+        translation.x = 0.0f;
+        translation.y = 0.0f;
+        translation.z = 0.0f;
+        Napi::Object $translation = obj.Get("translation").As<Napi::Object>();
+        if ($translation.Has("x")) {
+          translation.x = $translation.Get("x").As<Napi::Number>().FloatValue();
+        }
+        if ($translation.Has("y")) {
+          translation.y = $translation.Get("y").As<Napi::Number>().FloatValue();
+        }
+        if ($translation.Has("z")) {
+          translation.z = $translation.Get("z").As<Napi::Number>().FloatValue();
+        }
+      {
+        descriptor.translation = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+        memcpy(const_cast<WGPUTransform3D*>(descriptor.translation), &translation, sizeof(WGPUTransform3D));
+      }
+    }
+    if (obj.Has("rotation")) {
+        WGPUTransform3D rotation;
+        rotation.x = 0.0f;
+        rotation.y = 0.0f;
+        rotation.z = 0.0f;
+        Napi::Object $rotation = obj.Get("rotation").As<Napi::Object>();
+        if ($rotation.Has("x")) {
+          rotation.x = $rotation.Get("x").As<Napi::Number>().FloatValue();
+        }
+        if ($rotation.Has("y")) {
+          rotation.y = $rotation.Get("y").As<Napi::Number>().FloatValue();
+        }
+        if ($rotation.Has("z")) {
+          rotation.z = $rotation.Get("z").As<Napi::Number>().FloatValue();
+        }
+      {
+        descriptor.rotation = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+        memcpy(const_cast<WGPUTransform3D*>(descriptor.rotation), &rotation, sizeof(WGPUTransform3D));
+      }
+    }
+    if (obj.Has("scale")) {
+        WGPUTransform3D scale;
+        scale.x = 0.0f;
+        scale.y = 0.0f;
+        scale.z = 0.0f;
+        Napi::Object $scale = obj.Get("scale").As<Napi::Object>();
+        if ($scale.Has("x")) {
+          scale.x = $scale.Get("x").As<Napi::Number>().FloatValue();
+        }
+        if ($scale.Has("y")) {
+          scale.y = $scale.Get("y").As<Napi::Number>().FloatValue();
+        }
+        if ($scale.Has("z")) {
+          scale.z = $scale.Get("z").As<Napi::Number>().FloatValue();
+        }
+      {
+        descriptor.scale = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+        memcpy(const_cast<WGPUTransform3D*>(descriptor.scale), &scale, sizeof(WGPUTransform3D));
       }
     }
     return descriptor;
@@ -1155,10 +1270,76 @@ namespace DescriptorDecoder {
     if (obj.Has("instanceOffset")) {
       descriptor.instanceOffset = obj.Get("instanceOffset").As<Napi::Number>().Uint32Value();
     }
-    {
-      Napi::TypedArray array = obj.Get("transform").As<Napi::TypedArray>();
-      Napi::ArrayBuffer buffer = array.ArrayBuffer();
-      descriptor.transform = reinterpret_cast<const float*>(buffer.Data());
+    if (obj.Has("transform")) {
+        WGPURayTracingAccelerationInstanceTransformDescriptor transform;
+        transform.translation = nullptr;
+        transform.rotation = nullptr;
+        transform.scale = nullptr;
+        Napi::Object $transform = obj.Get("transform").As<Napi::Object>();
+        if ($transform.Has("translation")) {
+            WGPUTransform3D translation;
+            translation.x = 0.0f;
+            translation.y = 0.0f;
+            translation.z = 0.0f;
+            Napi::Object $translation = $transform.Get("translation").As<Napi::Object>();
+            if ($translation.Has("x")) {
+              translation.x = $translation.Get("x").As<Napi::Number>().FloatValue();
+            }
+            if ($translation.Has("y")) {
+              translation.y = $translation.Get("y").As<Napi::Number>().FloatValue();
+            }
+            if ($translation.Has("z")) {
+              translation.z = $translation.Get("z").As<Napi::Number>().FloatValue();
+            }
+          {
+            transform.translation = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+            memcpy(const_cast<WGPUTransform3D*>(transform.translation), &translation, sizeof(WGPUTransform3D));
+          }
+        }
+        if ($transform.Has("rotation")) {
+            WGPUTransform3D rotation;
+            rotation.x = 0.0f;
+            rotation.y = 0.0f;
+            rotation.z = 0.0f;
+            Napi::Object $rotation = $transform.Get("rotation").As<Napi::Object>();
+            if ($rotation.Has("x")) {
+              rotation.x = $rotation.Get("x").As<Napi::Number>().FloatValue();
+            }
+            if ($rotation.Has("y")) {
+              rotation.y = $rotation.Get("y").As<Napi::Number>().FloatValue();
+            }
+            if ($rotation.Has("z")) {
+              rotation.z = $rotation.Get("z").As<Napi::Number>().FloatValue();
+            }
+          {
+            transform.rotation = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+            memcpy(const_cast<WGPUTransform3D*>(transform.rotation), &rotation, sizeof(WGPUTransform3D));
+          }
+        }
+        if ($transform.Has("scale")) {
+            WGPUTransform3D scale;
+            scale.x = 0.0f;
+            scale.y = 0.0f;
+            scale.z = 0.0f;
+            Napi::Object $scale = $transform.Get("scale").As<Napi::Object>();
+            if ($scale.Has("x")) {
+              scale.x = $scale.Get("x").As<Napi::Number>().FloatValue();
+            }
+            if ($scale.Has("y")) {
+              scale.y = $scale.Get("y").As<Napi::Number>().FloatValue();
+            }
+            if ($scale.Has("z")) {
+              scale.z = $scale.Get("z").As<Napi::Number>().FloatValue();
+            }
+          {
+            transform.scale = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+            memcpy(const_cast<WGPUTransform3D*>(transform.scale), &scale, sizeof(WGPUTransform3D));
+          }
+        }
+      {
+        descriptor.transform = (WGPURayTracingAccelerationInstanceTransformDescriptor*) malloc(sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor));
+        memcpy(const_cast<WGPURayTracingAccelerationInstanceTransformDescriptor*>(descriptor.transform), &transform, sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor));
+      }
     }
     if (!(obj.Get("geometryContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
@@ -1308,6 +1489,7 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.hasDynamicOffset = false;
   descriptor.multisampled = false;
+  descriptor.textureDimension = static_cast<WGPUTextureViewDimension>(2);
   descriptor.textureComponentType = static_cast<WGPUTextureComponentType>(0);
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -2573,11 +2755,11 @@ namespace DescriptorDecoder {
   GPURayTracingAccelerationGeometryDescriptor::GPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, Napi::Value& value) {
     // reset descriptor
   descriptor.vertexBuffer = nullptr;
-  descriptor.vertexStride = 0;
   descriptor.vertexOffset = 0;
   descriptor.indexBuffer = nullptr;
   descriptor.indexFormat = static_cast<WGPUIndexFormat>(2);
   descriptor.indexOffset = 0;
+  descriptor.indexCount = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(GPURayTracingAccelerationGeometryType(obj.Get("type").As<Napi::String>().Utf8Value()));
@@ -2589,14 +2771,13 @@ namespace DescriptorDecoder {
     }
     descriptor.vertexBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("vertexBuffer").As<Napi::Object>())->instance;
     descriptor.vertexFormat = static_cast<WGPUVertexFormat>(GPUVertexFormat(obj.Get("vertexFormat").As<Napi::String>().Utf8Value()));
-    if (obj.Has("vertexStride")) {
-      descriptor.vertexStride = obj.Get("vertexStride").As<Napi::Number>().Uint32Value();
-    }
+    descriptor.vertexStride = obj.Get("vertexStride").As<Napi::Number>().Uint32Value();
     if (obj.Has("vertexOffset")) {
       {
         descriptor.vertexOffset = static_cast<uint64_t>(obj.Get("vertexOffset").As<Napi::Number>().Uint32Value());
       }
     }
+    descriptor.vertexCount = obj.Get("vertexCount").As<Napi::Number>().Uint32Value();
     if (obj.Has("indexBuffer")) {
       if (!(obj.Get("indexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
@@ -2614,9 +2795,105 @@ namespace DescriptorDecoder {
         descriptor.indexOffset = static_cast<uint64_t>(obj.Get("indexOffset").As<Napi::Number>().Uint32Value());
       }
     }
+    if (obj.Has("indexCount")) {
+      descriptor.indexCount = obj.Get("indexCount").As<Napi::Number>().Uint32Value();
+    }
   };
   GPURayTracingAccelerationGeometryDescriptor::~GPURayTracingAccelerationGeometryDescriptor() {
     DestroyGPURayTracingAccelerationGeometryDescriptor(descriptor);
+  };
+  
+  GPUTransform3D::GPUTransform3D(GPUDevice* device, Napi::Value& value) {
+    // reset descriptor
+  descriptor.x = 0.0f;
+  descriptor.y = 0.0f;
+  descriptor.z = 0.0f;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("x")) {
+      descriptor.x = obj.Get("x").As<Napi::Number>().FloatValue();
+    }
+    if (obj.Has("y")) {
+      descriptor.y = obj.Get("y").As<Napi::Number>().FloatValue();
+    }
+    if (obj.Has("z")) {
+      descriptor.z = obj.Get("z").As<Napi::Number>().FloatValue();
+    }
+  };
+  GPUTransform3D::~GPUTransform3D() {
+    DestroyGPUTransform3D(descriptor);
+  };
+  
+  GPURayTracingAccelerationInstanceTransformDescriptor::GPURayTracingAccelerationInstanceTransformDescriptor(GPUDevice* device, Napi::Value& value) {
+    // reset descriptor
+  descriptor.translation = nullptr;
+  descriptor.rotation = nullptr;
+  descriptor.scale = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("translation")) {
+        WGPUTransform3D translation;
+        translation.x = 0.0f;
+        translation.y = 0.0f;
+        translation.z = 0.0f;
+        Napi::Object $translation = obj.Get("translation").As<Napi::Object>();
+        if ($translation.Has("x")) {
+          translation.x = $translation.Get("x").As<Napi::Number>().FloatValue();
+        }
+        if ($translation.Has("y")) {
+          translation.y = $translation.Get("y").As<Napi::Number>().FloatValue();
+        }
+        if ($translation.Has("z")) {
+          translation.z = $translation.Get("z").As<Napi::Number>().FloatValue();
+        }
+      {
+        descriptor.translation = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+        memcpy(const_cast<WGPUTransform3D*>(descriptor.translation), &translation, sizeof(WGPUTransform3D));
+      }
+    }
+    if (obj.Has("rotation")) {
+        WGPUTransform3D rotation;
+        rotation.x = 0.0f;
+        rotation.y = 0.0f;
+        rotation.z = 0.0f;
+        Napi::Object $rotation = obj.Get("rotation").As<Napi::Object>();
+        if ($rotation.Has("x")) {
+          rotation.x = $rotation.Get("x").As<Napi::Number>().FloatValue();
+        }
+        if ($rotation.Has("y")) {
+          rotation.y = $rotation.Get("y").As<Napi::Number>().FloatValue();
+        }
+        if ($rotation.Has("z")) {
+          rotation.z = $rotation.Get("z").As<Napi::Number>().FloatValue();
+        }
+      {
+        descriptor.rotation = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+        memcpy(const_cast<WGPUTransform3D*>(descriptor.rotation), &rotation, sizeof(WGPUTransform3D));
+      }
+    }
+    if (obj.Has("scale")) {
+        WGPUTransform3D scale;
+        scale.x = 0.0f;
+        scale.y = 0.0f;
+        scale.z = 0.0f;
+        Napi::Object $scale = obj.Get("scale").As<Napi::Object>();
+        if ($scale.Has("x")) {
+          scale.x = $scale.Get("x").As<Napi::Number>().FloatValue();
+        }
+        if ($scale.Has("y")) {
+          scale.y = $scale.Get("y").As<Napi::Number>().FloatValue();
+        }
+        if ($scale.Has("z")) {
+          scale.z = $scale.Get("z").As<Napi::Number>().FloatValue();
+        }
+      {
+        descriptor.scale = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+        memcpy(const_cast<WGPUTransform3D*>(descriptor.scale), &scale, sizeof(WGPUTransform3D));
+      }
+    }
+  };
+  GPURayTracingAccelerationInstanceTransformDescriptor::~GPURayTracingAccelerationInstanceTransformDescriptor() {
+    DestroyGPURayTracingAccelerationInstanceTransformDescriptor(descriptor);
   };
   
   GPURayTracingAccelerationInstanceDescriptor::GPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, Napi::Value& value) {
@@ -2641,10 +2918,76 @@ namespace DescriptorDecoder {
     if (obj.Has("instanceOffset")) {
       descriptor.instanceOffset = obj.Get("instanceOffset").As<Napi::Number>().Uint32Value();
     }
-    {
-      Napi::TypedArray array = obj.Get("transform").As<Napi::TypedArray>();
-      Napi::ArrayBuffer buffer = array.ArrayBuffer();
-      descriptor.transform = reinterpret_cast<const float*>(buffer.Data());
+    if (obj.Has("transform")) {
+        WGPURayTracingAccelerationInstanceTransformDescriptor transform;
+        transform.translation = nullptr;
+        transform.rotation = nullptr;
+        transform.scale = nullptr;
+        Napi::Object $transform = obj.Get("transform").As<Napi::Object>();
+        if ($transform.Has("translation")) {
+            WGPUTransform3D translation;
+            translation.x = 0.0f;
+            translation.y = 0.0f;
+            translation.z = 0.0f;
+            Napi::Object $translation = $transform.Get("translation").As<Napi::Object>();
+            if ($translation.Has("x")) {
+              translation.x = $translation.Get("x").As<Napi::Number>().FloatValue();
+            }
+            if ($translation.Has("y")) {
+              translation.y = $translation.Get("y").As<Napi::Number>().FloatValue();
+            }
+            if ($translation.Has("z")) {
+              translation.z = $translation.Get("z").As<Napi::Number>().FloatValue();
+            }
+          {
+            transform.translation = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+            memcpy(const_cast<WGPUTransform3D*>(transform.translation), &translation, sizeof(WGPUTransform3D));
+          }
+        }
+        if ($transform.Has("rotation")) {
+            WGPUTransform3D rotation;
+            rotation.x = 0.0f;
+            rotation.y = 0.0f;
+            rotation.z = 0.0f;
+            Napi::Object $rotation = $transform.Get("rotation").As<Napi::Object>();
+            if ($rotation.Has("x")) {
+              rotation.x = $rotation.Get("x").As<Napi::Number>().FloatValue();
+            }
+            if ($rotation.Has("y")) {
+              rotation.y = $rotation.Get("y").As<Napi::Number>().FloatValue();
+            }
+            if ($rotation.Has("z")) {
+              rotation.z = $rotation.Get("z").As<Napi::Number>().FloatValue();
+            }
+          {
+            transform.rotation = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+            memcpy(const_cast<WGPUTransform3D*>(transform.rotation), &rotation, sizeof(WGPUTransform3D));
+          }
+        }
+        if ($transform.Has("scale")) {
+            WGPUTransform3D scale;
+            scale.x = 0.0f;
+            scale.y = 0.0f;
+            scale.z = 0.0f;
+            Napi::Object $scale = $transform.Get("scale").As<Napi::Object>();
+            if ($scale.Has("x")) {
+              scale.x = $scale.Get("x").As<Napi::Number>().FloatValue();
+            }
+            if ($scale.Has("y")) {
+              scale.y = $scale.Get("y").As<Napi::Number>().FloatValue();
+            }
+            if ($scale.Has("z")) {
+              scale.z = $scale.Get("z").As<Napi::Number>().FloatValue();
+            }
+          {
+            transform.scale = (WGPUTransform3D*) malloc(sizeof(WGPUTransform3D));
+            memcpy(const_cast<WGPUTransform3D*>(transform.scale), &scale, sizeof(WGPUTransform3D));
+          }
+        }
+      {
+        descriptor.transform = (WGPURayTracingAccelerationInstanceTransformDescriptor*) malloc(sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor));
+        memcpy(const_cast<WGPURayTracingAccelerationInstanceTransformDescriptor*>(descriptor.transform), &transform, sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor));
+      }
     }
     if (!(obj.Get("geometryContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
@@ -2799,6 +3142,7 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.hasDynamicOffset = false;
   descriptor.multisampled = false;
+  descriptor.textureDimension = static_cast<WGPUTextureViewDimension>(2);
   descriptor.textureComponentType = static_cast<WGPUTextureComponentType>(0);
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();

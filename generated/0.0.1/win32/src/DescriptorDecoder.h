@@ -110,6 +110,10 @@ namespace DescriptorDecoder {
   
   WGPURayTracingAccelerationGeometryDescriptor DecodeGPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, Napi::Value& value);
   
+  WGPUTransform3D DecodeGPUTransform3D(GPUDevice* device, Napi::Value& value);
+  
+  WGPURayTracingAccelerationInstanceTransformDescriptor DecodeGPURayTracingAccelerationInstanceTransformDescriptor(GPUDevice* device, Napi::Value& value);
+  
   WGPURayTracingAccelerationInstanceDescriptor DecodeGPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, Napi::Value& value);
   
   WGPURayTracingAccelerationContainerDescriptor DecodeGPURayTracingAccelerationContainerDescriptor(GPUDevice* device, Napi::Value& value);
@@ -216,6 +220,24 @@ namespace DescriptorDecoder {
       WGPURayTracingAccelerationGeometryDescriptor* operator &() { return &descriptor; };
     private:
       WGPURayTracingAccelerationGeometryDescriptor descriptor;
+  };
+  
+  class GPUTransform3D {
+    public:
+      GPUTransform3D(GPUDevice* device, Napi::Value& value);
+      ~GPUTransform3D();
+      WGPUTransform3D* operator &() { return &descriptor; };
+    private:
+      WGPUTransform3D descriptor;
+  };
+  
+  class GPURayTracingAccelerationInstanceTransformDescriptor {
+    public:
+      GPURayTracingAccelerationInstanceTransformDescriptor(GPUDevice* device, Napi::Value& value);
+      ~GPURayTracingAccelerationInstanceTransformDescriptor();
+      WGPURayTracingAccelerationInstanceTransformDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingAccelerationInstanceTransformDescriptor descriptor;
   };
   
   class GPURayTracingAccelerationInstanceDescriptor {
@@ -619,6 +641,10 @@ namespace DescriptorDecoder {
   void DestroyGPUBindGroupBinding(WGPUBindGroupBinding descriptor);
   
   void DestroyGPURayTracingAccelerationGeometryDescriptor(WGPURayTracingAccelerationGeometryDescriptor descriptor);
+  
+  void DestroyGPUTransform3D(WGPUTransform3D descriptor);
+  
+  void DestroyGPURayTracingAccelerationInstanceTransformDescriptor(WGPURayTracingAccelerationInstanceTransformDescriptor descriptor);
   
   void DestroyGPURayTracingAccelerationInstanceDescriptor(WGPURayTracingAccelerationInstanceDescriptor descriptor);
   

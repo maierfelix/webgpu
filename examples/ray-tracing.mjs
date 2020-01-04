@@ -106,16 +106,6 @@ const rayMissSrc = `
 
 (async function main() {
 
-  const modelVertices = new Float32Array([
-     1.0,  1.0, 0.0,
-    -1.0,  1.0, 0.0,
-     0.0, -1.0, 0.0,
-  ]);
-
-  const modelIndices = new Uint32Array([
-    0, 1, 2
-  ]);
-
   const window = new WebGPUWindow({
     width: 640,
     height: 480,
@@ -170,59 +160,78 @@ const rayMissSrc = `
   stagedUniformBuffer.setSubData(0, mView);
   stagedUniformBuffer.setSubData(mView.byteLength, mProjection);
 
-  const stagedIndexBuffer = device.createBuffer({
-    size: modelIndices.byteLength,
-    usage: GPUBufferUsage.COPY_DST
-  });
-  stagedIndexBuffer.setSubData(0, modelIndices);
-
-  const stagedVertexBuffer = device.createBuffer({
-    size: modelVertices.byteLength,
-    usage: GPUBufferUsage.COPY_DST
-  });
-  stagedVertexBuffer.setSubData(0, modelVertices);
-
   let pixelBufferSize = window.width * window.height * 4 * Float32Array.BYTES_PER_ELEMENT;
   let pixelBuffer = device.createBuffer({
     size: pixelBufferSize,
     usage: GPUBufferUsage.STORAGE
   });
 
-  let distance = 0;
-  let triangleRotation = 0;
+  const triangleVertices = new Float32Array([
+     1.0,  1.0, 0.0,
+    -1.0,  1.0, 0.0,
+     0.0, -1.0, 0.0
+  ]);
+  const triangleVertexBuffer = device.createBuffer({
+    size: triangleVertices.byteLength,
+    usage: GPUBufferUsage.COPY_DST
+  });
+  triangleVertexBuffer.setSubData(0, triangleVertices);
 
-  const geometry0 = {
-    type: "triangles",
-    vertexBuffer: stagedVertexBuffer,
-    vertexFormat: "float3",
-    vertexStride: 3 * Float32Array.BYTES_PER_ELEMENT,
-    indexBuffer: stagedIndexBuffer,
-    indexFormat: "uint32",
-  };
+  const triangleIndices = new Uint32Array([
+    0, 1, 2
+  ]);
+  const triangleIndexBuffer = device.createBuffer({
+    size: triangleIndices.byteLength,
+    usage: GPUBufferUsage.COPY_DST
+  });
+  triangleIndexBuffer.setSubData(0, triangleIndices);
 
   const geometryContainer0 = device.createRayTracingAccelerationContainer({
     level: "bottom",
     flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
-    geometries: [ geometry0 ]
+    geometries: [
+      {
+        type: "triangles",
+        vertexBuffer: triangleVertexBuffer,
+        vertexFormat: "float3",
+        vertexStride: 3 * Float32Array.BYTES_PER_ELEMENT,
+        vertexCount: triangleVertices.length,
+        indexBuffer: triangleIndexBuffer,
+        indexFormat: "uint32",
+        indexCount: triangleIndices.length
+      }
+    ]
   });
-
-  const instance0 = {
-    flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
-    mask: 0xFF,
-    instanceId: 0,
-    instanceOffset: 0x0,
-    transform: new Float32Array([
-      1.0, 0.0, 0.0, 0.0,
-      0.0, 1.0, 0.0, 0.0,
-      0.0, 0.0, 1.0, 0.0
-    ]),
-    geometryContainer: geometryContainer0
-  };
 
   const instanceContainer0 = device.createRayTracingAccelerationContainer({
     level: "top",
     flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
-    instances: [ instance0 ]
+    instances: [
+      {
+        flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
+        mask: 0xFF,
+        instanceId: 0,
+        instanceOffset: 0x0,
+        transform: {
+          translation: { x: 0, y: 0, z: 0 },
+          rotation: { x: 0, y: 0, z: 0 },
+          scale: { x: 1, y: 1, z: 1 }
+        },
+        geometryContainer: geometryContainer0
+      },
+      {
+        flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
+        mask: 0xFF,
+        instanceId: 0,
+        instanceOffset: 0x0,
+        transform: {
+          translation: { x: 1, y: 0, z: 0.01 },
+          rotation: { x: 0, y: 0, z: 0 },
+          scale: { x: 0.5, y: 0.5, z: 0.75 }
+        },
+        geometryContainer: geometryContainer0
+      }
+    ]
   });
 
   const shaderBindingTable = device.createRayTracingShaderBindingTable({
@@ -247,20 +256,17 @@ const rayMissSrc = `
       {
         binding: 0,
         visibility: GPUShaderStage.RAY_GENERATION,
-        type: "acceleration-container",
-        textureDimension: "2D"
+        type: "acceleration-container"
       },
       {
         binding: 1,
         visibility: GPUShaderStage.RAY_GENERATION,
-        type: "storage-buffer",
-        textureDimension: "2D"
+        type: "storage-buffer"
       },
       {
         binding: 2,
         visibility: GPUShaderStage.RAY_GENERATION,
-        type: "uniform-buffer",
-        textureDimension: "2D"
+        type: "uniform-buffer"
       }
     ]
   });

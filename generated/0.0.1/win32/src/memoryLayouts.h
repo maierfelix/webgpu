@@ -92,6 +92,12 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
   }
   {
     Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, vertexCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::vertexCount)));
+    sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "vertexCount"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
     obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, indexBuffer)));
     obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::indexBuffer)));
     sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "indexBuffer"), obj);
@@ -108,8 +114,56 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
     obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::indexOffset)));
     sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "indexOffset"), obj);
   }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationGeometryDescriptor, indexCount)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor::indexCount)));
+    sWGPURayTracingAccelerationGeometryDescriptor.Set(Napi::String::New(env, "indexCount"), obj);
+  }
   sWGPURayTracingAccelerationGeometryDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationGeometryDescriptor)));
   out.Set(Napi::String::New(env, "WGPURayTracingAccelerationGeometryDescriptor"), sWGPURayTracingAccelerationGeometryDescriptor);
+  Napi::Object sWGPUTransform3D = Napi::Object::New(env);
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTransform3D, x)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTransform3D::x)));
+    sWGPUTransform3D.Set(Napi::String::New(env, "x"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTransform3D, y)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTransform3D::y)));
+    sWGPUTransform3D.Set(Napi::String::New(env, "y"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUTransform3D, z)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTransform3D::z)));
+    sWGPUTransform3D.Set(Napi::String::New(env, "z"), obj);
+  }
+  sWGPUTransform3D.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUTransform3D)));
+  out.Set(Napi::String::New(env, "WGPUTransform3D"), sWGPUTransform3D);
+  Napi::Object sWGPURayTracingAccelerationInstanceTransformDescriptor = Napi::Object::New(env);
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationInstanceTransformDescriptor, translation)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor::translation)));
+    sWGPURayTracingAccelerationInstanceTransformDescriptor.Set(Napi::String::New(env, "translation"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationInstanceTransformDescriptor, rotation)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor::rotation)));
+    sWGPURayTracingAccelerationInstanceTransformDescriptor.Set(Napi::String::New(env, "rotation"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationInstanceTransformDescriptor, scale)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor::scale)));
+    sWGPURayTracingAccelerationInstanceTransformDescriptor.Set(Napi::String::New(env, "scale"), obj);
+  }
+  sWGPURayTracingAccelerationInstanceTransformDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor)));
+  out.Set(Napi::String::New(env, "WGPURayTracingAccelerationInstanceTransformDescriptor"), sWGPURayTracingAccelerationInstanceTransformDescriptor);
   Napi::Object sWGPURayTracingAccelerationInstanceDescriptor = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
@@ -134,12 +188,6 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
     obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationInstanceDescriptor, instanceOffset)));
     obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceDescriptor::instanceOffset)));
     sWGPURayTracingAccelerationInstanceDescriptor.Set(Napi::String::New(env, "instanceOffset"), obj);
-  }
-  {
-    Napi::Object obj = Napi::Object::New(env);
-    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationInstanceDescriptor, transformLength)));
-    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceDescriptor::transformLength)));
-    sWGPURayTracingAccelerationInstanceDescriptor.Set(Napi::String::New(env, "transformLength"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);

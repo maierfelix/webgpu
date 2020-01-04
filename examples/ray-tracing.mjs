@@ -100,7 +100,7 @@ const rayMissSrc = `
   layout(location = 0) rayPayloadInNV vec3 hitValue;
 
   void main() {
-    hitValue = vec3(0.1);
+    hitValue = vec3(0.15);
   }
 `;
 
@@ -225,8 +225,20 @@ const rayMissSrc = `
         instanceId: 0,
         instanceOffset: 0x0,
         transform: {
-          translation: { x: 1, y: 0, z: 0.01 },
-          rotation: { x: 0, y: 0, z: 0 },
+          translation: { x: 0.9, y: -0.25, z: 0.01 },
+          rotation: { x: 0, y: 0, z: 55 },
+          scale: { x: 0.5, y: 0.5, z: 0.75 }
+        },
+        geometryContainer: geometryContainer0
+      },
+      {
+        flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
+        mask: 0xFF,
+        instanceId: 0,
+        instanceOffset: 0x0,
+        transform: {
+          translation: { x: -0.9, y: -0.25, z: 0.01 },
+          rotation: { x: 0, y: 0, z: -55 },
           scale: { x: 0.5, y: 0.5, z: 0.75 }
         },
         geometryContainer: geometryContainer0

@@ -69,6 +69,23 @@ Napi::Value GPUCommandEncoder::buildRayTracingAccelerationContainer(const Napi::
   return env.Undefined();
 }
 
+Napi::Value GPUCommandEncoder::copyRayTracingAccelerationContainer(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+
+  WGPUCommandEncoder commandEncoder = this->instance;
+
+  WGPURayTracingAccelerationContainer srcContainer = Napi::ObjectWrap<GPURayTracingAccelerationContainer>::Unwrap(
+    info[0].As<Napi::Object>()
+  )->instance;
+  WGPURayTracingAccelerationContainer dstContainer = Napi::ObjectWrap<GPURayTracingAccelerationContainer>::Unwrap(
+    info[1].As<Napi::Object>()
+  )->instance;
+
+  wgpuCommandEncoderCopyRayTracingAccelerationContainer(commandEncoder, srcContainer, dstContainer);
+
+  return env.Undefined();
+}
+
 Napi::Value GPUCommandEncoder::copyBufferToBuffer(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
@@ -198,6 +215,11 @@ Napi::Object GPUCommandEncoder::Initialize(Napi::Env env, Napi::Object exports) 
     InstanceMethod(
       "buildRayTracingAccelerationContainer",
       &GPUCommandEncoder::buildRayTracingAccelerationContainer,
+      napi_enumerable
+    ),
+    InstanceMethod(
+      "copyRayTracingAccelerationContainer",
+      &GPUCommandEncoder::copyRayTracingAccelerationContainer,
       napi_enumerable
     ),
     InstanceMethod(

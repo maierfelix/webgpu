@@ -3371,6 +3371,45 @@
           }
         },
         {
+          "name": "copyRayTracingAccelerationContainer",
+          "children": [
+            {
+              "name": "srcContainer",
+              "type": {
+                "isObject": true,
+                "nativeType": "WGPURayTracingAccelerationContainer",
+                "rawType": "WGPURayTracingAccelerationContainer",
+                "isRequired": true,
+                "jsType": {
+                  "type": "WGPURayTracingAccelerationContainer",
+                  "isObject": true
+                }
+              }
+            },
+            {
+              "name": "dstContainer",
+              "type": {
+                "isObject": true,
+                "nativeType": "WGPURayTracingAccelerationContainer",
+                "rawType": "WGPURayTracingAccelerationContainer",
+                "isRequired": true,
+                "jsType": {
+                  "type": "WGPURayTracingAccelerationContainer",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
           "name": "copyBufferToBuffer",
           "children": [
             {

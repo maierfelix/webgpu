@@ -203,6 +203,35 @@ const rayMissSrc = `
     ]
   });
 
+  const geometryContainer1 = device.createRayTracingAccelerationContainer({
+    level: "bottom",
+    flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
+    geometries: [
+      {
+        type: "triangles",
+        vertexBuffer: triangleVertexBuffer,
+        vertexFormat: "float3",
+        vertexStride: 3 * Float32Array.BYTES_PER_ELEMENT,
+        vertexCount: triangleVertices.length,
+        indexBuffer: triangleIndexBuffer,
+        indexFormat: "uint32",
+        indexCount: triangleIndices.length
+      }
+    ]
+  });
+
+  {
+    const commandEncoder = device.createCommandEncoder({});
+    commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0, false);
+    queue.submit([ commandEncoder.finish() ]);
+  }
+
+  {
+    const commandEncoder = device.createCommandEncoder({});
+    commandEncoder.copyRayTracingAccelerationContainer(geometryContainer0, geometryContainer1);
+    queue.submit([ commandEncoder.finish() ]);
+  }
+
   const instanceContainer0 = device.createRayTracingAccelerationContainer({
     level: "top",
     flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
@@ -241,10 +270,16 @@ const rayMissSrc = `
           rotation: { x: 0, y: 0, z: -55 },
           scale: { x: 0.5, y: 0.5, z: 0.75 }
         },
-        geometryContainer: geometryContainer0
+        geometryContainer: geometryContainer1
       }
     ]
   });
+
+  {
+    const commandEncoder = device.createCommandEncoder({});
+    commandEncoder.buildRayTracingAccelerationContainer(instanceContainer0, false);
+    queue.submit([ commandEncoder.finish() ]);
+  }
 
   const shaderBindingTable = device.createRayTracingShaderBindingTable({
     shaders: [
@@ -316,13 +351,6 @@ const rayMissSrc = `
       maxRecursionDepth: 1
     }
   });
-
-  {
-    const commandEncoder = device.createCommandEncoder({});
-    commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0, false);
-    commandEncoder.buildRayTracingAccelerationContainer(instanceContainer0, false);
-    queue.submit([ commandEncoder.finish() ]);
-  }
 
   const renderBindGroupLayout = device.createBindGroupLayout({
     bindings: [

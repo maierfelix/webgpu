@@ -11,7 +11,8 @@ Object.assign(global, glMatrix);
   let window = new WebGPUWindow({
     width: 640,
     height: 480,
-    title: "WebGPU"
+    title: "WebGPU",
+    resizable: false
   });
 
   let adapter = await GPU.requestAdapter({
@@ -265,13 +266,25 @@ Object.assign(global, glMatrix);
     }
   });
 
+  let resolutionUniformBuffer = device.createBuffer({
+    size: 2 * Float32Array.BYTES_PER_ELEMENT,
+    usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.UNIFORM
+  });
+  resolutionUniformBuffer.setSubData(0, new Float32Array([
+    window.width, window.height
+  ]));
+
   let renderBindGroupLayout = device.createBindGroupLayout({
     bindings: [
       {
         binding: 0,
         visibility: GPUShaderStage.FRAGMENT,
-        type: "storage-buffer",
-        textureDimension: "2D"
+        type: "storage-buffer"
+      },
+      {
+        binding: 1,
+        visibility: GPUShaderStage.FRAGMENT,
+        type: "uniform-buffer"
       }
     ]
   });
@@ -284,6 +297,12 @@ Object.assign(global, glMatrix);
         buffer: pixelBuffer,
         offset: 0,
         size: pixelBufferSize
+      },
+      {
+        binding: 1,
+        buffer: resolutionUniformBuffer,
+        offset: 0,
+        size: 2 * Float32Array.BYTES_PER_ELEMENT
       }
     ]
   });

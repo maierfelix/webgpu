@@ -8,7 +8,9 @@ layout(std140, set = 0, binding = 0) buffer PixelBuffer {
   vec4 pixels[];
 } pixelBuffer;
 
-const vec2 resolution = vec2(640, 480);
+layout(set = 0, binding = 1) uniform ScreenDimension {
+  vec2 resolution;
+};
 
 void main() {
   const ivec2 bufferCoord = ivec2(floor(uv * resolution));

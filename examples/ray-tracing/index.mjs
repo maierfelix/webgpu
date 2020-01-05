@@ -68,27 +68,6 @@ Object.assign(global, glMatrix);
     code: fs.readFileSync(`${baseShaderPath}/ray-miss.rmiss`, "utf-8")
   });
 
-  // camera uniform buffer
-  let cameraData = new Float32Array(
-    // (mat4) view
-    mView.byteLength +
-    // (mat4) projection
-    mProjection.byteLength
-  );
-  let cameraUniformBuffer = device.createBuffer({
-    size: cameraData.byteLength,
-    usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.UNIFORM
-  });
-  // fill in the data
-  {
-    let offset = 0x0;
-    cameraData.set(mView, offset);
-    offset += mView.length;
-    cameraData.set(mProjection, offset);
-    offset += mProjection.length;
-  }
-  cameraUniformBuffer.setSubData(0, cameraData);
-
   // this storage buffer is used as a pixel buffer
   // the result of the ray tracing pass gets written into it
   // and it gets copied to the screen in the rasterization pass
@@ -232,6 +211,26 @@ Object.assign(global, glMatrix);
     ]
   });
 
+  let cameraData = new Float32Array(
+    // (mat4) view
+    mView.byteLength +
+    // (mat4) projection
+    mProjection.byteLength
+  );
+  let cameraUniformBuffer = device.createBuffer({
+    size: cameraData.byteLength,
+    usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.UNIFORM
+  });
+  // fill in the data
+  {
+    let offset = 0x0;
+    cameraData.set(mView, offset);
+    offset += mView.length;
+    cameraData.set(mProjection, offset);
+    offset += mProjection.length;
+  }
+  cameraUniformBuffer.setSubData(0, cameraData);
+
   let rtBindGroup = device.createBindGroup({
     layout: rtBindGroupLayout,
     bindings: [
@@ -266,13 +265,14 @@ Object.assign(global, glMatrix);
     }
   });
 
+  let resolutionData = new Float32Array([
+    window.width, window.height
+  ]);
   let resolutionUniformBuffer = device.createBuffer({
-    size: 2 * Float32Array.BYTES_PER_ELEMENT,
+    size: resolutionData.byteLength,
     usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.UNIFORM
   });
-  resolutionUniformBuffer.setSubData(0, new Float32Array([
-    window.width, window.height
-  ]));
+  resolutionUniformBuffer.setSubData(0, resolutionData);
 
   let renderBindGroupLayout = device.createBindGroupLayout({
     bindings: [
@@ -302,7 +302,7 @@ Object.assign(global, glMatrix);
         binding: 1,
         buffer: resolutionUniformBuffer,
         offset: 0,
-        size: 2 * Float32Array.BYTES_PER_ELEMENT
+        size: resolutionData.byteLength
       }
     ]
   });

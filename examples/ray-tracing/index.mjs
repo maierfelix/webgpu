@@ -1,108 +1,10 @@
-import WebGPU from "../index.js";
+import WebGPU from "../../index.js";
+
+import fs from "fs";
 import glMatrix from "gl-matrix";
 
 Object.assign(global, WebGPU);
 Object.assign(global, glMatrix);
-
-const vsSrc = `
-  #version 450
-  #pragma shader_stage(vertex)
-
-  layout (location = 0) out vec2 uv;
-
-  void main() {
-    vec2 pos = vec2((gl_VertexIndex << 1) & 2, gl_VertexIndex & 2);
-    gl_Position = vec4(pos * 2.0 - 1.0, 0.0, 1.0);
-    uv = pos;
-  }
-`;
-
-const fsSrc = `
-  #version 450
-  #pragma shader_stage(fragment)
-
-  layout (location = 0) in vec2 uv;
-  layout (location = 0) out vec4 outColor;
-
-  layout(std140, set = 0, binding = 0) buffer PixelBuffer {
-    vec4 pixels[];
-  } pixelBuffer;
-
-  const vec2 resolution = vec2(640, 480);
-
-  void main() {
-    const ivec2 bufferCoord = ivec2(floor(uv * resolution));
-    const vec2 fragCoord = (uv * resolution);
-    const uint pixelIndex = bufferCoord.y * uint(resolution.x) + bufferCoord.x;
-
-    vec4 pixelColor = pixelBuffer.pixels[pixelIndex];
-    outColor = pixelColor;
-  }
-`;
-
-const rayGenSrc = `
-  #version 460
-  #extension GL_NV_ray_tracing : require
-  #pragma shader_stage(raygen)
-
-  layout(location = 0) rayPayloadNV vec3 hitValue;
-
-  layout(binding = 0, set = 0) uniform accelerationStructureNV topLevelAS;
-
-  layout(std140, set = 0, binding = 1) buffer PixelBuffer {
-    vec4 pixels[];
-  } pixelBuffer;
-
-  layout(set = 0, binding = 2) uniform Camera {
-    mat4 view;
-    mat4 projection;
-  } uCamera;
-
-  void main() {
-    ivec2 ipos = ivec2(gl_LaunchIDNV.xy);
-    const ivec2 resolution = ivec2(gl_LaunchSizeNV.xy);
-
-    const vec2 offset = vec2(0);
-    const vec2 pixel = vec2(ipos.x, ipos.y);
-    const vec2 uv = (pixel / gl_LaunchSizeNV.xy) * 2.0 - 1.0;
-
-    vec4 origin = uCamera.view * vec4(offset, 0, 1);
-    vec4 target = uCamera.projection * (vec4(uv.x, uv.y, 1, 1));
-    vec4 direction = uCamera.view * vec4(normalize(target.xyz), 0);
-
-    traceNV(topLevelAS, gl_RayFlagsOpaqueNV, 0xFF, 0, 0, 0, origin.xyz, 0.01, direction.xyz, 4096.0, 0);
-
-    const uint pixelIndex = ipos.y * resolution.x + ipos.x;
-    pixelBuffer.pixels[pixelIndex] = vec4(hitValue, 1);
-  }
-`;
-
-const rayCHitSrc = `
-  #version 460
-  #extension GL_NV_ray_tracing : require
-  #pragma shader_stage(closest)
-
-  layout(location = 0) rayPayloadInNV vec3 hitValue;
-
-  hitAttributeNV vec3 attribs;
-
-  void main() {
-    const vec3 bary = vec3(1.0f - attribs.x - attribs.y, attribs.x, attribs.y);
-    hitValue = bary;
-  }
-`;
-
-const rayMissSrc = `
-  #version 460
-  #extension GL_NV_ray_tracing : require
-  #pragma shader_stage(miss)
-
-  layout(location = 0) rayPayloadInNV vec3 hitValue;
-
-  void main() {
-    hitValue = vec3(0.15);
-  }
-`;
 
 (async function main() {
 
@@ -144,14 +46,26 @@ const rayMissSrc = `
   mat4.invert(mProjection, mProjection);
   mProjection[5] *= -1.0;
 
+  let baseShaderPath = `examples/ray-tracing/shaders`;
+
   // rasterization shaders
-  let vertexShaderModule = device.createShaderModule({ code: vsSrc });
-  let fragmentShaderModule = device.createShaderModule({ code: fsSrc });
+  let vertexShaderModule = device.createShaderModule({
+    code: fs.readFileSync(`${baseShaderPath}/screen.vert`, "utf-8")
+  });
+  let fragmentShaderModule = device.createShaderModule({
+    code: fs.readFileSync(`${baseShaderPath}/screen.frag`, "utf-8")
+  });
 
   // ray-tracing shaders
-  let rayGenShaderModule = device.createShaderModule({ code: rayGenSrc });
-  let rayCHitShaderModule = device.createShaderModule({ code: rayCHitSrc });
-  let rayMissShaderModule = device.createShaderModule({ code: rayMissSrc });
+  let rayGenShaderModule = device.createShaderModule({
+    code: fs.readFileSync(`${baseShaderPath}/ray-generation.rgen`, "utf-8")
+  });
+  let rayCHitShaderModule = device.createShaderModule({
+    code: fs.readFileSync(`${baseShaderPath}/ray-closest-hit.rchit`, "utf-8")
+  });
+  let rayMissShaderModule = device.createShaderModule({
+    code: fs.readFileSync(`${baseShaderPath}/ray-miss.rmiss`, "utf-8")
+  });
 
   // camera uniform buffer
   let cameraData = new Float32Array(
@@ -204,7 +118,7 @@ const rayMissSrc = `
   triangleIndexBuffer.setSubData(0, triangleIndices);
 
   // create a geometry container
-  // which holds references to our geometry
+  // which holds references to our geometry buffers
   let geometryContainer0 = device.createRayTracingAccelerationContainer({
     level: "bottom",
     flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
@@ -224,7 +138,7 @@ const rayMissSrc = `
 
   // create an instance container
   // which contains object instances with transforms
-  // and links to the geometry container
+  // and links to a geometry container to be used
   let instanceContainer0 = device.createRayTracingAccelerationContainer({
     level: "top",
     flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,

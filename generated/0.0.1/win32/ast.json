@@ -2473,7 +2473,7 @@
           "value": 4
         },
         {
-          "name": "NO_OPAQUE",
+          "name": "FORCE_NO_OPAQUE",
           "type": {
             "isNumber": true,
             "nativeType": "uint32_t",
@@ -2483,18 +2483,6 @@
             }
           },
           "value": 8
-        },
-        {
-          "name": "COPY_DST",
-          "type": {
-            "isNumber": true,
-            "nativeType": "uint32_t",
-            "jsType": {
-              "isNumber": true,
-              "type": "Number"
-            }
-          },
-          "value": 16
         }
       ]
     },

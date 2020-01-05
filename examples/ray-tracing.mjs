@@ -188,7 +188,7 @@ const rayMissSrc = `
 
   const geometryContainer0 = device.createRayTracingAccelerationContainer({
     level: "bottom",
-    flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
+    flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE | GPURayTracingAccelerationContainerFlag.ALLOW_UPDATE,
     geometries: [
       {
         type: "triangles",
@@ -229,6 +229,19 @@ const rayMissSrc = `
   {
     const commandEncoder = device.createCommandEncoder({});
     commandEncoder.copyRayTracingAccelerationContainer(geometryContainer0, geometryContainer1);
+    queue.submit([ commandEncoder.finish() ]);
+  }
+
+  // update the acceleration container and its geometry
+  {
+    // update geometry
+    triangleVertexBuffer.setSubData(0, new Float32Array([
+       1.25,  1.0, 0.0,
+      -1.25,  1.0, 0.0,
+       0.25, -1.0, 0.0
+    ]));
+    const commandEncoder = device.createCommandEncoder({});
+    commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0, true);
     queue.submit([ commandEncoder.finish() ]);
   }
 

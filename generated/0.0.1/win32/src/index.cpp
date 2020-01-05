@@ -88,12 +88,8 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
       Napi::Number::New(env, 4)
     );
     GPURayTracingAccelerationInstanceFlag.Set(
-      Napi::String::New(env, "NO_OPAQUE"),
+      Napi::String::New(env, "FORCE_NO_OPAQUE"),
       Napi::Number::New(env, 8)
-    );
-    GPURayTracingAccelerationInstanceFlag.Set(
-      Napi::String::New(env, "COPY_DST"),
-      Napi::Number::New(env, 16)
     );
   exports["GPURayTracingAccelerationInstanceFlag"] = GPURayTracingAccelerationInstanceFlag;
   

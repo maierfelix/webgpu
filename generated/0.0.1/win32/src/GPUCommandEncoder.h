@@ -19,6 +19,7 @@ class GPUCommandEncoder : public Napi::ObjectWrap<GPUCommandEncoder> {
 
     Napi::Value buildRayTracingAccelerationContainer(const Napi::CallbackInfo &info);
     Napi::Value copyRayTracingAccelerationContainer(const Napi::CallbackInfo &info);
+    Napi::Value updateRayTracingAccelerationContainer(const Napi::CallbackInfo &info);
 
     Napi::Value copyBufferToBuffer(const Napi::CallbackInfo &info);
     Napi::Value copyBufferToTexture(const Napi::CallbackInfo &info);

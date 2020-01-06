@@ -3334,19 +3334,6 @@
                   "isObject": true
                 }
               }
-            },
-            {
-              "name": "update",
-              "type": {
-                "isBoolean": true,
-                "initialValue": "false",
-                "rawType": "bool",
-                "isOptional": true,
-                "jsType": {
-                  "type": "Boolean",
-                  "isBoolean": true
-                }
-              }
             }
           ],
           "type": {
@@ -3376,6 +3363,32 @@
             },
             {
               "name": "dstContainer",
+              "type": {
+                "isObject": true,
+                "nativeType": "WGPURayTracingAccelerationContainer",
+                "rawType": "WGPURayTracingAccelerationContainer",
+                "isRequired": true,
+                "jsType": {
+                  "type": "WGPURayTracingAccelerationContainer",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
+          "name": "updateRayTracingAccelerationContainer",
+          "children": [
+            {
+              "name": "container",
               "type": {
                 "isObject": true,
                 "nativeType": "WGPURayTracingAccelerationContainer",

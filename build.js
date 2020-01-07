@@ -156,8 +156,11 @@ function actionsAfter() {
 
 (async function run() {
   await copyFiles();
+  let buildSuccess = false;
   if (!bypassBuild) {
-    let buildSuccess = await buildFiles();
+    buildSuccess = await buildFiles();
+  } else {
+    buildSuccess = true;
   }
   if (buildSuccess) {
     process.stdout.write(`\nSuccessfully compiled bindings for ${dawnVersion}!\n`);

@@ -167,8 +167,8 @@ Object.assign(global, glMatrix);
   // an instance container, if it has a geometry reference into it
   {
     let commandEncoder = device.createCommandEncoder({});
-    commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0, false);
-    commandEncoder.buildRayTracingAccelerationContainer(instanceContainer0, false);
+    commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0);
+    commandEncoder.buildRayTracingAccelerationContainer(instanceContainer0);
     queue.submit([ commandEncoder.finish() ]);
   }
 

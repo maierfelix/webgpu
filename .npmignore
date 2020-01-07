@@ -112,6 +112,8 @@ PATH_TO_DAWN
 
 package-lock.json
 
+node_modules
+
 examples-dev
 
 lib

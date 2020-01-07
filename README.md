@@ -1,6 +1,6 @@
 # webgpu
 
-This is a WebGPU API for native JavaScript, based on chromium's [Dawn Project](https://dawn.googlesource.com/dawn/)
+This is a WebGPU API for native JavaScript, based on a [Fork](https://github.com/maierfelix/dawn-ray-tracing) of Chromium's [Dawn Project](https://dawn.googlesource.com/dawn/).
 
 ### Platforms:
 

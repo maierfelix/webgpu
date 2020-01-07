@@ -19,6 +19,7 @@ npm install webgpu
 
 ## Examples
 ````
+cd examples & npm install & cd ..
 node --experimental-modules examples/interactive-triangle.mjs
 ````
 

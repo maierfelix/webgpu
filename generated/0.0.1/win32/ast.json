@@ -3032,6 +3032,18 @@
               "isNumber": true
             }
           }
+        },
+        {
+          "name": "destroy",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
         }
       ]
     },

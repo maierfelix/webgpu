@@ -24,10 +24,20 @@ GPURayTracingAccelerationContainer::~GPURayTracingAccelerationContainer() {
   wgpuRayTracingAccelerationContainerRelease(this->instance);
 }
 
+Napi::Value GPURayTracingAccelerationContainer::destroy(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  wgpuRayTracingAccelerationContainerDestroy(this->instance);
+  return env.Undefined();
+}
+
 Napi::Object GPURayTracingAccelerationContainer::Initialize(Napi::Env env, Napi::Object exports) {
   Napi::HandleScope scope(env);
   Napi::Function func = DefineClass(env, "GPURayTracingAccelerationContainer", {
-
+    InstanceMethod(
+      "destroy",
+      &GPURayTracingAccelerationContainer::destroy,
+      napi_enumerable
+    )
   });
   constructor = Napi::Persistent(func);
   constructor.SuppressDestruct();

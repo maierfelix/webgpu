@@ -22,8 +22,8 @@ template<typename T> inline T* getTypedArrayData(Napi::Value& value, size_t* len
   }
   Napi::TypedArray arr = value.As<Napi::TypedArray>();
   Napi::ArrayBuffer buffer = arr.ArrayBuffer();
-  if (len) *len = buffer.ByteLength() / sizeof(T);
-  data = reinterpret_cast<T*>(buffer.Data());
+  if (len) *len = arr.ByteLength() / sizeof(T);
+  data = reinterpret_cast<T*>(reinterpret_cast<uint64_t>(buffer.Data()) + arr.ByteOffset());
   return data;
 };
 

@@ -2984,7 +2984,20 @@
       "externalName": "GPURayTracingAccelerationContainer",
       "type": "object",
       "textName": "ray tracing acceleration container",
-      "children": []
+      "children": [
+        {
+          "name": "destroy",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        }
+      ]
     },
     {
       "name": "WGPURayTracingShaderBindingTable",

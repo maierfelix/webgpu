@@ -13,6 +13,8 @@ class GPURayTracingAccelerationContainer : public Napi::ObjectWrap<GPURayTracing
     GPURayTracingAccelerationContainer(const Napi::CallbackInfo &info);
     ~GPURayTracingAccelerationContainer();
 
+    Napi::Value destroy(const Napi::CallbackInfo &info);
+
     Napi::ObjectReference device;
 
     WGPURayTracingAccelerationContainer instance;

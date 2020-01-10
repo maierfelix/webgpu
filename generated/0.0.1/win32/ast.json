@@ -3006,34 +3006,6 @@
       "textName": "ray tracing shader binding table",
       "children": [
         {
-          "name": "getOffset",
-          "children": [
-            {
-              "name": "shaderStage",
-              "type": {
-                "isBitmask": true,
-                "nativeType": "WGPUShaderStage",
-                "rawType": "WGPUShaderStage",
-                "isRequired": true,
-                "jsType": {
-                  "type": "Number",
-                  "isNumber": true
-                }
-              }
-            }
-          ],
-          "type": {
-            "isNumber": true,
-            "initialValue": "0",
-            "rawType": "uint32_t",
-            "isRequired": true,
-            "jsType": {
-              "type": "Number",
-              "isNumber": true
-            }
-          }
-        },
-        {
           "name": "destroy",
           "children": [],
           "type": {

@@ -24,18 +24,6 @@ GPURayTracingShaderBindingTable::~GPURayTracingShaderBindingTable() {
   wgpuRayTracingShaderBindingTableRelease(this->instance);
 }
 
-Napi::Value GPURayTracingShaderBindingTable::getOffset(const Napi::CallbackInfo &info) {
-  Napi::Env env = info.Env();
-
-  WGPUShaderStageFlags shaderStage = static_cast<WGPUShaderStageFlags>(
-    info[0].As<Napi::Number>().Uint32Value()
-  );
-
-  uint32_t offset = wgpuRayTracingShaderBindingTableGetOffset(this->instance, shaderStage);
-
-  return Napi::Number::New(env, offset);
-}
-
 Napi::Value GPURayTracingShaderBindingTable::destroy(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
   wgpuRayTracingShaderBindingTableDestroy(this->instance);
@@ -45,11 +33,6 @@ Napi::Value GPURayTracingShaderBindingTable::destroy(const Napi::CallbackInfo &i
 Napi::Object GPURayTracingShaderBindingTable::Initialize(Napi::Env env, Napi::Object exports) {
   Napi::HandleScope scope(env);
   Napi::Function func = DefineClass(env, "GPURayTracingShaderBindingTable", {
-    InstanceMethod(
-      "getOffset",
-      &GPURayTracingShaderBindingTable::getOffset,
-      napi_enumerable
-    ),
     InstanceMethod(
       "destroy",
       &GPURayTracingShaderBindingTable::destroy,

@@ -13,8 +13,6 @@ class GPURayTracingShaderBindingTable : public Napi::ObjectWrap<GPURayTracingSha
     GPURayTracingShaderBindingTable(const Napi::CallbackInfo &info);
     ~GPURayTracingShaderBindingTable();
 
-    Napi::Value getOffset(const Napi::CallbackInfo &info);
-
     Napi::Value destroy(const Napi::CallbackInfo &info);
 
     Napi::ObjectReference device;

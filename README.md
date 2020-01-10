@@ -23,6 +23,15 @@ cd examples & npm install & cd ..
 node --experimental-modules examples/interactive-triangle.mjs
 ````
 
+## TODOs
+ - Add CTS
+ - Get a build setup similar to Dawn?
+ - Compile for Linux and MacOS
+ - Rework GPUBuffer, mainly the mapping part
+ - Research for a better Error callback system
+ - Cleanup the code generator for descriptor decoding
+ - Add ArrayBuffer neutering to GPUBuffer on unmapping ([this issue](https://github.com/nodejs/node-addon-api/issues/541) previously blocked me to add it)
+
 ## Building
 
 You have to build [dawn](https://dawn.googlesource.com/dawn) as a shared library.

@@ -63,7 +63,7 @@ Napi::Value GPURayTracingPassEncoder::setBindGroup(const Napi::CallbackInfo &inf
 
   WGPUBindGroup group = Napi::ObjectWrap<GPUBindGroup>::Unwrap(info[1].As<Napi::Object>())->instance;
 
-  uint32_t dynamicOffsetCount;
+  uint32_t dynamicOffsetCount = 0;
   std::vector<uint32_t> dynamicOffsets;
   if (info[2].IsArray()) {
     Napi::Array array = info[2].As<Napi::Array>();

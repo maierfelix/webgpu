@@ -55,8 +55,8 @@ class GPUDevice : public Napi::ObjectWrap<GPUDevice> {
 
     WGPUDevice instance;
   private:
-    Napi::Object GPUDevice::createQueue(const Napi::CallbackInfo& info);
-    BackendBinding* GPUDevice::createBinding(const Napi::CallbackInfo& info, WGPUDevice device);
+    Napi::Object createQueue(const Napi::CallbackInfo& info);
+    BackendBinding* createBinding(const Napi::CallbackInfo& info, WGPUDevice device);
 
 };
 

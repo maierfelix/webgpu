@@ -4,7 +4,7 @@
 #define NAPI_EXPERIMENTAL
 #include <napi.h>
 
-inline char* getNAPIStringCopy(Napi::Value& value) {
+inline char* getNAPIStringCopy(const Napi::Value& value) {
   std::string utf8 = value.ToString().Utf8Value();
   int len = utf8.length() + 1; // +1 NULL
   char *str = new char[len];
@@ -12,7 +12,7 @@ inline char* getNAPIStringCopy(Napi::Value& value) {
   return str;
 };
 
-template<typename T> inline T* getTypedArrayData(Napi::Value& value, size_t* len = nullptr) {
+template<typename T> inline T* getTypedArrayData(const Napi::Value& value, size_t* len = nullptr) {
   T* data = nullptr;
   if (len) *len = 0;
   if (!value.IsTypedArray()) {

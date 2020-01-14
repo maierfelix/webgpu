@@ -23,13 +23,14 @@
       "conditions": []
     },
     {
-      "sources": [
-        "src/*.cpp"
-      ],
       "conditions": [
         [
+
           "OS=='win'",
           {
+            "sources": [
+              "src/*.cpp"
+            ],
             "target_name": "addon-win32",
             "cflags!": [
               "-fno-exceptions"
@@ -94,7 +95,90 @@
                 ]
               }
             }
+          },
+          "OS=='mac'",
+          {
+            "sources": [
+              "src/index.cpp",
+              "src/BackendBinding.cpp",
+              "src/DescriptorDecoder.cpp",
+              "src/GPU.cpp",
+              "src/GPUAdapter.cpp",
+              "src/GPUBindGroup.cpp",
+              "src/GPUBindGroupLayout.cpp",
+              "src/GPUBuffer.cpp",
+              "src/GPUCanvasContext.cpp",
+              "src/GPUCommandBuffer.cpp",
+              "src/GPUCommandEncoder.cpp",
+              "src/GPUComputePassEncoder.cpp",
+              "src/GPUComputePipeline.cpp",
+              "src/GPUDevice.cpp",
+              "src/GPUFence.cpp",
+              "src/GPUPipelineLayout.cpp",
+              "src/GPUQueue.cpp",
+              "src/GPURayTracingAccelerationContainer.cpp",
+              "src/GPURayTracingPassEncoder.cpp",
+              "src/GPURayTracingPipeline.cpp",
+              "src/GPURayTracingShaderBindingTable.cpp",
+              "src/GPURenderBundle.cpp",
+              "src/GPURenderBundleEncoder.cpp",
+              "src/GPURenderPassEncoder.cpp",
+              "src/GPURenderPipeline.cpp",
+              "src/GPUSampler.cpp",
+              "src/GPUShaderModule.cpp",
+              "src/GPUSwapChain.cpp",
+              "src/GPUTexture.cpp",
+              "src/GPUTextureView.cpp",
+              "src/NullBinding.cpp",
+              "src/WebGPUWindow.cpp",
+              "src/MetalBinding.mm"
+            ],
+            "target_name": "addon-darwin",
+            "defines": [
+              "DAWN_ENABLE_BACKEND_NULL",
+              "DAWN_ENABLE_BACKEND_METAL",
+              "DAWN_NATIVE_SHARED_LIBRARY",
+              "DAWN_WIRE_SHARED_LIBRARY",
+              "WGPU_SHARED_LIBRARY",
+              "NAPI_DISABLE_CPP_EXCEPTIONS"
+            ],
+            "include_dirs": [
+              "<!@(node -p \"require('node-addon-api').include\")",
+              "<(root)/lib/include",
+              "<(dawn)/src/include",
+              "<(dawn)/out/Shared/gen",
+              "<(dawn)/out/Shared/gen/src/include",
+              "<(dawn)/third_party/shaderc/libshaderc/include",
+              "<(dawn)/third_party/shaderc/libshaderc/src/shaderc.cc",
+              "<(dawn)/third_party/shaderc/libshaderc/src/shaderc_private.h"
+            ],
+            "libraries": [
+              "<(release)/libdawn_native.dylib",
+              "<(release)/libc++.dylib",
+              "<(release)/libdawn_proc.dylib",
+              "<(release)/libdawn_wire.dylib",
+              "<(release)/libshaderc_spvc.dylib",
+              "<(release)/libshaderc.dylib",
+              "<(release)/../../<(root)/lib/<(platform)/<(target_arch)/GLFW/libglfw3.a"
+            ],
+            "xcode_settings": {
+              "OTHER_CPLUSPLUSFLAGS": [
+                "-std=c++14",
+                "-stdlib=libc++"
+              ],
+              "OTHER_LDFLAGS": [
+                "-Wl,-rpath,<(release)",
+                "-framework Cocoa",
+                "-framework IOKit",
+                "-framework Metal",
+                "-framework QuartzCore"
+              ],
+              "LIBRARY_SEARCH_PATHS": [
+                "<(release)"
+              ]
+            }
           }
+
         ]
       ]
     }

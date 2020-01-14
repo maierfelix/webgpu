@@ -106,107 +106,107 @@ namespace DescriptorDecoder {
   
 
   
-  WGPUBindGroupBinding DecodeGPUBindGroupBinding(GPUDevice* device, Napi::Value& value);
+  WGPUBindGroupBinding DecodeGPUBindGroupBinding(GPUDevice* device, const Napi::Value& value);
   
-  WGPURayTracingAccelerationGeometryDescriptor DecodeGPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPURayTracingAccelerationGeometryDescriptor DecodeGPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPUTransform3D DecodeGPUTransform3D(GPUDevice* device, Napi::Value& value);
+  WGPUTransform3D DecodeGPUTransform3D(GPUDevice* device, const Napi::Value& value);
   
-  WGPURayTracingAccelerationInstanceTransformDescriptor DecodeGPURayTracingAccelerationInstanceTransformDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPURayTracingAccelerationInstanceTransformDescriptor DecodeGPURayTracingAccelerationInstanceTransformDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPURayTracingAccelerationInstanceDescriptor DecodeGPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPURayTracingAccelerationInstanceDescriptor DecodeGPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPURayTracingAccelerationContainerDescriptor DecodeGPURayTracingAccelerationContainerDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPURayTracingAccelerationContainerDescriptor DecodeGPURayTracingAccelerationContainerDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPURayTracingShaderBindingTableShadersDescriptor DecodeGPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPURayTracingShaderBindingTableShadersDescriptor DecodeGPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPURayTracingShaderBindingTableDescriptor DecodeGPURayTracingShaderBindingTableDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPURayTracingShaderBindingTableDescriptor DecodeGPURayTracingShaderBindingTableDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPUBindGroupDescriptor DecodeGPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUBindGroupDescriptor DecodeGPUBindGroupDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUBindGroupLayoutBinding DecodeGPUBindGroupLayoutBinding(GPUDevice* device, Napi::Value& value);
+  WGPUBindGroupLayoutBinding DecodeGPUBindGroupLayoutBinding(GPUDevice* device, const Napi::Value& value);
   
-  WGPUBindGroupLayoutDescriptor DecodeGPUBindGroupLayoutDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUBindGroupLayoutDescriptor DecodeGPUBindGroupLayoutDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUBlendDescriptor DecodeGPUBlendDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPUBlendDescriptor DecodeGPUBlendDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPUColorStateDescriptor DecodeGPUColorStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUColorStateDescriptor DecodeGPUColorStateDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUBufferCopyView DecodeGPUBufferCopyView(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUBufferCopyView DecodeGPUBufferCopyView(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUBufferDescriptor DecodeGPUBufferDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUBufferDescriptor DecodeGPUBufferDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUCreateBufferMappedResult DecodeGPUCreateBufferMappedResult(GPUDevice* device, Napi::Value& value);
+  WGPUCreateBufferMappedResult DecodeGPUCreateBufferMappedResult(GPUDevice* device, const Napi::Value& value);
   
-  WGPUColor DecodeGPUColor(GPUDevice* device, Napi::Value& value);
+  WGPUColor DecodeGPUColor(GPUDevice* device, const Napi::Value& value);
   
-  WGPUCommandBufferDescriptor DecodeGPUCommandBufferDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUCommandBufferDescriptor DecodeGPUCommandBufferDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUCommandEncoderDescriptor DecodeGPUCommandEncoderDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUCommandEncoderDescriptor DecodeGPUCommandEncoderDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUComputePassDescriptor DecodeGPUComputePassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUComputePassDescriptor DecodeGPUComputePassDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUComputePipelineDescriptor DecodeGPUComputePipelineDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUComputePipelineDescriptor DecodeGPUComputePipelineDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPURayTracingPassDescriptor DecodeGPURayTracingPassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPURayTracingPassDescriptor DecodeGPURayTracingPassDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPURayTracingStateDescriptor DecodeGPURayTracingStateDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPURayTracingStateDescriptor DecodeGPURayTracingStateDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPURayTracingPipelineDescriptor DecodeGPURayTracingPipelineDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPURayTracingPipelineDescriptor DecodeGPURayTracingPipelineDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPUDeviceProperties DecodeGPUDeviceProperties(GPUDevice* device, Napi::Value& value);
+  WGPUDeviceProperties DecodeGPUDeviceProperties(GPUDevice* device, const Napi::Value& value);
   
-  WGPUDepthStencilStateDescriptor DecodeGPUDepthStencilStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUDepthStencilStateDescriptor DecodeGPUDepthStencilStateDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUExtent3D DecodeGPUExtent3D(GPUDevice* device, Napi::Value& value);
+  WGPUExtent3D DecodeGPUExtent3D(GPUDevice* device, const Napi::Value& value);
   
-  WGPUFenceDescriptor DecodeGPUFenceDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUFenceDescriptor DecodeGPUFenceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUVertexAttributeDescriptor DecodeGPUVertexAttributeDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPUVertexAttributeDescriptor DecodeGPUVertexAttributeDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPUVertexBufferLayoutDescriptor DecodeGPUVertexBufferLayoutDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPUVertexBufferLayoutDescriptor DecodeGPUVertexBufferLayoutDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPUVertexStateDescriptor DecodeGPUVertexStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUVertexStateDescriptor DecodeGPUVertexStateDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUOrigin3D DecodeGPUOrigin3D(GPUDevice* device, Napi::Value& value);
+  WGPUOrigin3D DecodeGPUOrigin3D(GPUDevice* device, const Napi::Value& value);
   
-  WGPUPipelineLayoutDescriptor DecodeGPUPipelineLayoutDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUPipelineLayoutDescriptor DecodeGPUPipelineLayoutDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUProgrammableStageDescriptor DecodeGPUProgrammableStageDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUProgrammableStageDescriptor DecodeGPUProgrammableStageDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPURasterizationStateDescriptor DecodeGPURasterizationStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPURasterizationStateDescriptor DecodeGPURasterizationStateDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPURenderBundleDescriptor DecodeGPURenderBundleDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPURenderBundleDescriptor DecodeGPURenderBundleDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPURenderBundleEncoderDescriptor DecodeGPURenderBundleEncoderDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPURenderBundleEncoderDescriptor DecodeGPURenderBundleEncoderDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPURenderPassColorAttachmentDescriptor DecodeGPURenderPassColorAttachmentDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPURenderPassColorAttachmentDescriptor DecodeGPURenderPassColorAttachmentDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPURenderPassDepthStencilAttachmentDescriptor DecodeGPURenderPassDepthStencilAttachmentDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPURenderPassDepthStencilAttachmentDescriptor DecodeGPURenderPassDepthStencilAttachmentDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPURenderPassDescriptor DecodeGPURenderPassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPURenderPassDescriptor DecodeGPURenderPassDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPURenderPipelineDescriptor DecodeGPURenderPipelineDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPURenderPipelineDescriptor DecodeGPURenderPipelineDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUSamplerDescriptor DecodeGPUSamplerDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUSamplerDescriptor DecodeGPUSamplerDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUShaderModuleDescriptor DecodeGPUShaderModuleDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUShaderModuleDescriptor DecodeGPUShaderModuleDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUStencilStateFaceDescriptor DecodeGPUStencilStateFaceDescriptor(GPUDevice* device, Napi::Value& value);
+  WGPUStencilStateFaceDescriptor DecodeGPUStencilStateFaceDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPUSwapChainDescriptor DecodeGPUSwapChainDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUSwapChainDescriptor DecodeGPUSwapChainDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUTextureCopyView DecodeGPUTextureCopyView(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUTextureCopyView DecodeGPUTextureCopyView(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUTextureDescriptor DecodeGPUTextureDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUTextureDescriptor DecodeGPUTextureDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
-  WGPUTextureViewDescriptor DecodeGPUTextureViewDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+  WGPUTextureViewDescriptor DecodeGPUTextureViewDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
 
   
   class GPUBindGroupBinding {
     public:
-      GPUBindGroupBinding(GPUDevice* device, Napi::Value& value);
+      GPUBindGroupBinding(GPUDevice* device, const Napi::Value& value);
       ~GPUBindGroupBinding();
       WGPUBindGroupBinding* operator &() { return &descriptor; };
     private:
@@ -215,7 +215,7 @@ namespace DescriptorDecoder {
   
   class GPURayTracingAccelerationGeometryDescriptor {
     public:
-      GPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, Napi::Value& value);
+      GPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPURayTracingAccelerationGeometryDescriptor();
       WGPURayTracingAccelerationGeometryDescriptor* operator &() { return &descriptor; };
     private:
@@ -224,7 +224,7 @@ namespace DescriptorDecoder {
   
   class GPUTransform3D {
     public:
-      GPUTransform3D(GPUDevice* device, Napi::Value& value);
+      GPUTransform3D(GPUDevice* device, const Napi::Value& value);
       ~GPUTransform3D();
       WGPUTransform3D* operator &() { return &descriptor; };
     private:
@@ -233,7 +233,7 @@ namespace DescriptorDecoder {
   
   class GPURayTracingAccelerationInstanceTransformDescriptor {
     public:
-      GPURayTracingAccelerationInstanceTransformDescriptor(GPUDevice* device, Napi::Value& value);
+      GPURayTracingAccelerationInstanceTransformDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPURayTracingAccelerationInstanceTransformDescriptor();
       WGPURayTracingAccelerationInstanceTransformDescriptor* operator &() { return &descriptor; };
     private:
@@ -242,7 +242,7 @@ namespace DescriptorDecoder {
   
   class GPURayTracingAccelerationInstanceDescriptor {
     public:
-      GPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, Napi::Value& value);
+      GPURayTracingAccelerationInstanceDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPURayTracingAccelerationInstanceDescriptor();
       WGPURayTracingAccelerationInstanceDescriptor* operator &() { return &descriptor; };
     private:
@@ -251,7 +251,7 @@ namespace DescriptorDecoder {
   
   class GPURayTracingAccelerationContainerDescriptor {
     public:
-      GPURayTracingAccelerationContainerDescriptor(GPUDevice* device, Napi::Value& value);
+      GPURayTracingAccelerationContainerDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPURayTracingAccelerationContainerDescriptor();
       WGPURayTracingAccelerationContainerDescriptor* operator &() { return &descriptor; };
     private:
@@ -260,7 +260,7 @@ namespace DescriptorDecoder {
   
   class GPURayTracingShaderBindingTableShadersDescriptor {
     public:
-      GPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, Napi::Value& value);
+      GPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPURayTracingShaderBindingTableShadersDescriptor();
       WGPURayTracingShaderBindingTableShadersDescriptor* operator &() { return &descriptor; };
     private:
@@ -269,7 +269,7 @@ namespace DescriptorDecoder {
   
   class GPURayTracingShaderBindingTableDescriptor {
     public:
-      GPURayTracingShaderBindingTableDescriptor(GPUDevice* device, Napi::Value& value);
+      GPURayTracingShaderBindingTableDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPURayTracingShaderBindingTableDescriptor();
       WGPURayTracingShaderBindingTableDescriptor* operator &() { return &descriptor; };
     private:
@@ -278,7 +278,7 @@ namespace DescriptorDecoder {
   
   class GPUBindGroupDescriptor {
     public:
-      GPUBindGroupDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUBindGroupDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUBindGroupDescriptor();
       WGPUBindGroupDescriptor* operator &() { return &descriptor; };
     private:
@@ -287,7 +287,7 @@ namespace DescriptorDecoder {
   
   class GPUBindGroupLayoutBinding {
     public:
-      GPUBindGroupLayoutBinding(GPUDevice* device, Napi::Value& value);
+      GPUBindGroupLayoutBinding(GPUDevice* device, const Napi::Value& value);
       ~GPUBindGroupLayoutBinding();
       WGPUBindGroupLayoutBinding* operator &() { return &descriptor; };
     private:
@@ -296,7 +296,7 @@ namespace DescriptorDecoder {
   
   class GPUBindGroupLayoutDescriptor {
     public:
-      GPUBindGroupLayoutDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUBindGroupLayoutDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUBindGroupLayoutDescriptor();
       WGPUBindGroupLayoutDescriptor* operator &() { return &descriptor; };
     private:
@@ -305,7 +305,7 @@ namespace DescriptorDecoder {
   
   class GPUBlendDescriptor {
     public:
-      GPUBlendDescriptor(GPUDevice* device, Napi::Value& value);
+      GPUBlendDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPUBlendDescriptor();
       WGPUBlendDescriptor* operator &() { return &descriptor; };
     private:
@@ -314,7 +314,7 @@ namespace DescriptorDecoder {
   
   class GPUColorStateDescriptor {
     public:
-      GPUColorStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUColorStateDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUColorStateDescriptor();
       WGPUColorStateDescriptor* operator &() { return &descriptor; };
     private:
@@ -323,7 +323,7 @@ namespace DescriptorDecoder {
   
   class GPUBufferCopyView {
     public:
-      GPUBufferCopyView(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUBufferCopyView(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUBufferCopyView();
       WGPUBufferCopyView* operator &() { return &descriptor; };
     private:
@@ -332,7 +332,7 @@ namespace DescriptorDecoder {
   
   class GPUBufferDescriptor {
     public:
-      GPUBufferDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUBufferDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUBufferDescriptor();
       WGPUBufferDescriptor* operator &() { return &descriptor; };
     private:
@@ -341,7 +341,7 @@ namespace DescriptorDecoder {
   
   class GPUCreateBufferMappedResult {
     public:
-      GPUCreateBufferMappedResult(GPUDevice* device, Napi::Value& value);
+      GPUCreateBufferMappedResult(GPUDevice* device, const Napi::Value& value);
       ~GPUCreateBufferMappedResult();
       WGPUCreateBufferMappedResult* operator &() { return &descriptor; };
     private:
@@ -350,7 +350,7 @@ namespace DescriptorDecoder {
   
   class GPUColor {
     public:
-      GPUColor(GPUDevice* device, Napi::Value& value);
+      GPUColor(GPUDevice* device, const Napi::Value& value);
       ~GPUColor();
       WGPUColor* operator &() { return &descriptor; };
     private:
@@ -359,7 +359,7 @@ namespace DescriptorDecoder {
   
   class GPUCommandBufferDescriptor {
     public:
-      GPUCommandBufferDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUCommandBufferDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUCommandBufferDescriptor();
       WGPUCommandBufferDescriptor* operator &() { return &descriptor; };
     private:
@@ -368,7 +368,7 @@ namespace DescriptorDecoder {
   
   class GPUCommandEncoderDescriptor {
     public:
-      GPUCommandEncoderDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUCommandEncoderDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUCommandEncoderDescriptor();
       WGPUCommandEncoderDescriptor* operator &() { return &descriptor; };
     private:
@@ -377,7 +377,7 @@ namespace DescriptorDecoder {
   
   class GPUComputePassDescriptor {
     public:
-      GPUComputePassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUComputePassDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUComputePassDescriptor();
       WGPUComputePassDescriptor* operator &() { return &descriptor; };
     private:
@@ -386,7 +386,7 @@ namespace DescriptorDecoder {
   
   class GPUComputePipelineDescriptor {
     public:
-      GPUComputePipelineDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUComputePipelineDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUComputePipelineDescriptor();
       WGPUComputePipelineDescriptor* operator &() { return &descriptor; };
     private:
@@ -395,7 +395,7 @@ namespace DescriptorDecoder {
   
   class GPURayTracingPassDescriptor {
     public:
-      GPURayTracingPassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPURayTracingPassDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPURayTracingPassDescriptor();
       WGPURayTracingPassDescriptor* operator &() { return &descriptor; };
     private:
@@ -404,7 +404,7 @@ namespace DescriptorDecoder {
   
   class GPURayTracingStateDescriptor {
     public:
-      GPURayTracingStateDescriptor(GPUDevice* device, Napi::Value& value);
+      GPURayTracingStateDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPURayTracingStateDescriptor();
       WGPURayTracingStateDescriptor* operator &() { return &descriptor; };
     private:
@@ -413,7 +413,7 @@ namespace DescriptorDecoder {
   
   class GPURayTracingPipelineDescriptor {
     public:
-      GPURayTracingPipelineDescriptor(GPUDevice* device, Napi::Value& value);
+      GPURayTracingPipelineDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPURayTracingPipelineDescriptor();
       WGPURayTracingPipelineDescriptor* operator &() { return &descriptor; };
     private:
@@ -422,7 +422,7 @@ namespace DescriptorDecoder {
   
   class GPUDeviceProperties {
     public:
-      GPUDeviceProperties(GPUDevice* device, Napi::Value& value);
+      GPUDeviceProperties(GPUDevice* device, const Napi::Value& value);
       ~GPUDeviceProperties();
       WGPUDeviceProperties* operator &() { return &descriptor; };
     private:
@@ -431,7 +431,7 @@ namespace DescriptorDecoder {
   
   class GPUDepthStencilStateDescriptor {
     public:
-      GPUDepthStencilStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUDepthStencilStateDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUDepthStencilStateDescriptor();
       WGPUDepthStencilStateDescriptor* operator &() { return &descriptor; };
     private:
@@ -440,7 +440,7 @@ namespace DescriptorDecoder {
   
   class GPUExtent3D {
     public:
-      GPUExtent3D(GPUDevice* device, Napi::Value& value);
+      GPUExtent3D(GPUDevice* device, const Napi::Value& value);
       ~GPUExtent3D();
       WGPUExtent3D* operator &() { return &descriptor; };
     private:
@@ -449,7 +449,7 @@ namespace DescriptorDecoder {
   
   class GPUFenceDescriptor {
     public:
-      GPUFenceDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUFenceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUFenceDescriptor();
       WGPUFenceDescriptor* operator &() { return &descriptor; };
     private:
@@ -458,7 +458,7 @@ namespace DescriptorDecoder {
   
   class GPUVertexAttributeDescriptor {
     public:
-      GPUVertexAttributeDescriptor(GPUDevice* device, Napi::Value& value);
+      GPUVertexAttributeDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPUVertexAttributeDescriptor();
       WGPUVertexAttributeDescriptor* operator &() { return &descriptor; };
     private:
@@ -467,7 +467,7 @@ namespace DescriptorDecoder {
   
   class GPUVertexBufferLayoutDescriptor {
     public:
-      GPUVertexBufferLayoutDescriptor(GPUDevice* device, Napi::Value& value);
+      GPUVertexBufferLayoutDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPUVertexBufferLayoutDescriptor();
       WGPUVertexBufferLayoutDescriptor* operator &() { return &descriptor; };
     private:
@@ -476,7 +476,7 @@ namespace DescriptorDecoder {
   
   class GPUVertexStateDescriptor {
     public:
-      GPUVertexStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUVertexStateDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUVertexStateDescriptor();
       WGPUVertexStateDescriptor* operator &() { return &descriptor; };
     private:
@@ -485,7 +485,7 @@ namespace DescriptorDecoder {
   
   class GPUOrigin3D {
     public:
-      GPUOrigin3D(GPUDevice* device, Napi::Value& value);
+      GPUOrigin3D(GPUDevice* device, const Napi::Value& value);
       ~GPUOrigin3D();
       WGPUOrigin3D* operator &() { return &descriptor; };
     private:
@@ -494,7 +494,7 @@ namespace DescriptorDecoder {
   
   class GPUPipelineLayoutDescriptor {
     public:
-      GPUPipelineLayoutDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUPipelineLayoutDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUPipelineLayoutDescriptor();
       WGPUPipelineLayoutDescriptor* operator &() { return &descriptor; };
     private:
@@ -503,7 +503,7 @@ namespace DescriptorDecoder {
   
   class GPUProgrammableStageDescriptor {
     public:
-      GPUProgrammableStageDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUProgrammableStageDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUProgrammableStageDescriptor();
       WGPUProgrammableStageDescriptor* operator &() { return &descriptor; };
     private:
@@ -512,7 +512,7 @@ namespace DescriptorDecoder {
   
   class GPURasterizationStateDescriptor {
     public:
-      GPURasterizationStateDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPURasterizationStateDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPURasterizationStateDescriptor();
       WGPURasterizationStateDescriptor* operator &() { return &descriptor; };
     private:
@@ -521,7 +521,7 @@ namespace DescriptorDecoder {
   
   class GPURenderBundleDescriptor {
     public:
-      GPURenderBundleDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPURenderBundleDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPURenderBundleDescriptor();
       WGPURenderBundleDescriptor* operator &() { return &descriptor; };
     private:
@@ -530,7 +530,7 @@ namespace DescriptorDecoder {
   
   class GPURenderBundleEncoderDescriptor {
     public:
-      GPURenderBundleEncoderDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPURenderBundleEncoderDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPURenderBundleEncoderDescriptor();
       WGPURenderBundleEncoderDescriptor* operator &() { return &descriptor; };
     private:
@@ -539,7 +539,7 @@ namespace DescriptorDecoder {
   
   class GPURenderPassColorAttachmentDescriptor {
     public:
-      GPURenderPassColorAttachmentDescriptor(GPUDevice* device, Napi::Value& value);
+      GPURenderPassColorAttachmentDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPURenderPassColorAttachmentDescriptor();
       WGPURenderPassColorAttachmentDescriptor* operator &() { return &descriptor; };
     private:
@@ -548,7 +548,7 @@ namespace DescriptorDecoder {
   
   class GPURenderPassDepthStencilAttachmentDescriptor {
     public:
-      GPURenderPassDepthStencilAttachmentDescriptor(GPUDevice* device, Napi::Value& value);
+      GPURenderPassDepthStencilAttachmentDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPURenderPassDepthStencilAttachmentDescriptor();
       WGPURenderPassDepthStencilAttachmentDescriptor* operator &() { return &descriptor; };
     private:
@@ -557,7 +557,7 @@ namespace DescriptorDecoder {
   
   class GPURenderPassDescriptor {
     public:
-      GPURenderPassDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPURenderPassDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPURenderPassDescriptor();
       WGPURenderPassDescriptor* operator &() { return &descriptor; };
     private:
@@ -566,7 +566,7 @@ namespace DescriptorDecoder {
   
   class GPURenderPipelineDescriptor {
     public:
-      GPURenderPipelineDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPURenderPipelineDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPURenderPipelineDescriptor();
       WGPURenderPipelineDescriptor* operator &() { return &descriptor; };
     private:
@@ -575,7 +575,7 @@ namespace DescriptorDecoder {
   
   class GPUSamplerDescriptor {
     public:
-      GPUSamplerDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUSamplerDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUSamplerDescriptor();
       WGPUSamplerDescriptor* operator &() { return &descriptor; };
     private:
@@ -584,7 +584,7 @@ namespace DescriptorDecoder {
   
   class GPUShaderModuleDescriptor {
     public:
-      GPUShaderModuleDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUShaderModuleDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUShaderModuleDescriptor();
       WGPUShaderModuleDescriptor* operator &() { return &descriptor; };
     private:
@@ -593,7 +593,7 @@ namespace DescriptorDecoder {
   
   class GPUStencilStateFaceDescriptor {
     public:
-      GPUStencilStateFaceDescriptor(GPUDevice* device, Napi::Value& value);
+      GPUStencilStateFaceDescriptor(GPUDevice* device, const Napi::Value& value);
       ~GPUStencilStateFaceDescriptor();
       WGPUStencilStateFaceDescriptor* operator &() { return &descriptor; };
     private:
@@ -602,7 +602,7 @@ namespace DescriptorDecoder {
   
   class GPUSwapChainDescriptor {
     public:
-      GPUSwapChainDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUSwapChainDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUSwapChainDescriptor();
       WGPUSwapChainDescriptor* operator &() { return &descriptor; };
     private:
@@ -611,7 +611,7 @@ namespace DescriptorDecoder {
   
   class GPUTextureCopyView {
     public:
-      GPUTextureCopyView(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUTextureCopyView(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUTextureCopyView();
       WGPUTextureCopyView* operator &() { return &descriptor; };
     private:
@@ -620,7 +620,7 @@ namespace DescriptorDecoder {
   
   class GPUTextureDescriptor {
     public:
-      GPUTextureDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUTextureDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUTextureDescriptor();
       WGPUTextureDescriptor* operator &() { return &descriptor; };
     private:
@@ -629,7 +629,7 @@ namespace DescriptorDecoder {
   
   class GPUTextureViewDescriptor {
     public:
-      GPUTextureViewDescriptor(GPUDevice* device, Napi::Value& value, void* nextInChain = nullptr);
+      GPUTextureViewDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
       ~GPUTextureViewDescriptor();
       WGPUTextureViewDescriptor* operator &() { return &descriptor; };
     private:

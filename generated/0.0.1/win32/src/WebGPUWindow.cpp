@@ -25,6 +25,9 @@ WebGPUWindow::WebGPUWindow(const Napi::CallbackInfo& info) : Napi::ObjectWrap<We
       } else {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
       }
+      #ifdef __APPLE__
+      glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_TRUE);
+      #endif
       GLFWwindow* window = glfwCreateWindow(this->width, this->height, this->title.c_str(), nullptr, nullptr);
       this->instance = window;
       //glfwMakeContextCurrent(window);

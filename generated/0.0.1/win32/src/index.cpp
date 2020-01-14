@@ -4,7 +4,6 @@
  */
 #include "index.h"
 
-
 #include "GPU.h"
 #include "GPUDevice.h"
 #include "GPUAdapter.h"
@@ -66,8 +65,6 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPURayTracingPassEncoder::Initialize(env, exports);
 
   WebGPUWindow::Initialize(env, exports);
-
-  
 
   
   Napi::Object GPURayTracingAccelerationInstanceFlag = Napi::Object::New(env);

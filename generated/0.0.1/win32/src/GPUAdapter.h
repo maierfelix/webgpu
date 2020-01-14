@@ -28,7 +28,7 @@ class GPUAdapter : public Napi::ObjectWrap<GPUAdapter> {
     dawn_native::Adapter instance;
 
   private:
-    dawn_native::Adapter GPUAdapter::createAdapter(const Napi::CallbackInfo& info);
+    dawn_native::Adapter createAdapter(const Napi::CallbackInfo& info);
 
 };
 

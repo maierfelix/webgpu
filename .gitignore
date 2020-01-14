@@ -93,13 +93,17 @@ www
 
 package-lock.json
 
-generated/*/win32/build/.vs
-generated/*/win32/build/Release/obj
-generated/*/win32/build/Release/*.iobj
-generated/*/win32/build/Release/*.ipdb
-generated/*/win32/build/Release/*.pdb
-generated/*/win32/build/Release/*.map
-generated/*/win32/build/Release/obj.target
+generated/*/*/build/.vs
+generated/*/*/build/Release/.deps
+generated/*/*/build/Release/obj.target
+generated/*/*/build/*.mk
+generated/*/*/build/*.MakeFile
+generated/*/*/build/Release/obj
+generated/*/*/build/Release/*.iobj
+generated/*/*/build/Release/*.ipdb
+generated/*/*/build/Release/*.pdb
+generated/*/*/build/Release/*.map
+generated/*/*/build/Release/obj.target
 
 PATH_TO_DAWN
 

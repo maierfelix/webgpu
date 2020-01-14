@@ -91,22 +91,23 @@ www
 
 package-lock.json
 
-generated/*/win32/ast.json
-generated/*/win32/memoryLayouts.json
-generated/*/win32/build/.vs
-generated/*/win32/build/*.lib
-generated/*/win32/build/*.vcxproj
-generated/*/win32/build/*.filters
-generated/*/win32/build/*.users
-generated/*/win32/build/*.user
-generated/*/win32/build/*.sln
-generated/*/win32/build/Release/obj
-generated/*/win32/build/Release/*.iobj
-generated/*/win32/build/Release/*.ipdb
-generated/*/win32/build/Release/*.pdb
-generated/*/win32/build/Release/*.map
-generated/*/win32/build/Release/*.ilk
-generated/*/win32/build/Release/obj.target
+generated/*/*/ast.json
+generated/*/*/memoryLayouts.json
+generated/*/*/build/.vs
+generated/*/*/build/*.lib
+generated/*/*/build/*.vcxproj
+generated/*/*/build/*.filters
+generated/*/*/build/*.users
+generated/*/*/build/*.user
+generated/*/*/build/*.sln
+generated/*/*/build/Release/obj
+generated/*/*/build/Release/*.iobj
+generated/*/*/build/Release/*.ipdb
+generated/*/*/build/Release/*.pdb
+generated/*/*/build/Release/*.map
+generated/*/*/build/Release/*.ilk
+generated/*/*/build/Release/.deps
+generated/*/*/build/Release/obj.target
 
 PATH_TO_DAWN
 

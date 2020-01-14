@@ -4,10 +4,6 @@ const path = require("path");
 const pkg = require("./package.json");
 
 let {platform} = process;
-/*
-process.stdout.write(`(nvk) Validation checks are enabled\n`);
-module.exports = require(`${generatedPath}/interfaces.js`);
-*/
 
 const dawnVersion = "0.0.1";
 

@@ -93,6 +93,14 @@ function copyFiles() {
         files.push([`${dawnOutputDir}/libshaderc.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libshaderc_spvc.dll.lib`, targetDir + "/../"]);
       }
+    }// add darwin runtime files
+    else if (platform === "darwin") {
+      files.push([`${dawnOutputDir}/libdawn_native.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/libc++.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/libdawn_proc.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/libdawn_wire.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/libshaderc_spvc.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/libshaderc.dylib`, targetDir]);
     }
     let counter = 0;
     if (!files.length) return resolve(true);
@@ -151,7 +159,7 @@ function inlineMemoryLayouts() {
 };
 
 function actionsAfter() {
-  inlineMemoryLayouts();
+  //inlineMemoryLayouts();
 };
 
 (async function run() {

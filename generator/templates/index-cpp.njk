@@ -1,7 +1,4 @@
 #include "index.h"
-{% if includeMemoryLayouts == true %}
-#include "memoryLayouts.h"
-{% endif %}
 
 #include "GPU.h"
 #include "GPUDevice.h"
@@ -64,10 +61,6 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   GPURayTracingPassEncoder::Initialize(env, exports);
 
   WebGPUWindow::Initialize(env, exports);
-
-  {% if includeMemoryLayouts == true %}
-  exports["$getMemoryLayouts"] = Napi::Function::New(env, MemoryLayouts, "MemoryLayouts");
-  {% endif %}
 
   {% for bitmask in bitmasks %}
   Napi::Object {{ bitmask.externalName }} = Napi::Object::New(env);

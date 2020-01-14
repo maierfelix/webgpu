@@ -87,6 +87,8 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+.DS_STORE
+
 www
 
 package-lock.json

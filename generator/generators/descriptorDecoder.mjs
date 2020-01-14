@@ -330,7 +330,7 @@ function getDestroyStructureMember(structure, member) {
 function getDecodeStructureParameters(structure, isHeaderFile) {
   let out = ``;
   out += `GPUDevice* device`;
-  out += `, Napi::Value& value`;
+  out += `, const Napi::Value& value`;
   if (isHeaderFile) {
     if (structure.isExtensible) {
       out += `, void* nextInChain = nullptr`;

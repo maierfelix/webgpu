@@ -37,7 +37,7 @@ const bypassBuild = !!process.env.npm_config_bypass_build;
 const enableMinification = false;
 
 // indicating if it's necessary to include memorylayouts in the build
-const includeMemoryLayouts = !fs.existsSync(`${generatePath}/memoryLayouts.json`);
+const includeMemoryLayouts = false /*!fs.existsSync(`${generatePath}/memoryLayouts.json`)*/;
 
 function writeGeneratedFile(path, text, includeNotice = true) {
   if (typeof text !== "string") throw new TypeError(`Expected 'string' type for parameter 'text'`);

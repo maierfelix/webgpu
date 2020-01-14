@@ -184,7 +184,7 @@ const fsSrc = `
     22, 23, 20
   ]);
 
-  const img = lodepng.decode(fs.readFileSync("./assets/grass-block.png"));
+  const img = lodepng.decode(fs.readFileSync("examples/assets/grass-block.png"));
 
   const window = new WebGPUWindow({
     width: 640,

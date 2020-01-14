@@ -10,7 +10,7 @@ This project comes with pre-built N-API binaries for the following platforms:
 | ------------- | ------------- |
 | <img src="https://i.imgur.com/FF3Ssp6.png" alt="" height="16px">  Windows       | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
 | <img src="https://i.imgur.com/bkBCY7V.png" alt="" height="16px">  Linux         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ X ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
-| <img src="https://i.imgur.com/iPt4GHz.png" alt="" height="16px">  MacOS         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ X ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
+| <img src="https://i.imgur.com/iPt4GHz.png" alt="" height="16px">  MacOS         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
 
 ## Installation
 ````
@@ -25,8 +25,7 @@ node --experimental-modules examples/interactive-triangle.mjs
 
 ## TODOs
  - Add CTS
- - Get a build setup similar to Dawn?
- - Compile for Linux and MacOS
+ - Compile for Linux
  - Rework GPUBuffer, mainly the mapping part
  - Research for a better Error callback system
  - Strict Type validations for descriptor decoder
@@ -60,4 +59,16 @@ ninja -C out/Shared
 
 ### Linux // TODO
 
-### MacOS // TODO
+### MacOS
+
+Follow dawn's initial setup instructions, but instead of the standard build, do the following:
+
+To generate the project as a shared library using MSVS:
+````
+gn gen out/Shared --target_cpu="x64" --args="is_component_build=true is_debug=false is_clang=true"
+````
+
+To build the project run:
+````
+ninja -C out/Shared
+````

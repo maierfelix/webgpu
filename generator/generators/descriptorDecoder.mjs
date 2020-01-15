@@ -45,15 +45,54 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
     out += `\n${padding}{`;
     padding = opts.padding += `  `;
   }
+  // validate array
+  if (
+    type.isArray &&
+    !jsType.isString &&
+    !jsType.isTypedArray &&
+    !jsType.isArrayBuffer
+  ) {
+    // TODO: add array type checks
+  }
+  // validate primitives
+  else if (
+    jsType.isNumber ||
+    jsType.isString ||
+    jsType.isObject ||
+    jsType.isBoolean ||
+    jsType.isArrayBuffer ||
+    jsType.isTypedArray
+  ) {
+    let strType = jsType.type;
+    // napi check for typed arrays is .IsTypedArray()
+    if (jsType.isTypedArray) {
+      strType = "TypedArray";
+    }
+    // class-based type check
+    if (jsType.isObject && type.isObject) {
+      let unwrapType = getExplortDeclarationName(type.nativeType);
+      out += `\n${padding}if (!(${input.name}.Get("${member.name}").As<Napi::Object>().InstanceOf(${unwrapType}::constructor.Value()))) {
+${padding}  Napi::String type = Napi::String::New(value.Env(), "Type");
+${padding}  Napi::String message = Napi::String::New(value.Env(), "Expected '${unwrapType}' for '${structure.externalName}'.'${member.name}'");
+${padding}  device->throwCallbackError(type, message);
+${padding}  return ${insideDecoder ? "descriptor" : ""};
+${padding}}`;
+    }
+    // primitive type check
+    else {
+      out += `\n${padding}if (!(${input.name}.Get("${member.name}").Is${strType}())) {
+${padding}  Napi::String type = Napi::String::New(value.Env(), "Type");
+${padding}  Napi::String message = Napi::String::New(value.Env(), "Expected '${strType}' for '${structure.externalName}'.'${member.name}'");
+${padding}  device->throwCallbackError(type, message);
+${padding}  return ${insideDecoder ? "descriptor" : ""};
+${padding}}`;
+    }
+  } else {
+    warn(`Cannot validate type of member '${structure.externalName}'.'${member.name}'`);
+  }
   // decode (unwrap) object typed members
   if (type.isObject && !type.isArray) {
     let unwrapType = getExplortDeclarationName(type.nativeType);
-    out += `\n${padding}if (!(${input.name}.Get("${member.name}").As<Napi::Object>().InstanceOf(${unwrapType}::constructor.Value()))) {`;
-    out += `\n${padding}  Napi::String type = Napi::String::New(value.Env(), "Type");`;
-    out += `\n${padding}  Napi::String message = Napi::String::New(value.Env(), "Expected type '${unwrapType}' for '${structure.externalName}'.'${member.name}'");`;
-    out += `\n${padding}  device->throwCallbackError(type, message);`;
-    out += `\n${padding}  return ${insideDecoder ? "descriptor" : ""};`;
-    out += `\n${padding}}`;
     out += `\n${padding}${output.name}.${member.name} = Napi::ObjectWrap<${unwrapType}>::Unwrap(${input.name}.Get("${member.name}").As<Napi::Object>())->instance;`;
   // decode descriptor object array
   } else if (type.isObject && type.isArray) {
@@ -162,6 +201,15 @@ ${padding}${output.name}.${member.name} = data;`;
 
   // decode numeric typed members
   } else if (type.isNumber) {
+    // validate input and type
+    {
+      out += `\n${padding}if (!(${input.name}.Get("${member.name}").IsNumber())) {
+${padding}  Napi::String type = Napi::String::New(value.Env(), "Type");
+${padding}  Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for '${structure.externalName}'.'${member.name}'");
+${padding}  device->throwCallbackError(type, message);
+${padding}  return ${insideDecoder ? "descriptor" : ""};
+${padding}}`;
+    }
     switch (rawType) {
       case "int32_t": {
         out += `\n${padding}${output.name}.${member.name} = ${input.name}.Get("${member.name}").As<Napi::Number>().Int32Value();`;

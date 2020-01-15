@@ -192,7 +192,7 @@
     "usage": "",
     "user": "",
     "userconfig": "C:\\Users\\User\\.npmrc",
-    "user_agent": "npm/6.13.4 node/v13.1.0 win32 x64",
+    "user_agent": "npm/6.13.6 node/v13.1.0 win32 x64",
     "version": "",
     "versions": "",
     "viewer": "browser"

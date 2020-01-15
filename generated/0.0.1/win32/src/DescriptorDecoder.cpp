@@ -1072,7 +1072,7 @@ namespace DescriptorDecoder {
     }
     descriptor.binding = obj.Get("binding").As<Napi::Number>().Uint32Value();
     if (obj.Has("buffer")) {
-      if (!(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPUBindGroupBinding'.'buffer'");
         device->throwCallbackError(type, message);
@@ -1113,7 +1113,7 @@ namespace DescriptorDecoder {
       descriptor.size = static_cast<uint64_t>(obj.Get("size").As<Napi::Number>().Uint32Value());
     }
     if (obj.Has("sampler")) {
-      if (!(obj.Get("sampler").As<Napi::Object>().InstanceOf(GPUSampler::constructor.Value()))) {
+      if (!(obj.Get("sampler").IsObject()) || !(obj.Get("sampler").As<Napi::Object>().InstanceOf(GPUSampler::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUSampler' for 'GPUBindGroupBinding'.'sampler'");
         device->throwCallbackError(type, message);
@@ -1122,7 +1122,7 @@ namespace DescriptorDecoder {
       descriptor.sampler = Napi::ObjectWrap<GPUSampler>::Unwrap(obj.Get("sampler").As<Napi::Object>())->instance;
     }
     if (obj.Has("textureView")) {
-      if (!(obj.Get("textureView").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+      if (!(obj.Get("textureView").IsObject()) || !(obj.Get("textureView").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTextureView' for 'GPUBindGroupBinding'.'textureView'");
         device->throwCallbackError(type, message);
@@ -1131,7 +1131,7 @@ namespace DescriptorDecoder {
       descriptor.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("textureView").As<Napi::Object>())->instance;
     }
     if (obj.Has("accelerationContainer")) {
-      if (!(obj.Get("accelerationContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
+      if (!(obj.Get("accelerationContainer").IsObject()) || !(obj.Get("accelerationContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPURayTracingAccelerationContainer' for 'GPUBindGroupBinding'.'accelerationContainer'");
         device->throwCallbackError(type, message);
@@ -1160,7 +1160,7 @@ namespace DescriptorDecoder {
       return descriptor;
     }
     descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(GPURayTracingAccelerationGeometryType(obj.Get("type").As<Napi::String>().Utf8Value()));
-    if (!(obj.Get("vertexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+    if (!(obj.Get("vertexBuffer").IsObject()) || !(obj.Get("vertexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexBuffer'");
       device->throwCallbackError(type, message);
@@ -1218,7 +1218,7 @@ namespace DescriptorDecoder {
     }
     descriptor.vertexCount = obj.Get("vertexCount").As<Napi::Number>().Uint32Value();
     if (obj.Has("indexBuffer")) {
-      if (!(obj.Get("indexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      if (!(obj.Get("indexBuffer").IsObject()) || !(obj.Get("indexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexBuffer'");
         device->throwCallbackError(type, message);
@@ -1791,7 +1791,7 @@ namespace DescriptorDecoder {
         memcpy(const_cast<WGPURayTracingAccelerationInstanceTransformDescriptor*>(descriptor.transform), &transform, sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor));
       }
     }
-    if (!(obj.Get("geometryContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
+    if (!(obj.Get("geometryContainer").IsObject()) || !(obj.Get("geometryContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPURayTracingAccelerationContainer' for 'GPURayTracingAccelerationInstanceDescriptor'.'geometryContainer'");
       device->throwCallbackError(type, message);
@@ -1904,7 +1904,7 @@ namespace DescriptorDecoder {
       return descriptor;
     }
     descriptor.stage = static_cast<WGPUShaderStage>(obj.Get("stage").As<Napi::Number>().Uint32Value());
-    if (!(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+    if (!(obj.Get("module").IsObject()) || !(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPURayTracingShaderBindingTableShadersDescriptor'.'module'");
       device->throwCallbackError(type, message);
@@ -1971,7 +1971,7 @@ namespace DescriptorDecoder {
       }
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
-    if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUBindGroupLayout::constructor.Value()))) {
+    if (!(obj.Get("layout").IsObject()) || !(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUBindGroupLayout::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBindGroupLayout' for 'GPUBindGroupDescriptor'.'layout'");
       device->throwCallbackError(type, message);
@@ -2280,7 +2280,7 @@ namespace DescriptorDecoder {
   descriptor.offset = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+    if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPUBufferCopyView'.'buffer'");
       device->throwCallbackError(type, message);
@@ -2381,7 +2381,7 @@ namespace DescriptorDecoder {
   descriptor.data = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+    if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPUCreateBufferMappedResult'.'buffer'");
       device->throwCallbackError(type, message);
@@ -2534,7 +2534,7 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     if (obj.Has("layout")) {
-      if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
+      if (!(obj.Get("layout").IsObject()) || !(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUPipelineLayout' for 'GPUComputePipelineDescriptor'.'layout'");
         device->throwCallbackError(type, message);
@@ -2552,7 +2552,7 @@ namespace DescriptorDecoder {
       descriptor.computeStage.module = nullptr;
       descriptor.computeStage.entryPoint = nullptr;
       Napi::Object $computeStage = obj.Get("computeStage").As<Napi::Object>();
-      if (!($computeStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+      if (!($computeStage.Get("module").IsObject()) || !($computeStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPUProgrammableStageDescriptor'.'module'");
         device->throwCallbackError(type, message);
@@ -2597,7 +2597,7 @@ namespace DescriptorDecoder {
   descriptor.maxRecursionDepth = 1;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
+    if (!(obj.Get("shaderBindingTable").IsObject()) || !(obj.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPURayTracingShaderBindingTable' for 'GPURayTracingStateDescriptor'.'shaderBindingTable'");
       device->throwCallbackError(type, message);
@@ -2640,7 +2640,7 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     if (obj.Has("layout")) {
-      if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
+      if (!(obj.Get("layout").IsObject()) || !(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUPipelineLayout' for 'GPURayTracingPipelineDescriptor'.'layout'");
         device->throwCallbackError(type, message);
@@ -2658,7 +2658,7 @@ namespace DescriptorDecoder {
       rayTracingState.shaderBindingTable = nullptr;
       rayTracingState.maxRecursionDepth = 1;
       Napi::Object $rayTracingState = obj.Get("rayTracingState").As<Napi::Object>();
-      if (!($rayTracingState.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
+      if (!($rayTracingState.Get("shaderBindingTable").IsObject()) || !($rayTracingState.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPURayTracingShaderBindingTable' for 'GPURayTracingStateDescriptor'.'shaderBindingTable'");
         device->throwCallbackError(type, message);
@@ -3216,7 +3216,7 @@ namespace DescriptorDecoder {
   descriptor.entryPoint = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+    if (!(obj.Get("module").IsObject()) || !(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPUProgrammableStageDescriptor'.'module'");
       device->throwCallbackError(type, message);
@@ -3402,7 +3402,7 @@ namespace DescriptorDecoder {
   descriptor.resolveTarget = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+    if (!(obj.Get("attachment").IsObject()) || !(obj.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'attachment'");
       device->throwCallbackError(type, message);
@@ -3410,7 +3410,7 @@ namespace DescriptorDecoder {
     }
     descriptor.attachment = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("attachment").As<Napi::Object>())->instance;
     if (obj.Has("resolveTarget")) {
-      if (!(obj.Get("resolveTarget").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+      if (!(obj.Get("resolveTarget").IsObject()) || !(obj.Get("resolveTarget").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'resolveTarget'");
         device->throwCallbackError(type, message);
@@ -3501,7 +3501,7 @@ namespace DescriptorDecoder {
   descriptor.clearStencil = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+    if (!(obj.Get("attachment").IsObject()) || !(obj.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTextureView' for 'GPURenderPassDepthStencilAttachmentDescriptor'.'attachment'");
       device->throwCallbackError(type, message);
@@ -3625,7 +3625,7 @@ namespace DescriptorDecoder {
         depthStencilAttachment.attachment = nullptr;
         depthStencilAttachment.clearStencil = 0;
         Napi::Object $depthStencilAttachment = obj.Get("depthStencilAttachment").As<Napi::Object>();
-        if (!($depthStencilAttachment.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+        if (!($depthStencilAttachment.Get("attachment").IsObject()) || !($depthStencilAttachment.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
           Napi::String type = Napi::String::New(value.Env(), "Type");
           Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTextureView' for 'GPURenderPassDepthStencilAttachmentDescriptor'.'attachment'");
           device->throwCallbackError(type, message);
@@ -3722,7 +3722,7 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     if (obj.Has("layout")) {
-      if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
+      if (!(obj.Get("layout").IsObject()) || !(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUPipelineLayout' for 'GPURenderPipelineDescriptor'.'layout'");
         device->throwCallbackError(type, message);
@@ -3740,7 +3740,7 @@ namespace DescriptorDecoder {
       descriptor.vertexStage.module = nullptr;
       descriptor.vertexStage.entryPoint = nullptr;
       Napi::Object $vertexStage = obj.Get("vertexStage").As<Napi::Object>();
-      if (!($vertexStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+      if (!($vertexStage.Get("module").IsObject()) || !($vertexStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPUProgrammableStageDescriptor'.'module'");
         device->throwCallbackError(type, message);
@@ -3768,7 +3768,7 @@ namespace DescriptorDecoder {
         fragmentStage.module = nullptr;
         fragmentStage.entryPoint = nullptr;
         Napi::Object $fragmentStage = obj.Get("fragmentStage").As<Napi::Object>();
-        if (!($fragmentStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+        if (!($fragmentStage.Get("module").IsObject()) || !($fragmentStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
           Napi::String type = Napi::String::New(value.Env(), "Type");
           Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPUProgrammableStageDescriptor'.'module'");
           device->throwCallbackError(type, message);
@@ -4417,7 +4417,7 @@ namespace DescriptorDecoder {
   descriptor.arrayLayer = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("texture").As<Napi::Object>().InstanceOf(GPUTexture::constructor.Value()))) {
+    if (!(obj.Get("texture").IsObject()) || !(obj.Get("texture").As<Napi::Object>().InstanceOf(GPUTexture::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTexture' for 'GPUTextureCopyView'.'texture'");
       device->throwCallbackError(type, message);
@@ -4785,7 +4785,7 @@ namespace DescriptorDecoder {
     }
     descriptor.binding = obj.Get("binding").As<Napi::Number>().Uint32Value();
     if (obj.Has("buffer")) {
-      if (!(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPUBindGroupBinding'.'buffer'");
         device->throwCallbackError(type, message);
@@ -4826,7 +4826,7 @@ namespace DescriptorDecoder {
       descriptor.size = static_cast<uint64_t>(obj.Get("size").As<Napi::Number>().Uint32Value());
     }
     if (obj.Has("sampler")) {
-      if (!(obj.Get("sampler").As<Napi::Object>().InstanceOf(GPUSampler::constructor.Value()))) {
+      if (!(obj.Get("sampler").IsObject()) || !(obj.Get("sampler").As<Napi::Object>().InstanceOf(GPUSampler::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUSampler' for 'GPUBindGroupBinding'.'sampler'");
         device->throwCallbackError(type, message);
@@ -4835,7 +4835,7 @@ namespace DescriptorDecoder {
       descriptor.sampler = Napi::ObjectWrap<GPUSampler>::Unwrap(obj.Get("sampler").As<Napi::Object>())->instance;
     }
     if (obj.Has("textureView")) {
-      if (!(obj.Get("textureView").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+      if (!(obj.Get("textureView").IsObject()) || !(obj.Get("textureView").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTextureView' for 'GPUBindGroupBinding'.'textureView'");
         device->throwCallbackError(type, message);
@@ -4844,7 +4844,7 @@ namespace DescriptorDecoder {
       descriptor.textureView = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("textureView").As<Napi::Object>())->instance;
     }
     if (obj.Has("accelerationContainer")) {
-      if (!(obj.Get("accelerationContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
+      if (!(obj.Get("accelerationContainer").IsObject()) || !(obj.Get("accelerationContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPURayTracingAccelerationContainer' for 'GPUBindGroupBinding'.'accelerationContainer'");
         device->throwCallbackError(type, message);
@@ -4874,7 +4874,7 @@ namespace DescriptorDecoder {
       return ;
     }
     descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(GPURayTracingAccelerationGeometryType(obj.Get("type").As<Napi::String>().Utf8Value()));
-    if (!(obj.Get("vertexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+    if (!(obj.Get("vertexBuffer").IsObject()) || !(obj.Get("vertexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexBuffer'");
       device->throwCallbackError(type, message);
@@ -4932,7 +4932,7 @@ namespace DescriptorDecoder {
     }
     descriptor.vertexCount = obj.Get("vertexCount").As<Napi::Number>().Uint32Value();
     if (obj.Has("indexBuffer")) {
-      if (!(obj.Get("indexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      if (!(obj.Get("indexBuffer").IsObject()) || !(obj.Get("indexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexBuffer'");
         device->throwCallbackError(type, message);
@@ -5508,7 +5508,7 @@ namespace DescriptorDecoder {
         memcpy(const_cast<WGPURayTracingAccelerationInstanceTransformDescriptor*>(descriptor.transform), &transform, sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor));
       }
     }
-    if (!(obj.Get("geometryContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
+    if (!(obj.Get("geometryContainer").IsObject()) || !(obj.Get("geometryContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPURayTracingAccelerationContainer' for 'GPURayTracingAccelerationInstanceDescriptor'.'geometryContainer'");
       device->throwCallbackError(type, message);
@@ -5623,7 +5623,7 @@ namespace DescriptorDecoder {
       return ;
     }
     descriptor.stage = static_cast<WGPUShaderStage>(obj.Get("stage").As<Napi::Number>().Uint32Value());
-    if (!(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+    if (!(obj.Get("module").IsObject()) || !(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPURayTracingShaderBindingTableShadersDescriptor'.'module'");
       device->throwCallbackError(type, message);
@@ -5692,7 +5692,7 @@ namespace DescriptorDecoder {
       }
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
-    if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUBindGroupLayout::constructor.Value()))) {
+    if (!(obj.Get("layout").IsObject()) || !(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUBindGroupLayout::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBindGroupLayout' for 'GPUBindGroupDescriptor'.'layout'");
       device->throwCallbackError(type, message);
@@ -6006,7 +6006,7 @@ namespace DescriptorDecoder {
   descriptor.offset = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+    if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPUBufferCopyView'.'buffer'");
       device->throwCallbackError(type, message);
@@ -6109,7 +6109,7 @@ namespace DescriptorDecoder {
   descriptor.data = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+    if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPUCreateBufferMappedResult'.'buffer'");
       device->throwCallbackError(type, message);
@@ -6267,7 +6267,7 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     if (obj.Has("layout")) {
-      if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
+      if (!(obj.Get("layout").IsObject()) || !(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUPipelineLayout' for 'GPUComputePipelineDescriptor'.'layout'");
         device->throwCallbackError(type, message);
@@ -6285,7 +6285,7 @@ namespace DescriptorDecoder {
       descriptor.computeStage.module = nullptr;
       descriptor.computeStage.entryPoint = nullptr;
       Napi::Object $computeStage = obj.Get("computeStage").As<Napi::Object>();
-      if (!($computeStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+      if (!($computeStage.Get("module").IsObject()) || !($computeStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPUProgrammableStageDescriptor'.'module'");
         device->throwCallbackError(type, message);
@@ -6332,7 +6332,7 @@ namespace DescriptorDecoder {
   descriptor.maxRecursionDepth = 1;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
+    if (!(obj.Get("shaderBindingTable").IsObject()) || !(obj.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPURayTracingShaderBindingTable' for 'GPURayTracingStateDescriptor'.'shaderBindingTable'");
       device->throwCallbackError(type, message);
@@ -6376,7 +6376,7 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     if (obj.Has("layout")) {
-      if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
+      if (!(obj.Get("layout").IsObject()) || !(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUPipelineLayout' for 'GPURayTracingPipelineDescriptor'.'layout'");
         device->throwCallbackError(type, message);
@@ -6394,7 +6394,7 @@ namespace DescriptorDecoder {
       rayTracingState.shaderBindingTable = nullptr;
       rayTracingState.maxRecursionDepth = 1;
       Napi::Object $rayTracingState = obj.Get("rayTracingState").As<Napi::Object>();
-      if (!($rayTracingState.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
+      if (!($rayTracingState.Get("shaderBindingTable").IsObject()) || !($rayTracingState.Get("shaderBindingTable").As<Napi::Object>().InstanceOf(GPURayTracingShaderBindingTable::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPURayTracingShaderBindingTable' for 'GPURayTracingStateDescriptor'.'shaderBindingTable'");
         device->throwCallbackError(type, message);
@@ -6962,7 +6962,7 @@ namespace DescriptorDecoder {
   descriptor.entryPoint = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+    if (!(obj.Get("module").IsObject()) || !(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPUProgrammableStageDescriptor'.'module'");
       device->throwCallbackError(type, message);
@@ -7152,7 +7152,7 @@ namespace DescriptorDecoder {
   descriptor.resolveTarget = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+    if (!(obj.Get("attachment").IsObject()) || !(obj.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'attachment'");
       device->throwCallbackError(type, message);
@@ -7160,7 +7160,7 @@ namespace DescriptorDecoder {
     }
     descriptor.attachment = Napi::ObjectWrap<GPUTextureView>::Unwrap(obj.Get("attachment").As<Napi::Object>())->instance;
     if (obj.Has("resolveTarget")) {
-      if (!(obj.Get("resolveTarget").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+      if (!(obj.Get("resolveTarget").IsObject()) || !(obj.Get("resolveTarget").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTextureView' for 'GPURenderPassColorAttachmentDescriptor'.'resolveTarget'");
         device->throwCallbackError(type, message);
@@ -7252,7 +7252,7 @@ namespace DescriptorDecoder {
   descriptor.clearStencil = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+    if (!(obj.Get("attachment").IsObject()) || !(obj.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTextureView' for 'GPURenderPassDepthStencilAttachmentDescriptor'.'attachment'");
       device->throwCallbackError(type, message);
@@ -7377,7 +7377,7 @@ namespace DescriptorDecoder {
         depthStencilAttachment.attachment = nullptr;
         depthStencilAttachment.clearStencil = 0;
         Napi::Object $depthStencilAttachment = obj.Get("depthStencilAttachment").As<Napi::Object>();
-        if (!($depthStencilAttachment.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
+        if (!($depthStencilAttachment.Get("attachment").IsObject()) || !($depthStencilAttachment.Get("attachment").As<Napi::Object>().InstanceOf(GPUTextureView::constructor.Value()))) {
           Napi::String type = Napi::String::New(value.Env(), "Type");
           Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTextureView' for 'GPURenderPassDepthStencilAttachmentDescriptor'.'attachment'");
           device->throwCallbackError(type, message);
@@ -7475,7 +7475,7 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     if (obj.Has("layout")) {
-      if (!(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
+      if (!(obj.Get("layout").IsObject()) || !(obj.Get("layout").As<Napi::Object>().InstanceOf(GPUPipelineLayout::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUPipelineLayout' for 'GPURenderPipelineDescriptor'.'layout'");
         device->throwCallbackError(type, message);
@@ -7493,7 +7493,7 @@ namespace DescriptorDecoder {
       descriptor.vertexStage.module = nullptr;
       descriptor.vertexStage.entryPoint = nullptr;
       Napi::Object $vertexStage = obj.Get("vertexStage").As<Napi::Object>();
-      if (!($vertexStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+      if (!($vertexStage.Get("module").IsObject()) || !($vertexStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
         Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPUProgrammableStageDescriptor'.'module'");
         device->throwCallbackError(type, message);
@@ -7521,7 +7521,7 @@ namespace DescriptorDecoder {
         fragmentStage.module = nullptr;
         fragmentStage.entryPoint = nullptr;
         Napi::Object $fragmentStage = obj.Get("fragmentStage").As<Napi::Object>();
-        if (!($fragmentStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
+        if (!($fragmentStage.Get("module").IsObject()) || !($fragmentStage.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
           Napi::String type = Napi::String::New(value.Env(), "Type");
           Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPUProgrammableStageDescriptor'.'module'");
           device->throwCallbackError(type, message);
@@ -8175,7 +8175,7 @@ namespace DescriptorDecoder {
   descriptor.arrayLayer = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("texture").As<Napi::Object>().InstanceOf(GPUTexture::constructor.Value()))) {
+    if (!(obj.Get("texture").IsObject()) || !(obj.Get("texture").As<Napi::Object>().InstanceOf(GPUTexture::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUTexture' for 'GPUTextureCopyView'.'texture'");
       device->throwCallbackError(type, message);

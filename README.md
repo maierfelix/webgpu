@@ -26,10 +26,9 @@ node --experimental-modules examples/interactive-triangle.mjs
 ## TODOs
  - Add CTS
  - Compile for Linux
+ - Remove libshaderc from build?
  - Rework GPUBuffer, mainly the mapping part
  - Research for a better Error callback system
- - Strict Type validations for descriptor decoder
- - Cleanup the code generator for descriptor decoding
  - Add ArrayBuffer neutering to GPUBuffer on unmapping ([this issue](https://github.com/nodejs/node-addon-api/issues/541) previously blocked me to add it)
 
 ## Building

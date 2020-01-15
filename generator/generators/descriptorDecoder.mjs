@@ -52,7 +52,38 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
     !jsType.isTypedArray &&
     !jsType.isArrayBuffer
   ) {
-    // TODO: add array type checks
+    // loop through array items
+    out += `
+${padding}{
+${padding}  Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
+${padding}  uint32_t length = array.Length();
+${padding}  ${type.nativeType}* data = (${type.nativeType}*) malloc(length * sizeof(${type.nativeType}));
+${padding}  for (unsigned int ii = 0; ii < length; ++ii) {`;
+    // valdiate object
+    if (type.isStructure) {
+      out += `\n${padding}if (!(array.Get(ii).IsObject())) {
+${padding}      Napi::String type = Napi::String::New(value.Env(), "Type");
+${padding}      Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for '${structure.externalName}'.'${member.name}'");
+${padding}      device->throwCallbackError(type, message);
+${padding}      return ${insideDecoder ? "descriptor" : ""};
+${padding}    }`;
+    }
+    // validate class
+    else if (type.isObject) {
+      let unwrapType = getExplortDeclarationName(type.nativeType);
+      out += `\n${padding}if (!(array.Get(ii).IsObject()) || !(array.Get(ii).As<Napi::Object>().InstanceOf(${unwrapType}::constructor.Value()))) {
+${padding}      Napi::String type = Napi::String::New(value.Env(), "Type");
+${padding}      Napi::String message = Napi::String::New(value.Env(), "Expected '${unwrapType}' for '${structure.externalName}'.'${member.name}'");
+${padding}      device->throwCallbackError(type, message);
+${padding}      return ${insideDecoder ? "descriptor" : ""};
+${padding}    }`;
+    }
+    else {
+      warn(`Cannot validate type of array member '${structure.externalName}'.'${member.name}'`);
+    }
+    out += `
+${padding}  };
+${padding}}`;
   }
   // validate primitives
   else if (

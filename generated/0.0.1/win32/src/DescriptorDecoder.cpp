@@ -1831,6 +1831,19 @@ namespace DescriptorDecoder {
       descriptor.level = static_cast<WGPURayTracingAccelerationContainerLevel>(GPURayTracingAccelerationContainerLevel(obj.Get("level").As<Napi::String>().Utf8Value()));
     }
     if (obj.Has("geometries")) {
+      {
+        Napi::Array array = obj.Get("geometries").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPURayTracingAccelerationGeometryDescriptor* data = (WGPURayTracingAccelerationGeometryDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationGeometryDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingAccelerationContainerDescriptor'.'geometries'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
       Napi::Array array = obj.Get("geometries").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPURayTracingAccelerationGeometryDescriptor* data = (WGPURayTracingAccelerationGeometryDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationGeometryDescriptor));
@@ -1847,6 +1860,19 @@ namespace DescriptorDecoder {
       descriptor.geometries = data;
     }
     if (obj.Has("instances")) {
+      {
+        Napi::Array array = obj.Get("instances").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPURayTracingAccelerationInstanceDescriptor* data = (WGPURayTracingAccelerationInstanceDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationInstanceDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingAccelerationContainerDescriptor'.'instances'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
       Napi::Array array = obj.Get("instances").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPURayTracingAccelerationInstanceDescriptor* data = (WGPURayTracingAccelerationInstanceDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationInstanceDescriptor));
@@ -1896,6 +1922,19 @@ namespace DescriptorDecoder {
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     if (obj.Has("shaders")) {
+      {
+        Napi::Array array = obj.Get("shaders").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPURayTracingShaderBindingTableShadersDescriptor* data = (WGPURayTracingShaderBindingTableShadersDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableShadersDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingShaderBindingTableDescriptor'.'shaders'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
       Napi::Array array = obj.Get("shaders").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPURayTracingShaderBindingTableShadersDescriptor* data = (WGPURayTracingShaderBindingTableShadersDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableShadersDescriptor));
@@ -1940,6 +1979,19 @@ namespace DescriptorDecoder {
     }
     descriptor.layout = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(obj.Get("layout").As<Napi::Object>())->instance;
     {
+      {
+        Napi::Array array = obj.Get("bindings").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUBindGroupBinding* data = (WGPUBindGroupBinding*) malloc(length * sizeof(WGPUBindGroupBinding));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPUBindGroupDescriptor'.'bindings'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
       Napi::Array array = obj.Get("bindings").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUBindGroupBinding* data = (WGPUBindGroupBinding*) malloc(length * sizeof(WGPUBindGroupBinding));
@@ -2051,6 +2103,19 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     {
+      {
+        Napi::Array array = obj.Get("bindings").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUBindGroupLayoutBinding* data = (WGPUBindGroupLayoutBinding*) malloc(length * sizeof(WGPUBindGroupLayoutBinding));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPUBindGroupLayoutDescriptor'.'bindings'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
       Napi::Array array = obj.Get("bindings").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUBindGroupLayoutBinding* data = (WGPUBindGroupLayoutBinding*) malloc(length * sizeof(WGPUBindGroupLayoutBinding));
@@ -2961,6 +3026,19 @@ namespace DescriptorDecoder {
       descriptor.stepMode = static_cast<WGPUInputStepMode>(GPUInputStepMode(obj.Get("stepMode").As<Napi::String>().Utf8Value()));
     }
     {
+      {
+        Napi::Array array = obj.Get("attributes").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUVertexAttributeDescriptor* data = (WGPUVertexAttributeDescriptor*) malloc(length * sizeof(WGPUVertexAttributeDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPUVertexBufferLayoutDescriptor'.'attributes'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
       Napi::Array array = obj.Get("attributes").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUVertexAttributeDescriptor* data = (WGPUVertexAttributeDescriptor*) malloc(length * sizeof(WGPUVertexAttributeDescriptor));
@@ -2998,6 +3076,19 @@ namespace DescriptorDecoder {
       descriptor.indexFormat = static_cast<WGPUIndexFormat>(GPUIndexFormat(obj.Get("indexFormat").As<Napi::String>().Utf8Value()));
     }
     if (obj.Has("vertexBuffers")) {
+      {
+        Napi::Array array = obj.Get("vertexBuffers").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUVertexBufferLayoutDescriptor* data = (WGPUVertexBufferLayoutDescriptor*) malloc(length * sizeof(WGPUVertexBufferLayoutDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPUVertexStateDescriptor'.'vertexBuffers'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
       Napi::Array array = obj.Get("vertexBuffers").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUVertexBufferLayoutDescriptor* data = (WGPUVertexBufferLayoutDescriptor*) malloc(length * sizeof(WGPUVertexBufferLayoutDescriptor));
@@ -3090,6 +3181,19 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     {
+      {
+        Napi::Array array = obj.Get("bindGroupLayouts").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUBindGroupLayout* data = (WGPUBindGroupLayout*) malloc(length * sizeof(WGPUBindGroupLayout));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject()) || !(array.Get(ii).As<Napi::Object>().InstanceOf(GPUBindGroupLayout::constructor.Value()))) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBindGroupLayout' for 'GPUPipelineLayoutDescriptor'.'bindGroupLayouts'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
       Napi::Array array = obj.Get("bindGroupLayouts").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUBindGroupLayout* data = (WGPUBindGroupLayout*) malloc(length * sizeof(WGPUBindGroupLayout));
@@ -3482,6 +3586,19 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     {
+      {
+        Napi::Array array = obj.Get("colorAttachments").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPURenderPassColorAttachmentDescriptor* data = (WGPURenderPassColorAttachmentDescriptor*) malloc(length * sizeof(WGPURenderPassColorAttachmentDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURenderPassDescriptor'.'colorAttachments'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
       Napi::Array array = obj.Get("colorAttachments").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPURenderPassColorAttachmentDescriptor* data = (WGPURenderPassColorAttachmentDescriptor*) malloc(length * sizeof(WGPURenderPassColorAttachmentDescriptor));
@@ -3695,6 +3812,19 @@ namespace DescriptorDecoder {
           vertexState.indexFormat = static_cast<WGPUIndexFormat>(GPUIndexFormat($vertexState.Get("indexFormat").As<Napi::String>().Utf8Value()));
         }
         if ($vertexState.Has("vertexBuffers")) {
+          {
+            Napi::Array array = $vertexState.Get("vertexBuffers").As<Napi::Array>();
+            uint32_t length = array.Length();
+            WGPUVertexBufferLayoutDescriptor* data = (WGPUVertexBufferLayoutDescriptor*) malloc(length * sizeof(WGPUVertexBufferLayoutDescriptor));
+            for (unsigned int ii = 0; ii < length; ++ii) {
+          if (!(array.Get(ii).IsObject())) {
+                Napi::String type = Napi::String::New(value.Env(), "Type");
+                Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPUVertexStateDescriptor'.'vertexBuffers'");
+                device->throwCallbackError(type, message);
+                return descriptor;
+              }
+            };
+          }
           Napi::Array array = $vertexState.Get("vertexBuffers").As<Napi::Array>();
           uint32_t length = array.Length();
           WGPUVertexBufferLayoutDescriptor* data = (WGPUVertexBufferLayoutDescriptor*) malloc(length * sizeof(WGPUVertexBufferLayoutDescriptor));
@@ -3989,6 +4119,19 @@ namespace DescriptorDecoder {
       }
     }
     {
+      {
+        Napi::Array array = obj.Get("colorStates").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUColorStateDescriptor* data = (WGPUColorStateDescriptor*) malloc(length * sizeof(WGPUColorStateDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURenderPipelineDescriptor'.'colorStates'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
       Napi::Array array = obj.Get("colorStates").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUColorStateDescriptor* data = (WGPUColorStateDescriptor*) malloc(length * sizeof(WGPUColorStateDescriptor));
@@ -5406,6 +5549,19 @@ namespace DescriptorDecoder {
       descriptor.level = static_cast<WGPURayTracingAccelerationContainerLevel>(GPURayTracingAccelerationContainerLevel(obj.Get("level").As<Napi::String>().Utf8Value()));
     }
     if (obj.Has("geometries")) {
+      {
+        Napi::Array array = obj.Get("geometries").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPURayTracingAccelerationGeometryDescriptor* data = (WGPURayTracingAccelerationGeometryDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationGeometryDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingAccelerationContainerDescriptor'.'geometries'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
       Napi::Array array = obj.Get("geometries").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPURayTracingAccelerationGeometryDescriptor* data = (WGPURayTracingAccelerationGeometryDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationGeometryDescriptor));
@@ -5422,6 +5578,19 @@ namespace DescriptorDecoder {
       descriptor.geometries = data;
     }
     if (obj.Has("instances")) {
+      {
+        Napi::Array array = obj.Get("instances").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPURayTracingAccelerationInstanceDescriptor* data = (WGPURayTracingAccelerationInstanceDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationInstanceDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingAccelerationContainerDescriptor'.'instances'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
       Napi::Array array = obj.Get("instances").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPURayTracingAccelerationInstanceDescriptor* data = (WGPURayTracingAccelerationInstanceDescriptor*) malloc(length * sizeof(WGPURayTracingAccelerationInstanceDescriptor));
@@ -5473,6 +5642,19 @@ namespace DescriptorDecoder {
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     if (obj.Has("shaders")) {
+      {
+        Napi::Array array = obj.Get("shaders").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPURayTracingShaderBindingTableShadersDescriptor* data = (WGPURayTracingShaderBindingTableShadersDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableShadersDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingShaderBindingTableDescriptor'.'shaders'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
       Napi::Array array = obj.Get("shaders").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPURayTracingShaderBindingTableShadersDescriptor* data = (WGPURayTracingShaderBindingTableShadersDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableShadersDescriptor));
@@ -5518,6 +5700,19 @@ namespace DescriptorDecoder {
     }
     descriptor.layout = Napi::ObjectWrap<GPUBindGroupLayout>::Unwrap(obj.Get("layout").As<Napi::Object>())->instance;
     {
+      {
+        Napi::Array array = obj.Get("bindings").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUBindGroupBinding* data = (WGPUBindGroupBinding*) malloc(length * sizeof(WGPUBindGroupBinding));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPUBindGroupDescriptor'.'bindings'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
       Napi::Array array = obj.Get("bindings").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUBindGroupBinding* data = (WGPUBindGroupBinding*) malloc(length * sizeof(WGPUBindGroupBinding));
@@ -5631,6 +5826,19 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     {
+      {
+        Napi::Array array = obj.Get("bindings").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUBindGroupLayoutBinding* data = (WGPUBindGroupLayoutBinding*) malloc(length * sizeof(WGPUBindGroupLayoutBinding));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPUBindGroupLayoutDescriptor'.'bindings'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
       Napi::Array array = obj.Get("bindings").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUBindGroupLayoutBinding* data = (WGPUBindGroupLayoutBinding*) malloc(length * sizeof(WGPUBindGroupLayoutBinding));
@@ -6560,6 +6768,19 @@ namespace DescriptorDecoder {
       descriptor.stepMode = static_cast<WGPUInputStepMode>(GPUInputStepMode(obj.Get("stepMode").As<Napi::String>().Utf8Value()));
     }
     {
+      {
+        Napi::Array array = obj.Get("attributes").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUVertexAttributeDescriptor* data = (WGPUVertexAttributeDescriptor*) malloc(length * sizeof(WGPUVertexAttributeDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPUVertexBufferLayoutDescriptor'.'attributes'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
       Napi::Array array = obj.Get("attributes").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUVertexAttributeDescriptor* data = (WGPUVertexAttributeDescriptor*) malloc(length * sizeof(WGPUVertexAttributeDescriptor));
@@ -6598,6 +6819,19 @@ namespace DescriptorDecoder {
       descriptor.indexFormat = static_cast<WGPUIndexFormat>(GPUIndexFormat(obj.Get("indexFormat").As<Napi::String>().Utf8Value()));
     }
     if (obj.Has("vertexBuffers")) {
+      {
+        Napi::Array array = obj.Get("vertexBuffers").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUVertexBufferLayoutDescriptor* data = (WGPUVertexBufferLayoutDescriptor*) malloc(length * sizeof(WGPUVertexBufferLayoutDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPUVertexStateDescriptor'.'vertexBuffers'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
       Napi::Array array = obj.Get("vertexBuffers").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUVertexBufferLayoutDescriptor* data = (WGPUVertexBufferLayoutDescriptor*) malloc(length * sizeof(WGPUVertexBufferLayoutDescriptor));
@@ -6692,6 +6926,19 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     {
+      {
+        Napi::Array array = obj.Get("bindGroupLayouts").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUBindGroupLayout* data = (WGPUBindGroupLayout*) malloc(length * sizeof(WGPUBindGroupLayout));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject()) || !(array.Get(ii).As<Napi::Object>().InstanceOf(GPUBindGroupLayout::constructor.Value()))) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBindGroupLayout' for 'GPUPipelineLayoutDescriptor'.'bindGroupLayouts'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
       Napi::Array array = obj.Get("bindGroupLayouts").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUBindGroupLayout* data = (WGPUBindGroupLayout*) malloc(length * sizeof(WGPUBindGroupLayout));
@@ -7091,6 +7338,19 @@ namespace DescriptorDecoder {
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
     {
+      {
+        Napi::Array array = obj.Get("colorAttachments").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPURenderPassColorAttachmentDescriptor* data = (WGPURenderPassColorAttachmentDescriptor*) malloc(length * sizeof(WGPURenderPassColorAttachmentDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURenderPassDescriptor'.'colorAttachments'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
       Napi::Array array = obj.Get("colorAttachments").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPURenderPassColorAttachmentDescriptor* data = (WGPURenderPassColorAttachmentDescriptor*) malloc(length * sizeof(WGPURenderPassColorAttachmentDescriptor));
@@ -7305,6 +7565,19 @@ namespace DescriptorDecoder {
           vertexState.indexFormat = static_cast<WGPUIndexFormat>(GPUIndexFormat($vertexState.Get("indexFormat").As<Napi::String>().Utf8Value()));
         }
         if ($vertexState.Has("vertexBuffers")) {
+          {
+            Napi::Array array = $vertexState.Get("vertexBuffers").As<Napi::Array>();
+            uint32_t length = array.Length();
+            WGPUVertexBufferLayoutDescriptor* data = (WGPUVertexBufferLayoutDescriptor*) malloc(length * sizeof(WGPUVertexBufferLayoutDescriptor));
+            for (unsigned int ii = 0; ii < length; ++ii) {
+          if (!(array.Get(ii).IsObject())) {
+                Napi::String type = Napi::String::New(value.Env(), "Type");
+                Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPUVertexStateDescriptor'.'vertexBuffers'");
+                device->throwCallbackError(type, message);
+                return ;
+              }
+            };
+          }
           Napi::Array array = $vertexState.Get("vertexBuffers").As<Napi::Array>();
           uint32_t length = array.Length();
           WGPUVertexBufferLayoutDescriptor* data = (WGPUVertexBufferLayoutDescriptor*) malloc(length * sizeof(WGPUVertexBufferLayoutDescriptor));
@@ -7599,6 +7872,19 @@ namespace DescriptorDecoder {
       }
     }
     {
+      {
+        Napi::Array array = obj.Get("colorStates").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPUColorStateDescriptor* data = (WGPUColorStateDescriptor*) malloc(length * sizeof(WGPUColorStateDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURenderPipelineDescriptor'.'colorStates'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
       Napi::Array array = obj.Get("colorStates").As<Napi::Array>();
       uint32_t length = array.Length();
       WGPUColorStateDescriptor* data = (WGPUColorStateDescriptor*) malloc(length * sizeof(WGPUColorStateDescriptor));

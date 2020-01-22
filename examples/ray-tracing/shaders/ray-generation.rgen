@@ -27,6 +27,7 @@ void main() {
   vec4 target = uCamera.projection * (vec4(uv.x, uv.y, 1, 1));
   vec4 direction = uCamera.view * vec4(normalize(target.xyz), 0);
 
+  hitValue = vec3(0);
   traceNV(topLevelAS, gl_RayFlagsOpaqueNV, 0xFF, 0, 0, 0, origin.xyz, 0.01, direction.xyz, 4096.0, 0);
 
   const uint pixelIndex = ipos.y * resolution.x + ipos.x;

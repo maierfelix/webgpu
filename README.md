@@ -62,7 +62,7 @@ ninja -C out/Shared
 
 Follow dawn's initial setup instructions, but instead of the standard build, do the following:
 
-To generate the project as a shared library using MSVS:
+To generate the project as a shared library:
 ````
 gn gen out/Shared --target_cpu="x64" --args="is_component_build=true is_debug=false is_clang=true"
 ````

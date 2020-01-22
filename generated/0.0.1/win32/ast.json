@@ -1,6 +1,62 @@
 {
   "enums": [
     {
+      "name": "WGPUAdapterType",
+      "externalName": "GPUAdapterType",
+      "type": "enum",
+      "textName": "adapter type",
+      "children": [
+        {
+          "name": "discrete GPU",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "integrated GPU",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "CPU",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "Unknown",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        }
+      ]
+    },
+    {
       "name": "WGPUAddressMode",
       "externalName": "GPUAddressMode",
       "type": "enum",
@@ -41,6 +97,98 @@
             }
           },
           "value": 2
+        }
+      ]
+    },
+    {
+      "name": "WGPUBackendType",
+      "externalName": "GPUBackendType",
+      "type": "enum",
+      "textName": "backend type",
+      "children": [
+        {
+          "name": "null",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "D3D11",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "D3D12",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "metal",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
+        },
+        {
+          "name": "vulkan",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
+        },
+        {
+          "name": "openGL",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 5
+        },
+        {
+          "name": "openGLES",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 6
         }
       ]
     },
@@ -105,6 +253,50 @@
             }
           },
           "value": 1
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingShaderBindingTableGroupType",
+      "externalName": "GPURayTracingShaderBindingTableGroupType",
+      "type": "enum",
+      "textName": "ray tracing shader binding table group type",
+      "children": [
+        {
+          "name": "general",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "triangles hit group",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "procedural hit group",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
         }
       ]
     },
@@ -1177,6 +1369,62 @@
             }
           },
           "value": 7
+        }
+      ]
+    },
+    {
+      "name": "WGPUSType",
+      "externalName": "GPUSType",
+      "type": "enum",
+      "textName": "s type",
+      "children": [
+        {
+          "name": "invalid",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "surface descriptor from metal layer",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "surface descriptor from windows HWND",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
+        },
+        {
+          "name": "surface descriptor from xlib",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 3
         }
       ]
     },
@@ -2419,6 +2667,50 @@
   ],
   "bitmasks": [
     {
+      "name": "WGPURayTracingAccelerationGeometryFlag",
+      "externalName": "GPURayTracingAccelerationGeometryFlag",
+      "type": "bitmask",
+      "textName": "ray tracing acceleration geometry flag",
+      "children": [
+        {
+          "name": "NONE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "OPAQUE",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 1
+        },
+        {
+          "name": "ALLOW_ANY_HIT",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 2
+        }
+      ]
+    },
+    {
       "name": "WGPURayTracingAccelerationInstanceFlag",
       "externalName": "GPURayTracingAccelerationInstanceFlag",
       "type": "bitmask",
@@ -2875,6 +3167,18 @@
             }
           },
           "value": 64
+        },
+        {
+          "name": "RAY_INTERSECTION",
+          "type": {
+            "isNumber": true,
+            "nativeType": "uint32_t",
+            "jsType": {
+              "isNumber": true,
+              "type": "Number"
+            }
+          },
+          "value": 128
         }
       ]
     },
@@ -4205,6 +4509,45 @@
           "name": "traceRays",
           "children": [
             {
+              "name": "rayGenerationOffset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "rayHitOffset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "rayMissOffset",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
               "name": "width",
               "type": {
                 "isNumber": true,
@@ -4882,6 +5225,18 @@
           }
         },
         {
+          "name": "loseForTesting",
+          "children": [],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
           "name": "tick",
           "children": [],
           "type": {
@@ -5099,6 +5454,43 @@
             "jsType": {
               "type": "Undefined",
               "isUndefined": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WGPUInstance",
+      "externalName": "GPUInstance",
+      "type": "object",
+      "textName": "instance",
+      "children": [
+        {
+          "name": "createSurface",
+          "children": [
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "WGPUSurfaceDescriptor",
+                "isReference": true,
+                "rawType": "const WGPUSurfaceDescriptor*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPUSurface",
+            "rawType": "WGPUSurface",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPUSurface",
+              "isObject": true
             }
           }
         }
@@ -6546,6 +6938,13 @@
       "children": []
     },
     {
+      "name": "WGPUSurface",
+      "externalName": "GPUSurface",
+      "type": "object",
+      "textName": "surface",
+      "children": []
+    },
+    {
       "name": "WGPUSwapChain",
       "externalName": "GPUSwapChain",
       "type": "object",
@@ -6704,6 +7103,80 @@
   ],
   "structures": [
     {
+      "name": "WGPUAdapterProperties",
+      "externalName": "GPUAdapterProperties",
+      "type": "structure",
+      "isExtensible": true,
+      "textName": "adapter properties",
+      "children": [
+        {
+          "name": "deviceID",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "vendorID",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "name",
+          "type": {
+            "isString": true,
+            "isReference": true,
+            "rawType": "const char*",
+            "isRequired": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          }
+        },
+        {
+          "name": "adapterType",
+          "type": {
+            "isEnum": true,
+            "nativeType": "WGPUAdapterType",
+            "rawType": "WGPUAdapterType",
+            "isRequired": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          }
+        },
+        {
+          "name": "backendType",
+          "type": {
+            "isEnum": true,
+            "nativeType": "WGPUBackendType",
+            "rawType": "WGPUBackendType",
+            "isRequired": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "WGPUBindGroupBinding",
       "externalName": "GPUBindGroupBinding",
       "type": "structure",
@@ -6809,26 +7282,13 @@
       ]
     },
     {
-      "name": "WGPURayTracingAccelerationGeometryDescriptor",
-      "externalName": "GPURayTracingAccelerationGeometryDescriptor",
+      "name": "WGPURayTracingAccelerationGeometryVertexDescriptor",
+      "externalName": "GPURayTracingAccelerationGeometryVertexDescriptor",
       "type": "structure",
-      "textName": "ray tracing acceleration geometry descriptor",
+      "textName": "ray tracing acceleration geometry vertex descriptor",
       "children": [
         {
-          "name": "type",
-          "type": {
-            "isEnum": true,
-            "nativeType": "WGPURayTracingAccelerationGeometryType",
-            "rawType": "WGPURayTracingAccelerationGeometryType",
-            "isRequired": true,
-            "jsType": {
-              "type": "String",
-              "isString": true
-            }
-          }
-        },
-        {
-          "name": "vertexBuffer",
+          "name": "buffer",
           "type": {
             "isObject": true,
             "nativeType": "WGPUBuffer",
@@ -6841,7 +7301,7 @@
           }
         },
         {
-          "name": "vertexFormat",
+          "name": "format",
           "type": {
             "isEnum": true,
             "nativeType": "WGPUVertexFormat",
@@ -6854,7 +7314,7 @@
           }
         },
         {
-          "name": "vertexStride",
+          "name": "stride",
           "type": {
             "isNumber": true,
             "initialValue": "0",
@@ -6867,7 +7327,7 @@
           }
         },
         {
-          "name": "vertexOffset",
+          "name": "offset",
           "type": {
             "isNumber": true,
             "initialValue": "0",
@@ -6882,7 +7342,103 @@
           "defaultValueNative": "0"
         },
         {
-          "name": "vertexCount",
+          "name": "count",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingAccelerationGeometryIndexDescriptor",
+      "externalName": "GPURayTracingAccelerationGeometryIndexDescriptor",
+      "type": "structure",
+      "textName": "ray tracing acceleration geometry index descriptor",
+      "children": [
+        {
+          "name": "buffer",
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPUBuffer",
+            "rawType": "WGPUBuffer",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPUBuffer",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "format",
+          "type": {
+            "isEnum": true,
+            "nativeType": "WGPUIndexFormat",
+            "rawType": "WGPUIndexFormat",
+            "isRequired": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          }
+        },
+        {
+          "name": "offset",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": "0"
+        },
+        {
+          "name": "count",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingAccelerationGeometryAabbDescriptor",
+      "externalName": "GPURayTracingAccelerationGeometryAabbDescriptor",
+      "type": "structure",
+      "textName": "ray tracing acceleration geometry aabb descriptor",
+      "children": [
+        {
+          "name": "buffer",
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPUBuffer",
+            "rawType": "WGPUBuffer",
+            "isRequired": true,
+            "jsType": {
+              "type": "WGPUBuffer",
+              "isObject": true
+            }
+          }
+        },
+        {
+          "name": "stride",
           "type": {
             "isNumber": true,
             "initialValue": "0",
@@ -6895,63 +7451,115 @@
           }
         },
         {
-          "name": "indexBuffer",
+          "name": "offset",
           "type": {
-            "isObject": true,
-            "nativeType": "WGPUBuffer",
-            "rawType": "WGPUBuffer",
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
             "isOptional": true,
             "jsType": {
-              "type": "WGPUBuffer",
-              "isObject": true
+              "type": "Number",
+              "isNumber": true
             }
           },
-          "isOptional": true
+          "defaultValue": "0",
+          "defaultValueNative": "0"
         },
         {
-          "name": "indexFormat",
+          "name": "count",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WGPURayTracingAccelerationGeometryDescriptor",
+      "externalName": "GPURayTracingAccelerationGeometryDescriptor",
+      "type": "structure",
+      "textName": "ray tracing acceleration geometry descriptor",
+      "children": [
+        {
+          "name": "flags",
+          "type": {
+            "isBitmask": true,
+            "nativeType": "WGPURayTracingAccelerationGeometryFlag",
+            "rawType": "WGPURayTracingAccelerationGeometryFlag",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "\"none\"",
+          "defaultValueNative": 0
+        },
+        {
+          "name": "type",
           "type": {
             "isEnum": true,
-            "nativeType": "WGPUIndexFormat",
-            "rawType": "WGPUIndexFormat",
+            "nativeType": "WGPURayTracingAccelerationGeometryType",
+            "rawType": "WGPURayTracingAccelerationGeometryType",
             "isOptional": true,
             "jsType": {
               "type": "String",
               "isString": true
             }
           },
-          "defaultValue": "\"none\"",
-          "defaultValueNative": 2
+          "defaultValue": "\"triangles\"",
+          "defaultValueNative": 0
         },
         {
-          "name": "indexOffset",
+          "name": "vertex",
           "type": {
-            "isNumber": true,
-            "initialValue": "0",
-            "rawType": "uint64_t",
+            "isStructure": true,
+            "nativeType": "WGPURayTracingAccelerationGeometryVertexDescriptor",
+            "isReference": true,
+            "rawType": "const WGPURayTracingAccelerationGeometryVertexDescriptor*",
             "isOptional": true,
             "jsType": {
-              "type": "Number",
-              "isNumber": true
+              "type": "Object",
+              "isObject": true
             }
           },
-          "defaultValue": "0",
-          "defaultValueNative": "0"
+          "isOptional": true
         },
         {
-          "name": "indexCount",
+          "name": "index",
           "type": {
-            "isNumber": true,
-            "initialValue": "0",
-            "rawType": "uint32_t",
+            "isStructure": true,
+            "nativeType": "WGPURayTracingAccelerationGeometryIndexDescriptor",
+            "isReference": true,
+            "rawType": "const WGPURayTracingAccelerationGeometryIndexDescriptor*",
             "isOptional": true,
             "jsType": {
-              "type": "Number",
-              "isNumber": true
+              "type": "Object",
+              "isObject": true
             }
           },
-          "defaultValue": "0",
-          "defaultValueNative": "0"
+          "isOptional": true
+        },
+        {
+          "name": "aabb",
+          "type": {
+            "isStructure": true,
+            "nativeType": "WGPURayTracingAccelerationGeometryAabbDescriptor",
+            "isReference": true,
+            "rawType": "const WGPURayTracingAccelerationGeometryAabbDescriptor*",
+            "isOptional": true,
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
+          },
+          "isOptional": true
         }
       ]
     },
@@ -7264,10 +7872,10 @@
       ]
     },
     {
-      "name": "WGPURayTracingShaderBindingTableShadersDescriptor",
-      "externalName": "GPURayTracingShaderBindingTableShadersDescriptor",
+      "name": "WGPURayTracingShaderBindingTableStagesDescriptor",
+      "externalName": "GPURayTracingShaderBindingTableStagesDescriptor",
       "type": "structure",
-      "textName": "ray tracing shader binding table shaders descriptor",
+      "textName": "ray tracing shader binding table stages descriptor",
       "children": [
         {
           "name": "stage",
@@ -7298,13 +7906,96 @@
       ]
     },
     {
+      "name": "WGPURayTracingShaderBindingTableGroupsDescriptor",
+      "externalName": "GPURayTracingShaderBindingTableGroupsDescriptor",
+      "type": "structure",
+      "textName": "ray tracing shader binding table groups descriptor",
+      "children": [
+        {
+          "name": "type",
+          "type": {
+            "isEnum": true,
+            "nativeType": "WGPURayTracingShaderBindingTableGroupType",
+            "rawType": "WGPURayTracingShaderBindingTableGroupType",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "defaultValue": "\"general\"",
+          "defaultValueNative": 0
+        },
+        {
+          "name": "generalIndex",
+          "type": {
+            "isNumber": true,
+            "initialValue": "-1",
+            "rawType": "int32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "-1",
+          "defaultValueNative": "-1"
+        },
+        {
+          "name": "closestHitIndex",
+          "type": {
+            "isNumber": true,
+            "initialValue": "-1",
+            "rawType": "int32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "-1",
+          "defaultValueNative": "-1"
+        },
+        {
+          "name": "anyHitIndex",
+          "type": {
+            "isNumber": true,
+            "initialValue": "-1",
+            "rawType": "int32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "-1",
+          "defaultValueNative": "-1"
+        },
+        {
+          "name": "intersectionIndex",
+          "type": {
+            "isNumber": true,
+            "initialValue": "-1",
+            "rawType": "int32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "-1",
+          "defaultValueNative": "-1"
+        }
+      ]
+    },
+    {
       "name": "WGPURayTracingShaderBindingTableDescriptor",
       "externalName": "GPURayTracingShaderBindingTableDescriptor",
       "type": "structure",
       "textName": "ray tracing shader binding table descriptor",
       "children": [
         {
-          "name": "shaderCount",
+          "name": "stagesCount",
           "type": {
             "isNumber": true,
             "initialValue": "0",
@@ -7320,22 +8011,54 @@
           "isInternalProperty": true
         },
         {
-          "name": "shaders",
+          "name": "stages",
           "type": {
             "isStructure": true,
-            "nativeType": "WGPURayTracingShaderBindingTableShadersDescriptor",
-            "length": "shaderCount",
+            "nativeType": "WGPURayTracingShaderBindingTableStagesDescriptor",
+            "length": "stagesCount",
             "isReference": true,
             "isArray": true,
-            "rawType": "const WGPURayTracingShaderBindingTableShadersDescriptor*",
-            "isOptional": true,
+            "rawType": "const WGPURayTracingShaderBindingTableStagesDescriptor*",
+            "isRequired": false,
             "jsType": {
               "type": "Object",
               "isObject": true
             },
-            "isRequired": false
+            "isOptional": true
+          }
+        },
+        {
+          "name": "groupsCount",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
           },
-          "isOptional": true
+          "defaultValue": "0",
+          "defaultValueNative": "0",
+          "isInternalProperty": true
+        },
+        {
+          "name": "groups",
+          "type": {
+            "isStructure": true,
+            "nativeType": "WGPURayTracingShaderBindingTableGroupsDescriptor",
+            "length": "groupsCount",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const WGPURayTracingShaderBindingTableGroupsDescriptor*",
+            "isRequired": false,
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            },
+            "isOptional": true
+          }
         }
       ]
     },
@@ -8375,6 +9098,14 @@
           "defaultValueNative": "0"
         }
       ]
+    },
+    {
+      "name": "WGPUInstanceDescriptor",
+      "externalName": "GPUInstanceDescriptor",
+      "type": "structure",
+      "isExtensible": true,
+      "textName": "instance descriptor",
+      "children": []
     },
     {
       "name": "WGPUVertexAttributeDescriptor",
@@ -9614,6 +10345,117 @@
           },
           "defaultValue": "\"keep\"",
           "defaultValueNative": 0
+        }
+      ]
+    },
+    {
+      "name": "WGPUSurfaceDescriptor",
+      "externalName": "GPUSurfaceDescriptor",
+      "type": "structure",
+      "isExtensible": true,
+      "textName": "surface descriptor",
+      "children": [
+        {
+          "name": "label",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "isOptional": true
+        }
+      ]
+    },
+    {
+      "name": "WGPUSurfaceDescriptorFromMetalLayer",
+      "externalName": "GPUSurfaceDescriptorFromMetalLayer",
+      "type": "structure",
+      "textName": "surface descriptor from metal layer",
+      "children": [
+        {
+          "name": "layer",
+          "type": {
+            "isReference": true,
+            "rawType": "void*",
+            "isRequired": true,
+            "jsType": {
+              "type": "ArrayBuffer",
+              "isArrayBuffer": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WGPUSurfaceDescriptorFromWindowsHWND",
+      "externalName": "GPUSurfaceDescriptorFromWindowsHWND",
+      "type": "structure",
+      "textName": "surface descriptor from windows HWND",
+      "children": [
+        {
+          "name": "hinstance",
+          "type": {
+            "isReference": true,
+            "rawType": "void*",
+            "isRequired": true,
+            "jsType": {
+              "type": "ArrayBuffer",
+              "isArrayBuffer": true
+            }
+          }
+        },
+        {
+          "name": "hwnd",
+          "type": {
+            "isReference": true,
+            "rawType": "void*",
+            "isRequired": true,
+            "jsType": {
+              "type": "ArrayBuffer",
+              "isArrayBuffer": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WGPUSurfaceDescriptorFromXlib",
+      "externalName": "GPUSurfaceDescriptorFromXlib",
+      "type": "structure",
+      "textName": "surface descriptor from xlib",
+      "children": [
+        {
+          "name": "display",
+          "type": {
+            "isReference": true,
+            "rawType": "void*",
+            "isRequired": true,
+            "jsType": {
+              "type": "ArrayBuffer",
+              "isArrayBuffer": true
+            }
+          }
+        },
+        {
+          "name": "window",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
         }
       ]
     },

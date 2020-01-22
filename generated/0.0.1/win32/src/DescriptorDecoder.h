@@ -26,14 +26,23 @@
 
 namespace DescriptorDecoder {
   
+  uint32_t GPUAdapterType(std::string name);
+  std::string GPUAdapterType(uint32_t value);
+  
   uint32_t GPUAddressMode(std::string name);
   std::string GPUAddressMode(uint32_t value);
+  
+  uint32_t GPUBackendType(std::string name);
+  std::string GPUBackendType(uint32_t value);
   
   uint32_t GPURayTracingAccelerationGeometryType(std::string name);
   std::string GPURayTracingAccelerationGeometryType(uint32_t value);
   
   uint32_t GPURayTracingAccelerationContainerLevel(std::string name);
   std::string GPURayTracingAccelerationContainerLevel(uint32_t value);
+  
+  uint32_t GPURayTracingShaderBindingTableGroupType(std::string name);
+  std::string GPURayTracingShaderBindingTableGroupType(uint32_t value);
   
   uint32_t GPUBindingType(std::string name);
   std::string GPUBindingType(uint32_t value);
@@ -86,6 +95,9 @@ namespace DescriptorDecoder {
   uint32_t GPUStencilOperation(std::string name);
   std::string GPUStencilOperation(uint32_t value);
   
+  uint32_t GPUSType(std::string name);
+  std::string GPUSType(uint32_t value);
+  
   uint32_t GPUTextureAspect(std::string name);
   std::string GPUTextureAspect(uint32_t value);
   
@@ -106,7 +118,15 @@ namespace DescriptorDecoder {
   
 
   
+  WGPUAdapterProperties DecodeGPUAdapterProperties(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
+  
   WGPUBindGroupBinding DecodeGPUBindGroupBinding(GPUDevice* device, const Napi::Value& value);
+  
+  WGPURayTracingAccelerationGeometryVertexDescriptor DecodeGPURayTracingAccelerationGeometryVertexDescriptor(GPUDevice* device, const Napi::Value& value);
+  
+  WGPURayTracingAccelerationGeometryIndexDescriptor DecodeGPURayTracingAccelerationGeometryIndexDescriptor(GPUDevice* device, const Napi::Value& value);
+  
+  WGPURayTracingAccelerationGeometryAabbDescriptor DecodeGPURayTracingAccelerationGeometryAabbDescriptor(GPUDevice* device, const Napi::Value& value);
   
   WGPURayTracingAccelerationGeometryDescriptor DecodeGPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, const Napi::Value& value);
   
@@ -118,7 +138,9 @@ namespace DescriptorDecoder {
   
   WGPURayTracingAccelerationContainerDescriptor DecodeGPURayTracingAccelerationContainerDescriptor(GPUDevice* device, const Napi::Value& value);
   
-  WGPURayTracingShaderBindingTableShadersDescriptor DecodeGPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, const Napi::Value& value);
+  WGPURayTracingShaderBindingTableStagesDescriptor DecodeGPURayTracingShaderBindingTableStagesDescriptor(GPUDevice* device, const Napi::Value& value);
+  
+  WGPURayTracingShaderBindingTableGroupsDescriptor DecodeGPURayTracingShaderBindingTableGroupsDescriptor(GPUDevice* device, const Napi::Value& value);
   
   WGPURayTracingShaderBindingTableDescriptor DecodeGPURayTracingShaderBindingTableDescriptor(GPUDevice* device, const Napi::Value& value);
   
@@ -162,6 +184,8 @@ namespace DescriptorDecoder {
   
   WGPUFenceDescriptor DecodeGPUFenceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
+  WGPUInstanceDescriptor DecodeGPUInstanceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
+  
   WGPUVertexAttributeDescriptor DecodeGPUVertexAttributeDescriptor(GPUDevice* device, const Napi::Value& value);
   
   WGPUVertexBufferLayoutDescriptor DecodeGPUVertexBufferLayoutDescriptor(GPUDevice* device, const Napi::Value& value);
@@ -194,6 +218,14 @@ namespace DescriptorDecoder {
   
   WGPUStencilStateFaceDescriptor DecodeGPUStencilStateFaceDescriptor(GPUDevice* device, const Napi::Value& value);
   
+  WGPUSurfaceDescriptor DecodeGPUSurfaceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
+  
+  WGPUSurfaceDescriptorFromMetalLayer DecodeGPUSurfaceDescriptorFromMetalLayer(GPUDevice* device, const Napi::Value& value);
+  
+  WGPUSurfaceDescriptorFromWindowsHWND DecodeGPUSurfaceDescriptorFromWindowsHWND(GPUDevice* device, const Napi::Value& value);
+  
+  WGPUSurfaceDescriptorFromXlib DecodeGPUSurfaceDescriptorFromXlib(GPUDevice* device, const Napi::Value& value);
+  
   WGPUSwapChainDescriptor DecodeGPUSwapChainDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
   
   WGPUTextureCopyView DecodeGPUTextureCopyView(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
@@ -204,6 +236,15 @@ namespace DescriptorDecoder {
   
 
   
+  class GPUAdapterProperties {
+    public:
+      GPUAdapterProperties(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
+      ~GPUAdapterProperties();
+      WGPUAdapterProperties* operator &() { return &descriptor; };
+    private:
+      WGPUAdapterProperties descriptor;
+  };
+  
   class GPUBindGroupBinding {
     public:
       GPUBindGroupBinding(GPUDevice* device, const Napi::Value& value);
@@ -211,6 +252,33 @@ namespace DescriptorDecoder {
       WGPUBindGroupBinding* operator &() { return &descriptor; };
     private:
       WGPUBindGroupBinding descriptor;
+  };
+  
+  class GPURayTracingAccelerationGeometryVertexDescriptor {
+    public:
+      GPURayTracingAccelerationGeometryVertexDescriptor(GPUDevice* device, const Napi::Value& value);
+      ~GPURayTracingAccelerationGeometryVertexDescriptor();
+      WGPURayTracingAccelerationGeometryVertexDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingAccelerationGeometryVertexDescriptor descriptor;
+  };
+  
+  class GPURayTracingAccelerationGeometryIndexDescriptor {
+    public:
+      GPURayTracingAccelerationGeometryIndexDescriptor(GPUDevice* device, const Napi::Value& value);
+      ~GPURayTracingAccelerationGeometryIndexDescriptor();
+      WGPURayTracingAccelerationGeometryIndexDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingAccelerationGeometryIndexDescriptor descriptor;
+  };
+  
+  class GPURayTracingAccelerationGeometryAabbDescriptor {
+    public:
+      GPURayTracingAccelerationGeometryAabbDescriptor(GPUDevice* device, const Napi::Value& value);
+      ~GPURayTracingAccelerationGeometryAabbDescriptor();
+      WGPURayTracingAccelerationGeometryAabbDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingAccelerationGeometryAabbDescriptor descriptor;
   };
   
   class GPURayTracingAccelerationGeometryDescriptor {
@@ -258,13 +326,22 @@ namespace DescriptorDecoder {
       WGPURayTracingAccelerationContainerDescriptor descriptor;
   };
   
-  class GPURayTracingShaderBindingTableShadersDescriptor {
+  class GPURayTracingShaderBindingTableStagesDescriptor {
     public:
-      GPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, const Napi::Value& value);
-      ~GPURayTracingShaderBindingTableShadersDescriptor();
-      WGPURayTracingShaderBindingTableShadersDescriptor* operator &() { return &descriptor; };
+      GPURayTracingShaderBindingTableStagesDescriptor(GPUDevice* device, const Napi::Value& value);
+      ~GPURayTracingShaderBindingTableStagesDescriptor();
+      WGPURayTracingShaderBindingTableStagesDescriptor* operator &() { return &descriptor; };
     private:
-      WGPURayTracingShaderBindingTableShadersDescriptor descriptor;
+      WGPURayTracingShaderBindingTableStagesDescriptor descriptor;
+  };
+  
+  class GPURayTracingShaderBindingTableGroupsDescriptor {
+    public:
+      GPURayTracingShaderBindingTableGroupsDescriptor(GPUDevice* device, const Napi::Value& value);
+      ~GPURayTracingShaderBindingTableGroupsDescriptor();
+      WGPURayTracingShaderBindingTableGroupsDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPURayTracingShaderBindingTableGroupsDescriptor descriptor;
   };
   
   class GPURayTracingShaderBindingTableDescriptor {
@@ -456,6 +533,15 @@ namespace DescriptorDecoder {
       WGPUFenceDescriptor descriptor;
   };
   
+  class GPUInstanceDescriptor {
+    public:
+      GPUInstanceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
+      ~GPUInstanceDescriptor();
+      WGPUInstanceDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPUInstanceDescriptor descriptor;
+  };
+  
   class GPUVertexAttributeDescriptor {
     public:
       GPUVertexAttributeDescriptor(GPUDevice* device, const Napi::Value& value);
@@ -600,6 +686,42 @@ namespace DescriptorDecoder {
       WGPUStencilStateFaceDescriptor descriptor;
   };
   
+  class GPUSurfaceDescriptor {
+    public:
+      GPUSurfaceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
+      ~GPUSurfaceDescriptor();
+      WGPUSurfaceDescriptor* operator &() { return &descriptor; };
+    private:
+      WGPUSurfaceDescriptor descriptor;
+  };
+  
+  class GPUSurfaceDescriptorFromMetalLayer {
+    public:
+      GPUSurfaceDescriptorFromMetalLayer(GPUDevice* device, const Napi::Value& value);
+      ~GPUSurfaceDescriptorFromMetalLayer();
+      WGPUSurfaceDescriptorFromMetalLayer* operator &() { return &descriptor; };
+    private:
+      WGPUSurfaceDescriptorFromMetalLayer descriptor;
+  };
+  
+  class GPUSurfaceDescriptorFromWindowsHWND {
+    public:
+      GPUSurfaceDescriptorFromWindowsHWND(GPUDevice* device, const Napi::Value& value);
+      ~GPUSurfaceDescriptorFromWindowsHWND();
+      WGPUSurfaceDescriptorFromWindowsHWND* operator &() { return &descriptor; };
+    private:
+      WGPUSurfaceDescriptorFromWindowsHWND descriptor;
+  };
+  
+  class GPUSurfaceDescriptorFromXlib {
+    public:
+      GPUSurfaceDescriptorFromXlib(GPUDevice* device, const Napi::Value& value);
+      ~GPUSurfaceDescriptorFromXlib();
+      WGPUSurfaceDescriptorFromXlib* operator &() { return &descriptor; };
+    private:
+      WGPUSurfaceDescriptorFromXlib descriptor;
+  };
+  
   class GPUSwapChainDescriptor {
     public:
       GPUSwapChainDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
@@ -638,7 +760,15 @@ namespace DescriptorDecoder {
   
 
   
+  void DestroyGPUAdapterProperties(WGPUAdapterProperties descriptor);
+  
   void DestroyGPUBindGroupBinding(WGPUBindGroupBinding descriptor);
+  
+  void DestroyGPURayTracingAccelerationGeometryVertexDescriptor(WGPURayTracingAccelerationGeometryVertexDescriptor descriptor);
+  
+  void DestroyGPURayTracingAccelerationGeometryIndexDescriptor(WGPURayTracingAccelerationGeometryIndexDescriptor descriptor);
+  
+  void DestroyGPURayTracingAccelerationGeometryAabbDescriptor(WGPURayTracingAccelerationGeometryAabbDescriptor descriptor);
   
   void DestroyGPURayTracingAccelerationGeometryDescriptor(WGPURayTracingAccelerationGeometryDescriptor descriptor);
   
@@ -650,7 +780,9 @@ namespace DescriptorDecoder {
   
   void DestroyGPURayTracingAccelerationContainerDescriptor(WGPURayTracingAccelerationContainerDescriptor descriptor);
   
-  void DestroyGPURayTracingShaderBindingTableShadersDescriptor(WGPURayTracingShaderBindingTableShadersDescriptor descriptor);
+  void DestroyGPURayTracingShaderBindingTableStagesDescriptor(WGPURayTracingShaderBindingTableStagesDescriptor descriptor);
+  
+  void DestroyGPURayTracingShaderBindingTableGroupsDescriptor(WGPURayTracingShaderBindingTableGroupsDescriptor descriptor);
   
   void DestroyGPURayTracingShaderBindingTableDescriptor(WGPURayTracingShaderBindingTableDescriptor descriptor);
   
@@ -694,6 +826,8 @@ namespace DescriptorDecoder {
   
   void DestroyGPUFenceDescriptor(WGPUFenceDescriptor descriptor);
   
+  void DestroyGPUInstanceDescriptor(WGPUInstanceDescriptor descriptor);
+  
   void DestroyGPUVertexAttributeDescriptor(WGPUVertexAttributeDescriptor descriptor);
   
   void DestroyGPUVertexBufferLayoutDescriptor(WGPUVertexBufferLayoutDescriptor descriptor);
@@ -725,6 +859,14 @@ namespace DescriptorDecoder {
   void DestroyGPUShaderModuleDescriptor(WGPUShaderModuleDescriptor descriptor);
   
   void DestroyGPUStencilStateFaceDescriptor(WGPUStencilStateFaceDescriptor descriptor);
+  
+  void DestroyGPUSurfaceDescriptor(WGPUSurfaceDescriptor descriptor);
+  
+  void DestroyGPUSurfaceDescriptorFromMetalLayer(WGPUSurfaceDescriptorFromMetalLayer descriptor);
+  
+  void DestroyGPUSurfaceDescriptorFromWindowsHWND(WGPUSurfaceDescriptorFromWindowsHWND descriptor);
+  
+  void DestroyGPUSurfaceDescriptorFromXlib(WGPUSurfaceDescriptorFromXlib descriptor);
   
   void DestroyGPUSwapChainDescriptor(WGPUSwapChainDescriptor descriptor);
   

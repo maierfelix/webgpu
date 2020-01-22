@@ -39,11 +39,23 @@ Napi::Value GPURayTracingPassEncoder::setPipeline(const Napi::CallbackInfo &info
 Napi::Value GPURayTracingPassEncoder::traceRays(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  uint32_t width = info[0].As<Napi::Number>().Uint32Value();
-  uint32_t height = info[1].As<Napi::Number>().Uint32Value();
-  uint32_t depth = info[2].IsNumber() ? info[2].As<Napi::Number>().Uint32Value() : 1;
+  uint32_t rayGenOffset = info[0].As<Napi::Number>().Uint32Value();
+  uint32_t rayHitOffset = info[1].As<Napi::Number>().Uint32Value();
+  uint32_t rayMissOffset = info[2].As<Napi::Number>().Uint32Value();
 
-  wgpuRayTracingPassEncoderTraceRays(this->instance, width, height, depth);
+  uint32_t width = info[3].As<Napi::Number>().Uint32Value();
+  uint32_t height = info[4].As<Napi::Number>().Uint32Value();
+  uint32_t depth = info[5].As<Napi::Number>().Uint32Value();
+
+  wgpuRayTracingPassEncoderTraceRays(
+    this->instance,
+    rayGenOffset,
+    rayHitOffset,
+    rayMissOffset,
+    width,
+    height,
+    depth
+  );
 
   return env.Undefined();
 }

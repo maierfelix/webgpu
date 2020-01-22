@@ -5,10 +5,27 @@
 #include "DescriptorDecoder.h"
 
 
+static std::unordered_map<std::string, uint32_t> GPUAdapterTypeMap = {
+  { "discrete-gpu", 0 },
+  { "integrated-gpu", 1 },
+  { "cpu", 2 },
+  { "unknown", 3 },
+};
+
 static std::unordered_map<std::string, uint32_t> GPUAddressModeMap = {
   { "repeat", 0 },
   { "mirror-repeat", 1 },
   { "clamp-to-edge", 2 },
+};
+
+static std::unordered_map<std::string, uint32_t> GPUBackendTypeMap = {
+  { "null", 0 },
+  { "d3d11", 1 },
+  { "d3d12", 2 },
+  { "metal", 3 },
+  { "vulkan", 4 },
+  { "opengl", 5 },
+  { "opengles", 6 },
 };
 
 static std::unordered_map<std::string, uint32_t> GPURayTracingAccelerationGeometryTypeMap = {
@@ -19,6 +36,12 @@ static std::unordered_map<std::string, uint32_t> GPURayTracingAccelerationGeomet
 static std::unordered_map<std::string, uint32_t> GPURayTracingAccelerationContainerLevelMap = {
   { "bottom", 0 },
   { "top", 1 },
+};
+
+static std::unordered_map<std::string, uint32_t> GPURayTracingShaderBindingTableGroupTypeMap = {
+  { "general", 0 },
+  { "triangles-hit-group", 1 },
+  { "procedural-hit-group", 2 },
 };
 
 static std::unordered_map<std::string, uint32_t> GPUBindingTypeMap = {
@@ -150,6 +173,13 @@ static std::unordered_map<std::string, uint32_t> GPUStencilOperationMap = {
   { "decrement-wrap", 7 },
 };
 
+static std::unordered_map<std::string, uint32_t> GPUSTypeMap = {
+  { "invalid", 0 },
+  { "surface-descriptor-from-metal-layer", 1 },
+  { "surface-descriptor-from-windows-hwnd", 2 },
+  { "surface-descriptor-from-xlib", 3 },
+};
+
 static std::unordered_map<std::string, uint32_t> GPUTextureAspectMap = {
   { "all", 0 },
   { "stencil-only", 1 },
@@ -271,6 +301,23 @@ static std::unordered_map<std::string, uint32_t> GPUVertexFormatMap = {
 namespace DescriptorDecoder {
 
   
+  uint32_t GPUAdapterType(std::string name) {
+    return GPUAdapterTypeMap[name];
+  };
+  std::string GPUAdapterType(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUAdapterTypeMap),
+      std::end(GPUAdapterTypeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUAdapterTypeMap)) return "";
+
+    return it->first;
+  };
+  
   uint32_t GPUAddressMode(std::string name) {
     return GPUAddressModeMap[name];
   };
@@ -284,6 +331,23 @@ namespace DescriptorDecoder {
     );
 
     if (it == std::end(GPUAddressModeMap)) return "";
+
+    return it->first;
+  };
+  
+  uint32_t GPUBackendType(std::string name) {
+    return GPUBackendTypeMap[name];
+  };
+  std::string GPUBackendType(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUBackendTypeMap),
+      std::end(GPUBackendTypeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUBackendTypeMap)) return "";
 
     return it->first;
   };
@@ -318,6 +382,23 @@ namespace DescriptorDecoder {
     );
 
     if (it == std::end(GPURayTracingAccelerationContainerLevelMap)) return "";
+
+    return it->first;
+  };
+  
+  uint32_t GPURayTracingShaderBindingTableGroupType(std::string name) {
+    return GPURayTracingShaderBindingTableGroupTypeMap[name];
+  };
+  std::string GPURayTracingShaderBindingTableGroupType(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPURayTracingShaderBindingTableGroupTypeMap),
+      std::end(GPURayTracingShaderBindingTableGroupTypeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPURayTracingShaderBindingTableGroupTypeMap)) return "";
 
     return it->first;
   };
@@ -611,6 +692,23 @@ namespace DescriptorDecoder {
     return it->first;
   };
   
+  uint32_t GPUSType(std::string name) {
+    return GPUSTypeMap[name];
+  };
+  std::string GPUSType(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUSTypeMap),
+      std::end(GPUSTypeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUSTypeMap)) return "";
+
+    return it->first;
+  };
+  
   uint32_t GPUTextureAspect(std::string name) {
     return GPUTextureAspectMap[name];
   };
@@ -715,10 +813,37 @@ namespace DescriptorDecoder {
   
 
   
+  void DestroyGPUAdapterProperties(WGPUAdapterProperties descriptor) {
+    if (descriptor.name) {
+      delete[] descriptor.name;
+    }
+  };
+  
   void DestroyGPUBindGroupBinding(WGPUBindGroupBinding descriptor) {
   };
   
+  void DestroyGPURayTracingAccelerationGeometryVertexDescriptor(WGPURayTracingAccelerationGeometryVertexDescriptor descriptor) {
+  };
+  
+  void DestroyGPURayTracingAccelerationGeometryIndexDescriptor(WGPURayTracingAccelerationGeometryIndexDescriptor descriptor) {
+  };
+  
+  void DestroyGPURayTracingAccelerationGeometryAabbDescriptor(WGPURayTracingAccelerationGeometryAabbDescriptor descriptor) {
+  };
+  
   void DestroyGPURayTracingAccelerationGeometryDescriptor(WGPURayTracingAccelerationGeometryDescriptor descriptor) {
+    if (descriptor.vertex != nullptr) {
+      DestroyGPURayTracingAccelerationGeometryVertexDescriptor(*descriptor.vertex);
+      free((void*) const_cast<WGPURayTracingAccelerationGeometryVertexDescriptor*>(descriptor.vertex));
+    };
+    if (descriptor.index != nullptr) {
+      DestroyGPURayTracingAccelerationGeometryIndexDescriptor(*descriptor.index);
+      free((void*) const_cast<WGPURayTracingAccelerationGeometryIndexDescriptor*>(descriptor.index));
+    };
+    if (descriptor.aabb != nullptr) {
+      DestroyGPURayTracingAccelerationGeometryAabbDescriptor(*descriptor.aabb);
+      free((void*) const_cast<WGPURayTracingAccelerationGeometryAabbDescriptor*>(descriptor.aabb));
+    };
   };
   
   void DestroyGPUTransform3D(WGPUTransform3D descriptor) {
@@ -765,17 +890,28 @@ namespace DescriptorDecoder {
     }
   };
   
-  void DestroyGPURayTracingShaderBindingTableShadersDescriptor(WGPURayTracingShaderBindingTableShadersDescriptor descriptor) {
+  void DestroyGPURayTracingShaderBindingTableStagesDescriptor(WGPURayTracingShaderBindingTableStagesDescriptor descriptor) {
+  };
+  
+  void DestroyGPURayTracingShaderBindingTableGroupsDescriptor(WGPURayTracingShaderBindingTableGroupsDescriptor descriptor) {
   };
   
   void DestroyGPURayTracingShaderBindingTableDescriptor(WGPURayTracingShaderBindingTableDescriptor descriptor) {
-    if (descriptor.shaderCount > 0) {
-      for (unsigned int ii = 0; ii < descriptor.shaderCount; ++ii) {
-        DestroyGPURayTracingShaderBindingTableShadersDescriptor(descriptor.shaders[ii]);
+    if (descriptor.stagesCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.stagesCount; ++ii) {
+        DestroyGPURayTracingShaderBindingTableStagesDescriptor(descriptor.stages[ii]);
       };
     }
-    if (descriptor.shaders) {
-      free((void*) const_cast<WGPURayTracingShaderBindingTableShadersDescriptor*>(descriptor.shaders));
+    if (descriptor.stages) {
+      free((void*) const_cast<WGPURayTracingShaderBindingTableStagesDescriptor*>(descriptor.stages));
+    }
+    if (descriptor.groupsCount > 0) {
+      for (unsigned int ii = 0; ii < descriptor.groupsCount; ++ii) {
+        DestroyGPURayTracingShaderBindingTableGroupsDescriptor(descriptor.groups[ii]);
+      };
+    }
+    if (descriptor.groups) {
+      free((void*) const_cast<WGPURayTracingShaderBindingTableGroupsDescriptor*>(descriptor.groups));
     }
   };
   
@@ -892,6 +1028,9 @@ namespace DescriptorDecoder {
     if (descriptor.label) {
       delete[] descriptor.label;
     }
+  };
+  
+  void DestroyGPUInstanceDescriptor(WGPUInstanceDescriptor descriptor) {
   };
   
   void DestroyGPUVertexAttributeDescriptor(WGPUVertexAttributeDescriptor descriptor) {
@@ -1023,6 +1162,21 @@ namespace DescriptorDecoder {
   void DestroyGPUStencilStateFaceDescriptor(WGPUStencilStateFaceDescriptor descriptor) {
   };
   
+  void DestroyGPUSurfaceDescriptor(WGPUSurfaceDescriptor descriptor) {
+    if (descriptor.label) {
+      delete[] descriptor.label;
+    }
+  };
+  
+  void DestroyGPUSurfaceDescriptorFromMetalLayer(WGPUSurfaceDescriptorFromMetalLayer descriptor) {
+  };
+  
+  void DestroyGPUSurfaceDescriptorFromWindowsHWND(WGPUSurfaceDescriptorFromWindowsHWND descriptor) {
+  };
+  
+  void DestroyGPUSurfaceDescriptorFromXlib(WGPUSurfaceDescriptorFromXlib descriptor) {
+  };
+  
   void DestroyGPUSwapChainDescriptor(WGPUSwapChainDescriptor descriptor) {
     if (descriptor.label) {
       delete[] descriptor.label;
@@ -1047,6 +1201,62 @@ namespace DescriptorDecoder {
   };
   
 
+  
+  WGPUAdapterProperties DecodeGPUAdapterProperties(GPUDevice* device, const Napi::Value& value, void* nextInChain) {
+    WGPUAdapterProperties descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.name = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("deviceID").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUAdapterProperties'.'deviceID'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("deviceID").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUAdapterProperties'.'deviceID'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.deviceID = obj.Get("deviceID").As<Napi::Number>().Uint32Value();
+    if (!(obj.Get("vendorID").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUAdapterProperties'.'vendorID'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("vendorID").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUAdapterProperties'.'vendorID'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.vendorID = obj.Get("vendorID").As<Napi::Number>().Uint32Value();
+    if (!(obj.Get("name").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUAdapterProperties'.'name'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("adapterType").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUAdapterProperties'.'adapterType'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.adapterType = static_cast<WGPUAdapterType>(GPUAdapterType(obj.Get("adapterType").As<Napi::String>().Utf8Value()));
+    if (!(obj.Get("backendType").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUAdapterProperties'.'backendType'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.backendType = static_cast<WGPUBackendType>(GPUBackendType(obj.Get("backendType").As<Napi::String>().Utf8Value()));
+    return descriptor;
+  };
   
   WGPUBindGroupBinding DecodeGPUBindGroupBinding(GPUDevice* device, const Napi::Value& value) {
     WGPUBindGroupBinding descriptor;
@@ -1142,130 +1352,413 @@ namespace DescriptorDecoder {
     return descriptor;
   };
   
+  WGPURayTracingAccelerationGeometryVertexDescriptor DecodeGPURayTracingAccelerationGeometryVertexDescriptor(GPUDevice* device, const Napi::Value& value) {
+    WGPURayTracingAccelerationGeometryVertexDescriptor descriptor;
+    // reset descriptor
+  descriptor.buffer = nullptr;
+  descriptor.offset = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'buffer'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
+    if (!(obj.Get("format").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'format'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.format = static_cast<WGPUVertexFormat>(GPUVertexFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+    if (!(obj.Get("stride").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'stride'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("stride").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'stride'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.stride = obj.Get("stride").As<Napi::Number>().Uint32Value();
+    if (obj.Has("offset")) {
+      if (!(obj.Get("offset").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'offset'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      if (!(obj.Get("offset").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'offset'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      {
+        descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
+      }
+    }
+    if (!(obj.Get("count").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'count'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("count").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'count'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.count = obj.Get("count").As<Napi::Number>().Uint32Value();
+    return descriptor;
+  };
+  
+  WGPURayTracingAccelerationGeometryIndexDescriptor DecodeGPURayTracingAccelerationGeometryIndexDescriptor(GPUDevice* device, const Napi::Value& value) {
+    WGPURayTracingAccelerationGeometryIndexDescriptor descriptor;
+    // reset descriptor
+  descriptor.buffer = nullptr;
+  descriptor.offset = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'buffer'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
+    if (!(obj.Get("format").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'format'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.format = static_cast<WGPUIndexFormat>(GPUIndexFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+    if (obj.Has("offset")) {
+      if (!(obj.Get("offset").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'offset'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      if (!(obj.Get("offset").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'offset'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      {
+        descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
+      }
+    }
+    if (!(obj.Get("count").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'count'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("count").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'count'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.count = obj.Get("count").As<Napi::Number>().Uint32Value();
+    return descriptor;
+  };
+  
+  WGPURayTracingAccelerationGeometryAabbDescriptor DecodeGPURayTracingAccelerationGeometryAabbDescriptor(GPUDevice* device, const Napi::Value& value) {
+    WGPURayTracingAccelerationGeometryAabbDescriptor descriptor;
+    // reset descriptor
+  descriptor.buffer = nullptr;
+  descriptor.offset = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'buffer'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
+    if (!(obj.Get("stride").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'stride'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("stride").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'stride'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.stride = obj.Get("stride").As<Napi::Number>().Uint32Value();
+    if (obj.Has("offset")) {
+      if (!(obj.Get("offset").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'offset'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      if (!(obj.Get("offset").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'offset'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      {
+        descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
+      }
+    }
+    if (!(obj.Get("count").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'count'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("count").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'count'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.count = obj.Get("count").As<Napi::Number>().Uint32Value();
+    return descriptor;
+  };
+  
   WGPURayTracingAccelerationGeometryDescriptor DecodeGPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, const Napi::Value& value) {
     WGPURayTracingAccelerationGeometryDescriptor descriptor;
     // reset descriptor
-  descriptor.vertexBuffer = nullptr;
-  descriptor.vertexOffset = 0;
-  descriptor.indexBuffer = nullptr;
-  descriptor.indexFormat = static_cast<WGPUIndexFormat>(2);
-  descriptor.indexOffset = 0;
-  descriptor.indexCount = 0;
+  descriptor.flags = static_cast<WGPURayTracingAccelerationGeometryFlag>(0);
+  descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(0);
+  descriptor.vertex = nullptr;
+  descriptor.index = nullptr;
+  descriptor.aabb = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("type").IsString())) {
-      Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryDescriptor'.'type'");
-      device->throwCallbackError(type, message);
-      return descriptor;
-    }
-    descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(GPURayTracingAccelerationGeometryType(obj.Get("type").As<Napi::String>().Utf8Value()));
-    if (!(obj.Get("vertexBuffer").IsObject()) || !(obj.Get("vertexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
-      Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexBuffer'");
-      device->throwCallbackError(type, message);
-      return descriptor;
-    }
-    descriptor.vertexBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("vertexBuffer").As<Napi::Object>())->instance;
-    if (!(obj.Get("vertexFormat").IsString())) {
-      Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexFormat'");
-      device->throwCallbackError(type, message);
-      return descriptor;
-    }
-    descriptor.vertexFormat = static_cast<WGPUVertexFormat>(GPUVertexFormat(obj.Get("vertexFormat").As<Napi::String>().Utf8Value()));
-    if (!(obj.Get("vertexStride").IsNumber())) {
-      Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexStride'");
-      device->throwCallbackError(type, message);
-      return descriptor;
-    }
-    if (!(obj.Get("vertexStride").IsNumber())) {
-      Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexStride'");
-      device->throwCallbackError(type, message);
-      return descriptor;
-    }
-    descriptor.vertexStride = obj.Get("vertexStride").As<Napi::Number>().Uint32Value();
-    if (obj.Has("vertexOffset")) {
-      if (!(obj.Get("vertexOffset").IsNumber())) {
+    if (obj.Has("flags")) {
+      if (!(obj.Get("flags").IsNumber())) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexOffset'");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'flags'");
         device->throwCallbackError(type, message);
         return descriptor;
       }
-      if (!(obj.Get("vertexOffset").IsNumber())) {
+      descriptor.flags = static_cast<WGPURayTracingAccelerationGeometryFlag>(obj.Get("flags").As<Napi::Number>().Uint32Value());
+    }
+    if (obj.Has("type")) {
+      if (!(obj.Get("type").IsString())) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexOffset'");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryDescriptor'.'type'");
         device->throwCallbackError(type, message);
         return descriptor;
       }
+      descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(GPURayTracingAccelerationGeometryType(obj.Get("type").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("vertex")) {
+      if (!(obj.Get("vertex").IsObject())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertex'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+        WGPURayTracingAccelerationGeometryVertexDescriptor vertex;
+        vertex.buffer = nullptr;
+        vertex.offset = 0;
+        Napi::Object $vertex = obj.Get("vertex").As<Napi::Object>();
+        if (!($vertex.Get("buffer").IsObject()) || !($vertex.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'buffer'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        vertex.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap($vertex.Get("buffer").As<Napi::Object>())->instance;
+        if (!($vertex.Get("format").IsString())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'format'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        vertex.format = static_cast<WGPUVertexFormat>(GPUVertexFormat($vertex.Get("format").As<Napi::String>().Utf8Value()));
+        if (!($vertex.Get("stride").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'stride'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        if (!($vertex.Get("stride").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'stride'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        vertex.stride = $vertex.Get("stride").As<Napi::Number>().Uint32Value();
+        if ($vertex.Has("offset")) {
+          if (!($vertex.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+          if (!($vertex.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+          {
+            vertex.offset = static_cast<uint64_t>($vertex.Get("offset").As<Napi::Number>().Uint32Value());
+          }
+        }
+        if (!($vertex.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        if (!($vertex.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        vertex.count = $vertex.Get("count").As<Napi::Number>().Uint32Value();
       {
-        descriptor.vertexOffset = static_cast<uint64_t>(obj.Get("vertexOffset").As<Napi::Number>().Uint32Value());
+        descriptor.vertex = (WGPURayTracingAccelerationGeometryVertexDescriptor*) malloc(sizeof(WGPURayTracingAccelerationGeometryVertexDescriptor));
+        memcpy(const_cast<WGPURayTracingAccelerationGeometryVertexDescriptor*>(descriptor.vertex), &vertex, sizeof(WGPURayTracingAccelerationGeometryVertexDescriptor));
       }
     }
-    if (!(obj.Get("vertexCount").IsNumber())) {
-      Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexCount'");
-      device->throwCallbackError(type, message);
-      return descriptor;
-    }
-    if (!(obj.Get("vertexCount").IsNumber())) {
-      Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexCount'");
-      device->throwCallbackError(type, message);
-      return descriptor;
-    }
-    descriptor.vertexCount = obj.Get("vertexCount").As<Napi::Number>().Uint32Value();
-    if (obj.Has("indexBuffer")) {
-      if (!(obj.Get("indexBuffer").IsObject()) || !(obj.Get("indexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+    if (obj.Has("index")) {
+      if (!(obj.Get("index").IsObject())) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexBuffer'");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingAccelerationGeometryDescriptor'.'index'");
         device->throwCallbackError(type, message);
         return descriptor;
       }
-      descriptor.indexBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("indexBuffer").As<Napi::Object>())->instance;
-    }
-    if (obj.Has("indexFormat")) {
-      if (!(obj.Get("indexFormat").IsString())) {
-        Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexFormat'");
-        device->throwCallbackError(type, message);
-        return descriptor;
-      }
-      descriptor.indexFormat = static_cast<WGPUIndexFormat>(GPUIndexFormat(obj.Get("indexFormat").As<Napi::String>().Utf8Value()));
-    }
-    if (obj.Has("indexOffset")) {
-      if (!(obj.Get("indexOffset").IsNumber())) {
-        Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexOffset'");
-        device->throwCallbackError(type, message);
-        return descriptor;
-      }
-      if (!(obj.Get("indexOffset").IsNumber())) {
-        Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexOffset'");
-        device->throwCallbackError(type, message);
-        return descriptor;
-      }
+        WGPURayTracingAccelerationGeometryIndexDescriptor index;
+        index.buffer = nullptr;
+        index.offset = 0;
+        Napi::Object $index = obj.Get("index").As<Napi::Object>();
+        if (!($index.Get("buffer").IsObject()) || !($index.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'buffer'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        index.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap($index.Get("buffer").As<Napi::Object>())->instance;
+        if (!($index.Get("format").IsString())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'format'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        index.format = static_cast<WGPUIndexFormat>(GPUIndexFormat($index.Get("format").As<Napi::String>().Utf8Value()));
+        if ($index.Has("offset")) {
+          if (!($index.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+          if (!($index.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+          {
+            index.offset = static_cast<uint64_t>($index.Get("offset").As<Napi::Number>().Uint32Value());
+          }
+        }
+        if (!($index.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        if (!($index.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        index.count = $index.Get("count").As<Napi::Number>().Uint32Value();
       {
-        descriptor.indexOffset = static_cast<uint64_t>(obj.Get("indexOffset").As<Napi::Number>().Uint32Value());
+        descriptor.index = (WGPURayTracingAccelerationGeometryIndexDescriptor*) malloc(sizeof(WGPURayTracingAccelerationGeometryIndexDescriptor));
+        memcpy(const_cast<WGPURayTracingAccelerationGeometryIndexDescriptor*>(descriptor.index), &index, sizeof(WGPURayTracingAccelerationGeometryIndexDescriptor));
       }
     }
-    if (obj.Has("indexCount")) {
-      if (!(obj.Get("indexCount").IsNumber())) {
+    if (obj.Has("aabb")) {
+      if (!(obj.Get("aabb").IsObject())) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexCount'");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingAccelerationGeometryDescriptor'.'aabb'");
         device->throwCallbackError(type, message);
         return descriptor;
       }
-      if (!(obj.Get("indexCount").IsNumber())) {
-        Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexCount'");
-        device->throwCallbackError(type, message);
-        return descriptor;
+        WGPURayTracingAccelerationGeometryAabbDescriptor aabb;
+        aabb.buffer = nullptr;
+        aabb.offset = 0;
+        Napi::Object $aabb = obj.Get("aabb").As<Napi::Object>();
+        if (!($aabb.Get("buffer").IsObject()) || !($aabb.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'buffer'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        aabb.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap($aabb.Get("buffer").As<Napi::Object>())->instance;
+        if (!($aabb.Get("stride").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'stride'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        if (!($aabb.Get("stride").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'stride'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        aabb.stride = $aabb.Get("stride").As<Napi::Number>().Uint32Value();
+        if ($aabb.Has("offset")) {
+          if (!($aabb.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+          if (!($aabb.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+          {
+            aabb.offset = static_cast<uint64_t>($aabb.Get("offset").As<Napi::Number>().Uint32Value());
+          }
+        }
+        if (!($aabb.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        if (!($aabb.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return descriptor;
+        }
+        aabb.count = $aabb.Get("count").As<Napi::Number>().Uint32Value();
+      {
+        descriptor.aabb = (WGPURayTracingAccelerationGeometryAabbDescriptor*) malloc(sizeof(WGPURayTracingAccelerationGeometryAabbDescriptor));
+        memcpy(const_cast<WGPURayTracingAccelerationGeometryAabbDescriptor*>(descriptor.aabb), &aabb, sizeof(WGPURayTracingAccelerationGeometryAabbDescriptor));
       }
-      descriptor.indexCount = obj.Get("indexCount").As<Napi::Number>().Uint32Value();
     }
     return descriptor;
   };
@@ -1891,22 +2384,22 @@ namespace DescriptorDecoder {
     return descriptor;
   };
   
-  WGPURayTracingShaderBindingTableShadersDescriptor DecodeGPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, const Napi::Value& value) {
-    WGPURayTracingShaderBindingTableShadersDescriptor descriptor;
+  WGPURayTracingShaderBindingTableStagesDescriptor DecodeGPURayTracingShaderBindingTableStagesDescriptor(GPUDevice* device, const Napi::Value& value) {
+    WGPURayTracingShaderBindingTableStagesDescriptor descriptor;
     // reset descriptor
   descriptor.module = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     if (!(obj.Get("stage").IsNumber())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableShadersDescriptor'.'stage'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableStagesDescriptor'.'stage'");
       device->throwCallbackError(type, message);
       return descriptor;
     }
     descriptor.stage = static_cast<WGPUShaderStage>(obj.Get("stage").As<Napi::Number>().Uint32Value());
     if (!(obj.Get("module").IsObject()) || !(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPURayTracingShaderBindingTableShadersDescriptor'.'module'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPURayTracingShaderBindingTableStagesDescriptor'.'module'");
       device->throwCallbackError(type, message);
       return descriptor;
     }
@@ -1914,41 +2407,154 @@ namespace DescriptorDecoder {
     return descriptor;
   };
   
+  WGPURayTracingShaderBindingTableGroupsDescriptor DecodeGPURayTracingShaderBindingTableGroupsDescriptor(GPUDevice* device, const Napi::Value& value) {
+    WGPURayTracingShaderBindingTableGroupsDescriptor descriptor;
+    // reset descriptor
+  descriptor.type = static_cast<WGPURayTracingShaderBindingTableGroupType>(0);
+  descriptor.generalIndex = -1;
+  descriptor.closestHitIndex = -1;
+  descriptor.anyHitIndex = -1;
+  descriptor.intersectionIndex = -1;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("type")) {
+      if (!(obj.Get("type").IsString())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'type'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.type = static_cast<WGPURayTracingShaderBindingTableGroupType>(GPURayTracingShaderBindingTableGroupType(obj.Get("type").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("generalIndex")) {
+      if (!(obj.Get("generalIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'generalIndex'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      if (!(obj.Get("generalIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'generalIndex'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.generalIndex = obj.Get("generalIndex").As<Napi::Number>().Int32Value();
+    }
+    if (obj.Has("closestHitIndex")) {
+      if (!(obj.Get("closestHitIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'closestHitIndex'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      if (!(obj.Get("closestHitIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'closestHitIndex'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.closestHitIndex = obj.Get("closestHitIndex").As<Napi::Number>().Int32Value();
+    }
+    if (obj.Has("anyHitIndex")) {
+      if (!(obj.Get("anyHitIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'anyHitIndex'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      if (!(obj.Get("anyHitIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'anyHitIndex'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.anyHitIndex = obj.Get("anyHitIndex").As<Napi::Number>().Int32Value();
+    }
+    if (obj.Has("intersectionIndex")) {
+      if (!(obj.Get("intersectionIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'intersectionIndex'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      if (!(obj.Get("intersectionIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'intersectionIndex'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.intersectionIndex = obj.Get("intersectionIndex").As<Napi::Number>().Int32Value();
+    }
+    return descriptor;
+  };
+  
   WGPURayTracingShaderBindingTableDescriptor DecodeGPURayTracingShaderBindingTableDescriptor(GPUDevice* device, const Napi::Value& value) {
     WGPURayTracingShaderBindingTableDescriptor descriptor;
     // reset descriptor
-  descriptor.shaderCount = 0;
-  descriptor.shaders = nullptr;
+  descriptor.stagesCount = 0;
+  descriptor.stages = nullptr;
+  descriptor.groupsCount = 0;
+  descriptor.groups = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (obj.Has("shaders")) {
+    if (obj.Has("stages")) {
       {
-        Napi::Array array = obj.Get("shaders").As<Napi::Array>();
+        Napi::Array array = obj.Get("stages").As<Napi::Array>();
         uint32_t length = array.Length();
-        WGPURayTracingShaderBindingTableShadersDescriptor* data = (WGPURayTracingShaderBindingTableShadersDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableShadersDescriptor));
+        WGPURayTracingShaderBindingTableStagesDescriptor* data = (WGPURayTracingShaderBindingTableStagesDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableStagesDescriptor));
         for (unsigned int ii = 0; ii < length; ++ii) {
       if (!(array.Get(ii).IsObject())) {
             Napi::String type = Napi::String::New(value.Env(), "Type");
-            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingShaderBindingTableDescriptor'.'shaders'");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingShaderBindingTableDescriptor'.'stages'");
             device->throwCallbackError(type, message);
             return descriptor;
           }
         };
       }
-      Napi::Array array = obj.Get("shaders").As<Napi::Array>();
+      Napi::Array array = obj.Get("stages").As<Napi::Array>();
       uint32_t length = array.Length();
-      WGPURayTracingShaderBindingTableShadersDescriptor* data = (WGPURayTracingShaderBindingTableShadersDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableShadersDescriptor));
+      WGPURayTracingShaderBindingTableStagesDescriptor* data = (WGPURayTracingShaderBindingTableStagesDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableStagesDescriptor));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        WGPURayTracingShaderBindingTableShadersDescriptor $shaders = DecodeGPURayTracingShaderBindingTableShadersDescriptor(device, item.As<Napi::Value>());
+        WGPURayTracingShaderBindingTableStagesDescriptor $stages = DecodeGPURayTracingShaderBindingTableStagesDescriptor(device, item.As<Napi::Value>());
         memcpy(
           reinterpret_cast<void*>(&data[ii]),
-          reinterpret_cast<void*>(&$shaders),
-          sizeof(WGPURayTracingShaderBindingTableShadersDescriptor)
+          reinterpret_cast<void*>(&$stages),
+          sizeof(WGPURayTracingShaderBindingTableStagesDescriptor)
         );
       };
-      descriptor.shaderCount = length;
-      descriptor.shaders = data;
+      descriptor.stagesCount = length;
+      descriptor.stages = data;
+    }
+    if (obj.Has("groups")) {
+      {
+        Napi::Array array = obj.Get("groups").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPURayTracingShaderBindingTableGroupsDescriptor* data = (WGPURayTracingShaderBindingTableGroupsDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableGroupsDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingShaderBindingTableDescriptor'.'groups'");
+            device->throwCallbackError(type, message);
+            return descriptor;
+          }
+        };
+      }
+      Napi::Array array = obj.Get("groups").As<Napi::Array>();
+      uint32_t length = array.Length();
+      WGPURayTracingShaderBindingTableGroupsDescriptor* data = (WGPURayTracingShaderBindingTableGroupsDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableGroupsDescriptor));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        WGPURayTracingShaderBindingTableGroupsDescriptor $groups = DecodeGPURayTracingShaderBindingTableGroupsDescriptor(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$groups),
+          sizeof(WGPURayTracingShaderBindingTableGroupsDescriptor)
+        );
+      };
+      descriptor.groupsCount = length;
+      descriptor.groups = data;
     }
     return descriptor;
   };
@@ -2948,6 +3554,15 @@ namespace DescriptorDecoder {
         descriptor.initialValue = static_cast<uint64_t>(obj.Get("initialValue").As<Napi::Number>().Uint32Value());
       }
     }
+    return descriptor;
+  };
+  
+  WGPUInstanceDescriptor DecodeGPUInstanceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain) {
+    WGPUInstanceDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
     return descriptor;
   };
   
@@ -4374,6 +4989,90 @@ namespace DescriptorDecoder {
     return descriptor;
   };
   
+  WGPUSurfaceDescriptor DecodeGPUSurfaceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain) {
+    WGPUSurfaceDescriptor descriptor;
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.label = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("label")) {
+      if (!(obj.Get("label").IsString())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUSurfaceDescriptor'.'label'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.label = getNAPIStringCopy(obj.Get("label"));
+    }
+    return descriptor;
+  };
+  
+  WGPUSurfaceDescriptorFromMetalLayer DecodeGPUSurfaceDescriptorFromMetalLayer(GPUDevice* device, const Napi::Value& value) {
+    WGPUSurfaceDescriptorFromMetalLayer descriptor;
+    // reset descriptor
+  descriptor.layer = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("layer").IsArrayBuffer())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'ArrayBuffer' for 'GPUSurfaceDescriptorFromMetalLayer'.'layer'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    return descriptor;
+  };
+  
+  WGPUSurfaceDescriptorFromWindowsHWND DecodeGPUSurfaceDescriptorFromWindowsHWND(GPUDevice* device, const Napi::Value& value) {
+    WGPUSurfaceDescriptorFromWindowsHWND descriptor;
+    // reset descriptor
+  descriptor.hinstance = nullptr;
+  descriptor.hwnd = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("hinstance").IsArrayBuffer())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'ArrayBuffer' for 'GPUSurfaceDescriptorFromWindowsHWND'.'hinstance'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("hwnd").IsArrayBuffer())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'ArrayBuffer' for 'GPUSurfaceDescriptorFromWindowsHWND'.'hwnd'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    return descriptor;
+  };
+  
+  WGPUSurfaceDescriptorFromXlib DecodeGPUSurfaceDescriptorFromXlib(GPUDevice* device, const Napi::Value& value) {
+    WGPUSurfaceDescriptorFromXlib descriptor;
+    // reset descriptor
+  descriptor.display = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("display").IsArrayBuffer())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'ArrayBuffer' for 'GPUSurfaceDescriptorFromXlib'.'display'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("window").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSurfaceDescriptorFromXlib'.'window'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("window").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSurfaceDescriptorFromXlib'.'window'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.window = obj.Get("window").As<Napi::Number>().Uint32Value();
+    return descriptor;
+  };
+  
   WGPUSwapChainDescriptor DecodeGPUSwapChainDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain) {
     WGPUSwapChainDescriptor descriptor;
     // reset descriptor
@@ -4762,6 +5461,63 @@ namespace DescriptorDecoder {
   
 
   
+  GPUAdapterProperties::GPUAdapterProperties(GPUDevice* device, const Napi::Value& value, void* nextInChain) {
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.name = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("deviceID").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUAdapterProperties'.'deviceID'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("deviceID").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUAdapterProperties'.'deviceID'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.deviceID = obj.Get("deviceID").As<Napi::Number>().Uint32Value();
+    if (!(obj.Get("vendorID").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUAdapterProperties'.'vendorID'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("vendorID").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUAdapterProperties'.'vendorID'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.vendorID = obj.Get("vendorID").As<Napi::Number>().Uint32Value();
+    if (!(obj.Get("name").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUAdapterProperties'.'name'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("adapterType").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUAdapterProperties'.'adapterType'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.adapterType = static_cast<WGPUAdapterType>(GPUAdapterType(obj.Get("adapterType").As<Napi::String>().Utf8Value()));
+    if (!(obj.Get("backendType").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUAdapterProperties'.'backendType'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.backendType = static_cast<WGPUBackendType>(GPUBackendType(obj.Get("backendType").As<Napi::String>().Utf8Value()));
+  };
+  GPUAdapterProperties::~GPUAdapterProperties() {
+    DestroyGPUAdapterProperties(descriptor);
+  };
+  
   GPUBindGroupBinding::GPUBindGroupBinding(GPUDevice* device, const Napi::Value& value) {
     // reset descriptor
   descriptor.buffer = nullptr;
@@ -4857,129 +5613,415 @@ namespace DescriptorDecoder {
     DestroyGPUBindGroupBinding(descriptor);
   };
   
-  GPURayTracingAccelerationGeometryDescriptor::GPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, const Napi::Value& value) {
+  GPURayTracingAccelerationGeometryVertexDescriptor::GPURayTracingAccelerationGeometryVertexDescriptor(GPUDevice* device, const Napi::Value& value) {
     // reset descriptor
-  descriptor.vertexBuffer = nullptr;
-  descriptor.vertexOffset = 0;
-  descriptor.indexBuffer = nullptr;
-  descriptor.indexFormat = static_cast<WGPUIndexFormat>(2);
-  descriptor.indexOffset = 0;
-  descriptor.indexCount = 0;
+  descriptor.buffer = nullptr;
+  descriptor.offset = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (!(obj.Get("type").IsString())) {
+    if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryDescriptor'.'type'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'buffer'");
       device->throwCallbackError(type, message);
       return ;
     }
-    descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(GPURayTracingAccelerationGeometryType(obj.Get("type").As<Napi::String>().Utf8Value()));
-    if (!(obj.Get("vertexBuffer").IsObject()) || !(obj.Get("vertexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+    descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
+    if (!(obj.Get("format").IsString())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexBuffer'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'format'");
       device->throwCallbackError(type, message);
       return ;
     }
-    descriptor.vertexBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("vertexBuffer").As<Napi::Object>())->instance;
-    if (!(obj.Get("vertexFormat").IsString())) {
+    descriptor.format = static_cast<WGPUVertexFormat>(GPUVertexFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+    if (!(obj.Get("stride").IsNumber())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexFormat'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'stride'");
       device->throwCallbackError(type, message);
       return ;
     }
-    descriptor.vertexFormat = static_cast<WGPUVertexFormat>(GPUVertexFormat(obj.Get("vertexFormat").As<Napi::String>().Utf8Value()));
-    if (!(obj.Get("vertexStride").IsNumber())) {
+    if (!(obj.Get("stride").IsNumber())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexStride'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'stride'");
       device->throwCallbackError(type, message);
       return ;
     }
-    if (!(obj.Get("vertexStride").IsNumber())) {
-      Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexStride'");
-      device->throwCallbackError(type, message);
-      return ;
-    }
-    descriptor.vertexStride = obj.Get("vertexStride").As<Napi::Number>().Uint32Value();
-    if (obj.Has("vertexOffset")) {
-      if (!(obj.Get("vertexOffset").IsNumber())) {
+    descriptor.stride = obj.Get("stride").As<Napi::Number>().Uint32Value();
+    if (obj.Has("offset")) {
+      if (!(obj.Get("offset").IsNumber())) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexOffset'");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'offset'");
         device->throwCallbackError(type, message);
         return ;
       }
-      if (!(obj.Get("vertexOffset").IsNumber())) {
+      if (!(obj.Get("offset").IsNumber())) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexOffset'");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'offset'");
         device->throwCallbackError(type, message);
         return ;
       }
       {
-        descriptor.vertexOffset = static_cast<uint64_t>(obj.Get("vertexOffset").As<Napi::Number>().Uint32Value());
+        descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
       }
     }
-    if (!(obj.Get("vertexCount").IsNumber())) {
+    if (!(obj.Get("count").IsNumber())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexCount'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'count'");
       device->throwCallbackError(type, message);
       return ;
     }
-    if (!(obj.Get("vertexCount").IsNumber())) {
+    if (!(obj.Get("count").IsNumber())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertexCount'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'count'");
       device->throwCallbackError(type, message);
       return ;
     }
-    descriptor.vertexCount = obj.Get("vertexCount").As<Napi::Number>().Uint32Value();
-    if (obj.Has("indexBuffer")) {
-      if (!(obj.Get("indexBuffer").IsObject()) || !(obj.Get("indexBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
-        Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexBuffer'");
-        device->throwCallbackError(type, message);
-        return ;
-      }
-      descriptor.indexBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("indexBuffer").As<Napi::Object>())->instance;
+    descriptor.count = obj.Get("count").As<Napi::Number>().Uint32Value();
+  };
+  GPURayTracingAccelerationGeometryVertexDescriptor::~GPURayTracingAccelerationGeometryVertexDescriptor() {
+    DestroyGPURayTracingAccelerationGeometryVertexDescriptor(descriptor);
+  };
+  
+  GPURayTracingAccelerationGeometryIndexDescriptor::GPURayTracingAccelerationGeometryIndexDescriptor(GPUDevice* device, const Napi::Value& value) {
+    // reset descriptor
+  descriptor.buffer = nullptr;
+  descriptor.offset = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'buffer'");
+      device->throwCallbackError(type, message);
+      return ;
     }
-    if (obj.Has("indexFormat")) {
-      if (!(obj.Get("indexFormat").IsString())) {
-        Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexFormat'");
-        device->throwCallbackError(type, message);
-        return ;
-      }
-      descriptor.indexFormat = static_cast<WGPUIndexFormat>(GPUIndexFormat(obj.Get("indexFormat").As<Napi::String>().Utf8Value()));
+    descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
+    if (!(obj.Get("format").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'format'");
+      device->throwCallbackError(type, message);
+      return ;
     }
-    if (obj.Has("indexOffset")) {
-      if (!(obj.Get("indexOffset").IsNumber())) {
+    descriptor.format = static_cast<WGPUIndexFormat>(GPUIndexFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+    if (obj.Has("offset")) {
+      if (!(obj.Get("offset").IsNumber())) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexOffset'");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'offset'");
         device->throwCallbackError(type, message);
         return ;
       }
-      if (!(obj.Get("indexOffset").IsNumber())) {
+      if (!(obj.Get("offset").IsNumber())) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexOffset'");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'offset'");
         device->throwCallbackError(type, message);
         return ;
       }
       {
-        descriptor.indexOffset = static_cast<uint64_t>(obj.Get("indexOffset").As<Napi::Number>().Uint32Value());
+        descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
       }
     }
-    if (obj.Has("indexCount")) {
-      if (!(obj.Get("indexCount").IsNumber())) {
+    if (!(obj.Get("count").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'count'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("count").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'count'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.count = obj.Get("count").As<Napi::Number>().Uint32Value();
+  };
+  GPURayTracingAccelerationGeometryIndexDescriptor::~GPURayTracingAccelerationGeometryIndexDescriptor() {
+    DestroyGPURayTracingAccelerationGeometryIndexDescriptor(descriptor);
+  };
+  
+  GPURayTracingAccelerationGeometryAabbDescriptor::GPURayTracingAccelerationGeometryAabbDescriptor(GPUDevice* device, const Napi::Value& value) {
+    // reset descriptor
+  descriptor.buffer = nullptr;
+  descriptor.offset = 0;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("buffer").IsObject()) || !(obj.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'buffer'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("buffer").As<Napi::Object>())->instance;
+    if (!(obj.Get("stride").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'stride'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("stride").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'stride'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.stride = obj.Get("stride").As<Napi::Number>().Uint32Value();
+    if (obj.Has("offset")) {
+      if (!(obj.Get("offset").IsNumber())) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexCount'");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'offset'");
         device->throwCallbackError(type, message);
         return ;
       }
-      if (!(obj.Get("indexCount").IsNumber())) {
+      if (!(obj.Get("offset").IsNumber())) {
         Napi::String type = Napi::String::New(value.Env(), "Type");
-        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'indexCount'");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'offset'");
         device->throwCallbackError(type, message);
         return ;
       }
-      descriptor.indexCount = obj.Get("indexCount").As<Napi::Number>().Uint32Value();
+      {
+        descriptor.offset = static_cast<uint64_t>(obj.Get("offset").As<Napi::Number>().Uint32Value());
+      }
+    }
+    if (!(obj.Get("count").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'count'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("count").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'count'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.count = obj.Get("count").As<Napi::Number>().Uint32Value();
+  };
+  GPURayTracingAccelerationGeometryAabbDescriptor::~GPURayTracingAccelerationGeometryAabbDescriptor() {
+    DestroyGPURayTracingAccelerationGeometryAabbDescriptor(descriptor);
+  };
+  
+  GPURayTracingAccelerationGeometryDescriptor::GPURayTracingAccelerationGeometryDescriptor(GPUDevice* device, const Napi::Value& value) {
+    // reset descriptor
+  descriptor.flags = static_cast<WGPURayTracingAccelerationGeometryFlag>(0);
+  descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(0);
+  descriptor.vertex = nullptr;
+  descriptor.index = nullptr;
+  descriptor.aabb = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("flags")) {
+      if (!(obj.Get("flags").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryDescriptor'.'flags'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.flags = static_cast<WGPURayTracingAccelerationGeometryFlag>(obj.Get("flags").As<Napi::Number>().Uint32Value());
+    }
+    if (obj.Has("type")) {
+      if (!(obj.Get("type").IsString())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryDescriptor'.'type'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.type = static_cast<WGPURayTracingAccelerationGeometryType>(GPURayTracingAccelerationGeometryType(obj.Get("type").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("vertex")) {
+      if (!(obj.Get("vertex").IsObject())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingAccelerationGeometryDescriptor'.'vertex'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+        WGPURayTracingAccelerationGeometryVertexDescriptor vertex;
+        vertex.buffer = nullptr;
+        vertex.offset = 0;
+        Napi::Object $vertex = obj.Get("vertex").As<Napi::Object>();
+        if (!($vertex.Get("buffer").IsObject()) || !($vertex.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'buffer'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        vertex.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap($vertex.Get("buffer").As<Napi::Object>())->instance;
+        if (!($vertex.Get("format").IsString())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'format'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        vertex.format = static_cast<WGPUVertexFormat>(GPUVertexFormat($vertex.Get("format").As<Napi::String>().Utf8Value()));
+        if (!($vertex.Get("stride").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'stride'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        if (!($vertex.Get("stride").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'stride'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        vertex.stride = $vertex.Get("stride").As<Napi::Number>().Uint32Value();
+        if ($vertex.Has("offset")) {
+          if (!($vertex.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+          if (!($vertex.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+          {
+            vertex.offset = static_cast<uint64_t>($vertex.Get("offset").As<Napi::Number>().Uint32Value());
+          }
+        }
+        if (!($vertex.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        if (!($vertex.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryVertexDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        vertex.count = $vertex.Get("count").As<Napi::Number>().Uint32Value();
+      {
+        descriptor.vertex = (WGPURayTracingAccelerationGeometryVertexDescriptor*) malloc(sizeof(WGPURayTracingAccelerationGeometryVertexDescriptor));
+        memcpy(const_cast<WGPURayTracingAccelerationGeometryVertexDescriptor*>(descriptor.vertex), &vertex, sizeof(WGPURayTracingAccelerationGeometryVertexDescriptor));
+      }
+    }
+    if (obj.Has("index")) {
+      if (!(obj.Get("index").IsObject())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingAccelerationGeometryDescriptor'.'index'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+        WGPURayTracingAccelerationGeometryIndexDescriptor index;
+        index.buffer = nullptr;
+        index.offset = 0;
+        Napi::Object $index = obj.Get("index").As<Napi::Object>();
+        if (!($index.Get("buffer").IsObject()) || !($index.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'buffer'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        index.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap($index.Get("buffer").As<Napi::Object>())->instance;
+        if (!($index.Get("format").IsString())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'format'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        index.format = static_cast<WGPUIndexFormat>(GPUIndexFormat($index.Get("format").As<Napi::String>().Utf8Value()));
+        if ($index.Has("offset")) {
+          if (!($index.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+          if (!($index.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+          {
+            index.offset = static_cast<uint64_t>($index.Get("offset").As<Napi::Number>().Uint32Value());
+          }
+        }
+        if (!($index.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        if (!($index.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryIndexDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        index.count = $index.Get("count").As<Napi::Number>().Uint32Value();
+      {
+        descriptor.index = (WGPURayTracingAccelerationGeometryIndexDescriptor*) malloc(sizeof(WGPURayTracingAccelerationGeometryIndexDescriptor));
+        memcpy(const_cast<WGPURayTracingAccelerationGeometryIndexDescriptor*>(descriptor.index), &index, sizeof(WGPURayTracingAccelerationGeometryIndexDescriptor));
+      }
+    }
+    if (obj.Has("aabb")) {
+      if (!(obj.Get("aabb").IsObject())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingAccelerationGeometryDescriptor'.'aabb'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+        WGPURayTracingAccelerationGeometryAabbDescriptor aabb;
+        aabb.buffer = nullptr;
+        aabb.offset = 0;
+        Napi::Object $aabb = obj.Get("aabb").As<Napi::Object>();
+        if (!($aabb.Get("buffer").IsObject()) || !($aabb.Get("buffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'buffer'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        aabb.buffer = Napi::ObjectWrap<GPUBuffer>::Unwrap($aabb.Get("buffer").As<Napi::Object>())->instance;
+        if (!($aabb.Get("stride").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'stride'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        if (!($aabb.Get("stride").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'stride'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        aabb.stride = $aabb.Get("stride").As<Napi::Number>().Uint32Value();
+        if ($aabb.Has("offset")) {
+          if (!($aabb.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+          if (!($aabb.Get("offset").IsNumber())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'offset'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+          {
+            aabb.offset = static_cast<uint64_t>($aabb.Get("offset").As<Napi::Number>().Uint32Value());
+          }
+        }
+        if (!($aabb.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        if (!($aabb.Get("count").IsNumber())) {
+          Napi::String type = Napi::String::New(value.Env(), "Type");
+          Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingAccelerationGeometryAabbDescriptor'.'count'");
+          device->throwCallbackError(type, message);
+          return ;
+        }
+        aabb.count = $aabb.Get("count").As<Napi::Number>().Uint32Value();
+      {
+        descriptor.aabb = (WGPURayTracingAccelerationGeometryAabbDescriptor*) malloc(sizeof(WGPURayTracingAccelerationGeometryAabbDescriptor));
+        memcpy(const_cast<WGPURayTracingAccelerationGeometryAabbDescriptor*>(descriptor.aabb), &aabb, sizeof(WGPURayTracingAccelerationGeometryAabbDescriptor));
+      }
     }
   };
   GPURayTracingAccelerationGeometryDescriptor::~GPURayTracingAccelerationGeometryDescriptor() {
@@ -5611,64 +6653,178 @@ namespace DescriptorDecoder {
     DestroyGPURayTracingAccelerationContainerDescriptor(descriptor);
   };
   
-  GPURayTracingShaderBindingTableShadersDescriptor::GPURayTracingShaderBindingTableShadersDescriptor(GPUDevice* device, const Napi::Value& value) {
+  GPURayTracingShaderBindingTableStagesDescriptor::GPURayTracingShaderBindingTableStagesDescriptor(GPUDevice* device, const Napi::Value& value) {
     // reset descriptor
   descriptor.module = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     if (!(obj.Get("stage").IsNumber())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableShadersDescriptor'.'stage'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableStagesDescriptor'.'stage'");
       device->throwCallbackError(type, message);
       return ;
     }
     descriptor.stage = static_cast<WGPUShaderStage>(obj.Get("stage").As<Napi::Number>().Uint32Value());
     if (!(obj.Get("module").IsObject()) || !(obj.Get("module").As<Napi::Object>().InstanceOf(GPUShaderModule::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPURayTracingShaderBindingTableShadersDescriptor'.'module'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUShaderModule' for 'GPURayTracingShaderBindingTableStagesDescriptor'.'module'");
       device->throwCallbackError(type, message);
       return ;
     }
     descriptor.module = Napi::ObjectWrap<GPUShaderModule>::Unwrap(obj.Get("module").As<Napi::Object>())->instance;
   };
-  GPURayTracingShaderBindingTableShadersDescriptor::~GPURayTracingShaderBindingTableShadersDescriptor() {
-    DestroyGPURayTracingShaderBindingTableShadersDescriptor(descriptor);
+  GPURayTracingShaderBindingTableStagesDescriptor::~GPURayTracingShaderBindingTableStagesDescriptor() {
+    DestroyGPURayTracingShaderBindingTableStagesDescriptor(descriptor);
+  };
+  
+  GPURayTracingShaderBindingTableGroupsDescriptor::GPURayTracingShaderBindingTableGroupsDescriptor(GPUDevice* device, const Napi::Value& value) {
+    // reset descriptor
+  descriptor.type = static_cast<WGPURayTracingShaderBindingTableGroupType>(0);
+  descriptor.generalIndex = -1;
+  descriptor.closestHitIndex = -1;
+  descriptor.anyHitIndex = -1;
+  descriptor.intersectionIndex = -1;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("type")) {
+      if (!(obj.Get("type").IsString())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'type'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.type = static_cast<WGPURayTracingShaderBindingTableGroupType>(GPURayTracingShaderBindingTableGroupType(obj.Get("type").As<Napi::String>().Utf8Value()));
+    }
+    if (obj.Has("generalIndex")) {
+      if (!(obj.Get("generalIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'generalIndex'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      if (!(obj.Get("generalIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'generalIndex'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.generalIndex = obj.Get("generalIndex").As<Napi::Number>().Int32Value();
+    }
+    if (obj.Has("closestHitIndex")) {
+      if (!(obj.Get("closestHitIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'closestHitIndex'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      if (!(obj.Get("closestHitIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'closestHitIndex'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.closestHitIndex = obj.Get("closestHitIndex").As<Napi::Number>().Int32Value();
+    }
+    if (obj.Has("anyHitIndex")) {
+      if (!(obj.Get("anyHitIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'anyHitIndex'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      if (!(obj.Get("anyHitIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'anyHitIndex'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.anyHitIndex = obj.Get("anyHitIndex").As<Napi::Number>().Int32Value();
+    }
+    if (obj.Has("intersectionIndex")) {
+      if (!(obj.Get("intersectionIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'intersectionIndex'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      if (!(obj.Get("intersectionIndex").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPURayTracingShaderBindingTableGroupsDescriptor'.'intersectionIndex'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.intersectionIndex = obj.Get("intersectionIndex").As<Napi::Number>().Int32Value();
+    }
+  };
+  GPURayTracingShaderBindingTableGroupsDescriptor::~GPURayTracingShaderBindingTableGroupsDescriptor() {
+    DestroyGPURayTracingShaderBindingTableGroupsDescriptor(descriptor);
   };
   
   GPURayTracingShaderBindingTableDescriptor::GPURayTracingShaderBindingTableDescriptor(GPUDevice* device, const Napi::Value& value) {
     // reset descriptor
-  descriptor.shaderCount = 0;
-  descriptor.shaders = nullptr;
+  descriptor.stagesCount = 0;
+  descriptor.stages = nullptr;
+  descriptor.groupsCount = 0;
+  descriptor.groups = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
-    if (obj.Has("shaders")) {
+    if (obj.Has("stages")) {
       {
-        Napi::Array array = obj.Get("shaders").As<Napi::Array>();
+        Napi::Array array = obj.Get("stages").As<Napi::Array>();
         uint32_t length = array.Length();
-        WGPURayTracingShaderBindingTableShadersDescriptor* data = (WGPURayTracingShaderBindingTableShadersDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableShadersDescriptor));
+        WGPURayTracingShaderBindingTableStagesDescriptor* data = (WGPURayTracingShaderBindingTableStagesDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableStagesDescriptor));
         for (unsigned int ii = 0; ii < length; ++ii) {
       if (!(array.Get(ii).IsObject())) {
             Napi::String type = Napi::String::New(value.Env(), "Type");
-            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingShaderBindingTableDescriptor'.'shaders'");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingShaderBindingTableDescriptor'.'stages'");
             device->throwCallbackError(type, message);
             return ;
           }
         };
       }
-      Napi::Array array = obj.Get("shaders").As<Napi::Array>();
+      Napi::Array array = obj.Get("stages").As<Napi::Array>();
       uint32_t length = array.Length();
-      WGPURayTracingShaderBindingTableShadersDescriptor* data = (WGPURayTracingShaderBindingTableShadersDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableShadersDescriptor));
+      WGPURayTracingShaderBindingTableStagesDescriptor* data = (WGPURayTracingShaderBindingTableStagesDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableStagesDescriptor));
       for (unsigned int ii = 0; ii < length; ++ii) {
         Napi::Object item = array.Get(ii).As<Napi::Object>();
-        WGPURayTracingShaderBindingTableShadersDescriptor $shaders = DecodeGPURayTracingShaderBindingTableShadersDescriptor(device, item.As<Napi::Value>());
+        WGPURayTracingShaderBindingTableStagesDescriptor $stages = DecodeGPURayTracingShaderBindingTableStagesDescriptor(device, item.As<Napi::Value>());
         memcpy(
           reinterpret_cast<void*>(&data[ii]),
-          reinterpret_cast<void*>(&$shaders),
-          sizeof(WGPURayTracingShaderBindingTableShadersDescriptor)
+          reinterpret_cast<void*>(&$stages),
+          sizeof(WGPURayTracingShaderBindingTableStagesDescriptor)
         );
       };
-      descriptor.shaderCount = length;
-      descriptor.shaders = data;
+      descriptor.stagesCount = length;
+      descriptor.stages = data;
+    }
+    if (obj.Has("groups")) {
+      {
+        Napi::Array array = obj.Get("groups").As<Napi::Array>();
+        uint32_t length = array.Length();
+        WGPURayTracingShaderBindingTableGroupsDescriptor* data = (WGPURayTracingShaderBindingTableGroupsDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableGroupsDescriptor));
+        for (unsigned int ii = 0; ii < length; ++ii) {
+      if (!(array.Get(ii).IsObject())) {
+            Napi::String type = Napi::String::New(value.Env(), "Type");
+            Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for 'GPURayTracingShaderBindingTableDescriptor'.'groups'");
+            device->throwCallbackError(type, message);
+            return ;
+          }
+        };
+      }
+      Napi::Array array = obj.Get("groups").As<Napi::Array>();
+      uint32_t length = array.Length();
+      WGPURayTracingShaderBindingTableGroupsDescriptor* data = (WGPURayTracingShaderBindingTableGroupsDescriptor*) malloc(length * sizeof(WGPURayTracingShaderBindingTableGroupsDescriptor));
+      for (unsigned int ii = 0; ii < length; ++ii) {
+        Napi::Object item = array.Get(ii).As<Napi::Object>();
+        WGPURayTracingShaderBindingTableGroupsDescriptor $groups = DecodeGPURayTracingShaderBindingTableGroupsDescriptor(device, item.As<Napi::Value>());
+        memcpy(
+          reinterpret_cast<void*>(&data[ii]),
+          reinterpret_cast<void*>(&$groups),
+          sizeof(WGPURayTracingShaderBindingTableGroupsDescriptor)
+        );
+      };
+      descriptor.groupsCount = length;
+      descriptor.groups = data;
     }
   };
   GPURayTracingShaderBindingTableDescriptor::~GPURayTracingShaderBindingTableDescriptor() {
@@ -6691,6 +7847,16 @@ namespace DescriptorDecoder {
   };
   GPUFenceDescriptor::~GPUFenceDescriptor() {
     DestroyGPUFenceDescriptor(descriptor);
+  };
+  
+  GPUInstanceDescriptor::GPUInstanceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain) {
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+  };
+  GPUInstanceDescriptor::~GPUInstanceDescriptor() {
+    DestroyGPUInstanceDescriptor(descriptor);
   };
   
   GPUVertexAttributeDescriptor::GPUVertexAttributeDescriptor(GPUDevice* device, const Napi::Value& value) {
@@ -8130,6 +9296,94 @@ namespace DescriptorDecoder {
   };
   GPUStencilStateFaceDescriptor::~GPUStencilStateFaceDescriptor() {
     DestroyGPUStencilStateFaceDescriptor(descriptor);
+  };
+  
+  GPUSurfaceDescriptor::GPUSurfaceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain) {
+    // reset descriptor
+  descriptor.nextInChain = nullptr;
+  descriptor.label = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (obj.Has("label")) {
+      if (!(obj.Get("label").IsString())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUSurfaceDescriptor'.'label'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.label = getNAPIStringCopy(obj.Get("label"));
+    }
+  };
+  GPUSurfaceDescriptor::~GPUSurfaceDescriptor() {
+    DestroyGPUSurfaceDescriptor(descriptor);
+  };
+  
+  GPUSurfaceDescriptorFromMetalLayer::GPUSurfaceDescriptorFromMetalLayer(GPUDevice* device, const Napi::Value& value) {
+    // reset descriptor
+  descriptor.layer = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("layer").IsArrayBuffer())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'ArrayBuffer' for 'GPUSurfaceDescriptorFromMetalLayer'.'layer'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+  };
+  GPUSurfaceDescriptorFromMetalLayer::~GPUSurfaceDescriptorFromMetalLayer() {
+    DestroyGPUSurfaceDescriptorFromMetalLayer(descriptor);
+  };
+  
+  GPUSurfaceDescriptorFromWindowsHWND::GPUSurfaceDescriptorFromWindowsHWND(GPUDevice* device, const Napi::Value& value) {
+    // reset descriptor
+  descriptor.hinstance = nullptr;
+  descriptor.hwnd = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("hinstance").IsArrayBuffer())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'ArrayBuffer' for 'GPUSurfaceDescriptorFromWindowsHWND'.'hinstance'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("hwnd").IsArrayBuffer())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'ArrayBuffer' for 'GPUSurfaceDescriptorFromWindowsHWND'.'hwnd'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+  };
+  GPUSurfaceDescriptorFromWindowsHWND::~GPUSurfaceDescriptorFromWindowsHWND() {
+    DestroyGPUSurfaceDescriptorFromWindowsHWND(descriptor);
+  };
+  
+  GPUSurfaceDescriptorFromXlib::GPUSurfaceDescriptorFromXlib(GPUDevice* device, const Napi::Value& value) {
+    // reset descriptor
+  descriptor.display = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    if (!(obj.Get("display").IsArrayBuffer())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'ArrayBuffer' for 'GPUSurfaceDescriptorFromXlib'.'display'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("window").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSurfaceDescriptorFromXlib'.'window'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("window").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSurfaceDescriptorFromXlib'.'window'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.window = obj.Get("window").As<Napi::Number>().Uint32Value();
+  };
+  GPUSurfaceDescriptorFromXlib::~GPUSurfaceDescriptorFromXlib() {
+    DestroyGPUSurfaceDescriptorFromXlib(descriptor);
   };
   
   GPUSwapChainDescriptor::GPUSwapChainDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain) {

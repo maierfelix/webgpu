@@ -99,19 +99,24 @@ Object.assign(global, glMatrix);
 
   // create a geometry container
   // which holds references to our geometry buffers
-  let geometryContainer0 = device.createRayTracingAccelerationContainer({
+  let geometryContainer = device.createRayTracingAccelerationContainer({
     level: "bottom",
     flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
     geometries: [
       {
+        flags: GPURayTracingAccelerationGeometryFlag.OPAQUE,
         type: "triangles",
-        vertexBuffer: triangleVertexBuffer,
-        vertexFormat: "float3",
-        vertexStride: 3 * Float32Array.BYTES_PER_ELEMENT,
-        vertexCount: triangleVertices.length,
-        indexBuffer: triangleIndexBuffer,
-        indexFormat: "uint32",
-        indexCount: triangleIndices.length
+        vertex: {
+          buffer: triangleVertexBuffer,
+          format: "float3",
+          stride: 3 * Float32Array.BYTES_PER_ELEMENT,
+          count: triangleVertices.length
+        },
+        index: {
+          buffer: triangleIndexBuffer,
+          format: "uint32",
+          count: triangleIndices.length
+        }
       }
     ]
   });
@@ -119,7 +124,7 @@ Object.assign(global, glMatrix);
   // create an instance container
   // which contains object instances with transforms
   // and links to a geometry container to be used
-  let instanceContainer0 = device.createRayTracingAccelerationContainer({
+  let instanceContainer = device.createRayTracingAccelerationContainer({
     level: "top",
     flags: GPURayTracingAccelerationContainerFlag.PREFER_FAST_TRACE,
     instances: [
@@ -133,31 +138,7 @@ Object.assign(global, glMatrix);
           rotation: { x: 0, y: 0, z: 0 },
           scale: { x: 1, y: 1, z: 1 }
         },
-        geometryContainer: geometryContainer0
-      },
-      {
-        flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
-        mask: 0xFF,
-        instanceId: 0,
-        instanceOffset: 0x0,
-        transform: {
-          translation: { x: 0.9, y: -0.25, z: 0.01 },
-          rotation: { x: 0, y: 0, z: 55 },
-          scale: { x: 0.5, y: 0.5, z: 0.75 }
-        },
-        geometryContainer: geometryContainer0
-      },
-      {
-        flags: GPURayTracingAccelerationInstanceFlag.TRIANGLE_CULL_DISABLE,
-        mask: 0xFF,
-        instanceId: 0,
-        instanceOffset: 0x0,
-        transform: {
-          translation: { x: -0.9, y: -0.25, z: 0.01 },
-          rotation: { x: 0, y: 0, z: -55 },
-          scale: { x: 0.5, y: 0.5, z: 0.75 }
-        },
-        geometryContainer: geometryContainer0
+        geometryContainer: geometryContainer
       }
     ]
   });
@@ -167,15 +148,17 @@ Object.assign(global, glMatrix);
   // an instance container, if it has a geometry reference into it
   {
     let commandEncoder = device.createCommandEncoder({});
-    commandEncoder.buildRayTracingAccelerationContainer(geometryContainer0);
-    commandEncoder.buildRayTracingAccelerationContainer(instanceContainer0);
+    commandEncoder.buildRayTracingAccelerationContainer(geometryContainer);
+    commandEncoder.buildRayTracingAccelerationContainer(instanceContainer);
     queue.submit([ commandEncoder.finish() ]);
   }
 
   // a collection of shader modules which get dynamically
   // invoked, for example when calling traceNV
   let shaderBindingTable = device.createRayTracingShaderBindingTable({
-    shaders: [
+    // stages are a collection of shaders
+    // which get indexed in groups
+    stages: [
       {
         module: rayGenShaderModule,
         stage: GPUShaderStage.RAY_GENERATION
@@ -187,6 +170,37 @@ Object.assign(global, glMatrix);
       {
         module: rayMissShaderModule,
         stage: GPUShaderStage.RAY_MISS
+      }
+    ],
+    // groups can index the shaders in stages
+    // generalIndex: ray generation or ray miss stage index
+    // anyHitIndex: ray any-hit stage index
+    // closestHitIndex: ray closest-hit stage index
+    // intersectionIndex: ray intersection stage index
+    groups: [
+      // generation group
+      {
+        type: "general",
+        generalIndex: 0, // ray generation shader index
+        anyHitIndex: -1,
+        closestHitIndex: -1,
+        intersectionIndex: -1
+      },
+      // hit group
+      {
+        type: "triangle-hit-group",
+        generalIndex: -1,
+        anyHitIndex: -1,
+        closestHitIndex: 1, // ray closest-hit shader index
+        intersectionIndex: -1
+      },
+      // miss group
+      {
+        type: "general",
+        generalIndex: 2, // ray miss shader index
+        anyHitIndex: -1,
+        closestHitIndex: -1,
+        intersectionIndex: -1
       }
     ]
   });
@@ -236,7 +250,7 @@ Object.assign(global, glMatrix);
     bindings: [
       {
         binding: 0,
-        accelerationContainer: instanceContainer0,
+        accelerationContainer: instanceContainer,
         offset: 0,
         size: 0
       },
@@ -347,7 +361,14 @@ Object.assign(global, glMatrix);
       let passEncoder = commandEncoder.beginRayTracingPass({});
       passEncoder.setPipeline(rtPipeline);
       passEncoder.setBindGroup(0, rtBindGroup);
-      passEncoder.traceRays(window.width, window.height, 1);
+      passEncoder.traceRays(
+        0, // sbt ray-generation offset
+        1, // sbt ray-hit offset
+        2, // sbt ray-miss offset
+        window.width,  // query width dimension
+        window.height, // query height dimension
+        1              // query depth dimension
+      );
       passEncoder.endPass();
       queue.submit([ commandEncoder.finish() ]);
 

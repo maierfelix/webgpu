@@ -67,6 +67,21 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   WebGPUWindow::Initialize(env, exports);
 
   
+  Napi::Object GPURayTracingAccelerationGeometryFlag = Napi::Object::New(env);
+    GPURayTracingAccelerationGeometryFlag.Set(
+      Napi::String::New(env, "NONE"),
+      Napi::Number::New(env, 0)
+    );
+    GPURayTracingAccelerationGeometryFlag.Set(
+      Napi::String::New(env, "OPAQUE"),
+      Napi::Number::New(env, 1)
+    );
+    GPURayTracingAccelerationGeometryFlag.Set(
+      Napi::String::New(env, "ALLOW_ANY_HIT"),
+      Napi::Number::New(env, 2)
+    );
+  exports["GPURayTracingAccelerationGeometryFlag"] = GPURayTracingAccelerationGeometryFlag;
+  
   Napi::Object GPURayTracingAccelerationInstanceFlag = Napi::Object::New(env);
     GPURayTracingAccelerationInstanceFlag.Set(
       Napi::String::New(env, "NONE"),
@@ -219,6 +234,10 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     GPUShaderStage.Set(
       Napi::String::New(env, "RAY_MISS"),
       Napi::Number::New(env, 64)
+    );
+    GPUShaderStage.Set(
+      Napi::String::New(env, "RAY_INTERSECTION"),
+      Napi::Number::New(env, 128)
     );
   exports["GPUShaderStage"] = GPUShaderStage;
   

@@ -287,6 +287,18 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
   }
   {
     Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationInstanceDescriptor, transformMatrixSize)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceDescriptor::transformMatrixSize)));
+    sWGPURayTracingAccelerationInstanceDescriptor.Set(Napi::String::New(env, "transformMatrixSize"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationInstanceDescriptor, transformMatrix)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceDescriptor::transformMatrix)));
+    sWGPURayTracingAccelerationInstanceDescriptor.Set(Napi::String::New(env, "transformMatrix"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
     obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationInstanceDescriptor, geometryContainer)));
     obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationInstanceDescriptor::geometryContainer)));
     sWGPURayTracingAccelerationInstanceDescriptor.Set(Napi::String::New(env, "geometryContainer"), obj);
@@ -329,6 +341,12 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
     obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationContainerDescriptor, instances)));
     obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationContainerDescriptor::instances)));
     sWGPURayTracingAccelerationContainerDescriptor.Set(Napi::String::New(env, "instances"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPURayTracingAccelerationContainerDescriptor, instanceBuffer)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationContainerDescriptor::instanceBuffer)));
+    sWGPURayTracingAccelerationContainerDescriptor.Set(Napi::String::New(env, "instanceBuffer"), obj);
   }
   sWGPURayTracingAccelerationContainerDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPURayTracingAccelerationContainerDescriptor)));
   out.Set(Napi::String::New(env, "WGPURayTracingAccelerationContainerDescriptor"), sWGPURayTracingAccelerationContainerDescriptor);

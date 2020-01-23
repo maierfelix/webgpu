@@ -2024,6 +2024,8 @@ namespace DescriptorDecoder {
   descriptor.instanceId = 0;
   descriptor.instanceOffset = 0;
   descriptor.transform = nullptr;
+  descriptor.transformMatrixSize = 12;
+  descriptor.transformMatrix = nullptr;
   descriptor.geometryContainer = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -2284,6 +2286,17 @@ namespace DescriptorDecoder {
         memcpy(const_cast<WGPURayTracingAccelerationInstanceTransformDescriptor*>(descriptor.transform), &transform, sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor));
       }
     }
+    if (obj.Has("transformMatrix")) {
+      if (!(obj.Get("transformMatrix").IsTypedArray())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'TypedArray' for 'GPURayTracingAccelerationInstanceDescriptor'.'transformMatrix'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      Napi::TypedArray array = obj.Get("transformMatrix").As<Napi::TypedArray>();
+      Napi::ArrayBuffer buffer = array.ArrayBuffer();
+      descriptor.transformMatrix = reinterpret_cast<const float*>(buffer.Data());
+    }
     if (!(obj.Get("geometryContainer").IsObject()) || !(obj.Get("geometryContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPURayTracingAccelerationContainer' for 'GPURayTracingAccelerationInstanceDescriptor'.'geometryContainer'");
@@ -2303,6 +2316,7 @@ namespace DescriptorDecoder {
   descriptor.geometries = nullptr;
   descriptor.instanceCount = 0;
   descriptor.instances = nullptr;
+  descriptor.instanceBuffer = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     if (obj.Has("flags")) {
@@ -2380,6 +2394,15 @@ namespace DescriptorDecoder {
       };
       descriptor.instanceCount = length;
       descriptor.instances = data;
+    }
+    if (obj.Has("instanceBuffer")) {
+      if (!(obj.Get("instanceBuffer").IsObject()) || !(obj.Get("instanceBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationContainerDescriptor'.'instanceBuffer'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.instanceBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("instanceBuffer").As<Napi::Object>())->instance;
     }
     return descriptor;
   };
@@ -6290,6 +6313,8 @@ namespace DescriptorDecoder {
   descriptor.instanceId = 0;
   descriptor.instanceOffset = 0;
   descriptor.transform = nullptr;
+  descriptor.transformMatrixSize = 12;
+  descriptor.transformMatrix = nullptr;
   descriptor.geometryContainer = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -6550,6 +6575,17 @@ namespace DescriptorDecoder {
         memcpy(const_cast<WGPURayTracingAccelerationInstanceTransformDescriptor*>(descriptor.transform), &transform, sizeof(WGPURayTracingAccelerationInstanceTransformDescriptor));
       }
     }
+    if (obj.Has("transformMatrix")) {
+      if (!(obj.Get("transformMatrix").IsTypedArray())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'TypedArray' for 'GPURayTracingAccelerationInstanceDescriptor'.'transformMatrix'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      Napi::TypedArray array = obj.Get("transformMatrix").As<Napi::TypedArray>();
+      Napi::ArrayBuffer buffer = array.ArrayBuffer();
+      descriptor.transformMatrix = reinterpret_cast<const float*>(buffer.Data());
+    }
     if (!(obj.Get("geometryContainer").IsObject()) || !(obj.Get("geometryContainer").As<Napi::Object>().InstanceOf(GPURayTracingAccelerationContainer::constructor.Value()))) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
       Napi::String message = Napi::String::New(value.Env(), "Expected 'GPURayTracingAccelerationContainer' for 'GPURayTracingAccelerationInstanceDescriptor'.'geometryContainer'");
@@ -6570,6 +6606,7 @@ namespace DescriptorDecoder {
   descriptor.geometries = nullptr;
   descriptor.instanceCount = 0;
   descriptor.instances = nullptr;
+  descriptor.instanceBuffer = nullptr;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     if (obj.Has("flags")) {
@@ -6647,6 +6684,15 @@ namespace DescriptorDecoder {
       };
       descriptor.instanceCount = length;
       descriptor.instances = data;
+    }
+    if (obj.Has("instanceBuffer")) {
+      if (!(obj.Get("instanceBuffer").IsObject()) || !(obj.Get("instanceBuffer").As<Napi::Object>().InstanceOf(GPUBuffer::constructor.Value()))) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'GPUBuffer' for 'GPURayTracingAccelerationContainerDescriptor'.'instanceBuffer'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.instanceBuffer = Napi::ObjectWrap<GPUBuffer>::Unwrap(obj.Get("instanceBuffer").As<Napi::Object>())->instance;
     }
   };
   GPURayTracingAccelerationContainerDescriptor::~GPURayTracingAccelerationContainerDescriptor() {

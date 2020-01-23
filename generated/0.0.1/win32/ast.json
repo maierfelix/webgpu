@@ -7765,6 +7765,38 @@
           "isOptional": true
         },
         {
+          "name": "transformMatrixSize",
+          "type": {
+            "isNumber": true,
+            "initialValue": "12",
+            "rawType": "uint32_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "12",
+          "defaultValueNative": "12",
+          "isInternalProperty": true
+        },
+        {
+          "name": "transformMatrix",
+          "type": {
+            "length": "transformMatrixSize",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const float*",
+            "isOptional": true,
+            "jsType": {
+              "type": "FloatArray",
+              "isTypedArray": true
+            },
+            "isRequired": false
+          },
+          "isOptional": true
+        },
+        {
           "name": "geometryContainer",
           "type": {
             "isObject": true,
@@ -7880,6 +7912,20 @@
               "isObject": true
             },
             "isRequired": false
+          },
+          "isOptional": true
+        },
+        {
+          "name": "instanceBuffer",
+          "type": {
+            "isObject": true,
+            "nativeType": "WGPUBuffer",
+            "rawType": "WGPUBuffer",
+            "isOptional": true,
+            "jsType": {
+              "type": "WGPUBuffer",
+              "isObject": true
+            }
           },
           "isOptional": true
         }

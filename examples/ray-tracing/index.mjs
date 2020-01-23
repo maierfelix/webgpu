@@ -121,6 +121,27 @@ Object.assign(global, glMatrix);
     ]
   });
 
+  // alternatively, an intance buffer can be used
+  // for more low-level memory control
+  let instanceCount = 1;
+  let instanceStride = (
+    12 * Float32Array.BYTES_PER_ELEMENT, // transform
+    3, // instanceId
+    1, // mask
+    3, // instanceOffset
+    1, // flags
+    8  // 8 additional bytes, used internally
+  );
+  let instanceBuffer = new ArrayBuffer(
+    instanceCount * instanceStride
+  );
+  let instanceBufferView = new DataView(instanceBuffer);
+
+  let instanceBufferGPU = device.createBuffer({
+    size: instanceCount * instanceStride,
+    usage: GPUBufferUsage.COPY_DST
+  });
+
   // create an instance container
   // which contains object instances with transforms
   // and links to a geometry container to be used
@@ -142,6 +163,9 @@ Object.assign(global, glMatrix);
       }
     ]
   });
+
+  console.log(geometryContainer.getHandle());
+  console.log(instanceContainer.getHandle());
 
   // build the containers (the order is important)
   // geometry containers have to be built before

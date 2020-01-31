@@ -14,14 +14,15 @@
   "scripts": {
     "build": "node ./build.js",
     "generate": "node --experimental-modules ./generator/index.mjs",
-    "all": "npm run generate & npm run build",
+    "all": "npm run generate; npm run build",
     "tests": "node --experimental-modules tests/index.mjs"
   },
   "devDependencies": {
     "ncp": "^2.0.0",
     "node-addon-api": "^1.7.1",
     "nunjucks": "^3.2.0",
-    "terser": "^4.3.1"
+    "terser": "^4.3.1",
+    "gl-matrix": "^3.1.0"
   },
   "dependencies": {},
   "description": "WebGPU API for JavaScript (Experimental)",

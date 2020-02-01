@@ -89,6 +89,9 @@ namespace DescriptorDecoder {
   uint32_t GPUStoreOp(std::string name);
   std::string GPUStoreOp(uint32_t value);
   
+  uint32_t GPUPresentMode(std::string name);
+  std::string GPUPresentMode(uint32_t value);
+  
   uint32_t GPUPrimitiveTopology(std::string name);
   std::string GPUPrimitiveTopology(uint32_t value);
   
@@ -219,6 +222,8 @@ namespace DescriptorDecoder {
   WGPUStencilStateFaceDescriptor DecodeGPUStencilStateFaceDescriptor(GPUDevice* device, const Napi::Value& value);
   
   WGPUSurfaceDescriptor DecodeGPUSurfaceDescriptor(GPUDevice* device, const Napi::Value& value, void* nextInChain = nullptr);
+  
+  WGPUSurfaceDescriptorFromHTMLCanvasId DecodeGPUSurfaceDescriptorFromHTMLCanvasId(GPUDevice* device, const Napi::Value& value);
   
   WGPUSurfaceDescriptorFromMetalLayer DecodeGPUSurfaceDescriptorFromMetalLayer(GPUDevice* device, const Napi::Value& value);
   
@@ -695,6 +700,15 @@ namespace DescriptorDecoder {
       WGPUSurfaceDescriptor descriptor;
   };
   
+  class GPUSurfaceDescriptorFromHTMLCanvasId {
+    public:
+      GPUSurfaceDescriptorFromHTMLCanvasId(GPUDevice* device, const Napi::Value& value);
+      ~GPUSurfaceDescriptorFromHTMLCanvasId();
+      WGPUSurfaceDescriptorFromHTMLCanvasId* operator &() { return &descriptor; };
+    private:
+      WGPUSurfaceDescriptorFromHTMLCanvasId descriptor;
+  };
+  
   class GPUSurfaceDescriptorFromMetalLayer {
     public:
       GPUSurfaceDescriptorFromMetalLayer(GPUDevice* device, const Napi::Value& value);
@@ -861,6 +875,8 @@ namespace DescriptorDecoder {
   void DestroyGPUStencilStateFaceDescriptor(WGPUStencilStateFaceDescriptor descriptor);
   
   void DestroyGPUSurfaceDescriptor(WGPUSurfaceDescriptor descriptor);
+  
+  void DestroyGPUSurfaceDescriptorFromHTMLCanvasId(WGPUSurfaceDescriptorFromHTMLCanvasId descriptor);
   
   void DestroyGPUSurfaceDescriptorFromMetalLayer(WGPUSurfaceDescriptorFromMetalLayer descriptor);
   

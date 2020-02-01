@@ -4,8 +4,7 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "C:/Users/User/Documents/GitHub/dawn-ray-tracing",
-    "vkSDK": "C:/VulkanSDK/1.1.126.0"
+    "dawn": "C:\Users\User\Documents\GitHub\dawn-ray-tracing"
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],
@@ -40,7 +39,7 @@
             ],
             "include_dirs": [
               "<!@(node -p \"require('node-addon-api').include\")",
-              "<(vkSDK)/include",
+              "<(dawn)/third_party/vulkan-headers/include",
               "<(root)/lib/include",
               "<(dawn)/src/include",
               "<(dawn)/out/Shared/gen",
@@ -51,12 +50,10 @@
             ],
             "library_dirs": [
               "<(root)/lib/<(platform)/<(target_arch)/GLFW",
-              "<(build)/",
-              "<(vkSDK)/lib"
+              "<(build)/"
             ],
             "link_settings": {
               "libraries": [
-                "-lvulkan-1.lib",
                 "-lglfw3dll.lib",
                 "-llibdawn_native.dll.lib",
                 "-llibdawn_proc.dll.lib",

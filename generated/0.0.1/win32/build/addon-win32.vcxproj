@@ -11,18 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{EDAF3869-34D3-0A03-40E9-4FFD544D95D5}</ProjectGuid>
+    <ProjectGuid>{9F74BD7C-B2BE-023E-F0D4-5EB0FA8DA9F2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>addon-win32</RootNamespace>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Label="Locals">
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
   <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props"/>
@@ -46,7 +47,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\include\node;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\src;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\openssl\config;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\openssl\openssl\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\uv\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\zlib;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\v8\include;C:\Users\User\Documents\GitHub\n-wgpu\node_modules\node-addon-api;C:\VulkanSDK\1.1.126.0\include;..\..\..\..\lib\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc.cc;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc_private.h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\include\node;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\src;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\openssl\config;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\openssl\openssl\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\uv\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\zlib;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\v8\include;C:\Users\User\Documents\GitHub\webgpu\node_modules\node-addon-api;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\vulkan-headers\include;..\..\..\..\lib\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc.cc;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc_private.h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/MP /EHsc %(AdditionalOptions)</AdditionalOptions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -70,8 +71,8 @@
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\User\\AppData\\Local\\node-gyp\\Cache\\13.1.0\\x64\\node.lib&quot;;vulkan-1.lib;glfw3dll.lib;libdawn_native.dll.lib;libdawn_proc.dll.lib;libdawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../@PROJECT_SOURCE_DIR@/lib/win/x64;C:\Users\User\Documents\GitHub\n-wgpu\generated\0.0.1\win32/build/;..\..\..\..\lib\win\x64\GLFW;C:\Users\User\Documents\GitHub\n-wgpu\generated\0.0.1\win32\build;C:\VulkanSDK\1.1.126.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\User\\AppData\\Local\\node-gyp\\Cache\\13.7.0\\x64\\node.lib&quot;;glfw3dll.lib;libdawn_native.dll.lib;libdawn_proc.dll.lib;libdawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../@PROJECT_SOURCE_DIR@/lib/win/x64;C:\Users\User\Documents\GitHub\webgpu\generated\0.0.1\win32/build/;..\..\..\..\lib\win\x64\GLFW;C:\Users\User\Documents\GitHub\webgpu\generated\0.0.1\win32\build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -81,13 +82,13 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\include\node;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\src;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\openssl\config;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\openssl\openssl\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\uv\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\zlib;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\v8\include;C:\Users\User\Documents\GitHub\n-wgpu\node_modules\node-addon-api;C:\VulkanSDK\1.1.126.0\include;..\..\..\..\lib\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc.cc;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc_private.h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\include\node;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\src;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\openssl\config;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\openssl\openssl\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\uv\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\zlib;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\v8\include;C:\Users\User\Documents\GitHub\webgpu\node_modules\node-addon-api;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\vulkan-headers\include;..\..\..\..\lib\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc.cc;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc_private.h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=addon-win32;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;DAWN_ENABLE_BACKEND_D3D12;DAWN_ENABLE_BACKEND_NULL;DAWN_ENABLE_BACKEND_VULKAN;DAWN_NATIVE_SHARED_LIBRARY;DAWN_WIRE_SHARED_LIBRARY;WGPU_SHARED_LIBRARY;_GLFW_WIN32;VK_USE_PLATFORM_WIN32_KHR;NAPI_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;V8_ENABLE_CHECKS;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\include\node;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\src;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\openssl\config;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\openssl\openssl\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\uv\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\zlib;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\v8\include;C:\Users\User\Documents\GitHub\n-wgpu\node_modules\node-addon-api;C:\VulkanSDK\1.1.126.0\include;..\..\..\..\lib\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc.cc;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc_private.h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\include\node;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\src;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\openssl\config;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\openssl\openssl\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\uv\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\zlib;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\v8\include;C:\Users\User\Documents\GitHub\webgpu\node_modules\node-addon-api;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\vulkan-headers\include;..\..\..\..\lib\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc.cc;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc_private.h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/MP /EHsc %(AdditionalOptions)</AdditionalOptions>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <CompileAsWinRT>false</CompileAsWinRT>
@@ -114,8 +115,8 @@
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\User\\AppData\\Local\\node-gyp\\Cache\\13.1.0\\x64\\node.lib&quot;;vulkan-1.lib;glfw3dll.lib;libdawn_native.dll.lib;libdawn_proc.dll.lib;libdawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../@PROJECT_SOURCE_DIR@/lib/win/x64;C:\Users\User\Documents\GitHub\n-wgpu\generated\0.0.1\win32/build/;..\..\..\..\lib\win\x64\GLFW;C:\Users\User\Documents\GitHub\n-wgpu\generated\0.0.1\win32\build;C:\VulkanSDK\1.1.126.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\User\\AppData\\Local\\node-gyp\\Cache\\13.7.0\\x64\\node.lib&quot;;glfw3dll.lib;libdawn_native.dll.lib;libdawn_proc.dll.lib;libdawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../@PROJECT_SOURCE_DIR@/lib/win/x64;C:\Users\User\Documents\GitHub\webgpu\generated\0.0.1\win32/build/;..\..\..\..\lib\win\x64\GLFW;C:\Users\User\Documents\GitHub\webgpu\generated\0.0.1\win32\build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -125,7 +126,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\include\node;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\src;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\openssl\config;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\openssl\openssl\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\uv\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\zlib;C:\Users\User\AppData\Local\node-gyp\Cache\13.1.0\deps\v8\include;C:\Users\User\Documents\GitHub\n-wgpu\node_modules\node-addon-api;C:\VulkanSDK\1.1.126.0\include;..\..\..\..\lib\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc.cc;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc_private.h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\include\node;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\src;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\openssl\config;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\openssl\openssl\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\uv\include;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\zlib;C:\Users\User\AppData\Local\node-gyp\Cache\13.7.0\deps\v8\include;C:\Users\User\Documents\GitHub\webgpu\node_modules\node-addon-api;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\vulkan-headers\include;..\..\..\..\lib\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen;C:\Users\User\Documents\GitHub\dawn-ray-tracing\out\Shared\gen\src\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\include;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc.cc;C:\Users\User\Documents\GitHub\dawn-ray-tracing\third_party\shaderc\libshaderc\src\shaderc_private.h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=addon-win32;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;WIN32_LEAN_AND_MEAN;NOMINMAX;_UNICODE;UNICODE;DAWN_ENABLE_BACKEND_D3D12;DAWN_ENABLE_BACKEND_NULL;DAWN_ENABLE_BACKEND_VULKAN;DAWN_NATIVE_SHARED_LIBRARY;DAWN_WIRE_SHARED_LIBRARY;WGPU_SHARED_LIBRARY;_GLFW_WIN32;VK_USE_PLATFORM_WIN32_KHR;NAPI_CPP_EXCEPTIONS;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
@@ -134,7 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\*.cpp"/>
-    <ClCompile Include="C:\Users\User\AppData\Roaming\npm\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc"/>
+    <ClCompile Include="C:\Program Files\nodejs\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc"/>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
   <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>

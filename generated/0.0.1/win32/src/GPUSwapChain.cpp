@@ -26,7 +26,7 @@ GPUSwapChain::GPUSwapChain(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GP
   descriptor.nextInChain = nullptr;
   descriptor.implementation = device->binding->GetSwapChainImplementation();
 
-  this->instance = wgpuDeviceCreateSwapChain(device->instance, &descriptor);
+  this->instance = wgpuDeviceCreateSwapChain(device->instance, nullptr, &descriptor);
 
   // configurate
   WGPUTextureFormat format = static_cast<WGPUTextureFormat>(

@@ -18,6 +18,8 @@ class GPUTexture : public Napi::ObjectWrap<GPUTexture> {
 
     Napi::ObjectReference device;
 
+    WGPUTextureDimension dimension = WGPUTextureViewDimension_Undefined;
+
     WGPUTexture instance;
   private:
 

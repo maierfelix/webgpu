@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@cwasm/lodepng": "^0.1.1",
+    "@cwasm/lodepng": "^0.1.3",
     "gl-matrix": "^3.1.0"
   }
 }

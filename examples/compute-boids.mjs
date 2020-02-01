@@ -201,7 +201,7 @@ const csSrc = `
 
   const computeBindGroupLayout = device.createBindGroupLayout({
     bindings: [
-      { binding: 0, visibility: GPUShaderStage.COMPUTE, type: "uniform-buffer", textureDimension: "2D" },
+      { binding: 0, visibility: GPUShaderStage.COMPUTE, type: "uniform-buffer" },
       { binding: 1, visibility: GPUShaderStage.COMPUTE, type: "storage-buffer" },
       { binding: 2, visibility: GPUShaderStage.COMPUTE, type: "storage-buffer" }
     ]

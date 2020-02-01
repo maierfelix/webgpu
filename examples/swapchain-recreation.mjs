@@ -138,8 +138,7 @@ const fsSrc = `
     bindings: [{
       binding: 0,
       visibility: GPUShaderStage.VERTEX,
-      type: "uniform-buffer",
-      textureDimension: "2D"
+      type: "uniform-buffer"
     }]
   });
 

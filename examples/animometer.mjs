@@ -99,8 +99,7 @@ const fsSrc = `
       {
         binding: 0,
         visibility: GPUShaderStage.VERTEX,
-        type: "uniform-buffer",
-        textureDimension: "2D"
+        type: "uniform-buffer"
       },
     ]
   });
@@ -110,8 +109,7 @@ const fsSrc = `
       {
         binding: 0,
         visibility: GPUShaderStage.VERTEX,
-        type: "uniform-buffer",
-        textureDimension: "2D"
+        type: "uniform-buffer"
       },
     ]
   });
@@ -122,8 +120,7 @@ const fsSrc = `
         binding: 0,
         visibility: GPUShaderStage.VERTEX,
         type: "uniform-buffer",
-        hasDynamicOffset: true,
-        textureDimension: "2D"
+        hasDynamicOffset: true
       },
     ]
   });

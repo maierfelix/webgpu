@@ -93,17 +93,7 @@ www
 
 package-lock.json
 
-generated/*/*/build/.vs
-generated/*/*/build/Release/.deps
-generated/*/*/build/Release/obj.target
-generated/*/*/build/*.mk
-generated/*/*/build/*.MakeFile
-generated/*/*/build/Release/obj
-generated/*/*/build/Release/*.iobj
-generated/*/*/build/Release/*.ipdb
-generated/*/*/build/Release/*.pdb
-generated/*/*/build/Release/*.map
-generated/*/*/build/Release/obj.target
+generated/*/*/build/*
 
 PATH_TO_DAWN
 

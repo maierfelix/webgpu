@@ -12,6 +12,11 @@ This project comes with pre-built N-API binaries for the following platforms:
 | <img src="https://i.imgur.com/bkBCY7V.png" alt="" height="16px">  Linux         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
 | <img src="https://i.imgur.com/iPt4GHz.png" alt="" height="16px">  MacOS         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
 
+
+## Requirements
+
+Minimum NodeJS Version is 11.x
+
 ## Installation
 ````
 npm install webgpu

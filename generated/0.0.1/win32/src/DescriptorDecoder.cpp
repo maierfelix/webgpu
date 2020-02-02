@@ -2673,6 +2673,7 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.hasDynamicOffset = false;
   descriptor.multisampled = false;
+  descriptor.textureDimension = static_cast<WGPUTextureViewDimension>(0);
   descriptor.textureComponentType = static_cast<WGPUTextureComponentType>(0);
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -4003,6 +4004,7 @@ namespace DescriptorDecoder {
   descriptor.nextInChain = nullptr;
   descriptor.label = nullptr;
   descriptor.colorFormats = nullptr;
+  descriptor.depthStencilFormat = static_cast<WGPUTextureFormat>(0);
   descriptor.sampleCount = 1;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -5472,6 +5474,8 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.nextInChain = nullptr;
   descriptor.label = nullptr;
+  descriptor.format = static_cast<WGPUTextureFormat>(0);
+  descriptor.dimension = static_cast<WGPUTextureViewDimension>(0);
   descriptor.baseMipLevel = 0;
   descriptor.mipLevelCount = 0;
   descriptor.baseArrayLayer = 0;
@@ -7035,6 +7039,7 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.hasDynamicOffset = false;
   descriptor.multisampled = false;
+  descriptor.textureDimension = static_cast<WGPUTextureViewDimension>(0);
   descriptor.textureComponentType = static_cast<WGPUTextureComponentType>(0);
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -8393,6 +8398,7 @@ namespace DescriptorDecoder {
   descriptor.nextInChain = nullptr;
   descriptor.label = nullptr;
   descriptor.colorFormats = nullptr;
+  descriptor.depthStencilFormat = static_cast<WGPUTextureFormat>(0);
   descriptor.sampleCount = 1;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -9878,6 +9884,8 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.nextInChain = nullptr;
   descriptor.label = nullptr;
+  descriptor.format = static_cast<WGPUTextureFormat>(0);
+  descriptor.dimension = static_cast<WGPUTextureViewDimension>(0);
   descriptor.baseMipLevel = 0;
   descriptor.mipLevelCount = 0;
   descriptor.baseArrayLayer = 0;

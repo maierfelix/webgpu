@@ -8335,7 +8335,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"undefined\"",
+          "defaultValueNative": 0
         },
         {
           "name": "textureComponentType",
@@ -9715,7 +9717,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"undefined\"",
+          "defaultValueNative": 0
         },
         {
           "name": "sampleCount",
@@ -10930,7 +10934,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"undefined\"",
+          "defaultValueNative": 0
         },
         {
           "name": "dimension",
@@ -10943,7 +10949,9 @@
               "type": "String",
               "isString": true
             }
-          }
+          },
+          "defaultValue": "\"undefined\"",
+          "defaultValueNative": 0
         },
         {
           "name": "baseMipLevel",

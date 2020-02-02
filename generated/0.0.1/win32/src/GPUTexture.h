@@ -18,6 +18,9 @@ class GPUTexture : public Napi::ObjectWrap<GPUTexture> {
 
     Napi::ObjectReference device;
 
+    WGPUTextureDimension dimension;
+    uint64_t arrayLayerCount;
+
     WGPUTexture instance;
   private:
 

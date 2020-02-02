@@ -4,8 +4,7 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "{{ DAWN_PATH | safe }}",
-    "vkSDK": "/home/dcerisano/1.1.126.0/x86_64"
+    "dawn": "{{ DAWN_PATH | safe }}"
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],
@@ -47,9 +46,9 @@
 							"src/GPUPipelineLayout.cpp",
 							"src/GPUQueue.cpp",
 							"src/GPURayTracingAccelerationContainer.cpp",
-             				"src/GPURayTracingPassEncoder.cpp",
-              				"src/GPURayTracingPipeline.cpp",
-              				"src/GPURayTracingShaderBindingTable.cpp",
+              "src/GPURayTracingPassEncoder.cpp",
+              "src/GPURayTracingPipeline.cpp",
+              "src/GPURayTracingShaderBindingTable.cpp",
 							"src/GPURenderBundle.cpp",
 							"src/GPURenderBundleEncoder.cpp",
 							"src/GPURenderPassEncoder.cpp",
@@ -64,22 +63,21 @@
 							"src/WebGPUWindow.cpp"
 						],
 						"target_name": "addon-linux",
-						 "defines": [
-             				"DAWN_ENABLE_BACKEND_NULL",
-              				"DAWN_ENABLE_BACKEND_VULKAN",
-              				"DAWN_NATIVE_SHARED_LIBRARY",
-              				"DAWN_WIRE_SHARED_LIBRARY",
-              				"WGPU_SHARED_LIBRARY",
-              			    "NAPI_CPP_EXCEPTIONS"
-           			 	],
+            "defines": [
+                "DAWN_ENABLE_BACKEND_NULL",
+                "DAWN_ENABLE_BACKEND_VULKAN",
+                "DAWN_NATIVE_SHARED_LIBRARY",
+                "DAWN_WIRE_SHARED_LIBRARY",
+                "WGPU_SHARED_LIBRARY",
+                "NAPI_CPP_EXCEPTIONS"
+            ],
 						"include_dirs": [
 							"<!@(node -p \"require('node-addon-api').include\")",
+              "<(dawn)/third_party/vulkan-headers/include",
 							"<(root)/lib/include",
-							"<(vkSDK)/include",
 							"<(dawn)/src/include",
 							"<(dawn)/build/linux/debian_sid_amd64-sysroot/usr/include",
 							"<(dawn)/out/Shared/gen/src/include"
-		
 						],
 						"cflags": [
 							"-std=c++14",
@@ -96,19 +94,17 @@
 							"-Wno-uninitialized"
 						],
 						"library_dirs": [
-               				"<(release)",
-               				"<(vkSDK)/lib",
-              				"<(module_root_dir)/../../../lib/<(platform)/<(target_arch)",
-              				"<(module_root_dir)/../../../lib/<(platform)/<(target_arch)/GLFW"
-            			],
+              "<(release)",
+              "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)",
+              "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)/GLFW"
+            ],
 						"libraries": ["-Wl,-rpath,<(release)",
 							"-lglfw3",
-							"-lvulkan",	
 							"-ldawn_native",
-              				"-ldawn_proc",
-              				"-ldawn_wire",
-              				"-lshaderc_spvc",
-              				"-lshaderc",
+              "-ldawn_proc",
+              "-ldawn_wire",
+              "-lshaderc_spvc",
+              "-lshaderc",
 							"-lXrandr",
 							"-lXi",
 							"-lX11",
@@ -133,7 +129,7 @@
             ],
             "include_dirs": [
               "<!@(node -p \"require('node-addon-api').include\")",
-              "<(vkSDK)/include",
+              "<(dawn)/third_party/vulkan-headers/include",
               "<(root)/lib/include",
               "<(dawn)/src/include",
               "<(dawn)/out/Shared/gen/src/include",
@@ -143,12 +139,10 @@
             ],
             "library_dirs": [
               "<(root)/lib/<(platform)/<(target_arch)/GLFW",
-              "<(build)/",
-              "<(vkSDK)/lib"
+              "<(build)/"
             ],
             "link_settings": {
               "libraries": [
-                "-lvulkan-1.lib",
                 "-lglfw3dll.lib",
                 "-llibdawn_native.dll.lib",
                 "-llibdawn_proc.dll.lib",

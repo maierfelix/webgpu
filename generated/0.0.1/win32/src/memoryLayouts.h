@@ -1355,6 +1355,15 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
   }
   sWGPUSurfaceDescriptor.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSurfaceDescriptor)));
   out.Set(Napi::String::New(env, "WGPUSurfaceDescriptor"), sWGPUSurfaceDescriptor);
+  Napi::Object sWGPUSurfaceDescriptorFromHTMLCanvasId = Napi::Object::New(env);
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSurfaceDescriptorFromHTMLCanvasId, id)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSurfaceDescriptorFromHTMLCanvasId::id)));
+    sWGPUSurfaceDescriptorFromHTMLCanvasId.Set(Napi::String::New(env, "id"), obj);
+  }
+  sWGPUSurfaceDescriptorFromHTMLCanvasId.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSurfaceDescriptorFromHTMLCanvasId)));
+  out.Set(Napi::String::New(env, "WGPUSurfaceDescriptorFromHTMLCanvasId"), sWGPUSurfaceDescriptorFromHTMLCanvasId);
   Napi::Object sWGPUSurfaceDescriptorFromMetalLayer = Napi::Object::New(env);
   {
     Napi::Object obj = Napi::Object::New(env);
@@ -1400,6 +1409,36 @@ Napi::Value MemoryLayouts(const Napi::CallbackInfo& info) {
     obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSwapChainDescriptor, label)));
     obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSwapChainDescriptor::label)));
     sWGPUSwapChainDescriptor.Set(Napi::String::New(env, "label"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSwapChainDescriptor, usage)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSwapChainDescriptor::usage)));
+    sWGPUSwapChainDescriptor.Set(Napi::String::New(env, "usage"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSwapChainDescriptor, format)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSwapChainDescriptor::format)));
+    sWGPUSwapChainDescriptor.Set(Napi::String::New(env, "format"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSwapChainDescriptor, width)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSwapChainDescriptor::width)));
+    sWGPUSwapChainDescriptor.Set(Napi::String::New(env, "width"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSwapChainDescriptor, height)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSwapChainDescriptor::height)));
+    sWGPUSwapChainDescriptor.Set(Napi::String::New(env, "height"), obj);
+  }
+  {
+    Napi::Object obj = Napi::Object::New(env);
+    obj.Set(strByteOffset, Napi::Number::New(env, offsetof(WGPUSwapChainDescriptor, presentMode)));
+    obj.Set(strByteLength, Napi::Number::New(env, sizeof(WGPUSwapChainDescriptor::presentMode)));
+    sWGPUSwapChainDescriptor.Set(Napi::String::New(env, "presentMode"), obj);
   }
   {
     Napi::Object obj = Napi::Object::New(env);

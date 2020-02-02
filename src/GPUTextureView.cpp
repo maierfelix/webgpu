@@ -21,6 +21,31 @@ GPUTextureView::GPUTextureView(const Napi::CallbackInfo& info) : Napi::ObjectWra
 
   auto descriptor = DescriptorDecoder::GPUTextureViewDescriptor(device, info[1].As<Napi::Value>());
 
+  Napi::Object opts = info[1].As<Napi::Object>();
+
+  // if dimension is unspecified, do:
+  // https://gpuweb.github.io/gpuweb/#texture-view-creation
+  if (!(opts.Has("dimension"))) {
+    WGPUTextureDimension srcDimension = texture->dimension;
+    WGPUTextureViewDimension dstDimension = WGPUTextureViewDimension_Undefined;
+    switch (srcDimension) {
+      case WGPUTextureDimension_1D: {
+        dstDimension = WGPUTextureViewDimension_1D;
+      } break;
+      case WGPUTextureDimension_2D: {
+        if (texture->arrayLayerCount > 1 && (&descriptor)->arrayLayerCount == 0) {
+          dstDimension = WGPUTextureViewDimension_2DArray;
+        } else {
+          dstDimension = WGPUTextureViewDimension_2D;
+        }
+      } break;
+      case WGPUTextureDimension_3D: {
+        dstDimension = WGPUTextureViewDimension_3D;
+      } break;
+    };
+    (&descriptor)->dimension = dstDimension;
+  }
+
   this->instance = wgpuTextureCreateView(texture->instance, &descriptor);
 }
 

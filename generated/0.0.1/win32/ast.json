@@ -1201,6 +1201,38 @@
       ]
     },
     {
+      "name": "WGPUPresentMode",
+      "externalName": "GPUPresentMode",
+      "type": "enum",
+      "textName": "present mode",
+      "children": [
+        {
+          "name": "no v sync",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 0
+        },
+        {
+          "name": "v sync",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 1
+        }
+      ]
+    },
+    {
       "name": "WGPUPrimitiveTopology",
       "externalName": "GPUPrimitiveTopology",
       "type": "enum",
@@ -1425,6 +1457,18 @@
             }
           },
           "value": 3
+        },
+        {
+          "name": "surface descriptor from HTML canvas id",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 4
         }
       ]
     },
@@ -5142,6 +5186,20 @@
           "name": "createSwapChain",
           "children": [
             {
+              "name": "surface",
+              "type": {
+                "isObject": true,
+                "nativeType": "WGPUSurface",
+                "rawType": "WGPUSurface",
+                "isOptional": true,
+                "jsType": {
+                  "type": "WGPUSurface",
+                  "isObject": true
+                }
+              },
+              "isOptional": true
+            },
+            {
               "name": "descriptor",
               "type": {
                 "isStructure": true,
@@ -8277,9 +8335,7 @@
               "type": "String",
               "isString": true
             }
-          },
-          "defaultValue": "\"2D\"",
-          "defaultValueNative": 2
+          }
         },
         {
           "name": "textureComponentType",
@@ -10435,6 +10491,30 @@
       ]
     },
     {
+      "name": "WGPUSurfaceDescriptorFromHTMLCanvasId",
+      "externalName": "GPUSurfaceDescriptorFromHTMLCanvasId",
+      "type": "structure",
+      "textName": "surface descriptor from HTML canvas id",
+      "children": [
+        {
+          "name": "id",
+          "type": {
+            "isString": true,
+            "isDynamicLength": true,
+            "length": "strlen",
+            "isReference": true,
+            "isArray": true,
+            "rawType": "const char*",
+            "isRequired": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "WGPUSurfaceDescriptorFromMetalLayer",
       "externalName": "GPUSurfaceDescriptorFromMetalLayer",
       "type": "structure",
@@ -10544,17 +10624,84 @@
           "isOptional": true
         },
         {
-          "name": "implementation",
+          "name": "usage",
           "type": {
-            "isNumber": true,
-            "initialValue": "0",
-            "rawType": "uint64_t",
+            "isBitmask": true,
+            "nativeType": "WGPUTextureUsage",
+            "rawType": "WGPUTextureUsage",
             "isRequired": true,
             "jsType": {
               "type": "Number",
               "isNumber": true
             }
           }
+        },
+        {
+          "name": "format",
+          "type": {
+            "isEnum": true,
+            "nativeType": "WGPUTextureFormat",
+            "rawType": "WGPUTextureFormat",
+            "isRequired": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          }
+        },
+        {
+          "name": "width",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "height",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint32_t",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
+        },
+        {
+          "name": "presentMode",
+          "type": {
+            "isEnum": true,
+            "nativeType": "WGPUPresentMode",
+            "rawType": "WGPUPresentMode",
+            "isRequired": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          }
+        },
+        {
+          "name": "implementation",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "uint64_t",
+            "isOptional": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          },
+          "defaultValue": "0",
+          "defaultValueNative": 0
         }
       ]
     },

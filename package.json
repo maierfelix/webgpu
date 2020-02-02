@@ -13,8 +13,8 @@
   },
   "scripts": {
     "build": "node ./build.js",
-    "generate": "node --experimental-modules ./generator/index.mjs",
-    "all": "npm run generate; npm run build",
+    "generate": "node --experimental-modules --experimental-json-modules ./generator/index.mjs",
+    "all": "npm run generate & npm run build",
     "tests": "node --experimental-modules tests/index.mjs"
   },
   "devDependencies": {

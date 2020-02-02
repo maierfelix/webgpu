@@ -22,6 +22,9 @@ GPUTexture::GPUTexture(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUTex
   auto descriptor = DescriptorDecoder::GPUTextureDescriptor(device, info[1].As<Napi::Value>());
 
   this->instance = wgpuDeviceCreateTexture(device->instance, &descriptor);
+
+  this->dimension = (&descriptor)->dimension;
+  this->arrayLayerCount = (&descriptor)->arrayLayerCount;
 }
 
 GPUTexture::~GPUTexture() {

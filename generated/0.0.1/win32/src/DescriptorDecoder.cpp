@@ -154,6 +154,11 @@ static std::unordered_map<std::string, uint32_t> GPUStoreOpMap = {
   { "clear", 1 },
 };
 
+static std::unordered_map<std::string, uint32_t> GPUPresentModeMap = {
+  { "no-v-sync", 0 },
+  { "v-sync", 1 },
+};
+
 static std::unordered_map<std::string, uint32_t> GPUPrimitiveTopologyMap = {
   { "point-list", 0 },
   { "line-list", 1 },
@@ -178,6 +183,7 @@ static std::unordered_map<std::string, uint32_t> GPUSTypeMap = {
   { "surface-descriptor-from-metal-layer", 1 },
   { "surface-descriptor-from-windows-hwnd", 2 },
   { "surface-descriptor-from-xlib", 3 },
+  { "surface-descriptor-from-html-canvas-id", 4 },
 };
 
 static std::unordered_map<std::string, uint32_t> GPUTextureAspectMap = {
@@ -654,6 +660,23 @@ namespace DescriptorDecoder {
     );
 
     if (it == std::end(GPUStoreOpMap)) return "";
+
+    return it->first;
+  };
+  
+  uint32_t GPUPresentMode(std::string name) {
+    return GPUPresentModeMap[name];
+  };
+  std::string GPUPresentMode(uint32_t value) {
+    auto it = std::find_if(
+      std::begin(GPUPresentModeMap),
+      std::end(GPUPresentModeMap),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end(GPUPresentModeMap)) return "";
 
     return it->first;
   };
@@ -1165,6 +1188,12 @@ namespace DescriptorDecoder {
   void DestroyGPUSurfaceDescriptor(WGPUSurfaceDescriptor descriptor) {
     if (descriptor.label) {
       delete[] descriptor.label;
+    }
+  };
+  
+  void DestroyGPUSurfaceDescriptorFromHTMLCanvasId(WGPUSurfaceDescriptorFromHTMLCanvasId descriptor) {
+    if (descriptor.id) {
+      delete[] descriptor.id;
     }
   };
   
@@ -2644,7 +2673,6 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.hasDynamicOffset = false;
   descriptor.multisampled = false;
-  descriptor.textureDimension = static_cast<WGPUTextureViewDimension>(2);
   descriptor.textureComponentType = static_cast<WGPUTextureComponentType>(0);
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -5031,6 +5059,24 @@ namespace DescriptorDecoder {
     return descriptor;
   };
   
+  WGPUSurfaceDescriptorFromHTMLCanvasId DecodeGPUSurfaceDescriptorFromHTMLCanvasId(GPUDevice* device, const Napi::Value& value) {
+    WGPUSurfaceDescriptorFromHTMLCanvasId descriptor;
+    // reset descriptor
+  descriptor.id = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {
+      if (!(obj.Get("id").IsString())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUSurfaceDescriptorFromHTMLCanvasId'.'id'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      descriptor.id = getNAPIStringCopy(obj.Get("id"));
+    }
+    return descriptor;
+  };
+  
   WGPUSurfaceDescriptorFromMetalLayer DecodeGPUSurfaceDescriptorFromMetalLayer(GPUDevice* device, const Napi::Value& value) {
     WGPUSurfaceDescriptorFromMetalLayer descriptor;
     // reset descriptor
@@ -5101,6 +5147,7 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.nextInChain = nullptr;
   descriptor.label = nullptr;
+  descriptor.implementation = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     if (obj.Has("label")) {
@@ -5112,20 +5159,69 @@ namespace DescriptorDecoder {
       }
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
-    if (!(obj.Get("implementation").IsNumber())) {
+    if (!(obj.Get("usage").IsNumber())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'implementation'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'usage'");
       device->throwCallbackError(type, message);
       return descriptor;
     }
-    if (!(obj.Get("implementation").IsNumber())) {
+    descriptor.usage = static_cast<WGPUTextureUsage>(obj.Get("usage").As<Napi::Number>().Uint32Value());
+    if (!(obj.Get("format").IsString())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'implementation'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUSwapChainDescriptor'.'format'");
       device->throwCallbackError(type, message);
       return descriptor;
     }
-    {
-      descriptor.implementation = static_cast<uint64_t>(obj.Get("implementation").As<Napi::Number>().Uint32Value());
+    descriptor.format = static_cast<WGPUTextureFormat>(GPUTextureFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+    if (!(obj.Get("width").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'width'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("width").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'width'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.width = obj.Get("width").As<Napi::Number>().Uint32Value();
+    if (!(obj.Get("height").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'height'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    if (!(obj.Get("height").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'height'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.height = obj.Get("height").As<Napi::Number>().Uint32Value();
+    if (!(obj.Get("presentMode").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUSwapChainDescriptor'.'presentMode'");
+      device->throwCallbackError(type, message);
+      return descriptor;
+    }
+    descriptor.presentMode = static_cast<WGPUPresentMode>(GPUPresentMode(obj.Get("presentMode").As<Napi::String>().Utf8Value()));
+    if (obj.Has("implementation")) {
+      if (!(obj.Get("implementation").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'implementation'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      if (!(obj.Get("implementation").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'implementation'");
+        device->throwCallbackError(type, message);
+        return descriptor;
+      }
+      {
+        descriptor.implementation = static_cast<uint64_t>(obj.Get("implementation").As<Napi::Number>().Uint32Value());
+      }
     }
     return descriptor;
   };
@@ -6939,7 +7035,6 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.hasDynamicOffset = false;
   descriptor.multisampled = false;
-  descriptor.textureDimension = static_cast<WGPUTextureViewDimension>(2);
   descriptor.textureComponentType = static_cast<WGPUTextureComponentType>(0);
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
@@ -9364,6 +9459,25 @@ namespace DescriptorDecoder {
     DestroyGPUSurfaceDescriptor(descriptor);
   };
   
+  GPUSurfaceDescriptorFromHTMLCanvasId::GPUSurfaceDescriptorFromHTMLCanvasId(GPUDevice* device, const Napi::Value& value) {
+    // reset descriptor
+  descriptor.id = nullptr;
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {
+      if (!(obj.Get("id").IsString())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUSurfaceDescriptorFromHTMLCanvasId'.'id'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      descriptor.id = getNAPIStringCopy(obj.Get("id"));
+    }
+  };
+  GPUSurfaceDescriptorFromHTMLCanvasId::~GPUSurfaceDescriptorFromHTMLCanvasId() {
+    DestroyGPUSurfaceDescriptorFromHTMLCanvasId(descriptor);
+  };
+  
   GPUSurfaceDescriptorFromMetalLayer::GPUSurfaceDescriptorFromMetalLayer(GPUDevice* device, const Napi::Value& value) {
     // reset descriptor
   descriptor.layer = nullptr;
@@ -9436,6 +9550,7 @@ namespace DescriptorDecoder {
     // reset descriptor
   descriptor.nextInChain = nullptr;
   descriptor.label = nullptr;
+  descriptor.implementation = 0;
     // fill descriptor
     Napi::Object obj = value.As<Napi::Object>();
     if (obj.Has("label")) {
@@ -9447,20 +9562,69 @@ namespace DescriptorDecoder {
       }
       descriptor.label = getNAPIStringCopy(obj.Get("label"));
     }
-    if (!(obj.Get("implementation").IsNumber())) {
+    if (!(obj.Get("usage").IsNumber())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'implementation'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'usage'");
       device->throwCallbackError(type, message);
       return ;
     }
-    if (!(obj.Get("implementation").IsNumber())) {
+    descriptor.usage = static_cast<WGPUTextureUsage>(obj.Get("usage").As<Napi::Number>().Uint32Value());
+    if (!(obj.Get("format").IsString())) {
       Napi::String type = Napi::String::New(value.Env(), "Type");
-      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'implementation'");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUSwapChainDescriptor'.'format'");
       device->throwCallbackError(type, message);
       return ;
     }
-    {
-      descriptor.implementation = static_cast<uint64_t>(obj.Get("implementation").As<Napi::Number>().Uint32Value());
+    descriptor.format = static_cast<WGPUTextureFormat>(GPUTextureFormat(obj.Get("format").As<Napi::String>().Utf8Value()));
+    if (!(obj.Get("width").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'width'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("width").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'width'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.width = obj.Get("width").As<Napi::Number>().Uint32Value();
+    if (!(obj.Get("height").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'height'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    if (!(obj.Get("height").IsNumber())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'height'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.height = obj.Get("height").As<Napi::Number>().Uint32Value();
+    if (!(obj.Get("presentMode").IsString())) {
+      Napi::String type = Napi::String::New(value.Env(), "Type");
+      Napi::String message = Napi::String::New(value.Env(), "Expected 'String' for 'GPUSwapChainDescriptor'.'presentMode'");
+      device->throwCallbackError(type, message);
+      return ;
+    }
+    descriptor.presentMode = static_cast<WGPUPresentMode>(GPUPresentMode(obj.Get("presentMode").As<Napi::String>().Utf8Value()));
+    if (obj.Has("implementation")) {
+      if (!(obj.Get("implementation").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'implementation'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      if (!(obj.Get("implementation").IsNumber())) {
+        Napi::String type = Napi::String::New(value.Env(), "Type");
+        Napi::String message = Napi::String::New(value.Env(), "Expected 'Number' for 'GPUSwapChainDescriptor'.'implementation'");
+        device->throwCallbackError(type, message);
+        return ;
+      }
+      {
+        descriptor.implementation = static_cast<uint64_t>(obj.Get("implementation").As<Napi::Number>().Uint32Value());
+      }
     }
   };
   GPUSwapChainDescriptor::~GPUSwapChainDescriptor() {

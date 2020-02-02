@@ -158,26 +158,34 @@ export default function generateAST(ast) {
           type
         };
         if (member.optional) child.isOptional = true;
-        if (member.hasOwnProperty("default") && member.default !== "undefined") {
+        if (member.hasOwnProperty("default")) {
           let defaultValue = member.default;
           if (type.isEnum) {
+            child.defaultValue = `"${member.default}"`;
+            // find the native default value for this member
+            let nativeDefaultValue = getASTNodeByName(member.type, ast).values.filter(({ name }) => {
+              return name === member.default;
+            });
+            if (!nativeDefaultValue.length) {
+              return warn(`Cannot resolve default value for '${node.externalName}'.'${child.name}'`);
+            }
+            child.defaultValueNative = nativeDefaultValue[0].value;
+          }
+          else if (defaultValue === "true" || defaultValue === "false") {
+            child.defaultValue = defaultValue === "true";
+            child.defaultValueNative = defaultValue;
+          }
+          else if (Number.isInteger(parseInt(defaultValue))) {
+            child.defaultValue = String(defaultValue);
+            child.defaultValueNative = defaultValue;
+          }
+          else if (typeof defaultValue === "string") {
             child.defaultValue = `"${member.default}"`;
             child.defaultValueNative = getASTNodeByName(member.type, ast).values.filter(({ name }) => {
               return name === member.default;
             })[0].value;
           }
-          else if (defaultValue === "true" || defaultValue === "false") {
-            child.defaultValue = defaultValue === "true";
-            child.defaultValueNative = defaultValue;
-          } else if (Number.isInteger(parseInt(defaultValue))) {
-            child.defaultValue = String(defaultValue);
-            child.defaultValueNative = defaultValue;
-          } else if (typeof defaultValue === "string") {
-            child.defaultValue = `"${member.default}"`;
-            child.defaultValueNative = getASTNodeByName(member.type, ast).values.filter(({ name }) => {
-              return name === member.default;
-            })[0].value;
-          } else {
+          else {
             warn(`Unexpected default value for '${node.externalName}'.'${child.name}'`);
           }
         }

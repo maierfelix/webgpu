@@ -40,11 +40,6 @@ Now in order to generate the bindings and build this project, run:
 npm run all --dawnversion=0.0.1
 ````
 
-For much faster concurrent building (optional):
-````
-export JOBS=max
-````
-
 ### Windows
 
 Follow dawn's initial setup instructions, but instead of the standard build, do the following:
@@ -61,6 +56,7 @@ ninja -C out/Shared
 ````
 
 ### Linux 
+
 
 Follow dawn's initial setup instructions, but instead of the standard build, do the following:
 
@@ -90,4 +86,9 @@ gn gen out/Shared --target_cpu="x64" --args="is_component_build=true is_debug=fa
 To build the project run:
 ````
 ninja -C out/Shared
+````
+
+For much faster npm build (optional - uses all your CPU threads):
+````
+export JOBS=max
 ````

@@ -1,3 +1,4 @@
+![webgpu-napi](https://user-images.githubusercontent.com/1641613/73613408-6691ec80-45c3-11ea-9714-430c3a635275.png)
 # webgpu
 
 This is a WebGPU API for native JavaScript, based on a [Fork](https://github.com/maierfelix/dawn-ray-tracing) of Chromium's [Dawn Project](https://dawn.googlesource.com/dawn/).

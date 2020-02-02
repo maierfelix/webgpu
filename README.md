@@ -40,6 +40,11 @@ Now in order to generate the bindings and build this project, run:
 npm run all --dawnversion=0.0.1
 ````
 
+For much faster concurrent building (optional):
+````
+export JOBS=max
+````
+
 ### Windows
 
 Follow dawn's initial setup instructions, but instead of the standard build, do the following:

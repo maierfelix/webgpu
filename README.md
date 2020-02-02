@@ -17,23 +17,6 @@ This project comes with pre-built N-API binaries for the following platforms:
 
 Node 11.x
 
-## Installation
-````
-npm install webgpu
-````
-
-## Examples
-````
-cd examples & npm install & cd ..
-node --experimental-modules examples/interactive-triangle.mjs
-````
-
-## TODOs
- - Add CTS
- - Remove libshaderc from build?
- - Rework GPUBuffer, mainly the mapping part
- - Research for a better Error callback system
- - Add ArrayBuffer neutering to GPUBuffer on unmapping ([this issue](https://github.com/nodejs/node-addon-api/issues/541) previously blocked me to add it)
 
 ## Building
 
@@ -101,3 +84,15 @@ To build the project run:
 ninja -C out/Shared
 ````
 
+## Examples
+````
+cd examples & npm install & cd ..
+node --experimental-modules examples/interactive-triangle.mjs
+````
+
+## TODOs
+ - Add CTS
+ - Remove libshaderc from build?
+ - Rework GPUBuffer, mainly the mapping part
+ - Research for a better Error callback system
+ - Add ArrayBuffer neutering to GPUBuffer on unmapping ([this issue](https://github.com/nodejs/node-addon-api/issues/541) previously blocked me to add it)

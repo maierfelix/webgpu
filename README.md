@@ -13,9 +13,9 @@ This project comes with pre-built N-API binaries for the following platforms:
 | <img src="https://i.imgur.com/iPt4GHz.png" alt="" height="16px">  MacOS         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
 
 
-## Requirements
+## Minimum Requirements
 
-Minimum NodeJS Version is 11.x
+Node 11.x
 
 ## Installation
 ````

@@ -1,3 +1,4 @@
+
 #include "GPURayTracingAccelerationContainer.h"
 #include "GPUDevice.h"
 

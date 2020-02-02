@@ -34,7 +34,7 @@ Napi::Value GPURayTracingAccelerationContainer::destroy(const Napi::CallbackInfo
 Napi::Value GPURayTracingAccelerationContainer::getHandle(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
   uint64_t handle = wgpuRayTracingAccelerationContainerGetHandle(this->instance);
-  return Napi::Number::New(env, handle);
+  return Napi::BigInt::New(env, handle);
 }
 
 Napi::Object GPURayTracingAccelerationContainer::Initialize(Napi::Env env, Napi::Object exports) {

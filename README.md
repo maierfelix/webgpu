@@ -1,3 +1,4 @@
+![webgpu-napi](https://user-images.githubusercontent.com/1641613/73613765-d35ab600-45c6-11ea-813d-252444ec16eb.png)
 # webgpu
 
 This is a WebGPU API for native JavaScript, based on a [Fork](https://github.com/maierfelix/dawn-ray-tracing) of Chromium's [Dawn Project](https://dawn.googlesource.com/dawn/).
@@ -9,27 +10,14 @@ This project comes with pre-built N-API binaries for the following platforms:
 |       OS      |     Status    |
 | ------------- | ------------- |
 | <img src="https://i.imgur.com/FF3Ssp6.png" alt="" height="16px">  Windows       | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
-| <img src="https://i.imgur.com/bkBCY7V.png" alt="" height="16px">  Linux         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ X ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
+| <img src="https://i.imgur.com/bkBCY7V.png" alt="" height="16px">  Linux         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
 | <img src="https://i.imgur.com/iPt4GHz.png" alt="" height="16px">  MacOS         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
 
-## Installation
-````
-npm install webgpu
-````
 
-## Examples
-````
-cd examples & npm install & cd ..
-node --experimental-modules examples/interactive-triangle.mjs
-````
+## Minimum Requirements
 
-## TODOs
- - Add CTS
- - Compile for Linux
- - Remove libshaderc from build?
- - Rework GPUBuffer, mainly the mapping part
- - Research for a better Error callback system
- - Add ArrayBuffer neutering to GPUBuffer on unmapping ([this issue](https://github.com/nodejs/node-addon-api/issues/541) previously blocked me to add it)
+Node 11.x
+
 
 ## Building
 
@@ -56,7 +44,32 @@ To build the project run:
 ninja -C out/Shared
 ````
 
-### Linux // TODO
+### Linux 
+
+
+Follow dawn's initial setup instructions, but instead of the standard build, do the following:
+
+To generate the project as a shared library:
+````
+gn gen out/Shared --target_cpu="x64" --args="is_component_build=true is_debug=false is_clang=true"
+````
+
+To build the project run:
+````
+ninja -C out/Shared
+````
+
+Set your LD_LIBRARY_PATH to point to the dawn system libraries for your system eg:
+````
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/your-path-to-dawn/build/linux/debian_sid_amd64-sysroot/usr/lib/x86_64-linux-gnu
+````
+
+
+For much faster WebGPU API npm build (optional - uses all your CPU threads):
+````
+export JOBS=max
+````
+
 
 ### MacOS
 
@@ -71,3 +84,16 @@ To build the project run:
 ````
 ninja -C out/Shared
 ````
+
+## Examples
+````
+cd examples & npm install & cd ..
+node --experimental-modules examples/interactive-triangle.mjs
+````
+
+## TODOs
+ - Add CTS
+ - Remove libshaderc from build?
+ - Rework GPUBuffer, mainly the mapping part
+ - Research for a better Error callback system
+ - Add ArrayBuffer neutering to GPUBuffer on unmapping ([this issue](https://github.com/nodejs/node-addon-api/issues/541) previously blocked me to add it)

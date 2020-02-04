@@ -93,7 +93,7 @@ ninja -C out/Shared
 
 ## Examples
 ````
-cd examples & npm install & cd ..
+cd examples & cd ..
 node --experimental-modules examples/interactive-triangle.mjs
 ````
 

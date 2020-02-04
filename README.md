@@ -59,7 +59,7 @@ To build the project run:
 ninja -C out/Shared
 ````
 
-Set your LD_LIBRARY_PATH to point to the dawn system libraries for your system eg:
+If you do not have Vulkan installed on your system:
 ````
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/your-path-to-dawn/build/linux/debian_sid_amd64-sysroot/usr/lib/x86_64-linux-gnu
 ````

@@ -54,18 +54,23 @@ To generate the project as a shared library:
 gn gen out/Shared --target_cpu="x64" --args="is_component_build=true is_debug=false is_clang=true"
 ````
 
+
 To build the project run:
 ````
 ninja -C out/Shared
 ````
 
-If you do not have Vulkan installed on your system:
+
+If you do not have Vulkan installed, point to dawn Vulkan libraries for your system, eg:
 ````
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/your-path-to-dawn/build/linux/debian_sid_amd64-sysroot/usr/lib/x86_64-linux-gnu
 ````
+OR minimally install `libvulkan1` package for your system, eg:
+sudo apt install libvulkan1
 
 
-For much faster WebGPU API npm build (optional - uses all your CPU threads):
+
+For much faster builds (optional - uses all your CPU threads):
 ````
 export JOBS=max
 ````

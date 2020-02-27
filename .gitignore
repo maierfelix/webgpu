@@ -93,7 +93,7 @@ www
 
 package-lock.json
 
-generated/*/*/build/*
+#generated/*/*/build/*
 
 PATH_TO_DAWN
 

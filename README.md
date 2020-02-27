@@ -12,12 +12,6 @@ This project comes with pre-built N-API binaries for the following platforms:
 | <img src="https://i.imgur.com/bkBCY7V.png" alt="" height="16px">  Linux         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
 | <img src="https://i.imgur.com/iPt4GHz.png" alt="" height="16px">  MacOS         | ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ✔ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌ ‌‌|
 
-
-## Minimum Requirements
-
-Node 11.x
-
-
 ## Building
 
 You have to build [dawn](https://dawn.googlesource.com/dawn) as a shared library.
@@ -45,7 +39,6 @@ ninja -C out/Shared
 
 ### Linux 
 
-
 Follow dawn's initial setup instructions, but instead of the standard build, do the following:
 
 To generate the project as a shared library:
@@ -53,12 +46,10 @@ To generate the project as a shared library:
 gn gen out/Shared --target_cpu="x64" --args="is_component_build=true is_debug=false is_clang=true"
 ````
 
-
 To build the project run:
 ````
 ninja -C out/Shared
 ````
-
 
 If you do not have Vulkan installed, point to dawn Vulkan libraries for your system, eg:
 ````
@@ -69,13 +60,10 @@ OR minimally install `libvulkan1` package for your system, eg:
 sudo apt install libvulkan1
 ````
 
-
-
 For much faster builds (optional - uses all your CPU threads):
 ````
 export JOBS=max
 ````
-
 
 ### MacOS
 

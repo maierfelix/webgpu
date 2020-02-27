@@ -4,7 +4,7 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "C:\Users\User\Documents\GitHub\dawn-ray-tracing"
+    "dawn": "C:\Users\maier\Documents\Github\dawn-ray-tracing"
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],
@@ -24,97 +24,98 @@
     {
       "conditions": [
         [
-
-					"OS=='linux'",
-					{
-						"sources": [
-							"src/index.cpp",
-							"src/BackendBinding.cpp",
-							"src/DescriptorDecoder.cpp",
-							"src/GPU.cpp",
-							"src/GPUAdapter.cpp",
-							"src/GPUBindGroup.cpp",
-							"src/GPUBindGroupLayout.cpp",
-							"src/GPUBuffer.cpp",
-							"src/GPUCanvasContext.cpp",
-							"src/GPUCommandBuffer.cpp",
-							"src/GPUCommandEncoder.cpp",
-							"src/GPUComputePassEncoder.cpp",
-							"src/GPUComputePipeline.cpp",
-							"src/GPUDevice.cpp",
-							"src/GPUFence.cpp",
-							"src/GPUPipelineLayout.cpp",
-							"src/GPUQueue.cpp",
-							"src/GPURayTracingAccelerationContainer.cpp",
+          "OS=='linux'",
+          {
+            "sources": [
+              "src/index.cpp",
+              "src/BackendBinding.cpp",
+              "src/DescriptorDecoder.cpp",
+              "src/GPU.cpp",
+              "src/GPUAdapter.cpp",
+              "src/GPUBindGroup.cpp",
+              "src/GPUBindGroupLayout.cpp",
+              "src/GPUBuffer.cpp",
+              "src/GPUCanvasContext.cpp",
+              "src/GPUCommandBuffer.cpp",
+              "src/GPUCommandEncoder.cpp",
+              "src/GPUComputePassEncoder.cpp",
+              "src/GPUComputePipeline.cpp",
+              "src/GPUDevice.cpp",
+              "src/GPUFence.cpp",
+              "src/GPUPipelineLayout.cpp",
+              "src/GPUQueue.cpp",
+              "src/GPURayTracingAccelerationContainer.cpp",
               "src/GPURayTracingPassEncoder.cpp",
               "src/GPURayTracingPipeline.cpp",
               "src/GPURayTracingShaderBindingTable.cpp",
-							"src/GPURenderBundle.cpp",
-							"src/GPURenderBundleEncoder.cpp",
-							"src/GPURenderPassEncoder.cpp",
-							"src/GPURenderPipeline.cpp",
-							"src/GPUSampler.cpp",
-							"src/GPUShaderModule.cpp",
-							"src/GPUSwapChain.cpp",
-							"src/GPUTexture.cpp",
-							"src/GPUTextureView.cpp",
-							"src/NullBinding.cpp",
-							"src/VulkanBinding.cpp",
-							"src/WebGPUWindow.cpp"
-						],
-						"target_name": "addon-linux",
-            "defines": [
-                "DAWN_ENABLE_BACKEND_NULL",
-                "DAWN_ENABLE_BACKEND_VULKAN",
-                "DAWN_NATIVE_SHARED_LIBRARY",
-                "DAWN_WIRE_SHARED_LIBRARY",
-                "WGPU_SHARED_LIBRARY",
-                "NAPI_CPP_EXCEPTIONS"
+              "src/GPURenderBundle.cpp",
+              "src/GPURenderBundleEncoder.cpp",
+              "src/GPURenderPassEncoder.cpp",
+              "src/GPURenderPipeline.cpp",
+              "src/GPUSampler.cpp",
+              "src/GPUShaderModule.cpp",
+              "src/GPUSwapChain.cpp",
+              "src/GPUTexture.cpp",
+              "src/GPUTextureView.cpp",
+              "src/NullBinding.cpp",
+              "src/VulkanBinding.cpp",
+              "src/WebGPUWindow.cpp"
             ],
-						"include_dirs": [
-							"<!@(node -p \"require('node-addon-api').include\")",
+            "target_name": "addon-linux",
+            "defines": [
+              "DAWN_ENABLE_BACKEND_NULL",
+              "DAWN_ENABLE_BACKEND_VULKAN",
+              "DAWN_NATIVE_SHARED_LIBRARY",
+              "DAWN_WIRE_SHARED_LIBRARY",
+              "WGPU_SHARED_LIBRARY",
+              "NAPI_CPP_EXCEPTIONS"
+            ],
+            "include_dirs": [
+              "<!@(node -p \"require('node-addon-api').include\")",
               "<(dawn)/third_party/vulkan-headers/include",
-							"<(root)/lib/include",
-							"<(dawn)/src/include",
-							"<(dawn)/build/linux/debian_sid_amd64-sysroot/usr/include",
-							"<(dawn)/out/Shared/gen/src/include"
-						],
-						"cflags": [
-							"-std=c++14",
-							"-fexceptions",
-							"-Wno-switch",
-							"-Wno-unused",
-							"-Wno-uninitialized"
-						],
-						"cflags_cc": [
-							"-std=c++14",
-							"-fexceptions",
-							"-Wno-switch",
-							"-Wno-unused",
-							"-Wno-uninitialized"
-						],
-						"library_dirs": [
+              "<(root)/lib/include",
+              "<(dawn)/src/include",
+              "<(dawn)/out/Shared/gen/src/include",
+              "<(dawn)/third_party/shaderc/libshaderc/include",
+              "<(dawn)/third_party/shaderc/libshaderc/src/shaderc.cc",
+              "<(dawn)/third_party/shaderc/libshaderc/src/shaderc_private.h"
+            ],
+            "cflags": [
+              "-std=c++14",
+              "-fexceptions",
+              "-Wno-switch",
+              "-Wno-unused",
+              "-Wno-uninitialized"
+            ],
+            "cflags_cc": [
+              "-std=c++14",
+              "-fexceptions",
+              "-Wno-switch",
+              "-Wno-unused",
+              "-Wno-uninitialized"
+            ],
+            "library_dirs": [
               "<(release)",
               "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)",
               "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)/GLFW"
             ],
-						"libraries": ["-Wl,-rpath,<(release)",
-							"-lglfw3",
-							"-ldawn_native",
+            "libraries": ["-Wl,-rpath,<(release)",
+              "-lglfw3",
+              "-ldawn_native",
               "-ldawn_proc",
               "-ldawn_wire",
               "-lshaderc_spvc",
               "-lshaderc",
-							"-lXrandr",
-							"-lXi",
-							"-lX11",
-							"-lXxf86vm",
-							"-lXinerama",
-							"-lXcursor",
-							"-ldl",
-							"-pthread"		
-						]
-					},
+              "-lXrandr",
+              "-lXi",
+              "-lX11",
+              "-lXxf86vm",
+              "-lXinerama",
+              "-lXcursor",
+              "-ldl",
+              "-pthread"  
+            ]
+          },
           "OS=='win'",
           {
             "sources": [
@@ -269,20 +270,3 @@
     }
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

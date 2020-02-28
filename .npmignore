@@ -115,6 +115,7 @@ package-lock.json
 
 node_modules
 
+examples
 examples-dev
 
 lib

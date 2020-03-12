@@ -98,6 +98,7 @@ const blitFsSrc = `
       frontFace: "CCW",
       cullMode: "none"
     },
+    // 2 color states
     colorStates: [
       {
         format: swapChainFormat,
@@ -112,7 +113,7 @@ const blitFsSrc = `
     ]
   });
 
-  const blitTexture1 = device.createTexture({
+  const renderTarget1 = device.createTexture({
     size: {
       width: window.width,
       height: window.height,
@@ -125,11 +126,11 @@ const blitFsSrc = `
     format: swapChainFormat,
     usage: GPUTextureUsage.OUTPUT_ATTACHMENT | GPUTextureUsage.SAMPLED
   });
-  const blitTextureView1 = blitTexture1.createView({
+  const renderTargetView1 = renderTarget1.createView({
     format: swapChainFormat
   });
 
-  const blitTexture2 = device.createTexture({
+  const renderTarget2 = device.createTexture({
     size: {
       width: window.width,
       height: window.height,
@@ -142,11 +143,12 @@ const blitFsSrc = `
     format: swapChainFormat,
     usage: GPUTextureUsage.OUTPUT_ATTACHMENT | GPUTextureUsage.SAMPLED
   });
-  const blitTextureView2 = blitTexture2.createView({
+  const renderTargetView2 = renderTarget2.createView({
     format: swapChainFormat
   });
 
   const blitBindGroupLayout = device.createBindGroupLayout({
+    // 2 texture inputs
     bindings: [
       {
         binding: 0,
@@ -167,12 +169,12 @@ const blitFsSrc = `
     bindings: [
       {
         binding: 0,
-        textureView: blitTextureView1,
+        textureView: renderTargetView1,
         size: 0
       },
       {
         binding: 1,
-        textureView: blitTextureView2,
+        textureView: renderTargetView2,
         size: 0
       }
     ]
@@ -200,7 +202,6 @@ const blitFsSrc = `
       frontFace: "CCW",
       cullMode: "none"
     },
-    // 2 color states
     colorStates: [
       {
         format: swapChainFormat,
@@ -227,13 +228,13 @@ const blitFsSrc = `
             clearColor: { r: 0.125, g: 0.125, b: 0.125, a: 1.0 },
             loadOp: "clear",
             storeOp: "store",
-            attachment: blitTextureView1
+            attachment: renderTargetView1
           },
           {
             clearColor: { r: 0.125, g: 0.125, b: 0.125, a: 1.0 },
             loadOp: "clear",
             storeOp: "store",
-            attachment: blitTextureView2
+            attachment: renderTargetView2
           }
         ]
       });

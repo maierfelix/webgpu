@@ -37,6 +37,10 @@ To build the project run:
 ninja -C out/Shared
 ````
 
+In case python wasn't found:
+ - Use `where python` to get the location of your python installation
+ - Repoint it by running e.g. `npm config set python C:\depot_tools\python.bat`
+
 ### Linux 
 
 Follow dawn's initial setup instructions, but instead of the standard build, do the following:

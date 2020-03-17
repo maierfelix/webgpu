@@ -379,7 +379,7 @@
           "value": 5
         },
         {
-          "name": "acceleration container",
+          "name": "readonly storage texture",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -389,6 +389,30 @@
             }
           },
           "value": 6
+        },
+        {
+          "name": "writeonly storage texture",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 7
+        },
+        {
+          "name": "acceleration container",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 8
         }
       ]
     },

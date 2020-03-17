@@ -51,7 +51,9 @@ static std::unordered_map<std::string, uint32_t> GPUBindingTypeMap = {
   { "sampler", 3 },
   { "sampled-texture", 4 },
   { "storage-texture", 5 },
-  { "acceleration-container", 6 },
+  { "readonly-storage-texture", 6 },
+  { "writeonly-storage-texture", 7 },
+  { "acceleration-container", 8 },
 };
 
 static std::unordered_map<std::string, uint32_t> GPUBlendFactorMap = {

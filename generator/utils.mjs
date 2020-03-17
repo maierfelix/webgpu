@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 
 export function warn() {
   let args = [];
@@ -73,4 +74,12 @@ export function firstLetterToUpperCase(str) {
 
 export function isQuotedString(str) {
   return !!((String(str)).match(/"[^"]*"/g));
+};
+
+export function normalizeDawnPath(p) {
+  p = p.replace(/\s+/g, "");
+  if (!path.isAbsolute(p)) {
+    throw new Error(`PATH_TO_DAWN must be an absolute path`);
+  }
+  return p;
 };

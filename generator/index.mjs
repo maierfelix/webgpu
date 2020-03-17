@@ -6,7 +6,8 @@ import pkg from "../package.json";
 
 import {
   warn,
-  getPlatform
+  getPlatform,
+  normalizeDawnPath
 } from "./utils.mjs";
 
 import generateAST from "./generators/ast.mjs";
@@ -15,7 +16,7 @@ import generateIndex from "./generators/index.mjs";
 import generateMemoryLayouts from "./generators/memoryLayouts.mjs";
 import generateDescriptorDecoder from "./generators/descriptorDecoder.mjs";
 
-const DAWN_PATH = fs.readFileSync(pkg.config.DAWN_PATH, "utf-8");
+const DAWN_PATH = normalizeDawnPath(fs.readFileSync(pkg.config.DAWN_PATH, "utf-8"));
 
 const GEN_FILE_NOTICE = `/*
  * MACHINE GENERATED, DO NOT EDIT

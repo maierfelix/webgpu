@@ -15,7 +15,7 @@ This project comes with pre-built N-API binaries for the following platforms:
 ## Building
 
 You have to build [dawn](https://dawn.googlesource.com/dawn) as a shared library.
-After building dawn, create a file named `PATH_TO_DAWN` in this project's root, containing the path to dawn.
+After building dawn, create a file named `PATH_TO_DAWN` in this project's root, containing the **absolute** path to dawn.
 
 Now in order to generate the bindings and build this project, run:
 ````
@@ -58,11 +58,6 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/your-path-to-dawn/build/linux/debian_si
 OR minimally install `libvulkan1` package for your system, eg:
 ````
 sudo apt install libvulkan1
-````
-
-For much faster builds (optional - uses all your CPU threads):
-````
-export JOBS=max
 ````
 
 ### MacOS

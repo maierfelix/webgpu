@@ -266,7 +266,7 @@ static std::unordered_map<std::string, uint32_t> GPUTextureViewDimensionMap = {
   { "undefined", 0 },
   { "1d", 1 },
   { "2d", 2 },
-  { "2darray", 3 },
+  { "2d-array", 3 },
   { "cube", 4 },
   { "cube-array", 5 },
   { "3d", 6 },

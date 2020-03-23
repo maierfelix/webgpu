@@ -56,13 +56,13 @@ CFLAGS_CC_Debug := \
 	-Wno-uninitialized
 
 INCS_Debug := \
-	-I/home/user/.cache/node-gyp/13.9.0/include/node \
-	-I/home/user/.cache/node-gyp/13.9.0/src \
-	-I/home/user/.cache/node-gyp/13.9.0/deps/openssl/config \
-	-I/home/user/.cache/node-gyp/13.9.0/deps/openssl/openssl/include \
-	-I/home/user/.cache/node-gyp/13.9.0/deps/uv/include \
-	-I/home/user/.cache/node-gyp/13.9.0/deps/zlib \
-	-I/home/user/.cache/node-gyp/13.9.0/deps/v8/include \
+	-I/home/user/.cache/node-gyp/13.11.0/include/node \
+	-I/home/user/.cache/node-gyp/13.11.0/src \
+	-I/home/user/.cache/node-gyp/13.11.0/deps/openssl/config \
+	-I/home/user/.cache/node-gyp/13.11.0/deps/openssl/openssl/include \
+	-I/home/user/.cache/node-gyp/13.11.0/deps/uv/include \
+	-I/home/user/.cache/node-gyp/13.11.0/deps/zlib \
+	-I/home/user/.cache/node-gyp/13.11.0/deps/v8/include \
 	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/node_modules/node-addon-api \
 	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/third_party/vulkan-headers/include \
 	-I$(srcdir)/../../../lib/include \
@@ -123,13 +123,13 @@ CFLAGS_CC_Release := \
 	-Wno-uninitialized
 
 INCS_Release := \
-	-I/home/user/.cache/node-gyp/13.9.0/include/node \
-	-I/home/user/.cache/node-gyp/13.9.0/src \
-	-I/home/user/.cache/node-gyp/13.9.0/deps/openssl/config \
-	-I/home/user/.cache/node-gyp/13.9.0/deps/openssl/openssl/include \
-	-I/home/user/.cache/node-gyp/13.9.0/deps/uv/include \
-	-I/home/user/.cache/node-gyp/13.9.0/deps/zlib \
-	-I/home/user/.cache/node-gyp/13.9.0/deps/v8/include \
+	-I/home/user/.cache/node-gyp/13.11.0/include/node \
+	-I/home/user/.cache/node-gyp/13.11.0/src \
+	-I/home/user/.cache/node-gyp/13.11.0/deps/openssl/config \
+	-I/home/user/.cache/node-gyp/13.11.0/deps/openssl/openssl/include \
+	-I/home/user/.cache/node-gyp/13.11.0/deps/uv/include \
+	-I/home/user/.cache/node-gyp/13.11.0/deps/zlib \
+	-I/home/user/.cache/node-gyp/13.11.0/deps/v8/include \
 	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/node_modules/node-addon-api \
 	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/third_party/vulkan-headers/include \
 	-I$(srcdir)/../../../lib/include \

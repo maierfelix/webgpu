@@ -4,9 +4,7 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "C:\Users\maier\Documents\Github\dawn-ray-tracing
-
-"
+    "dawn": "C:\Users\maier\Documents\Github\dawn-ray-tracing"
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],

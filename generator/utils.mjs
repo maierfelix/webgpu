@@ -54,7 +54,8 @@ export function getEnumNameFromDawnEnumName(name) {
   let chunks = name.split(/\s/g);
   chunks = chunks.map((v, i) => {
     if (i < chunks.length - 1) {
-      if (v.match(/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$/gm)) return v;
+      if (v === "1D" || v === "2D" || v === "3D") return v + "-";
+      else if (v.match(/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$/gm)) return v;
       else return v + "-";
     }
     return v;

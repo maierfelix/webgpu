@@ -26,7 +26,12 @@ class GPUBuffer : public Napi::ObjectWrap<GPUBuffer> {
     WGPUBuffer instance;
 
   private:
+    // ArrayBuffers created and returned in the mapping process get linked
+    // to this GPUBuffer - we keep track of them, since we have to detach them
+    // after this GPUBuffer got unmapped or destroyed
+    Napi::ObjectReference mappingArrayBuffers;
 
+    void DestroyMappingArrayBuffers();
 };
 
 #endif

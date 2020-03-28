@@ -53,14 +53,12 @@ const fsSrc = `
     format: swapChainFormat
   });
 
-  // !! FOR SOME REASON THIS CRASHES !!
   // demonstrate verbose staging process
-  /*const stagingVertexBuffer = device.createBuffer({
+  const stagingVertexBuffer = device.createBuffer({
     size: triangleVertices.byteLength,
     usage: GPUBufferUsage.MAP_WRITE | GPUBufferUsage.COPY_SRC
   });
   const stagingVertexBufferView = await stagingVertexBuffer.mapWriteAsync();
-  new triangleVertices.constructor(stagingVertexBufferView).set(triangleVertices, 0x0);
   stagingVertexBuffer.unmap();
 
   const stagedVertexBuffer = device.createBuffer({
@@ -77,14 +75,7 @@ const fsSrc = `
     0,
     triangleVertices.byteLength
   );
-  queue.submit([ bufferCopyEncoder.finish() ]);*/
-
-  // staging shortcut using buffer.setSubData
-  const stagedVertexBuffer = device.createBuffer({
-    size: triangleVertices.byteLength,
-    usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST
-  });
-  stagedVertexBuffer.setSubData(0, triangleVertices);
+  queue.submit([ bufferCopyEncoder.finish() ]);
 
   // staging shortcut using buffer.setSubData
   const stagedIndexBuffer = device.createBuffer({

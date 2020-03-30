@@ -3370,6 +3370,46 @@
           }
         },
         {
+          "name": "updateInstance",
+          "children": [
+            {
+              "name": "instanceIndex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "WGPURayTracingAccelerationInstanceDescriptor",
+                "isReference": true,
+                "rawType": "const WGPURayTracingAccelerationInstanceDescriptor*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
+          "type": {
+            "rawType": "void",
+            "isRequired": true,
+            "jsType": {
+              "type": "Undefined",
+              "isUndefined": true
+            }
+          }
+        },
+        {
           "name": "getHandle",
           "children": [],
           "type": {

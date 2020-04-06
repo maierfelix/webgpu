@@ -3408,20 +3408,6 @@
               "isUndefined": true
             }
           }
-        },
-        {
-          "name": "getHandle",
-          "children": [],
-          "type": {
-            "isNumber": true,
-            "initialValue": "0",
-            "rawType": "uint64_t",
-            "isRequired": true,
-            "jsType": {
-              "type": "Number",
-              "isNumber": true
-            }
-          }
         }
       ]
     },

@@ -100,7 +100,8 @@
               "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)/GLFW"
             ],
             "libraries": [
-              "-Wl,-rpath,<@(module_root_dir)/build/Release",
+              "-Wl,-rpath,./node_modules/webgpu/generated/0.0.1/linux/build/Release",
+              "-Wl,-rpath,./generated/0.0.1/linux/build/Release",
               "-lglfw3",
               "-ldawn_native",
               "-ldawn_proc",

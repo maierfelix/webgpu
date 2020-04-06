@@ -379,7 +379,7 @@
           "value": 5
         },
         {
-          "name": "acceleration container",
+          "name": "readonly storage texture",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -389,6 +389,30 @@
             }
           },
           "value": 6
+        },
+        {
+          "name": "writeonly storage texture",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 7
+        },
+        {
+          "name": "acceleration container",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 8
         }
       ]
     },
@@ -3346,16 +3370,42 @@
           }
         },
         {
-          "name": "getHandle",
-          "children": [],
+          "name": "updateInstance",
+          "children": [
+            {
+              "name": "instanceIndex",
+              "type": {
+                "isNumber": true,
+                "initialValue": "0",
+                "rawType": "uint32_t",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Number",
+                  "isNumber": true
+                }
+              }
+            },
+            {
+              "name": "descriptor",
+              "type": {
+                "isStructure": true,
+                "nativeType": "WGPURayTracingAccelerationInstanceDescriptor",
+                "isReference": true,
+                "rawType": "const WGPURayTracingAccelerationInstanceDescriptor*",
+                "isRequired": true,
+                "jsType": {
+                  "type": "Object",
+                  "isObject": true
+                }
+              }
+            }
+          ],
           "type": {
-            "isNumber": true,
-            "initialValue": "0",
-            "rawType": "uint64_t",
+            "rawType": "void",
             "isRequired": true,
             "jsType": {
-              "type": "Number",
-              "isNumber": true
+              "type": "Undefined",
+              "isUndefined": true
             }
           }
         }

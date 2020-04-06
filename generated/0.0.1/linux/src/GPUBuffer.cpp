@@ -17,6 +17,9 @@ struct BufferCallbackResult {
 GPUBuffer::GPUBuffer(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUBuffer>(info) {
   Napi::Env env = info.Env();
 
+  Napi::Array mappingArray = Napi::Array::New(env);
+  this->mappingArrayBuffers.Reset(mappingArray.As<Napi::Object>(), 1);
+
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
@@ -27,7 +30,22 @@ GPUBuffer::GPUBuffer(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUBuffe
 
 GPUBuffer::~GPUBuffer() {
   this->device.Reset();
+  this->mappingArrayBuffers.Reset();
   wgpuBufferRelease(this->instance);
+}
+
+void GPUBuffer::DestroyMappingArrayBuffers() {
+  Napi::Array mappingArray = this->mappingArrayBuffers.Value().As<Napi::Array>();
+  Napi::Env env = mappingArray.Env();
+  for (unsigned int ii = 0; ii < mappingArray.Length(); ++ii) {
+    Napi::ArrayBuffer ab = mappingArray.Get(ii).As<Napi::ArrayBuffer>();
+    napi_detach_arraybuffer(env, ab);
+  };
+  // reset to empty array
+  {
+    Napi::Array mappingArray = Napi::Array::New(env);
+    this->mappingArrayBuffers.Reset(mappingArray.As<Napi::Object>(), 1);
+  }
 }
 
 Napi::Value GPUBuffer::setSubData(const Napi::CallbackInfo &info) {
@@ -74,15 +92,15 @@ Napi::Value GPUBuffer::mapReadAsync(const Napi::CallbackInfo &info) {
     };
   }
 
-  // TODO: neuter arraybuffer on freeing
   Napi::ArrayBuffer buffer = Napi::ArrayBuffer::New(
     env,
     callbackResult.addr,
     callbackResult.length,
-    [](Napi::Env, void* data) {
-      delete[] static_cast<uint8_t*>(data);
-    }
+    [](Napi::Env env, void* data) { }
   );
+
+  Napi::Array mappingArray = this->mappingArrayBuffers.Value().As<Napi::Array>();
+  mappingArray[mappingArray.Length()] = buffer;
 
   if (hasCallback) callback.Call({ buffer });
 
@@ -116,15 +134,15 @@ Napi::Value GPUBuffer::mapWriteAsync(const Napi::CallbackInfo &info) {
     };
   }
 
-  // TODO: neuter arraybuffer on freeing
   Napi::ArrayBuffer buffer = Napi::ArrayBuffer::New(
     env,
     callbackResult.addr,
     callbackResult.length,
-    [](Napi::Env, void* data) {
-      delete[] static_cast<uint8_t*>(data);
-    }
+    [](Napi::Env env, void* data) { }
   );
+
+  Napi::Array mappingArray = this->mappingArrayBuffers.Value().As<Napi::Array>();
+  mappingArray[mappingArray.Length()] = buffer;
 
   callback.Call({ buffer });
 
@@ -133,12 +151,14 @@ Napi::Value GPUBuffer::mapWriteAsync(const Napi::CallbackInfo &info) {
 
 Napi::Value GPUBuffer::unmap(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
+  this->DestroyMappingArrayBuffers();
   wgpuBufferUnmap(this->instance);
   return env.Undefined();
 }
 
 Napi::Value GPUBuffer::destroy(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
+  this->DestroyMappingArrayBuffers();
   wgpuBufferDestroy(this->instance);
   return env.Undefined();
 }

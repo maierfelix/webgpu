@@ -15,9 +15,11 @@ This project comes with pre-built N-API binaries for the following platforms:
 ## Building
 
 You have to build [dawn](https://dawn.googlesource.com/dawn) as a shared library.
-After building dawn, create a file named `PATH_TO_DAWN` in this project's root, containing the **absolute** path to dawn.
+After building dawn, create a file named `PATH_TO_DAWN` in this project's root directory, containing the **absolute** path to dawn.
 
-Now in order to generate the bindings and build this project, run:
+In case you have multiple python installations, you might want to use the `--script-executable` gn flag to instruct *gn* to use the python 2.x installation.
+
+After you have generated and built dawn, you can now build this project by running:
 ````
 npm run all --dawnversion=0.0.1
 ````
@@ -87,6 +89,4 @@ node --experimental-modules examples/interactive-triangle.mjs
 ## TODOs
  - Add CTS
  - Remove libshaderc from build?
- - Rework GPUBuffer, mainly the mapping part
  - Research for a better Error callback system
- - Add ArrayBuffer neutering to GPUBuffer on unmapping ([this issue](https://github.com/nodejs/node-addon-api/issues/541) previously blocked me to add it)

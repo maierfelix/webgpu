@@ -12,8 +12,6 @@ DEFS_Debug := \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
 	'-D__STDC_FORMAT_MACROS' \
-	'-DOPENSSL_NO_PINSHARED' \
-	'-DOPENSSL_THREADS' \
 	'-DDAWN_ENABLE_BACKEND_NULL' \
 	'-DDAWN_ENABLE_BACKEND_VULKAN' \
 	'-DDAWN_NATIVE_SHARED_LIBRARY' \
@@ -56,21 +54,21 @@ CFLAGS_CC_Debug := \
 	-Wno-uninitialized
 
 INCS_Debug := \
-	-I/home/user/.cache/node-gyp/13.11.0/include/node \
-	-I/home/user/.cache/node-gyp/13.11.0/src \
-	-I/home/user/.cache/node-gyp/13.11.0/deps/openssl/config \
-	-I/home/user/.cache/node-gyp/13.11.0/deps/openssl/openssl/include \
-	-I/home/user/.cache/node-gyp/13.11.0/deps/uv/include \
-	-I/home/user/.cache/node-gyp/13.11.0/deps/zlib \
-	-I/home/user/.cache/node-gyp/13.11.0/deps/v8/include \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/node_modules/node-addon-api \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/third_party/vulkan-headers/include \
+	-I/root/.cache/node-gyp/13.12.0/include/node \
+	-I/root/.cache/node-gyp/13.12.0/src \
+	-I/root/.cache/node-gyp/13.12.0/deps/openssl/config \
+	-I/root/.cache/node-gyp/13.12.0/deps/openssl/openssl/include \
+	-I/root/.cache/node-gyp/13.12.0/deps/uv/include \
+	-I/root/.cache/node-gyp/13.12.0/deps/zlib \
+	-I/root/.cache/node-gyp/13.12.0/deps/v8/include \
+	-I/home/user/Documents/GitHub/webgpu/node_modules/node-addon-api \
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/third_party/vulkan-headers/include \
 	-I$(srcdir)/../../../lib/include \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/src/include \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/out/Shared/gen/src/include \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/third_party/shaderc/libshaderc/include \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/third_party/shaderc/libshaderc/src/shaderc.cc \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/third_party/shaderc/libshaderc/src/shaderc_private.h
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/src/include \
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/out/Shared/gen/src/include \
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/third_party/shaderc/libshaderc/include \
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/third_party/shaderc/libshaderc/src/shaderc.cc \
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/third_party/shaderc/libshaderc/src/shaderc_private.h
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=addon-linux' \
@@ -82,8 +80,6 @@ DEFS_Release := \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
 	'-D__STDC_FORMAT_MACROS' \
-	'-DOPENSSL_NO_PINSHARED' \
-	'-DOPENSSL_THREADS' \
 	'-DDAWN_ENABLE_BACKEND_NULL' \
 	'-DDAWN_ENABLE_BACKEND_VULKAN' \
 	'-DDAWN_NATIVE_SHARED_LIBRARY' \
@@ -123,21 +119,21 @@ CFLAGS_CC_Release := \
 	-Wno-uninitialized
 
 INCS_Release := \
-	-I/home/user/.cache/node-gyp/13.11.0/include/node \
-	-I/home/user/.cache/node-gyp/13.11.0/src \
-	-I/home/user/.cache/node-gyp/13.11.0/deps/openssl/config \
-	-I/home/user/.cache/node-gyp/13.11.0/deps/openssl/openssl/include \
-	-I/home/user/.cache/node-gyp/13.11.0/deps/uv/include \
-	-I/home/user/.cache/node-gyp/13.11.0/deps/zlib \
-	-I/home/user/.cache/node-gyp/13.11.0/deps/v8/include \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/node_modules/node-addon-api \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/third_party/vulkan-headers/include \
+	-I/root/.cache/node-gyp/13.12.0/include/node \
+	-I/root/.cache/node-gyp/13.12.0/src \
+	-I/root/.cache/node-gyp/13.12.0/deps/openssl/config \
+	-I/root/.cache/node-gyp/13.12.0/deps/openssl/openssl/include \
+	-I/root/.cache/node-gyp/13.12.0/deps/uv/include \
+	-I/root/.cache/node-gyp/13.12.0/deps/zlib \
+	-I/root/.cache/node-gyp/13.12.0/deps/v8/include \
+	-I/home/user/Documents/GitHub/webgpu/node_modules/node-addon-api \
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/third_party/vulkan-headers/include \
 	-I$(srcdir)/../../../lib/include \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/src/include \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/out/Shared/gen/src/include \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/third_party/shaderc/libshaderc/include \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/third_party/shaderc/libshaderc/src/shaderc.cc \
-	-I/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing/third_party/shaderc/libshaderc/src/shaderc_private.h
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/src/include \
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/out/Shared/gen/src/include \
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/third_party/shaderc/libshaderc/include \
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/third_party/shaderc/libshaderc/src/shaderc.cc \
+	-I/home/user/Documents/GitHub/dawn-ray-tracing/third_party/shaderc/libshaderc/src/shaderc_private.h
 
 OBJS := \
 	$(obj).target/$(TARGET)/src/index.o \
@@ -202,20 +198,20 @@ LDFLAGS_Debug := \
 	-pthread \
 	-rdynamic \
 	-m64 \
-	-L/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/generated/0.0.1/linux/build/Release \
-	-L/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/generated/0.0.1/linux/../../../lib/linux/x64 \
-	-L/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/generated/0.0.1/linux/../../../lib/linux/x64/GLFW
+	-L/home/user/Documents/GitHub/webgpu/generated/0.0.1/linux/build/Release \
+	-L/home/user/Documents/GitHub/webgpu/generated/0.0.1/linux/../../../lib/linux/x64 \
+	-L/home/user/Documents/GitHub/webgpu/generated/0.0.1/linux/../../../lib/linux/x64/GLFW
 
 LDFLAGS_Release := \
 	-pthread \
 	-rdynamic \
 	-m64 \
-	-L/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/generated/0.0.1/linux/build/Release \
-	-L/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/generated/0.0.1/linux/../../../lib/linux/x64 \
-	-L/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/generated/0.0.1/linux/../../../lib/linux/x64/GLFW
+	-L/home/user/Documents/GitHub/webgpu/generated/0.0.1/linux/build/Release \
+	-L/home/user/Documents/GitHub/webgpu/generated/0.0.1/linux/../../../lib/linux/x64 \
+	-L/home/user/Documents/GitHub/webgpu/generated/0.0.1/linux/../../../lib/linux/x64/GLFW
 
 LIBS := \
-	-Wl,-rpath,/mnt/c/Users/maier/Desktop/LXSS_SHARED/webgpu/generated/0.0.1/linux/build/Release \
+	-Wl,-rpath,/home/user/Documents/GitHub/webgpu/generated/0.0.1/linux/build/Release \
 	-lglfw3 \
 	-ldawn_native \
 	-ldawn_proc \

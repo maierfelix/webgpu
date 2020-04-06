@@ -137,8 +137,9 @@ void GPUDevice::SetOnErrorCallback(const Napi::CallbackInfo& info, const Napi::V
 }
 
 void GPUDevice::throwCallbackError(const Napi::Value& type, const Napi::Value& msg) {
+  Napi::Env env = type.Env();
   this->onErrorCallback.Call({ type, msg });
-  nextJSProcessTick(type.Env()); // try to display the error immediately
+  nextJSProcessTick(env); // try to display the error immediately
 }
 
 Napi::Value GPUDevice::tick(const Napi::CallbackInfo& info) {

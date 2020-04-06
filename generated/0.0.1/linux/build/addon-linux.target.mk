@@ -54,13 +54,13 @@ CFLAGS_CC_Debug := \
 	-Wno-uninitialized
 
 INCS_Debug := \
-	-I/home/user/.cache/node-gyp/13.12.0/include/node \
-	-I/home/user/.cache/node-gyp/13.12.0/src \
-	-I/home/user/.cache/node-gyp/13.12.0/deps/openssl/config \
-	-I/home/user/.cache/node-gyp/13.12.0/deps/openssl/openssl/include \
-	-I/home/user/.cache/node-gyp/13.12.0/deps/uv/include \
-	-I/home/user/.cache/node-gyp/13.12.0/deps/zlib \
-	-I/home/user/.cache/node-gyp/13.12.0/deps/v8/include \
+	-I/root/.cache/node-gyp/13.12.0/include/node \
+	-I/root/.cache/node-gyp/13.12.0/src \
+	-I/root/.cache/node-gyp/13.12.0/deps/openssl/config \
+	-I/root/.cache/node-gyp/13.12.0/deps/openssl/openssl/include \
+	-I/root/.cache/node-gyp/13.12.0/deps/uv/include \
+	-I/root/.cache/node-gyp/13.12.0/deps/zlib \
+	-I/root/.cache/node-gyp/13.12.0/deps/v8/include \
 	-I/home/user/Documents/GitHub/webgpu/node_modules/node-addon-api \
 	-I/home/user/Documents/GitHub/dawn-ray-tracing/third_party/vulkan-headers/include \
 	-I$(srcdir)/../../../lib/include \
@@ -119,13 +119,13 @@ CFLAGS_CC_Release := \
 	-Wno-uninitialized
 
 INCS_Release := \
-	-I/home/user/.cache/node-gyp/13.12.0/include/node \
-	-I/home/user/.cache/node-gyp/13.12.0/src \
-	-I/home/user/.cache/node-gyp/13.12.0/deps/openssl/config \
-	-I/home/user/.cache/node-gyp/13.12.0/deps/openssl/openssl/include \
-	-I/home/user/.cache/node-gyp/13.12.0/deps/uv/include \
-	-I/home/user/.cache/node-gyp/13.12.0/deps/zlib \
-	-I/home/user/.cache/node-gyp/13.12.0/deps/v8/include \
+	-I/root/.cache/node-gyp/13.12.0/include/node \
+	-I/root/.cache/node-gyp/13.12.0/src \
+	-I/root/.cache/node-gyp/13.12.0/deps/openssl/config \
+	-I/root/.cache/node-gyp/13.12.0/deps/openssl/openssl/include \
+	-I/root/.cache/node-gyp/13.12.0/deps/uv/include \
+	-I/root/.cache/node-gyp/13.12.0/deps/zlib \
+	-I/root/.cache/node-gyp/13.12.0/deps/v8/include \
 	-I/home/user/Documents/GitHub/webgpu/node_modules/node-addon-api \
 	-I/home/user/Documents/GitHub/dawn-ray-tracing/third_party/vulkan-headers/include \
 	-I$(srcdir)/../../../lib/include \

@@ -1,7 +1,7 @@
 {
   "name": "webgpu",
   "main": "index.js",
-  "version": "0.1.7",
+  "version": "0.1.6",
   "engines": {
     "node": ">= 13.0.0"
   },

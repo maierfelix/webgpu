@@ -59,6 +59,7 @@ const fsSrc = `
     usage: GPUBufferUsage.MAP_WRITE | GPUBufferUsage.COPY_SRC
   });
   const stagingVertexBufferView = await stagingVertexBuffer.mapWriteAsync();
+  new Float32Array(stagingVertexBufferView).set(triangleVertices, 0);
   stagingVertexBuffer.unmap();
 
   const stagedVertexBuffer = device.createBuffer({

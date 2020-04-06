@@ -188,7 +188,7 @@ Object.assign(global, glMatrix);
       },
       // hit group
       {
-        type: "triangle-hit-group",
+        type: "triangles-hit-group",
         generalIndex: -1,
         anyHitIndex: -1,
         closestHitIndex: 1, // ray closest-hit shader index

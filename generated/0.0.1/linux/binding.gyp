@@ -4,7 +4,7 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "/mnt/c/Users/maier/Desktop/LXSS_SHARED/dawn-ray-tracing"
+    "dawn": "/home/user/Documents/GitHub/dawn-ray-tracing"
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],

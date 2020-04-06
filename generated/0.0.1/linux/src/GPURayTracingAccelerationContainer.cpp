@@ -30,10 +30,15 @@ Napi::Value GPURayTracingAccelerationContainer::destroy(const Napi::CallbackInfo
   return env.Undefined();
 }
 
-Napi::Value GPURayTracingAccelerationContainer::getHandle(const Napi::CallbackInfo &info) {
+Napi::Value GPURayTracingAccelerationContainer::updateInstance(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
-  uint64_t handle = wgpuRayTracingAccelerationContainerGetHandle(this->instance);
-  return Napi::BigInt::New(env, handle);
+  GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
+
+  uint32_t instanceIndex = info[0].As<Napi::Number>().Uint32Value();
+  auto descriptor = DescriptorDecoder::GPURayTracingAccelerationInstanceDescriptor(device, info[1].As<Napi::Value>());
+
+  wgpuRayTracingAccelerationContainerUpdateInstance(this->instance, instanceIndex, &descriptor);
+  return env.Undefined();
 }
 
 Napi::Object GPURayTracingAccelerationContainer::Initialize(Napi::Env env, Napi::Object exports) {
@@ -45,8 +50,8 @@ Napi::Object GPURayTracingAccelerationContainer::Initialize(Napi::Env env, Napi:
       napi_enumerable
     ),
     InstanceMethod(
-      "getHandle",
-      &GPURayTracingAccelerationContainer::getHandle,
+      "updateInstance",
+      &GPURayTracingAccelerationContainer::updateInstance,
       napi_enumerable
     )
   });

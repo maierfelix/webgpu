@@ -95,11 +95,12 @@
               "-Wno-uninitialized"
             ],
             "library_dirs": [
-              "<(release)",
+              "<@(module_root_dir)/build/Release",
               "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)",
               "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)/GLFW"
             ],
-            "libraries": ["-Wl,-rpath,<(release)",
+            "libraries": [
+              "-Wl,-rpath,<@(module_root_dir)/build/Release",
               "-lglfw3",
               "-ldawn_native",
               "-ldawn_proc",

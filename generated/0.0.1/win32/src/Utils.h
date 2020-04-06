@@ -12,6 +12,12 @@ inline char* getNAPIStringCopy(const Napi::Value& value) {
   return str;
 };
 
+inline void nextJSProcessTick(Napi::Env& env) {
+  Napi::Object process = env.Global().Get("process").As<Napi::Object>();
+  Napi::Function nextTick = process.Get("nextTick").As<Napi::Function>();
+  nextTick.Call(env.Global(), {});
+};
+
 template<typename T> inline T* getTypedArrayData(const Napi::Value& value, size_t* len = nullptr) {
   T* data = nullptr;
   if (len) *len = 0;

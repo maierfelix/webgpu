@@ -29,9 +29,10 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
 
       shaderc::Compiler compiler;
 
-      auto result = compiler.CompileGlslToSpv(source, size, kind, "shader");
+      shaderc::CompilationResult<uint32_t> result = compiler.CompileGlslToSpv(source, size, kind, "shader");
 
       if (result.GetCompilationStatus() != shaderc_compilation_status_success) {
+        // create copy
         uwDevice->throwCallbackError(
           Napi::String::New(env, "Error"),
           Napi::String::New(env, result.GetErrorMessage())

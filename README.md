@@ -89,4 +89,3 @@ node --experimental-modules examples/interactive-triangle.mjs
 ## TODOs
  - Add CTS
  - Remove libshaderc from build?
- - Research for a better Error callback system

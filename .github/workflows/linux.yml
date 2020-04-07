@@ -1,0 +1,26 @@
+name: Linux CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout webgpu
+        uses: actions/checkout@v2
+      - name: Checkout dawn
+        uses: actions/checkout@v2
+        with:
+          repository: maierfelix/dawn-ray-tracing
+          path: dawn
+      - name: Install tools
+        run: |
+          sudo apt-get install -y \
+            clang \
+            libosmesa6-dev \
+            libxcursor-dev \
+            libxi-dev \
+            libxinerama-dev \
+            libxrandr-dev \
+            libxxf86vm-dev \

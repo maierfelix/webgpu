@@ -5,11 +5,13 @@
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
     "dawn": "/home/pelle/git/dawn-ray-tracing",
-    "rel_release": "<!(echo <(release) | sed 's/.*generated/generated/')",
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],
-    [ "platform == 'linux'", { "variables": { "platform": "linux" } } ],
+    [ "platform == 'linux'", { "variables": {
+      "platform": "linux",
+      "rel_release": "<!(echo <(release) | sed 's/.*generated/generated/')",
+      } } ],
     [ "platform == 'mac'",   { "variables": { "platform": "darwin" } } ]
   ],
   "make_global_settings": [

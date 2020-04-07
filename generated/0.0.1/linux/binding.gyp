@@ -4,7 +4,7 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "/home/pelle/git/dawn-ray-tracing",
+    "dawn": "/home/user/Documents/GitHub/dawn-ray-tracing",
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],

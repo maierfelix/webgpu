@@ -4,11 +4,14 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "/home/user/Documents/GitHub/dawn-ray-tracing"
+    "dawn": "/home/pelle/git/dawn-ray-tracing",
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],
-    [ "platform == 'linux'", { "variables": { "platform": "linux" } } ],
+    [ "platform == 'linux'", { "variables": {
+      "platform": "linux",
+      "rel_release": "<!(echo <(release) | sed 's/.*generated/generated/')",
+      } } ],
     [ "platform == 'mac'",   { "variables": { "platform": "darwin" } } ]
   ],
   "make_global_settings": [
@@ -100,7 +103,8 @@
               "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)/GLFW"
             ],
             "libraries": [
-              "-Wl,-rpath,<@(module_root_dir)/build/Release",
+              "-Wl,-rpath,./node_modules/webgpu/<(rel_release)",
+              "-Wl,-rpath,./<(rel_release)",
               "-lglfw3",
               "-ldawn_native",
               "-ldawn_proc",

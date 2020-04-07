@@ -4,7 +4,8 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "{{ DAWN_PATH | safe }}"
+    "dawn": "{{ DAWN_PATH | safe }}",
+    "rel_release": "<!(echo <(release) | sed 's/.*generated/generated/')",
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],
@@ -100,8 +101,8 @@
               "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)/GLFW"
             ],
             "libraries": [
-              "-Wl,-rpath,./node_modules/webgpu/generated/0.0.1/linux/build/Release",
-              "-Wl,-rpath,./generated/0.0.1/linux/build/Release",
+              "-Wl,-rpath,./node_modules/webgpu/<(rel_release)",
+              "-Wl,-rpath,./<(rel_release)",
               "-lglfw3",
               "-ldawn_native",
               "-ldawn_proc",

@@ -259,7 +259,7 @@
                 "-stdlib=libc++"
               ],
               "OTHER_LDFLAGS": [
-                "-Wl,-rpath,<(release)",
+                "-Wl,-rpath,@loader_path",
                 "-framework Cocoa",
                 "-framework IOKit",
                 "-framework Metal",

@@ -71,7 +71,7 @@
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\maier\\AppData\\Local\\node-gyp\\Cache\\13.9.0\\x64\\node.lib&quot;;glfw3dll.lib;libdawn_native.dll.lib;libdawn_proc.dll.lib;libdawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\maier\\AppData\\Local\\node-gyp\\Cache\\13.9.0\\x64\\node.lib&quot;;glfw3dll.lib;dawn_native.dll.lib;dawn_proc.dll.lib;dawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../@PROJECT_SOURCE_DIR@/lib/win/x64;C:\Users\maier\Documents\Github\webgpu\generated\0.0.1\win32/build/;..\..\..\..\lib\win\x64\GLFW;C:\Users\maier\Documents\Github\webgpu\generated\0.0.1\win32\build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
@@ -115,7 +115,7 @@
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\maier\\AppData\\Local\\node-gyp\\Cache\\13.9.0\\x64\\node.lib&quot;;glfw3dll.lib;libdawn_native.dll.lib;libdawn_proc.dll.lib;libdawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\maier\\AppData\\Local\\node-gyp\\Cache\\13.9.0\\x64\\node.lib&quot;;glfw3dll.lib;dawn_native.dll.lib;dawn_proc.dll.lib;dawn_wire.dll.lib;libshaderc.dll.lib;libshaderc_spvc.dll.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../@PROJECT_SOURCE_DIR@/lib/win/x64;C:\Users\maier\Documents\Github\webgpu\generated\0.0.1\win32/build/;..\..\..\..\lib\win\x64\GLFW;C:\Users\maier\Documents\Github\webgpu\generated\0.0.1\win32\build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>

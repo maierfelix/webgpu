@@ -29,17 +29,32 @@ GPUDevice::GPUDevice(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUDevic
   this->adapter.Reset(info[0].ToObject(), 1);
   this->_adapter = Napi::ObjectWrap<GPUAdapter>::Unwrap(this->adapter.Value())->instance;
 
+  std::vector<const char*> requiredExtensions;
+
+  // reset
+  this->extensions.Reset(Napi::Array::New(env), 1);
+  this->limits.Reset(Napi::Object::New(env), 1);
+
   if (info[1].IsObject()) {
     Napi::Object obj = info[1].As<Napi::Object>();
     if (obj.Has(Napi::String::New(env, "extensions"))) {
-      this->extensions.Reset(obj.Get("extensions").As<Napi::Object>(), 1);
+      if (obj.Get("extensions").IsArray()) {
+        this->extensions.Reset(obj.Get("extensions").As<Napi::Object>(), 1);
+        Napi::Array arr = this->extensions.Value().As<Napi::Array>();
+        for (unsigned int ii = 0; ii < arr.Length(); ++ii) {
+          requiredExtensions.push_back(arr.Get(ii).As<Napi::String>().Utf8Value().c_str());
+        };
+      }
     }
     if (obj.Has(Napi::String::New(env, "limits"))) {
       this->limits.Reset(obj.Get("limits").As<Napi::Object>(), 1);
     }
   }
 
-  this->instance = this->_adapter.CreateDevice();
+  dawn_native::DeviceDescriptor desc = {};
+  desc.requiredExtensions = requiredExtensions;
+  this->instance = this->_adapter.CreateDevice(&desc);
+
   this->binding = this->createBinding(info, this->instance);
   if (this->binding == nullptr) {
     Napi::Error::New(env, "Failed to create binding backend").ThrowAsJavaScriptException();

@@ -77,9 +77,9 @@ function copyFiles() {
       {
         //files.push([`${dawnOutputDir}/libc++.dll`, targetDir]);
         //files.push([`${dawnOutputDir}/libdawn.dll`, targetDir]);
-        files.push([`${dawnOutputDir}/libdawn_native.dll`, targetDir]);
-        files.push([`${dawnOutputDir}/libdawn_proc.dll`, targetDir]);
-        files.push([`${dawnOutputDir}/libdawn_wire.dll`, targetDir]);
+        files.push([`${dawnOutputDir}/dawn_native.dll`, targetDir]);
+        files.push([`${dawnOutputDir}/dawn_proc.dll`, targetDir]);
+        files.push([`${dawnOutputDir}/dawn_wire.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libshaderc.dll`, targetDir]);
         files.push([`${dawnOutputDir}/libshaderc_spvc.dll`, targetDir]);
       }
@@ -87,28 +87,28 @@ function copyFiles() {
       {
         //files.push([`${dawnOutputDir}/libc++.dll.lib`, targetDir + "/../"]);
         //files.push([`${dawnOutputDir}/libdawn.dll.lib`, targetDir + "/../"]);
-        files.push([`${dawnOutputDir}/libdawn_native.dll.lib`, targetDir + "/../"]);
-        files.push([`${dawnOutputDir}/libdawn_proc.dll.lib`, targetDir + "/../"]);
-        files.push([`${dawnOutputDir}/libdawn_wire.dll.lib`, targetDir + "/../"]);
+        files.push([`${dawnOutputDir}/dawn_native.dll.lib`, targetDir + "/../"]);
+        files.push([`${dawnOutputDir}/dawn_proc.dll.lib`, targetDir + "/../"]);
+        files.push([`${dawnOutputDir}/dawn_wire.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libshaderc.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libshaderc_spvc.dll.lib`, targetDir + "/../"]);
       }
     }// add darwin runtime files
     else if (platform === "darwin") {
-      files.push([`${dawnOutputDir}/libdawn_native.dylib`, targetDir]);
-      files.push([`${dawnOutputDir}/libc++.dylib`, targetDir]);
-      files.push([`${dawnOutputDir}/libdawn_proc.dylib`, targetDir]);
-      files.push([`${dawnOutputDir}/libdawn_wire.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/dawn_native.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/dawn_proc.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/dawn_wire.dylib`, targetDir]);
       files.push([`${dawnOutputDir}/libshaderc_spvc.dylib`, targetDir]);
       files.push([`${dawnOutputDir}/libshaderc.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/libc++.dylib`, targetDir]);
     }
     else if (platform === "linux") {
-      files.push([`${dawnOutputDir}/libdawn_native.so`, targetDir]);
-      files.push([`${dawnOutputDir}/libc++.so`, targetDir]);
-      files.push([`${dawnOutputDir}/libdawn_proc.so`, targetDir]);
-      files.push([`${dawnOutputDir}/libdawn_wire.so`, targetDir]);
+      files.push([`${dawnOutputDir}/dawn_native.so`, targetDir]);
+      files.push([`${dawnOutputDir}/dawn_proc.so`, targetDir]);
+      files.push([`${dawnOutputDir}/dawn_wire.so`, targetDir]);
       files.push([`${dawnOutputDir}/libshaderc_spvc.so`, targetDir]);
       files.push([`${dawnOutputDir}/libshaderc.so`, targetDir]);
+      files.push([`${dawnOutputDir}/libc++.so`, targetDir]);
   }
     let counter = 0;
     if (!files.length) return resolve(true);

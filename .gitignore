@@ -100,3 +100,5 @@ PATH_TO_DAWN
 package-lock.json
 
 examples-dev
+
+generated/*/*/build/.vs

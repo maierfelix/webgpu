@@ -20,7 +20,9 @@ Object.assign(global, glMatrix);
     preferredBackend: "Vulkan"
   });
 
-  let device = await adapter.requestDevice();
+  let device = await adapter.requestDevice({
+    extensions: ["ray_tracing"]
+  });
 
   let queue = device.getQueue();
 
@@ -143,12 +145,17 @@ Object.assign(global, glMatrix);
     ]
   });
 
-  // build the containers (the order is important)
-  // geometry containers have to be built before
-  // an instance container, if it has a geometry reference into it
+  // first build all bottom-level containers
   {
     let commandEncoder = device.createCommandEncoder({});
     commandEncoder.buildRayTracingAccelerationContainer(geometryContainer);
+    queue.submit([ commandEncoder.finish() ]);
+  }
+
+  // now we can build the top-level containers
+  // building them in separate passes is important
+  {
+    let commandEncoder = device.createCommandEncoder({});
     commandEncoder.buildRayTracingAccelerationContainer(instanceContainer);
     queue.submit([ commandEncoder.finish() ]);
   }

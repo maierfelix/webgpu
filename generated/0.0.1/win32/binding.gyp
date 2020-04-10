@@ -4,11 +4,14 @@
     "platform": "<(OS)",
     "build": "<@(module_root_dir)/build",
     "release": "<(build)/Release",
-    "dawn": "C:\Users\maier\Documents\Github\dawn-ray-tracing"
+    "dawn": "C:\Users\maier\Documents\Github\dawn-ray-tracing",
   },
   "conditions": [
     [ "platform == 'win'",   { "variables": { "platform": "win" } } ],
-    [ "platform == 'linux'", { "variables": { "platform": "linux" } } ],
+    [ "platform == 'linux'", { "variables": {
+      "platform": "linux",
+      "rel_release": "<!(echo <(release) | sed 's/.*generated/generated/')",
+      } } ],
     [ "platform == 'mac'",   { "variables": { "platform": "darwin" } } ]
   ],
   "make_global_settings": [
@@ -95,11 +98,13 @@
               "-Wno-uninitialized"
             ],
             "library_dirs": [
-              "<(release)",
+              "<@(module_root_dir)/build/Release",
               "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)",
               "<(module_root_dir)/../../../lib/<(platform)/<(target_arch)/GLFW"
             ],
-            "libraries": ["-Wl,-rpath,<(release)",
+            "libraries": [
+              "-Wl,-rpath,./node_modules/webgpu/<(rel_release)",
+              "-Wl,-rpath,./<(rel_release)",
               "-lglfw3",
               "-ldawn_native",
               "-ldawn_proc",
@@ -145,9 +150,9 @@
             "link_settings": {
               "libraries": [
                 "-lglfw3dll.lib",
-                "-llibdawn_native.dll.lib",
-                "-llibdawn_proc.dll.lib",
-                "-llibdawn_wire.dll.lib",
+                "-ldawn_native.dll.lib",
+                "-ldawn_proc.dll.lib",
+                "-ldawn_wire.dll.lib",
                 "-llibshaderc.dll.lib",
                 "-llibshaderc_spvc.dll.lib"
               ]
@@ -240,12 +245,12 @@
               "<(dawn)/third_party/shaderc/libshaderc/src/shaderc_private.h"
             ],
             "libraries": [
-              "<(release)/libdawn_native.dylib",
-              "<(release)/libc++.dylib",
-              "<(release)/libdawn_proc.dylib",
-              "<(release)/libdawn_wire.dylib",
+              "<(release)/dawn_native.dylib",
+              "<(release)/dawn_proc.dylib",
+              "<(release)/dawn_wire.dylib",
               "<(release)/libshaderc_spvc.dylib",
               "<(release)/libshaderc.dylib",
+              "<(release)/libc++.dylib",
               "<(release)/../../<(root)/lib/<(platform)/<(target_arch)/GLFW/libglfw3.a"
             ],
             "xcode_settings": {

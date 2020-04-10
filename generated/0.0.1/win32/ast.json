@@ -43,7 +43,7 @@
           "value": 2
         },
         {
-          "name": "Unknown",
+          "name": "unknown",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1231,7 +1231,7 @@
       "textName": "present mode",
       "children": [
         {
-          "name": "no v sync",
+          "name": "immediate",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1243,7 +1243,7 @@
           "value": 0
         },
         {
-          "name": "v sync",
+          "name": "mailbox",
           "type": {
             "isString": true,
             "nativeType": "char",
@@ -1253,6 +1253,18 @@
             }
           },
           "value": 1
+        },
+        {
+          "name": "fifo",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 2
         }
       ]
     },
@@ -1493,6 +1505,30 @@
             }
           },
           "value": 4
+        },
+        {
+          "name": "sampler descriptor dummy anisotropic filtering",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 5
+        },
+        {
+          "name": "render pipeline descriptor dummy extension",
+          "type": {
+            "isString": true,
+            "nativeType": "char",
+            "jsType": {
+              "isString": true,
+              "type": "String"
+            }
+          },
+          "value": 6
         }
       ]
     },
@@ -4418,7 +4454,7 @@
           "name": "getBindGroupLayout",
           "children": [
             {
-              "name": "group",
+              "name": "groupIndex",
               "type": {
                 "isNumber": true,
                 "initialValue": "0",
@@ -5869,9 +5905,9 @@
               "name": "instanceCount",
               "type": {
                 "isNumber": true,
-                "initialValue": "0",
+                "initialValue": "1",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5884,7 +5920,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5897,7 +5933,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5934,9 +5970,9 @@
               "name": "instanceCount",
               "type": {
                 "isNumber": true,
-                "initialValue": "0",
+                "initialValue": "1",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5949,7 +5985,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5962,7 +5998,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "int32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -5975,7 +6011,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -6382,9 +6418,9 @@
               "name": "instanceCount",
               "type": {
                 "isNumber": true,
-                "initialValue": "0",
+                "initialValue": "1",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -6397,7 +6433,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -6410,7 +6446,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -6447,9 +6483,9 @@
               "name": "instanceCount",
               "type": {
                 "isNumber": true,
-                "initialValue": "0",
+                "initialValue": "1",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -6462,7 +6498,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -6475,7 +6511,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "int32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -6488,7 +6524,7 @@
                 "isNumber": true,
                 "initialValue": "0",
                 "rawType": "uint32_t",
-                "isRequired": true,
+                "isOptional": true,
                 "jsType": {
                   "type": "Number",
                   "isNumber": true
@@ -7019,7 +7055,7 @@
           "name": "getBindGroupLayout",
           "children": [
             {
-              "name": "group",
+              "name": "groupIndex",
               "type": {
                 "isNumber": true,
                 "initialValue": "0",
@@ -7299,10 +7335,10 @@
       ]
     },
     {
-      "name": "WGPUBindGroupBinding",
-      "externalName": "GPUBindGroupBinding",
+      "name": "WGPUBindGroupEntry",
+      "externalName": "GPUBindGroupEntry",
       "type": "structure",
-      "textName": "bind group binding",
+      "textName": "bind group entry",
       "children": [
         {
           "name": "binding",
@@ -8022,20 +8058,6 @@
             "isRequired": false
           },
           "isOptional": true
-        },
-        {
-          "name": "instanceBuffer",
-          "type": {
-            "isObject": true,
-            "nativeType": "WGPUBuffer",
-            "rawType": "WGPUBuffer",
-            "isOptional": true,
-            "jsType": {
-              "type": "WGPUBuffer",
-              "isObject": true
-            }
-          },
-          "isOptional": true
         }
       ]
     },
@@ -8285,11 +8307,11 @@
           "name": "bindings",
           "type": {
             "isStructure": true,
-            "nativeType": "WGPUBindGroupBinding",
+            "nativeType": "WGPUBindGroupEntry",
             "length": "bindingCount",
             "isReference": true,
             "isArray": true,
-            "rawType": "const WGPUBindGroupBinding*",
+            "rawType": "const WGPUBindGroupEntry*",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -8300,10 +8322,10 @@
       ]
     },
     {
-      "name": "WGPUBindGroupLayoutBinding",
-      "externalName": "GPUBindGroupLayoutBinding",
+      "name": "WGPUBindGroupLayoutEntry",
+      "externalName": "GPUBindGroupLayoutEntry",
       "type": "structure",
-      "textName": "bind group layout binding",
+      "textName": "bind group layout entry",
       "children": [
         {
           "name": "binding",
@@ -8403,6 +8425,21 @@
           },
           "defaultValue": "\"float\"",
           "defaultValueNative": 0
+        },
+        {
+          "name": "storageTextureFormat",
+          "type": {
+            "isEnum": true,
+            "nativeType": "WGPUTextureFormat",
+            "rawType": "WGPUTextureFormat",
+            "isOptional": true,
+            "jsType": {
+              "type": "String",
+              "isString": true
+            }
+          },
+          "defaultValue": "\"undefined\"",
+          "defaultValueNative": 0
         }
       ]
     },
@@ -8448,11 +8485,11 @@
           "name": "bindings",
           "type": {
             "isStructure": true,
-            "nativeType": "WGPUBindGroupLayoutBinding",
+            "nativeType": "WGPUBindGroupLayoutEntry",
             "length": "bindingCount",
             "isReference": true,
             "isArray": true,
-            "rawType": "const WGPUBindGroupLayoutBinding*",
+            "rawType": "const WGPUBindGroupLayoutEntry*",
             "isRequired": true,
             "jsType": {
               "type": "Object",
@@ -9056,6 +9093,21 @@
       "children": [
         {
           "name": "textureCompressionBC",
+          "type": {
+            "isBoolean": true,
+            "initialValue": "false",
+            "rawType": "bool",
+            "isOptional": true,
+            "jsType": {
+              "type": "Boolean",
+              "isBoolean": true
+            }
+          },
+          "defaultValue": false,
+          "defaultValueNative": "false"
+        },
+        {
+          "name": "rayTracing",
           "type": {
             "isBoolean": true,
             "initialValue": "false",
@@ -10236,6 +10288,27 @@
       ]
     },
     {
+      "name": "WGPURenderPipelineDescriptorDummyExtension",
+      "externalName": "GPURenderPipelineDescriptorDummyExtension",
+      "type": "structure",
+      "textName": "render pipeline descriptor dummy extension",
+      "children": [
+        {
+          "name": "dummyStage",
+          "type": {
+            "isStructure": true,
+            "nativeType": "WGPUProgrammableStageDescriptor",
+            "rawType": "WGPUProgrammableStageDescriptor",
+            "isRequired": true,
+            "jsType": {
+              "type": "Object",
+              "isObject": true
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "WGPUSamplerDescriptor",
       "externalName": "GPUSamplerDescriptor",
       "type": "structure",
@@ -10393,6 +10466,27 @@
           },
           "defaultValue": "\"never\"",
           "defaultValueNative": 0
+        }
+      ]
+    },
+    {
+      "name": "WGPUSamplerDescriptorDummyAnisotropicFiltering",
+      "externalName": "GPUSamplerDescriptorDummyAnisotropicFiltering",
+      "type": "structure",
+      "textName": "sampler descriptor dummy anisotropic filtering",
+      "children": [
+        {
+          "name": "maxAnisotropy",
+          "type": {
+            "isNumber": true,
+            "initialValue": "0",
+            "rawType": "float",
+            "isRequired": true,
+            "jsType": {
+              "type": "Number",
+              "isNumber": true
+            }
+          }
         }
       ]
     },

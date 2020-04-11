@@ -95,17 +95,17 @@ function copyFiles() {
       }
     }// add darwin runtime files
     else if (platform === "darwin") {
-      files.push([`${dawnOutputDir}/dawn_native.dylib`, targetDir]);
-      files.push([`${dawnOutputDir}/dawn_proc.dylib`, targetDir]);
-      files.push([`${dawnOutputDir}/dawn_wire.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/libdawn_native.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/libdawn_proc.dylib`, targetDir]);
+      files.push([`${dawnOutputDir}/libdawn_wire.dylib`, targetDir]);
       files.push([`${dawnOutputDir}/libshaderc_spvc.dylib`, targetDir]);
       files.push([`${dawnOutputDir}/libshaderc.dylib`, targetDir]);
       files.push([`${dawnOutputDir}/libc++.dylib`, targetDir]);
     }
     else if (platform === "linux") {
-      files.push([`${dawnOutputDir}/dawn_native.so`, targetDir]);
-      files.push([`${dawnOutputDir}/dawn_proc.so`, targetDir]);
-      files.push([`${dawnOutputDir}/dawn_wire.so`, targetDir]);
+      files.push([`${dawnOutputDir}/libdawn_native.so`, targetDir]);
+      files.push([`${dawnOutputDir}/libdawn_proc.so`, targetDir]);
+      files.push([`${dawnOutputDir}/libdawn_wire.so`, targetDir]);
       files.push([`${dawnOutputDir}/libshaderc_spvc.so`, targetDir]);
       files.push([`${dawnOutputDir}/libshaderc.so`, targetDir]);
       files.push([`${dawnOutputDir}/libc++.so`, targetDir]);

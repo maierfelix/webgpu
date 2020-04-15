@@ -133,11 +133,10 @@ jobs:
         with:
           node-version: '13.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Publish (Debug)
+      - name: Publish to NPM
+        uses: primer/publish@v2.0.0
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          cat .npmrc || true
-          npm token list
-          ls -lR generated
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          args: '--dry-run'
 

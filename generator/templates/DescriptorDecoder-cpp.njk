@@ -1,0 +1,69 @@
+#include "DescriptorDecoder.h"
+
+{% for enum in enums %}
+static std::unordered_map<std::string, uint32_t> {{ enum.externalName }}Map = {
+  {%- for member in enum.children %}
+  { "{{ getEnumNameFromDawnEnumName(member.name) | safe }}", {{ member.value }} },
+  {%- endfor %}
+};
+{% endfor %}
+
+namespace DescriptorDecoder {
+
+  {% for enum in enums %}
+  uint32_t {{ enum.externalName }}(std::string name) {
+    return {{ enum.externalName }}Map[name];
+  };
+  std::string {{ enum.externalName }}(uint32_t value) {
+    auto it = std::find_if(
+      std::begin({{ enum.externalName }}Map),
+      std::end({{ enum.externalName }}Map),
+      [value](auto&& p) {
+        return p.second == value;
+      }
+    );
+
+    if (it == std::end({{ enum.externalName }}Map)) return "";
+
+    return it->first;
+  };
+  {% endfor %}
+
+  {% for struct in structures %}
+  void Destroy{{ struct.externalName }}({{ struct.name }} descriptor) {
+    {%- for member in struct.children %}
+    {{- getDestroyStructureMember(struct, member) | safe -}}
+    {% endfor %}
+  };
+  {% endfor %}
+
+  {% for struct in structures %}
+  {{ struct.name }} Decode{{ struct.externalName }}({{ getDecodeStructureParameters(struct, false) | safe }}) {
+    {{ struct.name }} descriptor;
+    // reset descriptor
+    {{- getDescriptorInstanceReset(struct) | safe }}
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {%- for member in struct.children %}
+    {{- getDecodeStructureMember(struct, member, undefined, true) | safe -}}
+    {% endfor %}
+    return descriptor;
+  };
+  {% endfor %}
+
+  {% for struct in structures %}
+  {{ struct.externalName }}::{{ struct.externalName }}({{ getDecodeStructureParameters(struct, false) | safe }}) {
+    // reset descriptor
+    {{- getDescriptorInstanceReset(struct) | safe }}
+    // fill descriptor
+    Napi::Object obj = value.As<Napi::Object>();
+    {%- for member in struct.children %}
+    {{- getDecodeStructureMember(struct, member, undefined, false) | safe -}}
+    {% endfor %}
+  };
+  {{ struct.externalName }}::~{{ struct.externalName }}() {
+    Destroy{{ struct.externalName }}(descriptor);
+  };
+  {% endfor %}
+
+}

@@ -1,0 +1,49 @@
+#ifndef __DESCRIPTOR_DECODER_H__
+#define __DESCRIPTOR_DECODER_H__
+
+#include "GPUDevice.h"
+#include "GPUAdapter.h"
+#include "GPUQueue.h"
+#include "GPUFence.h"
+#include "GPUBuffer.h"
+#include "GPUTexture.h"
+#include "GPUTextureView.h"
+#include "GPUSampler.h"
+#include "GPUBindGroupLayout.h"
+#include "GPUPipelineLayout.h"
+#include "GPUBindGroup.h"
+#include "GPUShaderModule.h"
+#include "GPURenderPipeline.h"
+#include "GPURayTracingAccelerationContainer.h"
+#include "GPURayTracingShaderBindingTable.h"
+#include "GPURayTracingPipeline.h"
+
+#include <unordered_map>
+
+namespace DescriptorDecoder {
+  {% for enum in enums %}
+  uint32_t {{ enum.externalName }}(std::string name);
+  std::string {{ enum.externalName }}(uint32_t value);
+  {% endfor %}
+
+  {% for struct in structures %}
+  {{ struct.name }} Decode{{ struct.externalName }}({{ getDecodeStructureParameters(struct, true) | safe }});
+  {% endfor %}
+
+  {% for struct in structures %}
+  class {{ struct.externalName }} {
+    public:
+      {{ struct.externalName }}({{ getDecodeStructureParameters(struct, true) | safe }});
+      ~{{ struct.externalName }}();
+      {{ struct.name }}* operator &() { return &descriptor; };
+    private:
+      {{ struct.name }} descriptor;
+  };
+  {% endfor %}
+
+  {% for struct in structures %}
+  void Destroy{{ struct.externalName }}({{ struct.name }} descriptor);
+  {% endfor %}
+}
+
+#endif

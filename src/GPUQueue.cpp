@@ -13,7 +13,7 @@ GPUQueue::GPUQueue(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUQueue>(
   this->device.Reset(info[0].As<Napi::Object>(), 1);
   GPUDevice* device = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
 
-  this->instance = wgpuDeviceCreateQueue(device->instance);
+  this->instance = wgpuDeviceGetDefaultQueue(device->instance);
 }
 
 GPUQueue::~GPUQueue() {

@@ -86,7 +86,7 @@ Object.assign(global, glMatrix);
   ]);
   let triangleVertexBuffer = device.createBuffer({
     size: triangleVertices.byteLength,
-    usage: GPUBufferUsage.COPY_DST
+    usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.RAY_TRACING
   });
   triangleVertexBuffer.setSubData(0, triangleVertices);
 
@@ -95,7 +95,7 @@ Object.assign(global, glMatrix);
   ]);
   let triangleIndexBuffer = device.createBuffer({
     size: triangleIndices.byteLength,
-    usage: GPUBufferUsage.COPY_DST
+    usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.RAY_TRACING
   });
   triangleIndexBuffer.setSubData(0, triangleIndices);
 
@@ -213,7 +213,7 @@ Object.assign(global, glMatrix);
   });
 
   let rtBindGroupLayout = device.createBindGroupLayout({
-    bindings: [
+    entries: [
       {
         binding: 0,
         visibility: GPUShaderStage.RAY_GENERATION,
@@ -254,7 +254,7 @@ Object.assign(global, glMatrix);
 
   let rtBindGroup = device.createBindGroup({
     layout: rtBindGroupLayout,
-    bindings: [
+    entries: [
       {
         binding: 0,
         accelerationContainer: instanceContainer,
@@ -296,7 +296,7 @@ Object.assign(global, glMatrix);
   resolutionUniformBuffer.setSubData(0, resolutionData);
 
   let renderBindGroupLayout = device.createBindGroupLayout({
-    bindings: [
+    entries: [
       {
         binding: 0,
         visibility: GPUShaderStage.FRAGMENT,
@@ -312,7 +312,7 @@ Object.assign(global, glMatrix);
 
   let renderBindGroup = device.createBindGroup({
     layout: renderBindGroupLayout,
-    bindings: [
+    entries: [
       {
         binding: 0,
         buffer: pixelBuffer,

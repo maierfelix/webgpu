@@ -14,8 +14,15 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
   GPUDevice* uwDevice = Napi::ObjectWrap<GPUDevice>::Unwrap(this->device.Value());
   WGPUDevice backendDevice = uwDevice->instance;
 
+  WGPUShaderModuleSPIRVDescriptor spirvDescriptor;
+  spirvDescriptor.chain.sType = WGPUSType_ShaderModuleSPIRVDescriptor;
+  spirvDescriptor.chain.next = nullptr;
+
   WGPUShaderModuleDescriptor descriptor;
-  descriptor.nextInChain = nullptr;
+  descriptor.nextInChain = reinterpret_cast<WGPUChainedStruct*>(&spirvDescriptor);
+  descriptor.code = nullptr;
+  descriptor.codeSize = 0;
+  descriptor.label = nullptr;
 
   {
     Napi::Object obj = info[1].As<Napi::Object>();
@@ -44,8 +51,8 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
 
       ptrdiff_t resultSize = resultEnd - resultBegin;
 
-      descriptor.code = result.cbegin();
-      descriptor.codeSize = static_cast<uint32_t>(resultSize);
+      spirvDescriptor.code = result.cbegin();
+      spirvDescriptor.codeSize = static_cast<uint32_t>(resultSize);
       this->instance = wgpuDeviceCreateShaderModule(backendDevice, &descriptor);
       delete source;
     }
@@ -53,8 +60,8 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
     else if (code.IsTypedArray()) {
       if (code.As<Napi::TypedArray>().TypedArrayType() == napi_uint32_array) {
         size_t size;
-        descriptor.code = getTypedArrayData<uint32_t>(code, &size);
-        descriptor.codeSize = static_cast<uint32_t>(size);
+        spirvDescriptor.code = getTypedArrayData<uint32_t>(code, &size);
+        spirvDescriptor.codeSize = static_cast<uint32_t>(size);
         this->instance = wgpuDeviceCreateShaderModule(backendDevice, &descriptor);
       } else {
         uwDevice->throwCallbackError(

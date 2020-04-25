@@ -1,10 +1,10 @@
 #version 460
-#extension GL_NV_ray_tracing : require
+#extension GL_EXT_ray_tracing  : require
 #pragma shader_stage(raygen)
 
-layout(location = 0) rayPayloadNV vec3 hitValue;
+layout(location = 0) rayPayloadEXT vec4 payload;
 
-layout(binding = 0, set = 0) uniform accelerationStructureNV topLevelAS;
+layout(binding = 0, set = 0) uniform accelerationStructureEXT topLevelAS;
 
 layout(std140, set = 0, binding = 1) buffer PixelBuffer {
   vec4 pixels[];
@@ -16,20 +16,20 @@ layout(set = 0, binding = 2) uniform Camera {
 } uCamera;
 
 void main() {
-  ivec2 ipos = ivec2(gl_LaunchIDNV.xy);
-  const ivec2 resolution = ivec2(gl_LaunchSizeNV.xy);
+  ivec2 ipos = ivec2(gl_LaunchIDEXT.xy);
+  const ivec2 resolution = ivec2(gl_LaunchSizeEXT.xy);
 
   const vec2 offset = vec2(0);
   const vec2 pixel = vec2(ipos.x, ipos.y);
-  const vec2 uv = (pixel / gl_LaunchSizeNV.xy) * 2.0 - 1.0;
+  const vec2 uv = (pixel / gl_LaunchSizeEXT.xy) * 2.0 - 1.0;
 
   vec4 origin = uCamera.view * vec4(offset, 0, 1);
   vec4 target = uCamera.projection * (vec4(uv.x, uv.y, 1, 1));
   vec4 direction = uCamera.view * vec4(normalize(target.xyz), 0);
 
-  hitValue = vec3(0);
-  traceNV(topLevelAS, gl_RayFlagsOpaqueNV, 0xFF, 0, 0, 0, origin.xyz, 0.01, direction.xyz, 4096.0, 0);
+  payload = vec4(0);
+  traceRayEXT(topLevelAS, gl_RayFlagsOpaqueEXT, 0xFF, 0, 0, 0, origin.xyz, 0.01, direction.xyz, 4096.0, 0);
 
   const uint pixelIndex = ipos.y * resolution.x + ipos.x;
-  pixelBuffer.pixels[pixelIndex] = vec4(hitValue, 1);
+  pixelBuffer.pixels[pixelIndex] = payload;
 }

@@ -200,7 +200,7 @@ const csSrc = `
   });
 
   const computeBindGroupLayout = device.createBindGroupLayout({
-    bindings: [
+    entries: [
       { binding: 0, visibility: GPUShaderStage.COMPUTE, type: "uniform-buffer" },
       { binding: 1, visibility: GPUShaderStage.COMPUTE, type: "storage-buffer" },
       { binding: 2, visibility: GPUShaderStage.COMPUTE, type: "storage-buffer" }
@@ -246,7 +246,7 @@ const csSrc = `
   for (let ii = 0; ii < 2; ++ii) {
     particleBindGroups[ii] = device.createBindGroup({
       layout: computeBindGroupLayout,
-      bindings: [{
+      entries: [{
         binding: 0,
         buffer: simParamBuffer,
         offset: 0,

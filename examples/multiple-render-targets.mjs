@@ -149,7 +149,7 @@ const blitFsSrc = `
 
   const blitBindGroupLayout = device.createBindGroupLayout({
     // 2 texture inputs
-    bindings: [
+    entries: [
       {
         binding: 0,
         visibility: GPUShaderStage.FRAGMENT,
@@ -166,7 +166,7 @@ const blitFsSrc = `
   const blitBindGroup = device.createBindGroup({
     layout: blitBindGroupLayout,
     // 2 texture inputs
-    bindings: [
+    entries: [
       {
         binding: 0,
         textureView: renderTargetView1,

@@ -140,7 +140,7 @@ const fsSrc = `
   queue.submit([ commandEncoder.finish() ]);
 
   const bindGroupLayout = device.createBindGroupLayout({
-    bindings: [
+    entries: [
       {
         binding: 0,
         visibility: GPUShaderStage.FRAGMENT,
@@ -150,14 +150,14 @@ const fsSrc = `
         binding: 1,
         visibility: GPUShaderStage.FRAGMENT,
         type: "sampled-texture",
-        textureDimension: "2d-array"
+        viewDimension: "2d-array"
       }
     ]
   });
 
   const bindGroup = device.createBindGroup({
     layout: bindGroupLayout,
-    bindings: [
+    entries: [
       {
         binding: 0,
         sampler: textureSampler,

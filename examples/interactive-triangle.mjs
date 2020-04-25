@@ -98,7 +98,7 @@ const fsSrc = `
   stagedUniformBuffer.setSubData(0, mModelViewProjection);
 
   const uniformBindGroupLayout = device.createBindGroupLayout({
-    bindings: [{
+    entries: [{
       binding: 0,
       visibility: GPUShaderStage.VERTEX,
       type: "uniform-buffer"
@@ -107,7 +107,7 @@ const fsSrc = `
 
   const uniformBindGroup = device.createBindGroup({
     layout: uniformBindGroupLayout,
-    bindings: [{
+    entries: [{
       binding: 0,
       buffer: stagedUniformBuffer,
       offset: 0,

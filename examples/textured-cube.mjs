@@ -324,7 +324,7 @@ const fsSrc = `
   });
 
   const uniformBindGroupLayout = device.createBindGroupLayout({
-    bindings: [
+    entries: [
       {
         binding: 0,
         visibility: GPUShaderStage.VERTEX | GPUShaderStage.FRAGMENT,
@@ -420,7 +420,7 @@ const fsSrc = `
 
   const uniformBindGroup = device.createBindGroup({
     layout: uniformBindGroupLayout,
-    bindings: [
+    entries: [
       {
         binding: 0,
         buffer: stagedUniformBuffer,

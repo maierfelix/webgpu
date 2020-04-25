@@ -95,7 +95,7 @@ const fsSrc = `
   const fragmentShaderModule = device.createShaderModule({ code: fsSrc });
 
   const timeBindGroupLayout = device.createBindGroupLayout({
-    bindings: [
+    entries: [
       {
         binding: 0,
         visibility: GPUShaderStage.VERTEX,
@@ -105,7 +105,7 @@ const fsSrc = `
   });
 
   const bindGroupLayout = device.createBindGroupLayout({
-    bindings: [
+    entries: [
       {
         binding: 0,
         visibility: GPUShaderStage.VERTEX,
@@ -115,7 +115,7 @@ const fsSrc = `
   });
 
   const dynamicBindGroupLayout = device.createBindGroupLayout({
-    bindings: [
+    entries: [
       {
         binding: 0,
         visibility: GPUShaderStage.VERTEX,
@@ -203,7 +203,7 @@ const fsSrc = `
       uniformBufferData[alignedUniformFloats * i + 4] = Math.random() * 10;               // scalarOffset
       bindGroups[i] = device.createBindGroup({
         layout: bindGroupLayout,
-        bindings: [{
+        entries: [{
           binding: 0,
           buffer: uniformBuffer,
           offset: i * alignedUniformBytes,
@@ -213,7 +213,7 @@ const fsSrc = `
     }
     const dynamicBindGroup = device.createBindGroup({
       layout: dynamicBindGroupLayout,
-      bindings: [{
+      entries: [{
         binding: 0,
         buffer: uniformBuffer,
         offset: 0,
@@ -223,7 +223,7 @@ const fsSrc = `
     const timeOffset = numTriangles * alignedUniformBytes;
     const timeBindGroup = device.createBindGroup({
       layout: timeBindGroupLayout,
-      bindings: [{
+      entries: [{
         binding: 0,
         buffer: uniformBuffer,
         offset: timeOffset,

@@ -117,7 +117,7 @@ const blitFsSrc = `
   });
 
   const blitBindGroupLayout = device.createBindGroupLayout({
-    bindings: [{
+    entries: [{
       binding: 0,
       visibility: GPUShaderStage.FRAGMENT,
       type: "sampled-texture"
@@ -126,7 +126,7 @@ const blitFsSrc = `
 
   const blitBindGroup = device.createBindGroup({
     layout: blitBindGroupLayout,
-    bindings: [{
+    entries: [{
       binding: 0,
       textureView: blitTextureView,
       size: 0

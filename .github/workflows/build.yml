@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: maierfelix/dawn-ray-tracing
-          ref: ad7271ca10685a65fb201c8ea075c9f1d0a0ba72
+          ref: 9d53ea95f25e57f280db3aed916642f391208cce
           path: dawn
       - uses: actions/setup-node@v1
         with:

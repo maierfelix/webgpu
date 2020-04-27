@@ -270,17 +270,17 @@ const fsSrc = `
 
   // copy texture over to GPU
   {
-    const rowPitch = Math.ceil(img.width * 4 / 256) * 256;
+    const bytesPerRow = Math.ceil(img.width * 4 / 256) * 256;
 
     let data = null;
 
-    if (rowPitch == img.width * 4) {
+    if (bytesPerRow == img.width * 4) {
       data = img.data;
     } else {
-      data = new Uint8Array(rowPitch * img.height);
+      data = new Uint8Array(bytesPerRow * img.height);
       for (let y = 0; y < window.height; ++y) {
         for (let x = 0; x < window.width; ++x) {
-          let i = x * 4 + y * rowPitch;
+          let i = x * 4 + y * bytesPerRow;
           data[i] = img.data[i];
           data[i + 1] = img.data[i + 1];
           data[i + 2] = img.data[i + 2];
@@ -298,7 +298,7 @@ const fsSrc = `
     const commandEncoder = device.createCommandEncoder({});
     commandEncoder.copyBufferToTexture({
       buffer: textureDataBuffer,
-      rowPitch: rowPitch,
+      bytesPerRow: bytesPerRow,
       arrayLayer: 0,
       mipLevel: 0,
       imageHeight: 0

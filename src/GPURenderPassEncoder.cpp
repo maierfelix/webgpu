@@ -45,8 +45,12 @@ Napi::Value GPURenderPassEncoder::setIndexBuffer(const Napi::CallbackInfo &info)
   if (info[1].IsNumber()) {
     offset = static_cast<uint64_t>(info[1].As<Napi::Number>().Uint32Value());
   }
+  uint64_t size = 0;
+  if (info[2].IsNumber()) {
+    size = static_cast<uint64_t>(info[2].As<Napi::Number>().Uint32Value());
+  }
 
-  wgpuRenderPassEncoderSetIndexBuffer(this->instance, buffer->instance, offset);
+  wgpuRenderPassEncoderSetIndexBuffer(this->instance, buffer->instance, offset, size);
 
   return env.Undefined();
 }
@@ -60,8 +64,12 @@ Napi::Value GPURenderPassEncoder::setVertexBuffer(const Napi::CallbackInfo &info
   if (info[2].IsNumber()) {
     offset = info[2].As<Napi::Number>().Uint32Value();
   }
+  uint64_t size = 0;
+  if (info[3].IsNumber()) {
+    size = static_cast<uint64_t>(info[3].As<Napi::Number>().Uint32Value());
+  }
 
-  wgpuRenderPassEncoderSetVertexBuffer(this->instance, startSlot, buffer, offset);
+  wgpuRenderPassEncoderSetVertexBuffer(this->instance, startSlot, buffer, offset, size);
 
   return env.Undefined();
 }

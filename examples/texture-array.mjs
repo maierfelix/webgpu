@@ -98,11 +98,11 @@ const fsSrc = `
 
   const commandEncoder = device.createCommandEncoder({});
   for (let ii = 0; ii < imageCount; ++ii) {
-    const rowPitch = Math.ceil(imageWidth * 4 / 256) * 256;
-    const data = new Uint8Array(rowPitch * imageHeight);
+    const bytesPerRow = Math.ceil(imageWidth * 4 / 256) * 256;
+    const data = new Uint8Array(bytesPerRow * imageHeight);
     for (let yy = 0; yy < imageHeight; ++yy) {
       for (let xx = 0; xx < imageWidth; ++xx) {
-        const index = xx * 4 + yy * rowPitch;
+        const index = xx * 4 + yy * bytesPerRow;
         data[index + 0] = imageColors[ii][0];
         data[index + 1] = imageColors[ii][1];
         data[index + 2] = imageColors[ii][2];
@@ -119,7 +119,7 @@ const fsSrc = `
     commandEncoder.copyBufferToTexture(
       {
         buffer: textureBuffer,
-        rowPitch: rowPitch,
+        bytesPerRow: bytesPerRow,
         arrayLayer: 0,
         mipLevel: 0,
         imageHeight: 0

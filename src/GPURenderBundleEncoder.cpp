@@ -45,8 +45,12 @@ Napi::Value GPURenderBundleEncoder::setIndexBuffer(const Napi::CallbackInfo &inf
   if (info[1].IsNumber()) {
     offset = info[1].As<Napi::Number>().Uint32Value();
   }
+  uint64_t size = 0;
+  if (info[2].IsNumber()) {
+    size = info[2].As<Napi::Number>().Uint32Value();
+  }
 
-  wgpuRenderBundleEncoderSetIndexBuffer(this->instance, buffer->instance, offset);
+  wgpuRenderBundleEncoderSetIndexBuffer(this->instance, buffer->instance, offset, size);
 
   return env.Undefined();
 }
@@ -60,8 +64,12 @@ Napi::Value GPURenderBundleEncoder::setVertexBuffer(const Napi::CallbackInfo &in
   if (info[2].IsNumber()) {
     offset = info[2].As<Napi::Number>().Uint32Value();
   }
+  uint64_t size = 0;
+  if (info[3].IsNumber()) {
+    size = info[3].As<Napi::Number>().Uint32Value();
+  }
 
-  wgpuRenderBundleEncoderSetVertexBuffer(this->instance, startSlot, buffer, offset);
+  wgpuRenderBundleEncoderSetVertexBuffer(this->instance, startSlot, buffer, offset, size);
 
   return env.Undefined();
 }

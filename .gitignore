@@ -102,5 +102,3 @@ package-lock.json
 examples-dev
 
 generated/*/*/build/.vs
-
-generator/specifications

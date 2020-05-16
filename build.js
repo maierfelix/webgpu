@@ -73,6 +73,8 @@ function copyFiles() {
     // add win32 runtime files
     if (platform === "win32") {
       files.push([`${baseDir}/GLFW/glfw3.dll`, targetDir]);
+      files.push([`${baseDir}/DXC/dxcompiler.dll`, targetDir]);
+      files.push([`${baseDir}/DXC/dxil.dll`, targetDir]);
       // dawn dlls
       {
         //files.push([`${dawnOutputDir}/libc++.dll`, targetDir]);
@@ -93,7 +95,8 @@ function copyFiles() {
         files.push([`${dawnOutputDir}/libshaderc.dll.lib`, targetDir + "/../"]);
         files.push([`${dawnOutputDir}/libshaderc_spvc.dll.lib`, targetDir + "/../"]);
       }
-    }// add darwin runtime files
+    }
+    // add darwin runtime files
     else if (platform === "darwin") {
       files.push([`${dawnOutputDir}/libdawn_native.dylib`, targetDir]);
       files.push([`${dawnOutputDir}/libdawn_proc.dylib`, targetDir]);
@@ -109,7 +112,7 @@ function copyFiles() {
       files.push([`${dawnOutputDir}/libshaderc_spvc.so`, targetDir]);
       files.push([`${dawnOutputDir}/libshaderc.so`, targetDir]);
       files.push([`${dawnOutputDir}/libc++.so`, targetDir]);
-  }
+    }
     let counter = 0;
     if (!files.length) return resolve(true);
     files.map(entry => {

@@ -30,6 +30,29 @@
 
 #include "WebGPUWindow.h"
 
+#ifdef _WIN32
+#include <windows.h>
+
+static const wchar_t kTagForGetModuleHandleEx[] = L"kernel32.dll";
+std::string GetModulePath() {
+  HMODULE moduleHandle;
+  uint32_t flags = (
+    GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
+    GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT
+  );
+  if (GetModuleHandleEx(flags, kTagForGetModuleHandleEx, &moduleHandle) == 0) {
+    return "";
+  }
+  char lpFilename[MAX_PATH];
+  if (GetModuleFileNameA(moduleHandle, lpFilename, sizeof(lpFilename)) == 0) {
+    return "";
+  }
+  std::string moduleDirPath = std::string(lpFilename);
+  size_t lastPathSepLoc = moduleDirPath.find_last_of("\\");
+  return lastPathSepLoc != std::string::npos ? moduleDirPath.substr(0, lastPathSepLoc + 1) : "";
+}
+#endif
+
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
   GPU::Initialize(env, exports);
@@ -72,6 +95,18 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     {%- endfor %}
   exports["{{ bitmask.externalName }}"] = {{ bitmask.externalName }};
   {% endfor %}
+
+#ifdef _WIN32
+  std::string modulePath = GetModulePath();
+  std::string dxilPath = modulePath + "dxil.dll";
+  if (LoadLibraryA(dxilPath.c_str()) == nullptr) {
+    printf("Failed to load DXIL\n");
+  }
+  std::string dxcPath = modulePath + "dxcompiler.dll";
+  if (LoadLibraryA(dxcPath.c_str()) == nullptr) {
+    printf("Failed to load DXC\n");
+  }
+#endif
 
   return exports;
 }

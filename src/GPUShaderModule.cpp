@@ -20,8 +20,6 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
 
   WGPUShaderModuleDescriptor descriptor;
   descriptor.nextInChain = reinterpret_cast<WGPUChainedStruct*>(&spirvDescriptor);
-  descriptor.code = nullptr;
-  descriptor.codeSize = 0;
   descriptor.label = nullptr;
 
   {

@@ -27,8 +27,8 @@ GPUAdapter::GPUAdapter(const Napi::CallbackInfo& info) : Napi::ObjectWrap<GPUAda
 
   this->nativeInstance = std::make_unique<dawn_native::Instance>();
 
-  this->nativeInstance->EnableBackendValidation(true);
-  this->nativeInstance->EnableBeginCaptureOnStartup(true);
+  //this->nativeInstance->EnableBackendValidation(true);
+  //this->nativeInstance->EnableBeginCaptureOnStartup(true);
 
   this->nativeInstance->DiscoverDefaultAdapters();
 

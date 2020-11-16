@@ -30,18 +30,20 @@ module.exports.GPU.$setPlatform(process.platform);
     return new Promise((resolve, reject) => {
       this._requestDevice(...args).then(device => {
         device._onErrorCallback = function(type, msg) {
-          setImmediate(() => {
-            switch (type) {
-              case "Error": throw new Error(msg); break;
-              case "Type": throw new TypeError(msg); break;
-              case "Range": throw new RangeError(msg); break;
-              case "Reference": throw new ReferenceError(msg); break;
-              case "Internal": throw new InternalError(msg); break;
-              case "Syntax": throw new SyntaxError(msg); break;
-              default: throw new Error(msg); break;
-            };
-          });
+          console.error(msg);
+
+          switch (type) {
+            case "Error": throw new Error(msg); break;
+            case "Type": throw new TypeError(msg); break;
+            case "Range": throw new RangeError(msg); break;
+            case "Reference": throw new ReferenceError(msg); break;
+            case "Internal": throw new InternalError(msg); break;
+            case "Syntax": throw new SyntaxError(msg); break;
+            default:
+              throw new Error(msg); break;
+          };
         };
+
         devices.push(device);
         resolve(device);
       });

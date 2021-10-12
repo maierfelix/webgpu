@@ -172,8 +172,7 @@ Napi::Value GPUCommandEncoder::copyImageBitmapToTexture(const Napi::CallbackInfo
 Napi::Value GPUCommandEncoder::pushDebugGroup(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  const char* groupLabel = info[0].As<Napi::String>().Utf8Value().c_str();
-  wgpuCommandEncoderPushDebugGroup(this->instance, groupLabel);
+  wgpuCommandEncoderPushDebugGroup(this->instance, info[0].As<Napi::String>().Utf8Value().c_str());
 
   return env.Undefined();
 }
@@ -189,8 +188,7 @@ Napi::Value GPUCommandEncoder::popDebugGroup(const Napi::CallbackInfo &info) {
 Napi::Value GPUCommandEncoder::insertDebugMarker(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  const char* groupLabel = info[0].As<Napi::String>().Utf8Value().c_str();
-  wgpuCommandEncoderInsertDebugMarker(this->instance, groupLabel);
+  wgpuCommandEncoderInsertDebugMarker(this->instance, info[0].As<Napi::String>().Utf8Value().c_str());
 
   return env.Undefined();
 }

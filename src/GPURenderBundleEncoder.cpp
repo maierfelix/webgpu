@@ -162,8 +162,7 @@ Napi::Value GPURenderBundleEncoder::setBindGroup(const Napi::CallbackInfo &info)
 Napi::Value GPURenderBundleEncoder::pushDebugGroup(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  const char* groupLabel = info[0].As<Napi::String>().Utf8Value().c_str();
-  wgpuRenderBundleEncoderPushDebugGroup(this->instance, groupLabel);
+  wgpuRenderBundleEncoderPushDebugGroup(this->instance, info[0].As<Napi::String>().Utf8Value().c_str());
 
   return env.Undefined();
 }
@@ -179,8 +178,7 @@ Napi::Value GPURenderBundleEncoder::popDebugGroup(const Napi::CallbackInfo &info
 Napi::Value GPURenderBundleEncoder::insertDebugMarker(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  const char* groupLabel = info[0].As<Napi::String>().Utf8Value().c_str();
-  wgpuRenderBundleEncoderInsertDebugMarker(this->instance, groupLabel);
+  wgpuRenderBundleEncoderInsertDebugMarker(this->instance, info[0].As<Napi::String>().Utf8Value().c_str());
 
   return env.Undefined();
 }

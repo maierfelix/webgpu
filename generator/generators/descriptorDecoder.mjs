@@ -61,7 +61,7 @@ ${padding}  ${type.nativeType}* data = (${type.nativeType}*) malloc(length * siz
 ${padding}  for (unsigned int ii = 0; ii < length; ++ii) {`;
     // validate object
     if (type.isStructure) {
-      out += `\n${padding}if (!(array.Get(ii).IsObject())) {
+      out += `\n${padding}    if (!(array.Get(ii).IsObject())) {
 ${padding}      Napi::String type = Napi::String::New(value.Env(), "Type");
 ${padding}      Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for '${structure.externalName}'.'${member.name}'");
 ${padding}      device->throwCallbackError(type, message);
@@ -71,7 +71,7 @@ ${padding}    }`;
     // validate class
     else if (type.isObject) {
       let unwrapType = getExplortDeclarationName(type.nativeType);
-      out += `\n${padding}if (!(array.Get(ii).IsObject()) || !(array.Get(ii).As<Napi::Object>().InstanceOf(${unwrapType}::constructor.Value()))) {
+      out += `\n${padding}    if (!(array.Get(ii).IsObject()) || !(array.Get(ii).As<Napi::Object>().InstanceOf(${unwrapType}::constructor.Value()))) {
 ${padding}      Napi::String type = Napi::String::New(value.Env(), "Type");
 ${padding}      Napi::String message = Napi::String::New(value.Env(), "Expected '${unwrapType}' for '${structure.externalName}'.'${member.name}'");
 ${padding}      device->throwCallbackError(type, message);

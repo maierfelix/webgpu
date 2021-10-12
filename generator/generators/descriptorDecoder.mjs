@@ -57,7 +57,6 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
 ${padding}{
 ${padding}  Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
 ${padding}  uint32_t length = array.Length();
-${padding}  ${type.nativeType}* data = (${type.nativeType}*) malloc(length * sizeof(${type.nativeType}));
 ${padding}  for (unsigned int ii = 0; ii < length; ++ii) {`;
     // validate object
     if (type.isStructure) {

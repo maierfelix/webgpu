@@ -59,7 +59,7 @@ ${padding}  Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Arr
 ${padding}  uint32_t length = array.Length();
 ${padding}  ${type.nativeType}* data = (${type.nativeType}*) malloc(length * sizeof(${type.nativeType}));
 ${padding}  for (unsigned int ii = 0; ii < length; ++ii) {`;
-    // valdiate object
+    // validate object
     if (type.isStructure) {
       out += `\n${padding}if (!(array.Get(ii).IsObject())) {
 ${padding}      Napi::String type = Napi::String::New(value.Env(), "Type");

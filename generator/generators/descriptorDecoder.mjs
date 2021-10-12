@@ -331,7 +331,10 @@ function getDestroyStructureMember(structure, member) {
     // no need to free
   }
   else if (type.isObject && type.isArray) {
-    // no need to free
+    out += `
+    if (descriptor.${member.name}) {
+      free((void*) const_cast<${nativeType}*>(descriptor.${member.name}));
+    }`;
   }
   else if (type.isStructure && !type.isArray) {
     let exportType = getExplortDeclarationName(nativeType);

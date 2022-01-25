@@ -57,11 +57,10 @@ export function getDecodeStructureMember(structure, member, opts = DEFAULT_OPTS_
 ${padding}{
 ${padding}  Napi::Array array = ${input.name}.Get("${member.name}").As<Napi::Array>();
 ${padding}  uint32_t length = array.Length();
-${padding}  ${type.nativeType}* data = (${type.nativeType}*) malloc(length * sizeof(${type.nativeType}));
 ${padding}  for (unsigned int ii = 0; ii < length; ++ii) {`;
-    // valdiate object
+    // validate object
     if (type.isStructure) {
-      out += `\n${padding}if (!(array.Get(ii).IsObject())) {
+      out += `\n${padding}    if (!(array.Get(ii).IsObject())) {
 ${padding}      Napi::String type = Napi::String::New(value.Env(), "Type");
 ${padding}      Napi::String message = Napi::String::New(value.Env(), "Expected 'Object' for '${structure.externalName}'.'${member.name}'");
 ${padding}      device->throwCallbackError(type, message);
@@ -71,7 +70,7 @@ ${padding}    }`;
     // validate class
     else if (type.isObject) {
       let unwrapType = getExplortDeclarationName(type.nativeType);
-      out += `\n${padding}if (!(array.Get(ii).IsObject()) || !(array.Get(ii).As<Napi::Object>().InstanceOf(${unwrapType}::constructor.Value()))) {
+      out += `\n${padding}    if (!(array.Get(ii).IsObject()) || !(array.Get(ii).As<Napi::Object>().InstanceOf(${unwrapType}::constructor.Value()))) {
 ${padding}      Napi::String type = Napi::String::New(value.Env(), "Type");
 ${padding}      Napi::String message = Napi::String::New(value.Env(), "Expected '${unwrapType}' for '${structure.externalName}'.'${member.name}'");
 ${padding}      device->throwCallbackError(type, message);
@@ -332,7 +331,10 @@ function getDestroyStructureMember(structure, member) {
     // no need to free
   }
   else if (type.isObject && type.isArray) {
-    // no need to free
+    out += `
+    if (descriptor.${member.name}) {
+      free((void*) const_cast<${nativeType}*>(descriptor.${member.name}));
+    }`;
   }
   else if (type.isStructure && !type.isArray) {
     let exportType = getExplortDeclarationName(nativeType);

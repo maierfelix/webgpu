@@ -214,8 +214,7 @@ Napi::Value GPURenderPassEncoder::setBindGroup(const Napi::CallbackInfo &info) {
 Napi::Value GPURenderPassEncoder::pushDebugGroup(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  const char* groupLabel = info[0].As<Napi::String>().Utf8Value().c_str();
-  wgpuRenderPassEncoderPushDebugGroup(this->instance, groupLabel);
+  wgpuRenderPassEncoderPushDebugGroup(this->instance, info[0].As<Napi::String>().Utf8Value().c_str());
 
   return env.Undefined();
 }
@@ -231,8 +230,7 @@ Napi::Value GPURenderPassEncoder::popDebugGroup(const Napi::CallbackInfo &info) 
 Napi::Value GPURenderPassEncoder::insertDebugMarker(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
 
-  const char* groupLabel = info[0].As<Napi::String>().Utf8Value().c_str();
-  wgpuRenderPassEncoderInsertDebugMarker(this->instance, groupLabel);
+  wgpuRenderPassEncoderInsertDebugMarker(this->instance, info[0].As<Napi::String>().Utf8Value().c_str());
 
   return env.Undefined();
 }

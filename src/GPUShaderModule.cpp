@@ -52,7 +52,7 @@ GPUShaderModule::GPUShaderModule(const Napi::CallbackInfo& info) : Napi::ObjectW
       spirvDescriptor.code = result.cbegin();
       spirvDescriptor.codeSize = static_cast<uint32_t>(resultSize);
       this->instance = wgpuDeviceCreateShaderModule(backendDevice, &descriptor);
-      delete source;
+      delete[] source;
     }
     // code is 'Uint32Array'
     else if (code.IsTypedArray()) {

@@ -25,6 +25,12 @@ WebGPUWindow::WebGPUWindow(const Napi::CallbackInfo& info) : Napi::ObjectWrap<We
       } else {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
       }
+      if (obj.Has("visible") && obj.Get("visible").IsBoolean()) {
+        bool visible = obj.Get("visible").As<Napi::Boolean>().Value();
+        glfwWindowHint(GLFW_VISIBLE, visible ? GLFW_TRUE : GLFW_FALSE);
+      } else {
+        glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
+      }
       #ifdef __APPLE__
       glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_TRUE);
       #endif
